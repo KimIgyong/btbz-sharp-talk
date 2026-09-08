@@ -169,6 +169,24 @@ describe('MessengerOutboxService', () => {
       await h.service.flushThread(55);
       expect(h.savedOutbox).toHaveLength(0);
     });
+
+    // FIX-260908: the consent notice on a receive-only SMS thread was queued and
+    // then failed terminally on every such thread — an outbox row nothing could
+    // ever deliver.
+    it('queues nothing on a receive-only thread but still advances the cursor', async () => {
+      const h = build({
+        thread: { replyEnabled: 0 },
+        messages: [
+          { id: 801, senderType: 'system', body: 'Hi! Before we start: messages are processed by AI.' },
+          { id: 802, senderType: 'ai', body: 'Your parcel ships tomorrow.' },
+        ],
+      });
+
+      await h.service.flushThread(55);
+
+      expect(h.savedOutbox).toHaveLength(0);
+      expect(h.threadUpdates[0]).toMatchObject({ outboundCursor: 802 });
+    });
   });
 
   describe('deliverDue', () => {

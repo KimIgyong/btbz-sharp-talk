@@ -103,10 +103,18 @@ export class MessengerOutboxService {
       take: SCAN_LIMIT,
     });
 
+    // Receive-only thread (btbz relay SMS): nothing queued here could ever be
+    // delivered, so the consent notice, CSAT prompt and AI answers written to
+    // the conversation are walked past instead of parked as permanent failures
+    // — 473 such rows on staging by 2026-09-08 (FIX-260908). deliver() keeps
+    // its own guard for rows queued before a thread turned receive-only.
+    const receiveOnly = thread.replyEnabled !== 1;
+
     let cursor = thread.outboundCursor ?? 0;
     for (const message of messages) {
       const id = Number(message.id);
       cursor = id;
+      if (receiveOnly) continue;
       // Loop prevention #3 (a): the shopper's own words never go back to them.
       if (message.senderType === SENDER_TYPE.USER) continue;
       // Loop prevention #3 (b): defence in depth for any inbound-origin row.
