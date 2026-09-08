@@ -34,4 +34,14 @@
 
 ## 검증 기록
 
-(배포 후 갱신)
+| 항목 | 결과 |
+|---|---|
+| PR / 커밋 | #475 → main `bc2aa22` (squash), CI `typecheck · test · build` 통과 |
+| 스테이징 배포 | 2026-09-08 16:30 UTC `deploy-staging.sh`, `ivy_api_staging` healthy, `Nest application successfully started`, 마이그레이션 없음 |
+| 채널 5 (amoebaorder) | `status=connected`, `last_error=NULL`, `last_sync_at` 15초 간격 갱신 (16:33:57 확인) |
+| 유입 | 스레드 51(kakao 16·sms 11·zalo 10·line 5·viber 3·wechat 3·whatsapp 2·telegram 1), 메시지 878건, 사진 첨부 36건(`message_attachments`, source=btbz_relay, 전부 image/*) — `/photo` 경로 동작 |
+| 로그 | 배포 후 `sync failed` 0건, `attachment dropped`·`unmapped channel_type`·`capped` 0건. 첫 틱 중 `skipping this tick` 2회는 51스레드 순차 순회 락(정상) |
+
+주의: 위 첫 배포 시도에서 PR 머지가 필수 상태검사에 막힌 채 서버에서 `deploy-staging.sh`가
+한 번 더 돌아 **동일 커밋(89662f5)이 재배포**됐다(코드 변화 없음, 컨테이너 재기동만).
+머지 결과를 확인한 뒤 배포를 잇는 순서를 지킬 것.
