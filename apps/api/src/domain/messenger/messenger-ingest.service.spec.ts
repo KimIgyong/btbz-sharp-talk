@@ -233,6 +233,76 @@ describe('MessengerIngestService', () => {
     expect(h.chatService.escalate).toHaveBeenCalled();
   });
 
+  // PLN-260909: the privacy notice precedes the first AI processing of a room,
+  // not its first message — a channel left at "off" must open no room by itself.
+  describe('consent notice follows the effective reply mode', () => {
+    const systemMessages = (h: ReturnType<typeof build>) =>
+      h.savedMessages.filter((m) => m.senderType === 'system');
+
+    it('sends nothing on a channel whose default is off', async () => {
+      const h = build({ channel: { replyMode: 'off' } });
+      await h.service.ingestOne(h.channel, inbound);
+
+      expect(systemMessages(h)).toHaveLength(0);
+      expect(h.threadUpdates.some((u) => 'noticeVersion' in u)).toBe(false);
+    });
+
+    it('posts the notice before the AI turn once a session override turns the room on', async () => {
+      const order: string[] = [];
+      const h = build({ channel: { replyMode: 'off' }, sessionMode: 'auto' });
+      (h.chatService.handleUserMessage as jest.Mock).mockImplementation(async () => {
+        order.push('ai');
+        return { conversationId: '300', reply: null, escalate: false, needsAuth: false };
+      });
+      const save = h.service['msgRepo'].save as jest.Mock;
+      save.mockImplementation(async (m: Message) => {
+        if (m.senderType === 'system') order.push('notice');
+        h.savedMessages.push(m);
+        return { id: 501, ...m } as Message;
+      });
+
+      await h.service.ingestOne(h.channel, inbound);
+
+      expect(order).toEqual(['notice', 'ai']);
+      expect(h.threadUpdates).toContainEqual({ noticeVersion: '2026-07' });
+    });
+
+    it('does not repeat the notice in a room that already saw the current version', async () => {
+      const h = build({
+        thread: { id: 55, tenantId: 1, channelId: 10, externalThreadId: 'chat-1', replyEnabled: 1, noticeVersion: '2026-07' },
+      });
+      await h.service.ingestOne(h.channel, inbound);
+
+      expect(h.chatService.handleUserMessage).toHaveBeenCalled();
+      expect(systemMessages(h)).toHaveLength(0);
+    });
+
+    it('re-sends the notice when the tenant notice version moved on', async () => {
+      const h = build({
+        thread: { id: 55, tenantId: 1, channelId: 10, externalThreadId: 'chat-1', replyEnabled: 1, noticeVersion: '2026-06' },
+      });
+      await h.service.ingestOne(h.channel, inbound);
+
+      expect(systemMessages(h)).toHaveLength(1);
+      expect(h.threadUpdates).toContainEqual({ noticeVersion: '2026-07' });
+    });
+
+    it('never notices a receive-only thread — nothing could deliver it', async () => {
+      const h = build({});
+      await h.service.ingestOne(h.channel, { ...inbound, replyEnabled: false });
+
+      expect(systemMessages(h)).toHaveLength(0);
+    });
+
+    it('stays silent while a human owns the thread', async () => {
+      const h = build({ openConversation: { id: 300, status: 'agent', agentId: 7, escalated: 1 } });
+      await h.service.ingestOne(h.channel, inbound);
+
+      expect(systemMessages(h)).toHaveLength(0);
+      expect(h.chatService.handleUserMessage).not.toHaveBeenCalled();
+    });
+  });
+
   it('stays silent when a human already owns the thread', async () => {
     const h = build({
       openConversation: { id: 300, status: 'agent', agentId: 7, sessionId: 90 },
