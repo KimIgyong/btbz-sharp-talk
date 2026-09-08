@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SharpTalk Chat Simulator — Go2Joy</title>
+<meta name="description" content="SharpTalk × Go2Joy — Stage 1·2-A·2-B chat simulation / 상담 시뮬레이션. Agent role boundaries, liability routing and guardrails.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#EDEFF2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#10161C" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SharpTalk Chat Simulator — Go2Joy">
+<meta property="og:description" content="SharpTalk × Go2Joy — Stage 1·2-A·2-B chat simulation / 상담 시뮬레이션. Agent role boundaries, liability routing and guardrails.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%AC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Serif:wght@600&display=swap">
+<style>
+  html { -webkit-text-size-adjust: 100%; }
+  img { max-width: 100%; }
+  .nsbox {
+    margin: 24px; padding: 14px 18px; border-radius: 4px;
+    border: 1px solid #CDD5DD; background: #fff; color: #121A22;
+    font-family: system-ui, sans-serif; font-size: 14px;
+  }
+</style>
+</head>
+<body>
+<noscript><div class="nsbox">This simulator needs JavaScript. / 이 시뮬레이터는 JavaScript로 동작합니다.</div></noscript>
+<style>
+  :root {
+    --paper:#EDEFF2; --surface:#FFFFFF; --surface-2:#E4E8ED;
+    --ink:#121A22; --ink-2:#3D4A57; --ink-3:#66757F;
+    --line:#CDD5DD; --line-soft:#DEE4EA;
+    --brass:#9A6B1E; --brass-soft:#F0E2C8;
+    --s1:#3F5D77; --s2a:#2E6B66; --s2b:#9A6B1E;
+    --warn:#A33A2A; --warn-soft:#F7E2DE;
+    --bot-bg:#E8ECF0; --me-bg:#3F5D77; --me-fg:#F4F7FA;
+    --screen:#F4F6F8; --chrome:#FFFFFF;
+    --shadow:0 1px 2px rgba(18,26,34,.06), 0 10px 30px -18px rgba(18,26,34,.4);
+  }
+  :root:not([data-theme="light"]) { color-scheme: light dark; }
+  :root[data-theme="dark"] { color-scheme: dark; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:#10161C; --surface:#171F27; --surface-2:#1F2932;
+      --ink:#E7ECF1; --ink-2:#B3BFCA; --ink-3:#8593A0;
+      --line:#2C3841; --line-soft:#232E37;
+      --brass:#D8A54F; --brass-soft:#3A2E18;
+      --s1:#7FA6C9; --s2a:#5FB3AB; --s2b:#D8A54F;
+      --warn:#E0836F; --warn-soft:#3A211B;
+      --bot-bg:#242F39; --me-bg:#3E6288; --me-fg:#EAF1F8;
+      --screen:#131A21; --chrome:#1B242D;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px -20px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#10161C; --surface:#171F27; --surface-2:#1F2932;
+    --ink:#E7ECF1; --ink-2:#B3BFCA; --ink-3:#8593A0;
+    --line:#2C3841; --line-soft:#232E37;
+    --brass:#D8A54F; --brass-soft:#3A2E18;
+    --s1:#7FA6C9; --s2a:#5FB3AB; --s2b:#D8A54F;
+    --warn:#E0836F; --warn-soft:#3A211B;
+    --bot-bg:#242F39; --me-bg:#3E6288; --me-fg:#EAF1F8;
+    --screen:#131A21; --chrome:#1B242D;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px -20px rgba(0,0,0,.9);
+  }
+
+  * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  body {
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"IBM Plex Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+    font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:1180px; margin:0 auto; padding:0 26px 80px; }
+
+  /* header */
+  header.hd { padding:44px 0 26px; border-bottom:1px solid var(--line); }
+  .eyebrow {
+    font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace; font-size:11px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 14px;
+  }
+  h1 {
+    font-family:"IBM Plex Serif",Georgia,serif; font-weight:600;
+    font-size:clamp(26px,3.6vw,38px); line-height:1.15; letter-spacing:-.015em;
+    margin:0 0 14px; text-wrap:balance;
+  }
+  .lede { color:var(--ink-2); max-width:66ch; margin:0; font-size:15.5px; }
+  .lede b { color:var(--ink); font-weight:600; }
+
+  /* stage tabs */
+  .tabs { display:flex; gap:8px; flex-wrap:wrap; margin:28px 0 0; }
+  .tab {
+    appearance:none; cursor:pointer; font:inherit; font-size:13.5px;
+    background:var(--surface); color:var(--ink-2);
+    border:1px solid var(--line); border-radius:3px; padding:9px 16px;
+    display:flex; align-items:center; gap:9px; transition:none;
+  }
+  .tab .dot { width:7px; height:7px; border-radius:50%; background:var(--tc); flex:none; }
+  .tab b { font-weight:600; color:var(--ink); }
+  .tab span.sm { color:var(--ink-3); font-size:12.5px; }
+  .tab:hover { background:var(--surface-2); }
+  .tab[aria-selected="true"] { border-color:var(--tc); box-shadow:inset 0 0 0 1px var(--tc); }
+  .tab:focus-visible { outline:2px solid var(--brass); outline-offset:2px; }
+
+  /* layout */
+  .stagewrap { display:grid; grid-template-columns:minmax(280px,360px) 1fr; gap:26px; margin-top:26px; align-items:start; }
+  @media (max-width:900px){ .stagewrap { grid-template-columns:1fr; } }
+
+  .side { display:flex; flex-direction:column; gap:16px; position:sticky; top:20px; }
+  @media (max-width:900px){ .side { position:static; } }
+
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:4px; padding:16px 18px; box-shadow:var(--shadow); }
+  .card h3 {
+    margin:0 0 4px; font-size:11px; font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace;
+    letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); font-weight:600;
+  }
+  .card p.desc { margin:0 0 12px; font-size:13px; color:var(--ink-3); }
+
+  .scn { display:flex; flex-direction:column; gap:7px; }
+  .scn button {
+    appearance:none; cursor:pointer; font:inherit; text-align:left;
+    background:var(--surface); border:1px solid var(--line); border-radius:3px;
+    padding:10px 12px; color:var(--ink); display:flex; gap:10px; align-items:flex-start;
+  }
+  .scn button:hover { background:var(--surface-2); border-color:var(--tc); }
+  .scn button:focus-visible { outline:2px solid var(--brass); outline-offset:1px; }
+  .scn button[aria-current="true"] { border-color:var(--tc); box-shadow:inset 0 0 0 1px var(--tc); }
+  .scn .n {
+    font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace; font-size:10.5px; font-weight:600;
+    color:var(--tc); padding-top:3px; flex:none; width:16px;
+  }
+  .scn .t { display:flex; flex-direction:column; gap:1px; }
+  .scn .t b { font-size:13.5px; font-weight:600; line-height:1.35; }
+  .scn .t em { font-style:normal; font-size:12px; color:var(--ink-3); }
+
+  .ctrl { display:flex; flex-direction:column; gap:10px; }
+  .row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .row label { font-size:13px; color:var(--ink-2); }
+  .seg { display:flex; border:1px solid var(--line); border-radius:3px; overflow:hidden; }
+  .seg button {
+    appearance:none; cursor:pointer; font:inherit; font-size:12px;
+    background:var(--surface); border:0; color:var(--ink-3); padding:5px 11px;
+  }
+  .seg button + button { border-left:1px solid var(--line); }
+  .seg button[aria-pressed="true"] { background:var(--tc); color:var(--paper); }
+  .seg button:focus-visible { outline:2px solid var(--brass); outline-offset:-2px; }
+  .linkbtn {
+    appearance:none; cursor:pointer; font:inherit; font-size:12.5px;
+    background:none; border:0; color:var(--tc); padding:0; text-decoration:underline;
+    text-underline-offset:3px; align-self:flex-start;
+  }
+
+  /* device frames */
+  .stagearea { display:flex; justify-content:center; }
+  .device { width:100%; }
+  .device.phone { max-width:392px; }
+
+  .desktop {
+    background:var(--chrome); border:1px solid var(--line); border-radius:6px;
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  .desktop .bar {
+    display:flex; align-items:center; gap:8px; padding:9px 14px;
+    background:var(--surface-2); border-bottom:1px solid var(--line);
+  }
+  .desktop .bar i { width:9px; height:9px; border-radius:50%; background:var(--line); display:block; }
+  .desktop .bar .url {
+    margin-left:8px; font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace; font-size:11px; color:var(--ink-3);
+    background:var(--surface); border:1px solid var(--line); border-radius:3px; padding:2px 10px;
+  }
+
+  .phoneframe {
+    background:var(--chrome); border:1px solid var(--line); border-radius:26px;
+    box-shadow:var(--shadow); overflow:hidden; padding:8px;
+  }
+  .phoneframe .inner { border-radius:19px; overflow:hidden; border:1px solid var(--line-soft); }
+  .statusbar {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:7px 16px 5px; background:var(--chrome);
+    font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace; font-size:10.5px; color:var(--ink-3);
+  }
+
+  .apphead {
+    display:flex; align-items:center; gap:11px; padding:11px 15px;
+    background:var(--chrome); border-bottom:1px solid var(--line);
+  }
+  .avatar {
+    width:34px; height:34px; border-radius:8px; flex:none;
+    background:var(--tc); color:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace; font-size:12px; font-weight:600;
+  }
+  .apphead .who { min-width:0; }
+  .apphead .who b { display:block; font-size:14px; font-weight:600; line-height:1.3; }
+  .apphead .who span { display:block; font-size:11.5px; color:var(--ink-3); }
+  .badge {
+    margin-left:auto; flex:none; font-size:10.5px;
+    letter-spacing:.06em; border:1px solid var(--line); border-radius:2px;
+    padding:2px 7px; color:var(--ink-3); white-space:nowrap;
+  }
+  .badge.role { border-color:var(--tc); color:var(--tc); }
+
+  .thread {
+    background:var(--screen); padding:16px 15px 14px;
+    height:min(64vh,560px); overflow-y:auto;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .thread::-webkit-scrollbar { width:8px; }
+  .thread::-webkit-scrollbar-thumb { background:var(--line); border-radius:4px; }
+
+  .msg { display:flex; flex-direction:column; gap:4px; max-width:84%; }
+  .msg.me { align-self:flex-end; align-items:flex-end; }
+  .bubble {
+    padding:9px 13px; border-radius:13px; font-size:14px; line-height:1.55;
+    background:var(--bot-bg); color:var(--ink); border-bottom-left-radius:4px;
+    white-space:pre-wrap; word-break:break-word;
+  }
+  .msg.me .bubble {
+    background:var(--me-bg); color:var(--me-fg);
+    border-bottom-left-radius:13px; border-bottom-right-radius:4px;
+  }
+  .gloss {
+    font-size:12px; color:var(--ink-3); line-height:1.5;
+    padding:0 3px; max-width:100%;
+  }
+  .msg.me .gloss { text-align:right; }
+  .meta { display:flex; align-items:center; gap:6px; padding:0 3px; }
+  .aid {
+    font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace; font-size:10px; letter-spacing:.04em;
+    color:var(--tc); border:1px solid currentColor; border-radius:2px; padding:0 5px;
+    opacity:.85;
+  }
+  .note {
+    display:flex; gap:7px; align-items:flex-start;
+    font-size:12px; line-height:1.5; color:var(--ink-2);
+    background:var(--surface); border:1px solid var(--line-soft);
+    border-left:2px solid var(--nc,var(--tc));
+    border-radius:0 3px 3px 0; padding:7px 10px; margin-top:2px;
+  }
+  .note.warn { --nc:var(--warn); background:var(--warn-soft); color:var(--ink); }
+  .note b { font-weight:600; }
+  .note .k {
+    font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace; font-size:10px; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--nc,var(--tc)); flex:none; padding-top:2px;
+  }
+  .note.warn .k { color:var(--warn); }
+
+  .sys {
+    align-self:center; font-size:11px; letter-spacing:.02em; color:var(--ink-3); background:var(--surface);
+    border:1px solid var(--line-soft); border-radius:20px; padding:3px 12px;
+  }
+
+  .typing { display:flex; gap:4px; padding:12px 14px; background:var(--bot-bg); border-radius:13px; border-bottom-left-radius:4px; width:fit-content; }
+  .typing i { width:6px; height:6px; border-radius:50%; background:var(--ink-3); display:block; animation:bl 1.1s infinite; }
+  .typing i:nth-child(2){ animation-delay:.18s } .typing i:nth-child(3){ animation-delay:.36s }
+  @keyframes bl { 0%,60%,100%{opacity:.25} 30%{opacity:.9} }
+
+  .composer {
+    display:flex; gap:8px; padding:10px 12px; background:var(--chrome);
+    border-top:1px solid var(--line); align-items:center;
+  }
+  .composer input {
+    flex:1; min-width:0; font:inherit; font-size:13.5px;
+    background:var(--surface); color:var(--ink);
+    border:1px solid var(--line); border-radius:18px; padding:8px 14px;
+  }
+  .composer input:focus { outline:2px solid var(--tc); outline-offset:-1px; }
+  .composer button {
+    appearance:none; cursor:pointer; font:inherit; font-size:13px; font-weight:600;
+    background:var(--tc); color:var(--paper); border:0; border-radius:18px; padding:8px 15px; flex:none;
+  }
+  .composer button:focus-visible { outline:2px solid var(--brass); outline-offset:2px; }
+
+  .hint {
+    margin:10px 2px 0; font-size:12px; color:var(--ink-3); text-align:center;
+  }
+  .hint code {
+    font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace; font-size:11.5px; color:var(--brass);
+    background:var(--brass-soft); padding:1px 5px; border-radius:2px;
+  }
+
+  footer {
+    margin-top:60px; padding-top:20px; border-top:1px solid var(--line);
+    font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace; font-size:11px; color:var(--ink-3);
+    display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important} }
+  @media (max-width:620px){ .wrap{padding-left:16px;padding-right:16px} }
+
+  /* ---------- bilingual ---------- */
+  .ko { color: var(--ink-3); font-weight: 400; }
+  h1 .ko {
+    display: block; margin-top: 8px; font-size: .5em; letter-spacing: 0;
+    font-family: "IBM Plex Sans KR", sans-serif;
+  }
+  .lede .ko { display: block; margin-top: 9px; font-size: 14px; }
+  .lede .ko b { color: var(--ink-2); }
+  .card h3 .ko { letter-spacing: 0; text-transform: none; font-size: 11px; }
+  .card p.desc .ko { display: block; margin-top: 3px; }
+  .scn .t b .ko { display: block; font-size: 12.5px; font-weight: 500; margin-top: 1px; }
+  .scn .t em .ko { display: block; margin-top: 1px; }
+  .row label .ko { font-size: 12px; }
+  .tab .sm .ko { color: inherit; }
+  .note .v .ko { display: block; margin-top: 4px; }
+  .note .k .ko { display: block; text-transform: none; letter-spacing: 0; font-size: 10.5px; opacity: .85; }
+  .note .v { display: block; }
+  .hint .ko { display: block; margin-top: 3px; }
+  footer .ko { display: block; margin-top: 2px; }
+  .linkbtn .ko { color: inherit; opacity: .7; }
+</style>
+
+<div class="wrap">
+
+  <header class="hd">
+    <p class="eyebrow">SharpTalk × Go2Joy · Chat Simulation · v1.1</p>
+    <h1>Stage 1 · 2 Chat Simulation<span class="ko" data-ko>Stage 1 · 2 상담 시뮬레이션</span></h1>
+    <p class="lede">A test bench for the role boundaries, liability routing and guardrails defined in the agent catalog (SHARPTALK-G2J-AGENTCAT-1.2.0) — <b>how they actually surface in a conversation</b>. Pick a scenario on the left to replay it, or type into the composer yourself. Dialogue is Vietnamese with a Korean gloss.<span class="ko" data-ko>에이전트 카탈로그에 정의한 역할 경계·귀책 라우팅·가드레일이 <b>실제 대화에서 어떻게 드러나는지</b> 검증하는 화면입니다. 왼쪽 시나리오를 누르면 대화가 재생되고, 아래 입력창에 직접 쳐볼 수도 있습니다. 대화는 베트남어 원문에 한국어 해석을 병기했습니다.</span></p>
+  </header>
+
+  <div class="tabs" role="tablist" id="tabs"></div>
+
+  <div class="stagewrap" id="stagewrap">
+    <div class="side">
+      <div class="card">
+        <h3>Scenarios <span class="ko" data-ko>시나리오</span></h3>
+        <p class="desc" id="scnDesc"></p>
+        <div class="scn" id="scnList"></div>
+      </div>
+      <div class="card ctrl">
+        <h3 style="margin-bottom:10px">Controls <span class="ko" data-ko>설정</span></h3>
+        <div class="row" id="roleRow" hidden>
+          <label>Partner role <span class="ko" data-ko>파트너 권한</span></label>
+          <div class="seg" id="roleSeg">
+            <button type="button" data-role="Quản lý" aria-pressed="true">Quản lý</button>
+            <button type="button" data-role="Lễ tân" aria-pressed="false">Lễ tân</button>
+          </div>
+        </div>
+        <div class="row">
+          <label>Design notes <span class="ko" data-ko>설계 주석</span></label>
+          <div class="seg" id="noteSeg">
+            <button type="button" data-note="on" aria-pressed="true">ON</button>
+            <button type="button" data-note="off" aria-pressed="false">OFF</button>
+          </div>
+        </div>
+        <div class="row">
+          <label>Korean <span class="ko" data-ko>한국어 병기</span></label>
+          <div class="seg" id="glossSeg">
+            <button type="button" data-gloss="on" aria-pressed="true">ON</button>
+            <button type="button" data-gloss="off" aria-pressed="false">OFF</button>
+          </div>
+        </div>
+        <button class="linkbtn" id="resetBtn" type="button">Reset conversation <span class="ko" data-ko>· 대화 초기화</span></button>
+      </div>
+    </div>
+
+    <div class="stagearea"><div id="device"></div></div>
+  </div>
+
+  <footer>
+    <span>Dialogue and figures are design-validation examples — not real Go2Joy data.<span class="ko" data-ko>대화·수치는 설계 검증용 예시이며 실제 Go2Joy 데이터가 아닙니다.</span></span>
+    <span>Amoeba (BitBiz) × Go2Joy · 2026-08-31</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var DATA = {
+    s1: {
+      key:"s1", name:"Stage 1", en:"Partner staff", ko:"파트너 — 호텔 운영자", color:"var(--s1)",
+      frame:"desktop", url:"hoteladmin.go2joy.vn / Tin nhắn từ G2J",
+      agentName:"SharpTalk · Trợ lý đối tác", agentSub:"Go2Joy Hotel Admin",
+      initials:"G2J", hasRole:true,
+      desc:"The partner support channel inside the Hotel Admin console. Settlement, bookings and rates dominate the inbound.",
+      descKo:"Hotel Admin 콘솔 안의 파트너 상담 채널. 정산·예약·요금이 주 문의다.",
+      seed:[{t:"sys",vi:"Khách sạn Minh Anh · Quản lý"}],
+      scn:[
+        { label:"Reconciliation dispute", labelKo:"정산 이의제기",
+          sub:"A no-show booking was charged commission", subKo:"미투숙 건이 정산에 잡혔다", turns:[
+          {t:"me",vi:"Kỳ đối soát này có 1 booking khách không đến mà vẫn bị tính hoa hồng.",
+                 ko:"이번 정산 주기에 손님이 안 왔는데 수수료가 붙은 예약이 1건 있습니다."},
+          {t:"bot",aid:"ST-S1-03",
+                 vi:"Trường hợp này bạn nộp khiếu nại với lý do «Khách không nhận phòng».\n\n① Mở «Chi tiết đối soát» của kỳ này\n② Tìm mã đặt phòng ở ô «Tìm theo mã đặt phòng»\n③ Bấm «Khiếu nại» ở cột Thao tác → chọn «Khách không nhận phòng»\n④ Bấm «Gửi Go2Joy xử lý»",
+                 ko:"이 경우 «Khách không nhận phòng»(고객 미투숙) 사유로 이의를 제기하시면 됩니다.\n\n① 이번 주기 «Chi tiết đối soát» 열기\n② «Tìm theo mã đặt phòng»에서 예약번호 검색\n③ Thao tác 열의 «Khiếu nại» → «Khách không nhận phòng» 선택\n④ «Gửi Go2Joy xử lý» 클릭",
+                 note:{k:"Evidence",kko:"근거",
+                   v:"The console offers exactly <b>two</b> complaint reasons — no-show and wrong booking data. The agent never invents one outside that list.",
+                   vko:"콘솔의 이의제기 사유는 <b>2종</b>뿐 — 미투숙 / 예약정보 오류. 에이전트는 이 목록 밖의 사유를 만들어내지 않는다."}},
+          {t:"bot",aid:"ST-S1-09",
+                 vi:"Lưu ý: hạn đối soát của kỳ này còn 3 ngày. Các booking không khiếu nại sẽ tự động được xác nhận đúng theo bảng đối soát.",
+                 ko:"참고로 이번 주기 정산 기한이 3일 남았습니다. 이의를 제기하지 않은 예약은 정산표대로 자동 확정됩니다.",
+                 note:{k:"Linked",kko:"연동",
+                   v:"The deadline alert is pushed by <b>ST-S1-09</b>. Missing it costs real money, so it works as a pair with ST-S1-03.",
+                   vko:"기한 알림은 <b>ST-S1-09</b>가 능동 발신한다. 놓치면 곧 금전 손실이므로 ST-S1-03과 한 쌍으로 동작한다."}},
+          {t:"me",vi:"Vậy bạn khiếu nại và bấm «Hoàn tất đối soát» giúp mình luôn nhé.",
+                 ko:"그럼 이의 넣고 «Hoàn tất đối soát»까지 대신 처리해줘요."},
+          {t:"bot",aid:"ST-S1-03",
+                 vi:"Nội dung khiếu nại mình soạn sẵn để bạn dán vào. Nhưng nút «Hoàn tất đối soát» phải do bạn bấm — thao tác đó xác nhận «không sửa đổi thông tin đối soát về sau».\n\nBản nháp:\n「Khách không đến nhận phòng. Nhân viên lễ tân đã gọi 2 lần lúc 21:40 và 22:15 nhưng không liên lạc được.」",
+                 ko:"이의 내용은 붙여 넣으실 수 있게 초안으로 드리겠습니다. 다만 «Hoàn tất đối soát» 버튼은 직접 눌러주셔야 합니다. 그 조작은 «이후 정산 내용을 수정하지 않는다»는 확정이라서요.\n\n초안:\n「고객이 체크인하지 않았습니다. 프런트에서 21:40, 22:15 두 차례 전화했으나 연락되지 않았습니다.」",
+                 note:{warn:true,k:"Guardrail",kko:"가드레일",
+                   v:"<b>Action authority boundary</b> — the agent never performs an irreversible confirmation. Drafting and verification are its ceiling.",
+                   vko:"<b>행동 권한 경계</b> — 되돌릴 수 없는 확정 클릭은 대행하지 않는다. 초안 작성·검증까지가 에이전트의 상한선."}}
+        ]},
+        { label:"Cancellation reason", labelKo:"취소 사유 선택",
+          sub:"One reason decides who pays", subKo:"사유 하나가 귀책을 가른다", turns:[
+          {t:"me",vi:"Khách gọi báo bận không đến được, mình hủy giúp khách nhé?",
+                 ko:"손님이 바빠서 못 온다고 전화 왔는데, 취소해드리면 될까요?"},
+          {t:"bot",aid:"ST-S1-01",
+                 vi:"Chọn lý do «Khách có việc bận, nhờ hủy».\nĐặt phòng sẽ chuyển sang trạng thái «Chờ G2J xử lý» để Go2Joy xét duyệt — chưa hoàn tiền ngay.",
+                 ko:"«Khách có việc bận, nhờ hủy»(고객 사정으로 취소 요청) 사유를 선택하세요.\n예약은 «Chờ G2J xử lý» 상태로 넘어가 Go2Joy가 심사합니다 — 즉시 환불되지 않습니다.",
+                 note:{k:"Liability routing",kko:"귀책 라우팅",
+                   v:"The 4 guest-side reasons route to <b>review</b>; the 7 hotel-side reasons trigger <b>immediate cancellation and refund</b>. This is ST-PLT-04's judgment made visible.",
+                   vko:"고객 귀책 4종은 <b>심사 경로</b>, 호텔 귀책 7종은 <b>즉시 취소·환불</b>. ST-PLT-04의 판정이 여기서 드러난다."}},
+          {t:"me",vi:"Chọn «Khách sạn hết phòng» cho nhanh được không?",
+                 ko:"빨리 끝내려면 «만실»로 골라도 되나요?"},
+          {t:"bot",aid:"ST-S1-01",
+                 vi:"Không nên. «Khách sạn hết phòng» là lý do thuộc lỗi khách sạn: hệ thống sẽ hủy và hoàn tiền ngay, và chi phí do khách sạn chịu.\nLý do phải khớp với tình huống thực tế.",
+                 ko:"권하지 않습니다. «Khách sạn hết phòng»은 호텔 귀책 사유라 시스템이 즉시 취소·환불하고 그 비용은 호텔이 부담합니다.\n사유는 실제 상황과 일치해야 합니다.",
+                 note:{warn:true,k:"Loss prevention",kko:"손실 방지",
+                   v:"A mis-picked reason is a refund the hotel eats. This exchange is <b>ST-S1-01's primary value</b> — not how to cancel, but which reason to pick.",
+                   vko:"사유 오선택은 곧 환불 손실이다. 이 대화가 <b>ST-S1-01의 1차 가치</b> — 취소 방법이 아니라 «어느 사유를 골라야 하는가»."}}
+        ]},
+        { label:"Price breakdown", labelKo:"요금 구성 설명",
+          sub:"Why it sold at this price", subKo:"왜 이 가격에 팔렸나", turns:[
+          {t:"me",vi:"Sao phòng Deluxe tối qua chỉ thu được 350.000đ? Giá niêm yết là 500.000đ mà.",
+                 ko:"어젯밤 디럭스룸이 왜 35만동만 들어왔죠? 표시가는 50만동인데요."},
+          {t:"bot",aid:"ST-S1-02",
+                 vi:"Theo bảng đối soát của booking đó:\n\nGiá gốc qua đêm      500.000đ\nGiảm giá trực tiếp −20%   −100.000đ\nCoupon (Go2Joy tài trợ)   −50.000đ\n──────────────\nKhách thanh toán       350.000đ\n\nPhần 50.000đ của coupon do Go2Joy chịu, sẽ được cộng lại ở mục «Khuyến mãi G2J» trong đối soát.",
+                 ko:"해당 예약의 정산표 기준입니다.\n\n숙박 기본가            500,000đ\n직접할인 −20%          −100,000đ\n쿠폰(Go2Joy 후원)       −50,000đ\n──────────────\n고객 결제액            350,000đ\n\n쿠폰 5만동은 Go2Joy 부담분이라 정산의 «Khuyến mãi G2J» 항목에서 되돌려 받습니다.",
+                 note:{k:"Amount integrity",kko:"금액 무결성",
+                   v:"These figures are copied from a <b>system query</b>. The LLM does not compute them — §3.3 guardrail.",
+                   vko:"이 숫자는 <b>시스템 조회값</b>을 그대로 옮긴 것이다. LLM이 직접 계산하지 않는다 — §3.3 가드레일."}}
+        ]},
+        { label:"Out-of-role request", labelKo:"권한 밖 문의",
+          sub:"A front-desk account asks about settlement", subKo:"Lễ tân 계정이 정산을 묻는다", role:"Lễ tân", turns:[
+          {t:"sys",vi:"Đăng nhập lại: Lễ tân · Khách sạn Minh Anh"},
+          {t:"me",vi:"Cho mình xem công nợ kỳ này với số tài khoản nhận tiền.",
+                 ko:"이번 주기 미수금이랑 입금 계좌 좀 보여주세요."},
+          {t:"bot",aid:"ST-PLT-02",
+                 vi:"Tài khoản của bạn là «Lễ tân» nên mình không tra cứu được thông tin đối soát và tài khoản thanh toán.\nBạn có thể nhờ tài khoản «Quản lý» của khách sạn xem giúp.\n\nMình vẫn hỗ trợ được: đặt phòng, nhận phòng, báo khách không đến, tình trạng phòng và đánh giá.",
+                 ko:"«Lễ tân»(프런트) 권한이라 정산 정보와 결제 계좌는 조회해 드릴 수 없습니다.\n호텔의 «Quản lý»(관리자) 계정으로 확인해 주세요.\n\n제가 도와드릴 수 있는 범위는 예약, 체크인, 노쇼 신고, 객실 상태, 리뷰입니다.",
+                 note:{warn:true,k:"RBAC",kko:"권한 모델",
+                   v:"Role is fixed at session start by <b>ST-PLT-02</b>, not by the domain agent. A front-desk account never receives settlement, bank, staff or ad-budget data.",
+                   vko:"권한 판정은 도메인 에이전트가 아니라 <b>ST-PLT-02</b>가 세션 시작 시 확정한다. 프런트 계정에는 정산·계좌·직원·광고 예산을 응답하지 않는다."}}
+        ]}
+      ],
+      kw:[
+        {m:["đối soát","정산","khiếu nại","이의","공제","수수료","hoa hồng","settle","reconcil"],aid:"ST-S1-03",
+         vi:"Về đối soát: bạn có thể khiếu nại từng booking với 2 lý do — «Khách không nhận phòng» hoặc «Sai thông tin đặt phòng» — rồi bấm «Gửi Go2Joy xử lý». Lưu ý các booking không khiếu nại sẽ tự động được xác nhận đúng khi hết hạn.",
+         ko:"정산 관련 — 예약 건별로 «Khách không nhận phòng» 또는 «Sai thông tin đặt phòng» 두 사유로 이의를 제기한 뒤 «Gửi Go2Joy xử lý»를 누르시면 됩니다. 이의를 넣지 않은 건은 기한이 지나면 자동 확정되니 주의하세요.",
+         gated:true},
+        {m:["hủy","취소","huỷ","khách không đến","노쇼","cancel","no-show"],aid:"ST-S1-01",
+         vi:"Khi hủy, lý do bạn chọn quyết định kết quả: 7 lý do thuộc lỗi khách sạn sẽ hủy và hoàn tiền ngay; 4 lý do thuộc phía khách sẽ chuyển sang «Chờ G2J xử lý» để Go2Joy xét duyệt. Bạn cho mình biết tình huống cụ thể nhé.",
+         ko:"취소는 선택한 사유가 결과를 결정합니다. 호텔 귀책 7종은 즉시 취소·환불되고, 고객 귀책 4종은 «Chờ G2J xử lý»로 넘어가 Go2Joy가 심사합니다. 구체적인 상황을 알려주세요."},
+        {m:["giá","요금","가격","flash sale","phụ thu","giảm giá","할인","rate","price"],aid:"ST-S1-02",
+         vi:"Giá cuối cùng của một booking = giá gốc theo loại đặt phòng (Theo giờ / Qua đêm / Theo ngày) ± phụ thu, trừ giảm giá trực tiếp, Flash Sale và coupon. Bạn cho mình mã đặt phòng, mình tách từng khoản cho bạn.",
+         ko:"최종 금액 = 예약 유형별(시간제/숙박/일단위) 기본가 ± 추가요금 − 직접할인 − Flash Sale − 쿠폰입니다. 예약번호를 주시면 항목별로 분해해 드리겠습니다."},
+        {m:["coupon","쿠폰","quảng cáo","광고","tài trợ","후원","ad "],aid:"ST-S1-05",
+         vi:"Khách sạn của bạn đang có ngân sách «Coupon Back» (Go2Joy tài trợ 100%) chưa dùng. Ngân sách này có thời hạn — bạn muốn mình hướng dẫn tạo coupon từ ngân sách đó không?",
+         ko:"현재 호텔에 미사용 «Coupon Back»(Go2Joy 100% 후원) 예산이 남아 있습니다. 기간 한정이라 소멸됩니다 — 이 예산으로 쿠폰 만드는 절차를 안내드릴까요?"},
+        {m:["đánh giá","리뷰","평점","review"],aid:"ST-S1-06",
+         vi:"Mình soạn nháp trả lời đánh giá cho bạn. Lưu ý chỉ những đánh giá có nhận xét mới trả lời được.",
+         ko:"리뷰 답변 초안을 작성해 드리겠습니다. 코멘트가 없는 리뷰에는 답변을 달 수 없습니다."},
+        {m:["sản phẩm","상품","đồ ăn","부가","product"],aid:"ST-S1-12",
+         vi:"Sản phẩm mới đăng ký sẽ ở trạng thái «Chờ xác nhận» cho đến khi Go2Joy duyệt. Bạn muốn thêm loại nào?",
+         ko:"신규 등록 상품은 Go2Joy 승인 전까지 «Chờ xác nhận» 상태로 있습니다. 어떤 유형을 추가하시겠어요?"},
+        {m:["nhân viên","직원","계정","quyền","권한","staff","role"],aid:"ST-S1-08",
+         vi:"Có 2 quyền: «Quản lý» (chọn được nhiều khách sạn) và «Lễ tân» (cố định 1 khách sạn). Bạn muốn tạo tài khoản loại nào?",
+         ko:"권한은 «Quản lý»(다중 호텔 선택 가능)와 «Lễ tân»(단일 호텔 고정) 두 가지입니다. 어느 유형으로 만드시겠어요?"},
+        {m:["lỗi","오류","không vào được","안 됨","안돼","장애","error","bug"],aid:"ST-S1-11",
+         vi:"Bạn cho mình biết màn hình nào và thông báo lỗi hiện ra là gì? Mình cũng cần biết phiên bản console đang hiển thị ở góc dưới trái.",
+         ko:"어느 화면에서, 어떤 오류 메시지가 떴는지 알려주세요. 화면 좌측 하단의 콘솔 버전도 함께 확인 부탁드립니다."}
+      ],
+      gate:{
+        vi:"Tài khoản «Lễ tân» không xem được thông tin đối soát và tài khoản thanh toán. Bạn nhờ tài khoản «Quản lý» giúp nhé.",
+        ko:"«Lễ tân» 권한으로는 정산 정보와 결제 계좌를 조회할 수 없습니다. «Quản lý» 계정으로 확인해 주세요.",
+        aid:"ST-PLT-02",
+        note:{warn:true,k:"RBAC",kko:"권한 모델",
+          v:"Requests outside the role scope are blocked before they ever reach a domain agent.",
+          vko:"권한 스코프 밖 요청은 도메인 에이전트에 닿기 전에 차단된다."}
+      },
+      fb:{aid:"ST-PLT-03",
+        vi:"Mình chưa có căn cứ chắc chắn cho nội dung này nên chưa trả lời được. Mình kiểm tra rồi báo lại bạn — hoặc chuyển cho CS Go2Joy nếu bạn cần gấp.",
+        ko:"이 내용은 확실한 근거가 없어 지금 답변드리기 어렵습니다. 확인 후 다시 안내드리겠습니다 — 급하시면 Go2Joy CS로 이관하겠습니다.",
+        note:{k:"Grounding",kko:"근거",
+          v:"With no evidence the agent does not infer — it answers «will confirm and follow up» — §3.3.",
+          vko:"근거 없으면 추론하지 않고 «확인 후 안내»로 처리한다 — §3.3."}}
+    },
+
+    s2a: {
+      key:"s2a", name:"Stage 2-A", en:"Guest · pre-booking", ko:"게스트 — 예약 전", color:"var(--s2a)",
+      frame:"phone", url:"", initials:"G2J",
+      agentName:"Go2Joy Trợ lý", agentSub:"Tìm phòng · Hỗ trợ đặt phòng",
+      desc:"In-app chat in the Go2Joy app. The platform owns the session and no booking exists yet.",
+      descKo:"Go2Joy 앱 인앱챗. 세션 소유자는 플랫폼이며 아직 예약 전이다.",
+      seed:[{t:"sys",vi:"Phiên khách chưa đăng nhập · chưa có đặt phòng"}],
+      scn:[
+        { label:"Conditional search", labelKo:"조건 검색",
+          sub:"Natural language into search parameters", subKo:"자연어 → 검색 파라미터", turns:[
+          {t:"me",vi:"Tối nay mình cần phòng qua đêm gần Quận 1, có chỗ đậu ô tô, dưới 600k.",
+                 ko:"오늘 밤 1군 근처 숙박이요, 자동차 주차 되고 60만동 이하로."},
+          {t:"bot",aid:"ST-S2A-01",
+                 vi:"Mình hiểu là:\n· Loại đặt phòng — Qua đêm (22:00 → 12:00 hôm sau)\n· Khu vực — quanh Quận 1\n· Tiện ích — chỗ đậu ô tô\n· Giá — dưới 600.000đ\n\nCó 3 khách sạn còn phòng. Bạn muốn xem theo giá hay theo khoảng cách?",
+                 ko:"이렇게 이해했습니다.\n· 예약 유형 — 숙박(22:00 → 익일 12:00)\n· 지역 — 1군 인근\n· 편의시설 — 자동차 주차\n· 가격 — 60만동 이하\n\n잔여 객실이 있는 호텔 3곳이 있습니다. 가격순으로 볼까요, 거리순으로 볼까요?",
+                 note:{k:"Role",kko:"역할",
+                   v:"Turning natural language into <b>search parameters</b> is where ST-S2A-01 stops. Booking type is a first-class concept, not a detail.",
+                   vko:"자연어를 <b>검색 파라미터로 변환</b>하는 것까지가 ST-S2A-01. 예약 유형 3종을 1급 개념으로 다룬다."}},
+          {t:"me",vi:"Theo giá.",ko:"가격순으로요."},
+          {t:"bot",aid:"ST-S2A-01",
+                 vi:"1. Khách sạn Minh Anh — 480.000đ · 1,2km · bãi xe ô tô\n2. Khách sạn Bảo Long — 550.000đ · 0,8km · bãi xe ô tô\n3. Khách sạn Hoa Sứ — 590.000đ · 2,1km · bãi xe ô tô\n\nBạn muốn hỏi chi tiết khách sạn nào?",
+                 ko:"1. Minh Anh 호텔 — 480,000đ · 1.2km · 자동차 주차\n2. Bảo Long 호텔 — 550,000đ · 0.8km · 자동차 주차\n3. Hoa Sứ 호텔 — 590,000đ · 2.1km · 자동차 주차\n\n어느 호텔 상세를 확인해 드릴까요?"}
+        ]},
+        { label:"Property facts", labelKo:"숙소 조건 확인",
+          sub:"No answer without a source", subKo:"근거 없는 답은 하지 않는다", turns:[
+          {t:"me",vi:"Khách sạn Minh Anh cho mang thú cưng không?",
+                 ko:"Minh Anh 호텔 반려동물 데려가도 되나요?"},
+          {t:"bot",aid:"ST-S2A-02",
+                 vi:"Theo thông tin khách sạn đăng ký: không nhận thú cưng.\nTrong 3 khách sạn vừa rồi, Hoa Sứ có nhận thú cưng nhỏ. Bạn muốn xem không?",
+                 ko:"호텔이 등록한 정보 기준으로 반려동물은 받지 않습니다.\n방금 보여드린 3곳 중에서는 Hoa Sứ 호텔이 소형 반려동물을 받습니다. 확인해 보시겠어요?",
+                 note:{k:"Grounding",kko:"근거 명시",
+                   v:"«Per the information the hotel registered» is <b>part of the answer</b>, not a hedge. Nothing is inferred without a source.",
+                   vko:"«호텔이 등록한 정보 기준»이라는 <b>출처 명시</b>가 답변의 일부다. 근거가 없으면 추정하지 않는다."}},
+          {t:"me",vi:"Phòng đó giờ còn trống thật không? Bạn gọi hỏi lễ tân giúp mình.",
+                 ko:"그 방 지금 진짜 비어 있어요? 프런트에 전화해서 확인해주세요."},
+          {t:"bot",aid:"ST-S2A-02",
+                 vi:"Trước khi đặt phòng, mình chỉ xem được tình trạng phòng trên hệ thống Go2Joy, chưa liên hệ trực tiếp lễ tân được.\nSau khi bạn đặt phòng xong, kênh chat sẽ chuyển sang lễ tân của chính khách sạn đó và bạn hỏi trực tiếp được.",
+                 ko:"예약 전에는 Go2Joy 시스템의 객실 상태까지만 확인 가능하고, 프런트에 직접 연락드릴 수는 없습니다.\n예약을 완료하시면 채팅이 해당 호텔 리셉션으로 넘어가서 직접 문의하실 수 있습니다.",
+                 note:{warn:true,k:"Session ownership",kko:"세션 소유권",
+                   v:"A pre-booking session is <b>platform-owned</b> and carries no right to reach the front desk. That right appears the moment <code>booking_id</code> exists.",
+                   vko:"예약 전 세션은 <b>플랫폼 소유</b>라 호텔 프런트 이관 권한이 없다. 권한이 생기는 시점은 <code>booking_id</code> 생성 순간."}}
+        ]},
+        { label:"Payment failure", labelKo:"결제 실패",
+          sub:"PG-owned issues are not answered", subKo:"결제사 소관은 답하지 않는다", turns:[
+          {t:"me",vi:"Mình bấm thanh toán mà báo lỗi hoài, bạn trừ tiền giúp mình đi.",
+                 ko:"결제 눌렀는데 계속 오류 나요, 그냥 결제 처리해주세요."},
+          {t:"bot",aid:"ST-S2A-04",
+                 vi:"Mình không thực hiện thanh toán thay bạn được. Lỗi này thường do 3 nguyên nhân:\n① Thẻ chưa bật thanh toán trực tuyến\n② Sai mã OTP hoặc hết hạn\n③ Ngân hàng đang bảo trì\n\nBạn thử đổi sang «Thanh toán tại khách sạn» để giữ phòng trước nhé — phòng này còn cho phép.",
+                 ko:"제가 대신 결제를 진행해 드릴 수는 없습니다. 이 오류는 보통 세 가지 원인입니다.\n① 카드의 온라인 결제 미활성화\n② OTP 오류 또는 만료\n③ 은행 시스템 점검\n\n우선 «Thanh toán tại khách sạn»(현장 결제)로 바꿔 객실을 확보해 보세요 — 이 객실은 현장 결제가 가능합니다.",
+                 note:{warn:true,k:"Liability routing",kko:"귀책 라우팅",
+                   v:"A declined authorization is <b>PG-owned</b>. The agent goes as far as likely causes and a workaround — ST-PLT-04.",
+                   vko:"결제 승인 실패는 <b>PG 소관</b>이다. 에이전트는 원인 안내와 우회 경로까지만 — ST-PLT-04."}}
+        ]}
+      ],
+      kw:[
+        {m:["tìm","검색","phòng","방","gần","근처","đặt","search","find"],aid:"ST-S2A-01",
+         vi:"Bạn cho mình biết: khu vực, loại đặt phòng (Theo giờ / Qua đêm / Theo ngày), khoảng giá và tiện ích cần có. Mình lọc giúp bạn.",
+         ko:"지역, 예약 유형(시간제/숙박/일단위), 가격대, 필요한 편의시설을 알려주시면 걸러서 보여드리겠습니다."},
+        {m:["đậu xe","주차","thú cưng","반려","hút thuốc","흡연","wifi","와이파이","parking","pet"],aid:"ST-S2A-02",
+         vi:"Mình tra theo thông tin khách sạn đã đăng ký trên Go2Joy. Bạn cho mình tên khách sạn cụ thể nhé.",
+         ko:"호텔이 Go2Joy에 등록한 정보를 기준으로 확인해 드립니다. 호텔명을 알려주세요."},
+        {m:["coupon","쿠폰","điểm","포인트","giảm","할인","discount"],aid:"ST-S2A-03",
+         vi:"Coupon và điểm được áp dụng ở bước thanh toán. Mình kiểm tra giúp coupon nào dùng được cho đặt phòng này nhé.",
+         ko:"쿠폰과 포인트는 결제 단계에서 적용됩니다. 이 예약에 사용 가능한 쿠폰을 확인해 드리겠습니다."},
+        {m:["thanh toán","결제","lỗi","오류","otp","payment"],aid:"ST-S2A-04",
+         vi:"Bạn cho mình biết thông báo lỗi hiện ra là gì? Nếu là lỗi từ phía ngân hàng thì mình sẽ hướng dẫn cách khác để giữ phòng.",
+         ko:"어떤 오류 메시지가 떴는지 알려주세요. 은행 쪽 오류라면 객실을 확보할 다른 방법을 안내드리겠습니다."},
+        {m:["đăng nhập","로그인","tài khoản","계정","앱","login","app"],aid:"ST-S2A-05",
+         vi:"Bạn đăng nhập bằng số điện thoại hay email? Mình hướng dẫn từng bước.",
+         ko:"전화번호로 로그인하시나요, 이메일인가요? 순서대로 안내드리겠습니다."}
+      ],
+      fb:{aid:"ST-PLT-03",
+        vi:"Mình chưa có thông tin chắc chắn cho câu này. Bạn cho mình thêm chi tiết, hoặc mình chuyển cho CSKH Go2Joy nhé?",
+        ko:"이 질문은 확실한 정보가 없습니다. 조금 더 자세히 알려주시겠어요? 아니면 Go2Joy 고객센터로 연결해 드릴까요?",
+        note:{k:"Grounding",kko:"근거",
+          v:"Ask again or hand off — never infer without evidence.",
+          vko:"근거 없는 추론 대신 재질문 또는 이관."}}
+    },
+
+    s2b: {
+      key:"s2b", name:"Stage 2-B", en:"Guest · post-booking", ko:"게스트 — 예약 후 리셉션", color:"var(--s2b)",
+      frame:"phone", url:"", initials:"MA",
+      agentName:"Khách sạn Minh Anh", agentSub:"Lễ tân · Trả lời tự động",
+      desc:"Session ownership moved to the property once the booking was confirmed. The hotel overlay is injected.",
+      descKo:"예약 확정 후 세션 소유자가 해당 호텔로 넘어온 상태. 호텔 오버레이가 주입돼 있다.",
+      seed:[{t:"sys",vi:"Đặt phòng G2J-84120 · Qua đêm · Chờ nhận phòng"}],
+      scn:[
+        { label:"Check-in", labelKo:"체크인",
+          sub:"Door code only after verification", subKo:"도어락 코드는 인증 후", turns:[
+          {t:"me",vi:"Mình tới rồi, nhận phòng kiểu gì ạ?",ko:"저 도착했는데 체크인 어떻게 하나요?"},
+          {t:"bot",aid:"ST-S2B-03",
+                 vi:"Chào bạn, khách sạn Minh Anh đây.\nĐặt phòng G2J-84120 · Qua đêm · phòng Deluxe 302.\n\nSau 22:00 quầy lễ tân không có người trực. Bạn dùng kiosk ở sảnh:\n① Nhập mã đặt phòng G2J-84120\n② Quét CCCD/hộ chiếu\n③ Kiosk sẽ hiện mã mở cửa phòng",
+                 ko:"안녕하세요, Minh Anh 호텔입니다.\n예약 G2J-84120 · 숙박 · 디럭스 302호입니다.\n\n22시 이후에는 프런트에 상주 직원이 없습니다. 로비 키오스크를 이용해 주세요.\n① 예약번호 G2J-84120 입력\n② 신분증·여권 스캔\n③ 키오스크에 객실 도어락 코드가 표시됩니다",
+                 note:{k:"Overlay",kko:"오버레이",
+                   v:"«Unstaffed after 22:00» and «lobby kiosk» come from <b>this property's Property Brain</b>. Another hotel injects a different procedure.",
+                   vko:"«22시 이후 무인», «로비 키오스크»는 <b>이 호텔의 Property Brain</b>에서 나온 값이다. 다른 호텔은 다른 절차가 주입된다."}},
+          {t:"me",vi:"Bạn nhắn mã mở cửa qua đây luôn cho nhanh.",ko:"그냥 여기로 도어락 코드 보내주세요, 빠르게요."},
+          {t:"bot",aid:"ST-S2B-03",
+                 vi:"Mã mở cửa chỉ hiển thị sau khi xác minh giấy tờ tại kiosk, mình không gửi qua chat được.\nNếu kiosk không nhận giấy tờ, bạn bấm nút gọi trên kiosk — mình chuyển yêu cầu cho nhân viên trực đêm ngay.",
+                 ko:"도어락 코드는 키오스크에서 신분증 확인을 마친 뒤에만 표시되며 채팅으로는 전달해 드릴 수 없습니다.\n키오스크가 신분증을 인식하지 못하면 키오스크의 호출 버튼을 눌러 주세요 — 야간 담당자에게 바로 전달하겠습니다.",
+                 note:{warn:true,k:"PII",kko:"개인정보",
+                   v:"The door code is released <b>only inside a verified session</b>. Chat is not a verified channel — §3.3.",
+                   vko:"도어락 코드는 <b>인증된 세션 안에서만</b> 노출된다. 채팅은 인증 채널이 아니다 — §3.3."}}
+        ]},
+        { label:"Stay extension", labelKo:"이용 시간 연장",
+          sub:"Intake only, never a promise", subKo:"접수까지, 확약은 하지 않는다", turns:[
+          {t:"me",vi:"Cho mình ở thêm tới 14:00 được không?",ko:"14시까지 더 있어도 될까요?"},
+          {t:"bot",aid:"ST-S2B-04",
+                 vi:"Trả phòng chuẩn của đặt phòng Qua đêm là 12:00. Ở thêm tới 14:00 tính phụ thu 2 giờ — 120.000đ theo bảng giá hiện tại.\n\nMình đã gửi yêu cầu cho lễ tân. Việc có phòng trống để ở thêm hay không thì lễ tân xác nhận, mình chưa chốt giúp bạn được.",
+                 ko:"숙박 예약의 기본 체크아웃은 12:00입니다. 14:00까지 연장하시면 2시간 추가요금 — 현재 요율로 120,000đ입니다.\n\n프런트에 요청을 전달했습니다. 연장 가능한 객실이 있는지는 프런트가 확인해야 해서, 제가 확정해 드릴 수는 없습니다.",
+                 note:{warn:true,k:"No guarantee",kko:"확약 금지",
+                   v:"The agent's job ends at <b>intake</b>. Approval belongs to the front desk, routed through ST-S2B-08 Staff Bridge.",
+                   vko:"요청 <b>접수</b>까지가 에이전트의 역할. 승낙은 프런트가 한다 — ST-S2B-08 Staff Bridge로 전달."}},
+          {t:"sys",vi:"Đã chuyển yêu cầu → Hộp thư lễ tân (ST-S1-10)"},
+          {t:"bot",aid:"ST-S2B-08",
+                 vi:"Lễ tân đã xác nhận: phòng 302 ở thêm được tới 14:00. Phụ thu 120.000đ sẽ thu khi trả phòng.",
+                 ko:"프런트 확인 완료 — 302호는 14:00까지 연장 가능합니다. 추가요금 120,000đ는 체크아웃 시 정산됩니다.",
+                 note:{k:"Pipe",kko:"파이프",
+                   v:"Guest requests flow <b>ST-S2B-08 → ST-S1-10</b>. That is why the Stage 1 channel is Stage 2-B's landing point.",
+                   vko:"게스트 요청은 <b>ST-S2B-08 → ST-S1-10</b>으로 흐른다. Stage 1 채널이 Stage 2-B의 착지점인 이유."}}
+        ]},
+        { label:"Ancillary order", labelKo:"부가상품 주문",
+          sub:"Products registered back in Stage 1", subKo:"Stage 1이 등록한 상품", turns:[
+          {t:"me",vi:"Khuya rồi, có gì ăn không ạ?",ko:"늦었는데 먹을 거 있나요?"},
+          {t:"bot",aid:"ST-S2B-04",
+                 vi:"Khách sạn có phục vụ đêm:\n· Mì ly + trứng — 45.000đ\n· Bánh mì thịt nguội — 60.000đ\n· Nước suối / bia — 15.000đ / 35.000đ\n\nBạn chọn món nào? Phí sẽ cộng vào hóa đơn phòng 302.",
+                 ko:"야간 제공 메뉴입니다.\n· 컵라면 + 계란 — 45,000đ\n· 반미(햄) — 60,000đ\n· 생수 / 맥주 — 15,000đ / 35,000đ\n\n어떤 걸로 하시겠어요? 302호 요금에 합산됩니다.",
+                 note:{k:"Revenue link",kko:"매출 연결",
+                   v:"This menu is ancillary product the partner registered via <b>ST-S1-12</b>. Stage 1 registration becomes Stage 2-B sales.",
+                   vko:"이 메뉴는 파트너가 <b>ST-S1-12</b>로 등록한 부가상품이다. Stage 1 등록 → Stage 2-B 판매로 이어진다."}}
+        ]},
+        { label:"Other-property query", labelKo:"타 숙소 문의",
+          sub:"What a property agent must not sell", subKo:"호텔 에이전트가 팔면 안 되는 것", turns:[
+          {t:"me",vi:"Mai mình đi Đà Nẵng, tìm giúp mình khách sạn ở đó luôn nhé.",
+                 ko:"내일 다낭 가는데 거기 호텔도 좀 찾아주세요."},
+          {t:"bot",aid:"ST-S2B-01",
+                 vi:"Kênh này là lễ tân của khách sạn Minh Anh nên mình chỉ hỗ trợ đặt phòng G2J-84120 thôi.\nBạn tìm phòng ở Đà Nẵng ngay trong app Go2Joy — trợ lý tìm phòng sẽ hỗ trợ bạn ở đó.",
+                 ko:"이 채팅은 Minh Anh 호텔 리셉션이라 예약 G2J-84120에 대해서만 도와드릴 수 있습니다.\n다낭 숙소는 Go2Joy 앱에서 검색해 주세요 — 그쪽 검색 도우미가 안내해 드립니다.",
+                 note:{warn:true,k:"Session split",kko:"세션 분리",
+                   v:"A property agent <b>selling another property</b> is an incident. New booking intent forks into a parallel Stage 2-A session.",
+                   vko:"호텔 테넌트 에이전트가 <b>타 숙소를 판매하면 사고</b>다. 신규 예약 문의는 Stage 2-A 병행 세션으로 분리한다."}}
+        ]},
+        { label:"Post-stay lost item", labelKo:"체크아웃 후 분실물",
+          sub:"Log it, don't promise the outcome", subKo:"접수하되 결과는 확약하지 않는다", turns:[
+          {t:"sys",vi:"Đặt phòng G2J-84120 · Hoàn thành · Trả phòng 14:02"},
+          {t:"me",vi:"Mình để quên sạc điện thoại trong phòng 302.",ko:"302호에 휴대폰 충전기를 두고 왔어요."},
+          {t:"bot",aid:"ST-S2B-06",
+                 vi:"Mình đã ghi nhận đồ thất lạc: sạc điện thoại · phòng 302 · trả phòng 14:02 hôm nay.\nBộ phận buồng phòng sẽ kiểm tra và mình báo lại bạn trong hôm nay. Mình chưa xác nhận được là có tìm thấy hay không.\n\nBạn cần hóa đơn cho lần ở này luôn không?",
+                 ko:"분실물 접수했습니다 — 휴대폰 충전기 · 302호 · 오늘 14:02 체크아웃.\n객실 정비팀이 확인한 뒤 오늘 중으로 알려드리겠습니다. 발견 여부는 지금 확답드릴 수 없습니다.\n\n이번 숙박 영수증도 함께 발급해 드릴까요?",
+                 note:{k:"Post-stay session",kko:"사후 세션",
+                   v:"The tenant session persists D+N after checkout. N is <b>still undecided</b> — OQ-002.",
+                   vko:"체크아웃 후에도 테넌트 세션이 D+N 유지된다. 유지 기간은 <b>미확정</b> — OQ-002."}}
+        ]}
+      ],
+      kw:[
+        {m:["nhận phòng","체크인","đến rồi","도착","kiosk","키오스크","check-in","checkin"],aid:"ST-S2B-03",
+         vi:"Bạn dùng kiosk ở sảnh: nhập mã đặt phòng → quét giấy tờ → kiosk hiện mã mở cửa. Sau 22:00 quầy lễ tân không có người trực.",
+         ko:"로비 키오스크를 이용해 주세요 — 예약번호 입력 → 신분증 스캔 → 도어락 코드 표시. 22시 이후에는 프런트 상주 직원이 없습니다."},
+        {m:["thêm giờ","연장","ở thêm","trễ","레이트","muộn","extend","late"],aid:"ST-S2B-04",
+         vi:"Mình gửi yêu cầu ở thêm cho lễ tân ngay. Việc còn phòng hay không do lễ tân xác nhận, mình chưa chốt giúp bạn được.",
+         ko:"연장 요청을 프런트에 전달하겠습니다. 객실 여유 여부는 프런트가 확인해야 해서 제가 확정해 드릴 수는 없습니다."},
+        {m:["khăn","수건","dọn","청소","amenity","어메니티","wifi","와이파이","hỏng","고장","towel","clean"],aid:"ST-S2B-04",
+         vi:"Mình chuyển yêu cầu cho bộ phận phục vụ phòng ngay. Bạn cho mình biết cần bao nhiêu / hỏng chỗ nào nhé.",
+         ko:"객실 담당에게 바로 전달하겠습니다. 수량이나 고장 부위를 알려주세요."},
+        {m:["ăn","음식","đồ uống","음료","order","주문","menu","food"],aid:"ST-S2B-04",
+         vi:"Khách sạn có phục vụ đêm — mì ly, bánh mì, nước và bia. Bạn chọn món nào? Phí cộng vào hóa đơn phòng.",
+         ko:"야간 메뉴로 컵라면, 반미, 생수, 맥주가 있습니다. 어떤 걸로 하시겠어요? 객실 요금에 합산됩니다."},
+        {m:["hóa đơn","영수증","invoice","분실","để quên","thất lạc","receipt","lost"],aid:"ST-S2B-06",
+         vi:"Mình ghi nhận và chuyển cho bộ phận liên quan, sẽ báo lại bạn trong hôm nay. Mình chưa xác nhận kết quả ngay được.",
+         ko:"접수해서 담당 부서로 전달하고 오늘 중 회신드리겠습니다. 결과는 지금 확답드릴 수 없습니다."},
+        {m:["hủy","취소","hoàn tiền","환불","cancel","refund"],aid:"ST-S2B-01",
+         vi:"Chính sách hủy của đặt phòng này mình tra được, nhưng số tiền hoàn cuối cùng do Go2Joy quyết định. Bạn muốn mình gửi yêu cầu hủy không?",
+         ko:"이 예약의 취소 규정은 확인해 드릴 수 있지만, 최종 환불 금액은 Go2Joy가 결정합니다. 취소 요청을 접수해 드릴까요?"}
+      ],
+      fb:{aid:"ST-PLT-05",
+        vi:"Câu này mình chưa trả lời chắc được. Mình chuyển cho lễ tân trực và báo lại bạn sớm nhất nhé.",
+        ko:"이 부분은 확실히 답변드리기 어렵습니다. 담당 프런트로 전달하고 최대한 빨리 회신드리겠습니다.",
+        note:{k:"Escalation",kko:"에스컬레이션",
+          v:"Unsolved at L0 goes to <b>L1, the front desk</b>. Unstaffed hours need an L0→L2 bypass — OQ-003.",
+          vko:"L0에서 못 풀면 <b>L1 호텔 프런트</b>로. 무인 시간대에는 L2 직행 경로가 필요하다 — OQ-003."}}
+    }
+  };
+
+  var ORDER = ["s1","s2a","s2b"];
+  var cur = "s1", role = "Quản lý", showNotes = true, showKo = true;
+  var timers = [], playing = false;
+
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(t){ return String(t).replace(/[<>&]/g, function(c){ return {"<":"&lt;",">":"&gt;","&":"&amp;"}[c]; }); }
+  function ko(html){ return '<span class="ko" data-ko>' + html + '</span>'; }
+  function clearTimers(){ timers.forEach(clearTimeout); timers = []; playing = false; }
+
+  /* ---------- tabs ---------- */
+  function renderTabs(){
+    $("tabs").innerHTML = ORDER.map(function(k){
+      var d = DATA[k];
+      return '<button class="tab" role="tab" data-k="'+k+'" style="--tc:'+d.color+'" aria-selected="'+(k===cur)+'">'
+           + '<span class="dot"></span><b>'+d.name+'</b>'
+           + '<span class="sm">'+d.en+ko(' · '+d.ko)+'</span></button>';
+    }).join("");
+    Array.prototype.forEach.call($("tabs").querySelectorAll(".tab"), function(b){
+      b.addEventListener("click", function(){ cur = b.dataset.k; role = "Quản lý"; renderAll(); });
+    });
+  }
+
+  /* ---------- side ---------- */
+  function renderSide(){
+    var d = DATA[cur];
+    $("stagewrap").style.setProperty("--tc", d.color);
+    $("scnDesc").innerHTML = esc(d.desc) + ko(esc(d.descKo));
+    $("scnList").innerHTML = d.scn.map(function(s,i){
+      return '<button type="button" data-i="'+i+'"><span class="n">'+("0"+(i+1)).slice(-2)+'</span>'
+           + '<span class="t"><b>'+esc(s.label)+ko(esc(s.labelKo))+'</b>'
+           + '<em>'+esc(s.sub)+ko(esc(s.subKo))+'</em></span></button>';
+    }).join("");
+    Array.prototype.forEach.call($("scnList").querySelectorAll("button"), function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call($("scnList").querySelectorAll("button"), function(x){ x.removeAttribute("aria-current"); });
+        b.setAttribute("aria-current","true");
+        play(DATA[cur].scn[+b.dataset.i]);
+      });
+    });
+    $("roleRow").hidden = !d.hasRole;
+    syncRoleSeg();
+    applyToggles();
+  }
+  function syncRoleSeg(){
+    Array.prototype.forEach.call($("roleSeg").querySelectorAll("button"), function(b){
+      b.setAttribute("aria-pressed", String(b.dataset.role === role));
+    });
+  }
+
+  /* ---------- device ---------- */
+  var PLACEHOLDER = {
+    s1:  "settlement · cancel · rate · 정산 · 취소",
+    s2a: "search · parking · payment · 검색 · 결제",
+    s2b: "check-in · extend · towel · 체크인 · 연장"
+  };
+
+  function renderDevice(){
+    var d = DATA[cur], head, top;
+    head = '<div class="apphead">'
+         + '<div class="avatar">'+d.initials+'</div>'
+         + '<div class="who"><b>'+esc(d.agentName)+'</b><span>'+esc(d.agentSub)+'</span></div>'
+         + (d.hasRole ? '<span class="badge role" id="roleBadge">'+esc(role)+'</span>'
+                      : '<span class="badge">'+(cur==="s2b" ? "G2J-84120" : "no booking")+'</span>')
+         + '</div>';
+
+    var body = '<div class="thread" id="thread"></div>'
+             + '<form class="composer" id="composer"><input id="inp" type="text" autocomplete="off"'
+             + ' placeholder="'+PLACEHOLDER[cur]+'">'
+             + '<button type="submit">Gửi</button></form>';
+
+    var hint = '<p class="hint">Type your own message — with no matching evidence the agent falls back to <code>confirm and follow up</code>.'
+             + ko('직접 입력해도 응답합니다. 매칭되는 근거가 없으면 «확인 후 안내»로 떨어집니다.') + '</p>';
+
+    if (d.frame === "desktop") {
+      top = '<div class="bar"><i></i><i></i><i></i><span class="url">'+esc(d.url)+'</span></div>';
+      $("device").className = "device";
+      $("device").innerHTML = '<div class="desktop">'+top+head+body+'</div>' + hint;
+    } else {
+      top = '<div class="statusbar"><span>23:41</span><span>Go2Joy</span><span>▮▮▮ 76%</span></div>';
+      $("device").className = "device phone";
+      $("device").innerHTML = '<div class="phoneframe"><div class="inner">'+top+head+body+'</div></div>' + hint;
+    }
+    $("composer").addEventListener("submit", onSend);
+    seed();
+  }
+
+  /* ---------- messages ---------- */
+  function bubbleHTML(m){
+    if (m.t === "sys") return '<div class="sys">'+esc(m.vi)+'</div>';
+    var cls = m.t === "me" ? "msg me" : "msg";
+    var h = '<div class="'+cls+'">';
+    if (m.t === "bot" && m.aid) h += '<div class="meta"><span class="aid">'+esc(m.aid)+'</span></div>';
+    h += '<div class="bubble">'+esc(m.vi)+'</div>';
+    if (m.ko) h += '<div class="gloss ko" data-ko>'+esc(m.ko)+'</div>';
+    if (m.note) {
+      h += '<div class="note'+(m.note.warn ? ' warn' : '')+'" data-note>'
+        + '<span class="k">'+esc(m.note.k)+ko(esc(m.note.kko))+'</span>'
+        + '<span class="v">'+m.note.v+ko(m.note.vko)+'</span></div>';
+    }
+    return h + '</div>';
+  }
+  function push(m){
+    var th = $("thread");
+    th.insertAdjacentHTML("beforeend", bubbleHTML(m));
+    applyToggles();
+    th.scrollTop = th.scrollHeight;
+  }
+  function typing(on){
+    var th = $("thread"), ex = th.querySelector("#tp");
+    if (on && !ex) { th.insertAdjacentHTML("beforeend",'<div class="typing" id="tp"><i></i><i></i><i></i></div>'); }
+    if (!on && ex) { ex.remove(); }
+    th.scrollTop = th.scrollHeight;
+  }
+  function applyToggles(){
+    Array.prototype.forEach.call(document.querySelectorAll("[data-note]"), function(n){ n.hidden = !showNotes; });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-ko]"), function(n){ n.hidden = !showKo; });
+  }
+  function seed(){
+    clearTimers();
+    $("thread").innerHTML = "";
+    DATA[cur].seed.forEach(push);
+  }
+
+  /* ---------- playback ---------- */
+  function play(scn){
+    clearTimers();
+    playing = true;
+    $("thread").innerHTML = "";
+    DATA[cur].seed.forEach(push);
+    if (DATA[cur].hasRole) {
+      role = scn.role || "Quản lý";
+      syncRoleSeg();
+      var rb = $("roleBadge"); if (rb) rb.textContent = role;
+    }
+
+    var t = 260;
+    scn.turns.forEach(function(m){
+      if (m.t === "bot") {
+        timers.push(setTimeout(function(){ typing(true); }, t));
+        t += 760;
+        timers.push(setTimeout(function(){ typing(false); push(m); }, t));
+        t += 620;
+      } else {
+        timers.push(setTimeout(function(){ push(m); }, t));
+        t += 540;
+      }
+    });
+    timers.push(setTimeout(function(){ playing = false; }, t));
+  }
+
+  /* ---------- free input ---------- */
+  function match(text){
+    var d = DATA[cur], q = text.toLowerCase();
+    for (var i = 0; i < d.kw.length; i++) {
+      var r = d.kw[i];
+      for (var j = 0; j < r.m.length; j++) {
+        if (q.indexOf(r.m[j].toLowerCase()) !== -1) {
+          if (r.gated && d.gate && role === "Lễ tân") return d.gate;
+          return r;
+        }
+      }
+    }
+    return d.fb;
+  }
+  function onSend(e){
+    e.preventDefault();
+    var v = $("inp").value.trim();
+    if (!v) return;
+    $("inp").value = "";
+    clearTimers();
+    push({ t:"me", vi:v });
+    var r = match(v);
+    typing(true);
+    timers.push(setTimeout(function(){
+      typing(false);
+      push({ t:"bot", aid:r.aid, vi:r.vi, ko:r.ko, note:r.note });
+    }, 720));
+  }
+
+  /* ---------- controls ---------- */
+  $("noteSeg").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return;
+    showNotes = b.dataset.note === "on";
+    Array.prototype.forEach.call($("noteSeg").querySelectorAll("button"), function(x){
+      x.setAttribute("aria-pressed", String(x.dataset.note === (showNotes ? "on" : "off")));
+    });
+    applyToggles();
+  });
+  $("glossSeg").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return;
+    showKo = b.dataset.gloss === "on";
+    Array.prototype.forEach.call($("glossSeg").querySelectorAll("button"), function(x){
+      x.setAttribute("aria-pressed", String(x.dataset.gloss === (showKo ? "on" : "off")));
+    });
+    applyToggles();
+  });
+  $("roleSeg").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return;
+    role = b.dataset.role; syncRoleSeg();
+    var rb = $("roleBadge"); if (rb) rb.textContent = role;
+  });
+  $("resetBtn").addEventListener("click", function(){
+    Array.prototype.forEach.call($("scnList").querySelectorAll("button"), function(x){ x.removeAttribute("aria-current"); });
+    seed();
+  });
+
+  function renderAll(){ renderTabs(); renderSide(); renderDevice(); applyToggles(); }
+  renderAll();
+})();
+</script>
+
+</body>
+</html>
