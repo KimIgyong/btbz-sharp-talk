@@ -24,4 +24,9 @@
 
 ## 검증 기록
 
-(배포 후 갱신)
+| 항목 | 결과 |
+|---|---|
+| PR / 커밋 | #477 → main `c74aca0` (squash), CI 통과 |
+| 스테이징 배포 | 2026-09-08 16:45 UTC, `ivy_api_staging` healthy, `successfully started`, 마이그레이션 없음 |
+| 합성 검증 | 채널 5 수신전용 스레드 156(대화 525)에 system 메시지 1건 삽입 → 5초 스윕 3회 후 **아웃박스 행 0건**, `outbound_cursor` 16357→17248 전진, 로그 `receive-only` 0건, 합성 메시지 삭제 완료 |
+| 실패 누계 | `thread is receive-only` 473건 → 473건(증가 0), 채널 5 `connected` 유지 |
