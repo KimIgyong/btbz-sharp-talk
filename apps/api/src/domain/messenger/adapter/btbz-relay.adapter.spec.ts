@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { subChannelFrom, BtbzRelayAdapter, extractCookieToken } from './btbz-relay.adapter';
+import { subChannelFrom, BtbzRelayAdapter, extractCookieToken, inboxRows } from './btbz-relay.adapter';
 import { MessengerChannel } from '../entity/messenger-channel.entity';
 import { ChannelThread } from '../entity/channel-thread.entity';
 import { RedisService } from '../../../infrastructure/cache/redis.service';
@@ -108,6 +108,134 @@ describe('BtbzRelayAdapter', () => {
     expect(out[0]).toMatchObject({ subChannel: 'sms', replyEnabled: false, externalUserId: '010-1234-5678' });
   });
 
+  // FIX-260908: the relay paged its message list (`data: {items, hasMore}`) on
+  // 2026-09-08 and every 15s tick died with "object is not iterable".
+  it('reads the paged {items, hasMore} message envelope the relay answers with since 2026-09-08', async () => {
+    stubFetch({
+      '/api/inbox/conversations/9/messages': {
+        data: {
+          items: [{ id: '42', direction: 'inbound', body: '재고 있나요?', occurred_at: '2026-09-08T12:27:12.417Z' }],
+          hasMore: false,
+        },
+      },
+      '/api/inbox/conversations': {
+        data: [{ id: '9', channel_type: 'relay_kakao_pc', reply_enabled: true, last_message_at: '2026-09-08T12:27:12.417Z' }],
+      },
+    });
+
+    const adapter = new BtbzRelayAdapter(redis);
+    const out = await adapter.pull({ channel: channel(), secret: 'x' }, []);
+
+    expect(out).toHaveLength(1);
+    expect(out[0]).toMatchObject({ externalThreadId: '9', externalMessageId: '42', text: '재고 있나요?' });
+  });
+
+  it('walks a known thread forward with after= until hasMore is false, never past a stalled page', async () => {
+    const calls = stubFetch({
+      'messages?limit=100&after=44': {
+        data: { items: [{ id: 45, direction: 'inbound', body: 'third' }], hasMore: false },
+      },
+      'messages?limit=100&after=40': {
+        data: {
+          items: [
+            { id: 43, direction: 'inbound', body: 'first' },
+            { id: 44, direction: 'inbound', body: 'second' },
+          ],
+          hasMore: true,
+        },
+      },
+      '/api/inbox/conversations': {
+        data: [{ id: 9, channel_type: 'relay_kakao_pc', reply_enabled: true, last_message_at: '2026-09-08 15:00:00' }],
+      },
+    });
+
+    const adapter = new BtbzRelayAdapter(redis);
+    const out = await adapter.pull({ channel: channel(), secret: 'x' }, [
+      { externalThreadId: '9', inboundCursor: '40', lastInboundAt: null },
+    ]);
+
+    expect(out.map((m) => m.externalMessageId)).toEqual(['43', '44', '45']);
+    const pages = calls.filter((c) => c.url.includes('/messages?')).map((c) => c.url.split('?')[1]);
+    expect(pages).toEqual(['limit=100&after=40', 'limit=100&after=44']);
+  });
+
+  it('does not walk back into history for a thread with no cursor, even when the relay has more', async () => {
+    const calls = stubFetch({
+      '/api/inbox/conversations/9/messages': {
+        data: { items: [{ id: 99, direction: 'inbound', body: 'newest' }], hasMore: true },
+      },
+      '/api/inbox/conversations': {
+        data: [{ id: 9, channel_type: 'relay_kakao_pc', reply_enabled: true, last_message_at: '2026-09-08 15:00:00' }],
+      },
+    });
+
+    const adapter = new BtbzRelayAdapter(redis);
+    const out = await adapter.pull({ channel: channel(), secret: 'x' }, []);
+
+    expect(out.map((m) => m.externalMessageId)).toEqual(['99']);
+    expect(calls.filter((c) => c.url.includes('/messages?'))).toHaveLength(1);
+    expect(calls.find((c) => c.url.includes('/messages?'))?.url).not.toContain('after=');
+  });
+
+  it('references a body-less photo by id and downloads it from /api/inbox/messages/:id/photo', async () => {
+    stubFetch({
+      '/api/inbox/conversations/9/messages': {
+        data: {
+          items: [{ id: 50, direction: 'inbound', body: null, body_type: 'photo', sender_name: '김철수' }],
+          hasMore: false,
+        },
+      },
+      '/api/inbox/conversations': {
+        data: [{ id: 9, channel_type: 'relay_kakao_pc', reply_enabled: true, last_message_at: '2026-09-08 15:00:00' }],
+      },
+    });
+
+    const adapter = new BtbzRelayAdapter(redis);
+    const out = await adapter.pull({ channel: channel(), secret: 'x' }, []);
+    expect(out).toHaveLength(1);
+    expect(out[0].text).toBe('');
+    expect(out[0].attachments).toEqual([{ fileId: '50', filename: null, mime: null }]);
+
+    const bytes = Buffer.from([0xff, 0xd8, 0xff, 0xe0]);
+    global.fetch = jest.fn(async (url: unknown) => {
+      const href = String(url);
+      if (href.includes('/api/auth/login')) {
+        return {
+          ok: true,
+          status: 200,
+          headers: { get: () => 'ksr_token=jwt-abc; Path=/' },
+          text: async () => '{}',
+        } as unknown as Response;
+      }
+      expect(href).toBe('https://relay.test/api/inbox/messages/50/photo');
+      return {
+        ok: true,
+        status: 200,
+        headers: { get: (h: string) => (h === 'content-type' ? 'image/jpeg' : null) },
+        arrayBuffer: async () => bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.length),
+      } as unknown as Response;
+    }) as unknown as typeof fetch;
+
+    const got = await adapter.downloadAttachment({ channel: channel(), secret: 'x' }, out[0].attachments![0]);
+    expect(got).toMatchObject({ filename: 'photo-50.jpg', mime: 'image/jpeg' });
+    expect(got?.buffer.equals(bytes)).toBe(true);
+  });
+
+  it('skips a body-less turn that is not a photo instead of storing an empty message', async () => {
+    stubFetch({
+      '/api/inbox/conversations/9/messages': {
+        data: { items: [{ id: 51, direction: 'inbound', body: '', body_type: 'text' }], hasMore: false },
+      },
+      '/api/inbox/conversations': {
+        data: [{ id: 9, channel_type: 'relay_kakao_pc', reply_enabled: true, last_message_at: '2026-09-08 15:00:00' }],
+      },
+    });
+
+    const adapter = new BtbzRelayAdapter(redis);
+    const out = await adapter.pull({ channel: channel(), secret: 'x' }, []);
+    expect(out).toHaveLength(0);
+  });
+
   it('reports a reply as unconfirmed — the relay only queues a device command', async () => {
     stubFetch({ '/api/relay/replies': { data: { command_id: 77, status: 'DISPATCHED', agent_online: true } } });
 
@@ -184,6 +312,20 @@ describe('extractCookieToken', () => {
  * Server URL handling (FIX-260810). The 404 an operator hit on staging was a
  * wrong base URL that nothing on screen revealed.
  */
+describe('inboxRows', () => {
+  it('reads a bare array (pre-2026-09-08 relay)', () => {
+    expect(inboxRows({ data: [{ id: 1 }] })).toEqual({ items: [{ id: 1 }], hasMore: false });
+  });
+  it('reads the paged object', () => {
+    expect(inboxRows({ data: { items: [{ id: 1 }], hasMore: true } })).toEqual({ items: [{ id: 1 }], hasMore: true });
+  });
+  it('treats anything else as an empty page rather than throwing', () => {
+    expect(inboxRows({ data: { items: 'nope' } as never })).toEqual({ items: [], hasMore: false });
+    expect(inboxRows({})).toEqual({ items: [], hasMore: false });
+    expect(inboxRows(null)).toEqual({ items: [], hasMore: false });
+  });
+});
+
 describe('BtbzRelayAdapter — server URL', () => {
   const OLD_ENV = process.env;
   const originalFetch = global.fetch;

@@ -7,6 +7,7 @@ import { channelField } from '../messenger-secret.util';
 import { ksrHeaders } from '../ksr-signature.util';
 import {
   AdapterContext,
+  InboundAttachmentRef,
   MessengerAdapter,
   NormalizedInbound,
   SendResult,
@@ -20,7 +21,7 @@ import {
   loginFailure,
   unreachableFailure,
 } from './adapter-failure.util';
-import { splitRelayBody } from './data-uri.util';
+import { extensionForMime, splitRelayBody } from './data-uri.util';
 
 const DEFAULT_BASE_URL = 'https://messenger.amoeba.site';
 /** How the relay is named to operators — and what its account is called. */
@@ -29,6 +30,8 @@ const PROVIDER_LABEL = 'btbz relay';
 const TOKEN_TTL_SEC = 10 * 3600;
 const WATERMARK_TTL_SEC = 7 * 24 * 3600;
 const MESSAGE_LIMIT = 100;
+/** Catch-up pages walked per thread per pull on the operator inbox (`after=` cursor). */
+const MAX_INBOX_PAGES = 20;
 
 /** Cold start ingests at most this many provider pages per pull (resumes next tick). */
 const MAX_PROVIDER_PAGES = 20;
@@ -118,6 +121,33 @@ interface RelayCommand {
   fail_reason?: string;
 }
 
+/**
+ * Operator-inbox envelope: `data` is a bare array, or — since the relay paged
+ * its message list on 2026-09-08 — `{ items, hasMore }`.
+ */
+interface InboxEnvelope<T> {
+  data?: T[] | { items?: T[]; hasMore?: boolean };
+}
+
+/**
+ * Rows of an operator-inbox response, whichever shape the relay answered with.
+ *
+ * `for (const m of data)` over the paged object threw "object is not iterable"
+ * on every 15s tick (FIX-260908) — one endpoint changing shape must not turn
+ * into a poll that fails forever, so both forms are read here and anything
+ * else is an empty page rather than a throw.
+ */
+export function inboxRows<T>(
+  envelope: InboxEnvelope<T> | null | undefined,
+): { items: T[]; hasMore: boolean } {
+  const data = envelope?.data;
+  if (Array.isArray(data)) return { items: data, hasMore: false };
+  if (data && typeof data === 'object') {
+    return { items: Array.isArray(data.items) ? data.items : [], hasMore: data.hasMore === true };
+  }
+  return { items: [], hasMore: false };
+}
+
 // ---- provider API v1 shapes (camelCase — unlike the operator inbox API) ----
 
 interface ProviderInstance {
@@ -183,13 +213,13 @@ export class BtbzRelayAdapter implements MessengerAdapter {
     if (this.signed(ctx)) return this.testSigned(ctx);
     try {
       const token = await this.token(ctx, true);
-      const list = await this.request<{ data?: RelayConversation[] }>(
+      const list = await this.request<InboxEnvelope<RelayConversation>>(
         ctx,
         token,
         '/api/inbox/conversations',
         'GET',
       );
-      const count = list?.data?.length ?? 0;
+      const count = inboxRows(list).items.length;
       return {
         ok: true,
         detail: `connected (${count} conversation(s))`,
@@ -243,7 +273,7 @@ export class BtbzRelayAdapter implements MessengerAdapter {
     if (this.signed(ctx)) return this.pullSigned(ctx);
     const token = await this.token(ctx);
     const known = new Map(cursors.map((c) => [c.externalThreadId, c]));
-    const list = await this.request<{ data?: RelayConversation[] }>(
+    const list = await this.request<InboxEnvelope<RelayConversation>>(
       ctx,
       token,
       '/api/inbox/conversations',
@@ -251,7 +281,7 @@ export class BtbzRelayAdapter implements MessengerAdapter {
     );
 
     const out: NormalizedInbound[] = [];
-    for (const conv of list?.data ?? []) {
+    for (const conv of inboxRows(list).items) {
       const threadId = conv.id != null ? String(conv.id) : null;
       if (!threadId) continue;
 
@@ -265,40 +295,68 @@ export class BtbzRelayAdapter implements MessengerAdapter {
         if (previous === watermark) continue;
       }
 
-      const messages = await this.request<{ data?: RelayMessage[] }>(
-        ctx,
-        token,
-        `/api/inbox/conversations/${threadId}/messages?limit=${MESSAGE_LIMIT}`,
-        'GET',
-      );
       const cursor = known.get(threadId)?.inboundCursor;
-      const since = cursor != null ? Number(cursor) : 0;
+      const since = cursor != null && Number.isFinite(Number(cursor)) ? Number(cursor) : 0;
+      // A known thread walks forward from its cursor (`after=` pages in insert
+      // order, so a burst larger than one page is not lost); a new thread takes
+      // the relay's default page — the newest MESSAGE_LIMIT — and never walks
+      // back into history. A relay that predates paging ignores `after` and
+      // answers a bare array, which reads the same way it always did.
+      let after: number | null = since > 0 ? since : null;
+      for (let page = 0; page < MAX_INBOX_PAGES; page++) {
+        const query = `limit=${MESSAGE_LIMIT}` + (after != null ? `&after=${after}` : '');
+        const messages = await this.request<InboxEnvelope<RelayMessage>>(
+          ctx,
+          token,
+          `/api/inbox/conversations/${threadId}/messages?${query}`,
+          'GET',
+        );
+        const { items, hasMore } = inboxRows(messages);
+        let maxId = after ?? 0;
 
-      for (const msg of messages?.data ?? []) {
-        if (msg.id == null) continue;
-        // Loop prevention #1 — our own relayed replies come back as outbound.
-        if ((msg.direction ?? '').toLowerCase() !== 'inbound') continue;
-        if (Number.isFinite(since) && Number(msg.id) <= since) continue;
-        // A photo arrives as a data: URI in `body` (FIX-260817), not as a link.
-        const { text, attachments } = splitRelayBody(msg.body, Number(msg.id));
-        if (!text && !attachments.length) continue;
+        for (const msg of items) {
+          if (msg.id == null) continue;
+          const id = Number(msg.id);
+          if (Number.isFinite(id) && id > maxId) maxId = id;
+          // Loop prevention #1 — our own relayed replies come back as outbound.
+          if ((msg.direction ?? '').toLowerCase() !== 'inbound') continue;
+          if (since > 0 && id <= since) continue;
+          // A photo arrives as a data: URI in `body` (FIX-260817), not as a link.
+          const { text, attachments } = splitRelayBody(msg.body, id);
+          if (!text && !attachments.length) {
+            // Since 2026-09-08 the list omits photo bodies (they were 19 MB per
+            // room) and serves the bytes from /api/inbox/messages/:id/photo —
+            // referenced here, fetched by `downloadAttachment` in the pipeline.
+            if ((msg.body_type ?? '').toLowerCase() !== 'photo') continue;
+            attachments.push({ fileId: String(msg.id), filename: null, mime: null });
+          }
 
-        out.push({
-          externalThreadId: threadId,
-          externalMessageId: String(msg.id),
-          // KakaoTalk rooms have no stable user id here; the phone number is the
-          // only identity SMS carries, and it is what the console shows.
-          externalUserId: msg.sender_number ?? null,
-          externalUserName: msg.sender_name ?? conv.counterpart_display ?? null,
-          text,
-          languageHint: null,
-          subChannel: subChannelFrom(conv.channel_type, this.logger),
-          // SMS is receive-only: the relay rejects a reply with 400, so the
-          // thread is marked here and the outbox never attempts a send.
-          replyEnabled: truthy(conv.reply_enabled),
-          occurredAt: parseDate(msg.occurred_at),
-          attachments: attachments.length ? attachments : undefined,
-        });
+          out.push({
+            externalThreadId: threadId,
+            externalMessageId: String(msg.id),
+            // KakaoTalk rooms have no stable user id here; the phone number is the
+            // only identity SMS carries, and it is what the console shows.
+            externalUserId: msg.sender_number ?? null,
+            externalUserName: msg.sender_name ?? conv.counterpart_display ?? null,
+            text,
+            languageHint: null,
+            subChannel: subChannelFrom(conv.channel_type, this.logger),
+            // SMS is receive-only: the relay rejects a reply with 400, so the
+            // thread is marked here and the outbox never attempts a send.
+            replyEnabled: truthy(conv.reply_enabled),
+            occurredAt: parseDate(msg.occurred_at),
+            attachments: attachments.length ? attachments : undefined,
+          });
+        }
+
+        // Only a cursor walk continues; a page that moved nothing would repeat.
+        if (!hasMore || after == null || maxId <= after) break;
+        after = maxId;
+        if (page === MAX_INBOX_PAGES - 1) {
+          this.logger.warn(
+            `btbz relay thread ${threadId} catch-up capped at ${MAX_INBOX_PAGES} pages (channel ${ctx.channel.id}); resuming next tick`,
+          );
+        }
       }
 
       if (watermark) await this.redis.set(watermarkKey, watermark, WATERMARK_TTL_SEC);
@@ -405,6 +463,34 @@ export class BtbzRelayAdapter implements MessengerAdapter {
   }
 
   /**
+   * Bytes of a photo the inbox list no longer carries inline. Operator-token
+   * route (the provider API has no photo endpoint), so signed-mode channels
+   * without an operator account get a logged drop, not a thrown pull.
+   */
+  async downloadAttachment(
+    ctx: AdapterContext,
+    ref: InboundAttachmentRef,
+  ): Promise<{ buffer: Buffer; filename: string; mime?: string | null } | null> {
+    if (!ref.fileId) return null;
+    const token = await this.token(ctx);
+    const url = `${this.baseUrl(ctx.channel)}/api/inbox/messages/${encodeURIComponent(ref.fileId)}/photo`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}`, Cookie: `ksr_token=${token}` },
+    });
+    if (!res.ok) throw new Error(`btbz relay photo download failed: ${res.status}`);
+    const buffer = Buffer.from(await res.arrayBuffer());
+    if (!buffer.length) return null;
+    const mime =
+      res.headers.get('content-type')?.split(';')[0].trim().toLowerCase() || ref.mime || 'image/jpeg';
+    // Named like an inline photo (FIX-260817) so both paths store the same file.
+    return {
+      buffer,
+      filename: ref.filename || `photo-${ref.fileId}.${extensionForMime(mime)}`,
+      mime,
+    };
+  }
+
+  /**
    * A reply is queued as a command for the capturing device agent, so this
    * returns `unconfirmed`: the message left ShopTalk but nothing yet proves it
    * reached the room. `confirm` resolves it later.
@@ -444,13 +530,13 @@ export class BtbzRelayAdapter implements MessengerAdapter {
       return mapCommandStatus(command.status);
     }
     const token = await this.token(ctx);
-    const res = await this.request<{ data?: RelayCommand[] }>(
+    const res = await this.request<InboxEnvelope<RelayCommand>>(
       ctx,
       token,
       `/api/inbox/conversations/${thread.externalThreadId}/commands`,
       'GET',
     );
-    const command = (res?.data ?? []).find((c) => String(c.id) === String(externalCommandId));
+    const command = inboxRows(res).items.find((c) => String(c.id) === String(externalCommandId));
     // A command that vanished (TTL sweep) is not a success — treat it as failed.
     if (!command) return 'failed';
     return mapCommandStatus(command.status);
