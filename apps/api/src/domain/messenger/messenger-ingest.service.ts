@@ -158,6 +158,14 @@ export class MessengerIngestService {
       session.language,
     );
 
+    // The privacy notice precedes the first AI processing of this room — not
+    // the first message. A channel left at "off" (unofficial KakaoTalk rooms,
+    // REQ-260810 R-1) used to open every room with a system message anyway:
+    // 37 rooms on staging on 2026-09-08 (REQ-260909).
+    if (mode !== REPLY_MODE.OFF) {
+      await this.ensureNotice(channel, thread, session, conversation);
+    }
+
     if (mode === REPLY_MODE.AUTO) {
       // Full pipeline: consent gate, intent, deny-list, RAG, moderation, handoff.
       await this.chatService.handleUserMessage(session, inbound.text, { attachmentIds });
@@ -494,21 +502,38 @@ export class MessengerIngestService {
     );
     await this.threadRepo.update({ id: thread.id }, { conversationId: Number(conversation.id) });
     thread.conversationId = Number(conversation.id);
-
-    // First turn of a brand-new conversation on a 'notice' channel: the notice
-    // is a real system message, so it is relayed out AND visible to the agent.
-    if (channel.consentMode === MESSENGER_CONSENT_MODE.NOTICE) {
-      await this.msgRepo.save(
-        this.msgRepo.create({
-          tenantId: channel.tenantId,
-          conversationId: Number(conversation.id),
-          senderType: SENDER_TYPE.SYSTEM,
-          body: localized(CONSENT_NOTICE, session.language),
-          lang: session.language,
-        }),
-      );
-    }
     return conversation;
+  }
+
+  /**
+   * Post the privacy notice to this room once (PLN-260909), as a real system
+   * message: it is relayed out AND visible to the agent, and it is saved before
+   * the AI turn so the outbox delivers it first. Skipped on 'auto' channels
+   * (platform terms cover it), on receive-only threads (nothing can be
+   * delivered), and when the room already saw the current notice version.
+   */
+  private async ensureNotice(
+    channel: MessengerChannel,
+    thread: ChannelThread,
+    session: Session,
+    conversation: Conversation,
+  ): Promise<void> {
+    if (channel.consentMode !== MESSENGER_CONSENT_MODE.NOTICE) return;
+    if (thread.replyEnabled !== 1) return;
+    const version = session.consentVersion ?? (await this.sessionService.effectiveNoticeVersion(channel.tenantId));
+    if (thread.noticeVersion != null && thread.noticeVersion === version) return;
+
+    await this.msgRepo.save(
+      this.msgRepo.create({
+        tenantId: channel.tenantId,
+        conversationId: Number(conversation.id),
+        senderType: SENDER_TYPE.SYSTEM,
+        body: localized(CONSENT_NOTICE, session.language),
+        lang: session.language,
+      }),
+    );
+    await this.threadRepo.update({ id: thread.id }, { noticeVersion: version });
+    thread.noticeVersion = version;
   }
 }
 

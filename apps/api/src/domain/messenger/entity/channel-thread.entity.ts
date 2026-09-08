@@ -40,6 +40,14 @@ export class ChannelThread {
   @Column({ name: 'reply_enabled', type: 'tinyint', width: 1, default: 1 })
   replyEnabled: number;
 
+  /**
+   * Consent-notice version this room has been shown (PLN-260909). NULL = never.
+   * The notice goes out once per thread right before the first AI processing,
+   * and again only when the tenant's notice version changes.
+   */
+  @Column({ name: 'notice_version', type: 'varchar', length: 32, nullable: true })
+  noticeVersion: string | null;
+
   @Column({ name: 'external_user_id', type: 'varchar', length: 128, nullable: true })
   externalUserId: string | null;
 
