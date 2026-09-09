@@ -15,8 +15,8 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { HttpStatus } from '@nestjs/common';
-import { CAPABILITY, Principal, USER_RANK } from '@ivy/types';
-import { buildPagination, normalizePage } from '@ivy/common';
+import { CAPABILITY, Principal, USER_RANK } from '@sharptalk/types';
+import { buildPagination, normalizePage } from '@sharptalk/common';
 import { TenantService } from './tenant.service';
 import { EcommerceIntegrationService } from './ecommerce-integration.service';
 import { TenantMapper } from './tenant.mapper';

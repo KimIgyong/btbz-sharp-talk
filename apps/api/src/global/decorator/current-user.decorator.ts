@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { Principal } from '@ivy/types';
+import { Principal } from '@sharptalk/types';
 
 /** Injects the authenticated principal (admin or tenant user) attached by JwtAuthGuard. */
 export const CurrentUser = createParamDecorator(

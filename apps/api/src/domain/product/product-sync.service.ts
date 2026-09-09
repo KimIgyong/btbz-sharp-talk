@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { INTEGRATION_PROVIDER } from '@ivy/types';
+import { INTEGRATION_PROVIDER } from '@sharptalk/types';
 import { PRODUCT_STATUS, ProductCache } from './entity/product-cache.entity';
 import { Tenant } from '../tenant/entity/tenant.entity';
 import { IntegrationCredential } from '../tenant/entity/integration-credential.entity';

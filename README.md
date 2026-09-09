@@ -70,14 +70,14 @@ See [CONFIG.md](CONFIG.md) for the full environment / configuration reference.
 ## 5. Monorepo layout (프로젝트 구조)
 
 ```
-ivy-talktalk/
+btbz-sharptalk/
 ├── apps/
 │   ├── api/       # NestJS API — 26 domain modules, 40 entities, /api/v1
 │   ├── web/       # React admin SPA (tenant console + platform admin)
 │   └── widget/    # React customer widget (Shopify Theme App Embed style)
 ├── packages/
-│   ├── types/     # @ivy/types — enums, response envelope, RBAC types, status maps
-│   └── common/    # @ivy/common — rank×label permission matrix, token/pagination utils
+│   ├── types/     # @sharptalk/types — enums, response envelope, RBAC types, status maps
+│   └── common/    # @sharptalk/common — rank×label permission matrix, token/pagination utils
 ├── docker/        # docker-compose {dev,staging,production} + Dockerfiles + nginx + deploy-*.sh
 ├── env/           # {backend,frontend}/.env.development (committed dev placeholders)
 ├── sql/           # migration_*.sql (feature migrations; DDL lives in docker/init-sql/01-schema.sql)

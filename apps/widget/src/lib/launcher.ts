@@ -4,7 +4,7 @@ import type { WidgetTheme } from './types';
 /**
  * Launcher geometry (PLN-260819 S4 FR-T2).
  *
- * Imported from source rather than '@ivy/types' for the same reason as the
+ * Imported from source rather than '@sharptalk/types' for the same reason as the
  * theme and language registries: the package publishes CJS and a value import
  * of its entry point fails the widget build.
  */

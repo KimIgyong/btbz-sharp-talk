@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { AiFunction } from '@ivy/types';
+import { AiFunction } from '@sharptalk/types';
 import { AiEngine } from './entity/ai-engine.entity';
 import { TenantAiSetting } from './entity/tenant-ai-setting.entity';
 import { AI_FUNCTIONS, UpsertAiSettingRequest } from './dto/request/ai-engine.request';

@@ -1,5 +1,5 @@
 {
-  "name": "@ivy/pwa",
+  "name": "@sharptalk/pwa",
   "version": "1.0.0",
   "private": true,
   "type": "module",

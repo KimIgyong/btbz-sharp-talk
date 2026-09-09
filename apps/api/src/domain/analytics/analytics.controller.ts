@@ -1,7 +1,7 @@
 import { Controller, Get, HttpStatus, Param, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal, USER_RANK } from '@ivy/types';
-import { normalizePage, buildPagination } from '@ivy/common';
+import { CAPABILITY, Principal, USER_RANK } from '@sharptalk/types';
+import { normalizePage, buildPagination } from '@sharptalk/common';
 import { AnalyticsService } from './analytics.service';
 import { QuestionStatsService } from './question-stats.service';
 import { AnalyticsBreakdownService } from './analytics-breakdown.service';

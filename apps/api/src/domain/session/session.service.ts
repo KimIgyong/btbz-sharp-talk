@@ -19,8 +19,8 @@ import {
   WidgetTheme,
   normalizeWidgetTabs,
   normalizeWidgetTheme,
-} from '@ivy/types';
-import { generateToken } from '@ivy/common';
+} from '@sharptalk/types';
+import { generateToken } from '@sharptalk/common';
 import { Session } from './entity/session.entity';
 import { Tenant } from '../tenant/entity/tenant.entity';
 import { Customer } from '../customer/entity/customer.entity';
@@ -539,7 +539,7 @@ export class SessionService {
    * configured timezone decides the default (요구사항: Asia/Seoul → Korean,
    * America/New_York → English). Falls back to English when neither applies.
    *
-   * Both mappings come from the @ivy/types registry, so a newly registered
+   * Both mappings come from the @sharptalk/types registry, so a newly registered
    * language is understood here without touching this file (REQ-260817 G6).
    */
   /**

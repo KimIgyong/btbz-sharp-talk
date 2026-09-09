@@ -11,8 +11,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, JobLabel, Principal, UserRank } from '@ivy/types';
-import { buildPagination, normalizePage } from '@ivy/common';
+import { CAPABILITY, JobLabel, Principal, UserRank } from '@sharptalk/types';
+import { buildPagination, normalizePage } from '@sharptalk/common';
 import { Paginated } from '../../global/interceptor/transform.interceptor';
 import { RequireCapability } from '../../global/decorator/auth.decorator';
 import { CurrentUser } from '../../global/decorator/current-user.decorator';

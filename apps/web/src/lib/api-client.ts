@@ -3,7 +3,7 @@ import type { ApiEnvelope, Paginated } from './types';
 import { useAuthStore } from '@/store/auth-store';
 import { tenantLoginPath } from '@/lib/tenant-path';
 
-/** Pagination meta the backend sends alongside list payloads (@ivy/types PaginationMeta). */
+/** Pagination meta the backend sends alongside list payloads (@sharptalk/types PaginationMeta). */
 interface PaginationMeta {
   page: number;
   size: number;

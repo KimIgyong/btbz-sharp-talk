@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { localized } from '@ivy/types';
-import type { LocalizedText } from '@ivy/types';
+import { localized } from '@sharptalk/types';
+import type { LocalizedText } from '@sharptalk/types';
 import { AiConfigService } from './ai-config.service';
 import { DENY_MODE } from './entity/tenant-ai-config.entity';
 import type { DenyMode, HandoffConfig } from './entity/tenant-ai-config.entity';

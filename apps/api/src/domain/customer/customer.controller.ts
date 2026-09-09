@@ -9,8 +9,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
-import { buildPagination, normalizePage } from '@ivy/common';
+import { CAPABILITY, Principal } from '@sharptalk/types';
+import { buildPagination, normalizePage } from '@sharptalk/common';
 import { CustomerService } from './customer.service';
 import { CustomerMapper } from './customer.mapper';
 import { ListCustomersQuery, UpdateCustomerRequest } from './dto/request/customer.request';

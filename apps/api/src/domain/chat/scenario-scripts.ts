@@ -1,4 +1,4 @@
-import type { SessionLanguage } from '@ivy/types';
+import type { SessionLanguage } from '@sharptalk/types';
 
 /**
  * The shipped scenario scripts and the map from a widget button to the script

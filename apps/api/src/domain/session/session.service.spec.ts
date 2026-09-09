@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { CONSENT_STATE, WIDGET_TABS_DEFAULT } from '@ivy/types';
+import { CONSENT_STATE, WIDGET_TABS_DEFAULT } from '@sharptalk/types';
 import { CONSENT_NOTICE_VERSION, SessionService, sessionCacheKey } from './session.service';
 import { Session } from './entity/session.entity';
 import { Tenant } from '../tenant/entity/tenant.entity';

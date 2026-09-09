@@ -7,7 +7,7 @@ import {
   JobLabel,
   CAPABILITY,
   Capability,
-} from '@ivy/types';
+} from '@sharptalk/types';
 
 /**
  * Default capability matrix — CHATWIDGET-RBAC-1.0.0.

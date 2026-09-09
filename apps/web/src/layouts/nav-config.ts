@@ -20,8 +20,8 @@ import {
   ShieldCheck,
   type LucideIcon,
 } from 'lucide-react';
-// Type-only: @ivy/types ships CJS whose runtime exports Rollup cannot see.
-import type { MenuCode } from '@ivy/types';
+// Type-only: @sharptalk/types ships CJS whose runtime exports Rollup cannot see.
+import type { MenuCode } from '@sharptalk/types';
 import type { Capability } from '@/lib/rbac';
 
 export interface NavItem {

@@ -1,5 +1,5 @@
 {
-  "name": "@ivy/api",
+  "name": "@sharptalk/api",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -15,8 +15,8 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@ivy/common": "*",
-    "@ivy/types": "*",
+    "@sharptalk/common": "*",
+    "@sharptalk/types": "*",
     "@nestjs/common": "^11.1.28",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.1.28",

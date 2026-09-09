@@ -16,7 +16,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { HttpStatus } from '@nestjs/common';
 import type { Response } from 'express';
-import { Principal } from '@ivy/types';
+import { Principal } from '@sharptalk/types';
 import { RequireMenu } from '../../global/decorator/auth.decorator';
 import { Public } from '../../global/decorator/public.decorator';
 import { CurrentUser } from '../../global/decorator/current-user.decorator';

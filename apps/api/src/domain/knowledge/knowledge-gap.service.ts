@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThan, Repository } from 'typeorm';
-import { SENDER_TYPE } from '@ivy/types';
+import { SENDER_TYPE } from '@sharptalk/types';
 import { GAP_SOURCE, GAP_STATUS, KnowledgeGapTask } from './entity/knowledge-gap-task.entity';
 import { QuestionStatDaily } from '../analytics/entity/question-stat-daily.entity';
 import { Message } from '../chat/entity/message.entity';

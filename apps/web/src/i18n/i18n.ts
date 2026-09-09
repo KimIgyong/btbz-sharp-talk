@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import type { Resource, ResourceKey, ResourceLanguage } from 'i18next';
-// Imported from source rather than through '@ivy/types': the package publishes
+// Imported from source rather than through '@sharptalk/types': the package publishes
 // CJS and the bundler cannot trace a named export through its `export *` chain.
 // Types come through the package as usual — only this runtime table is deep-imported.
 import { LANGUAGES, LANGUAGE_CODES } from '../../../../packages/types/src/common/language';

@@ -1,4 +1,4 @@
-import { CONVERSATION_STATUS, SENDER_TYPE } from '@ivy/types';
+import { CONVERSATION_STATUS, SENDER_TYPE } from '@sharptalk/types';
 import { IdleConversationService } from './idle-conversation.service';
 
 const MIN = 60_000;

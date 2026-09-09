@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import type { MenuCode } from '@ivy/types';
+import type { MenuCode } from '@sharptalk/types';
 import { PageHeader } from '@/components/PageHeader';
 import { useMenuAccess } from '@/lib/use-menu-access';
 import { cn } from '@/lib/cn';

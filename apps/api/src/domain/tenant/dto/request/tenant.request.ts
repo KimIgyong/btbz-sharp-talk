@@ -22,7 +22,7 @@ import {
   WidgetLoginMode,
   WidgetTab,
   WidgetTabPosition,
-} from '@ivy/types';
+} from '@sharptalk/types';
 import { TENANT_SLUG_PATTERN } from '../../../../global/constant/reserved-slug.constant';
 
 /** Request DTOs — snake_case (amoeba_code_convention). */

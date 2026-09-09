@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { CONSENT_STATE, CONVERSATION_STATUS, MODERATION_DECISION } from '@ivy/types';
+import { CONSENT_STATE, CONVERSATION_STATUS, MODERATION_DECISION } from '@sharptalk/types';
 import { ChatService } from './chat.service';
 import { Conversation } from './entity/conversation.entity';
 import { Message } from './entity/message.entity';

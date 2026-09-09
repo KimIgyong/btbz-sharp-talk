@@ -179,7 +179,7 @@ export type SessionIdentity = (typeof SESSION_IDENTITY)[keyof typeof SESSION_IDE
 
 // The language set moved to ./language.ts, which carries labels, timezone
 // defaults and review state alongside the codes (REQ-260817). Re-exported here
-// so the many `import { SESSION_LANGUAGE } from '@ivy/types'` sites keep working.
+// so the many `import { SESSION_LANGUAGE } from '@sharptalk/types'` sites keep working.
 export { SESSION_LANGUAGE, type SessionLanguage } from './language';
 
 // ---- Chat ----

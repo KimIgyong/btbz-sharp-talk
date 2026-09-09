@@ -1,4 +1,4 @@
-import { CONVERSATION_STATUS, SENDER_TYPE } from '@ivy/types';
+import { CONVERSATION_STATUS, SENDER_TYPE } from '@sharptalk/types';
 import { AgentService } from './agent.service';
 import { Conversation } from '../chat/entity/conversation.entity';
 

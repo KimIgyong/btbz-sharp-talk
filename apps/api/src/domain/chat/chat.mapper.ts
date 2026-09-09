@@ -3,7 +3,7 @@ import type {
   ChatMessageResponse,
   ConversationResponse,
   ScenarioFollowUpResponse,
-} from '@ivy/types';
+} from '@sharptalk/types';
 import { Conversation } from './entity/conversation.entity';
 import { Message } from './entity/message.entity';
 import { MessageAttachment } from '../attachment/entity/message-attachment.entity';
@@ -13,7 +13,7 @@ import { AttachmentMapper } from '../attachment/attachment.mapper';
 export const CSAT_WINDOW_MS = 24 * 60 * 60 * 1000;
 
 /**
- * Response shapes live in `@ivy/types` — the widget imports the same contract.
+ * Response shapes live in `@sharptalk/types` — the widget imports the same contract.
  */
 export type MessageResponse = ChatMessageResponse;
 export type { ConversationResponse };

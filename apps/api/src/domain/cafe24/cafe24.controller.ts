@@ -1,6 +1,6 @@
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
+import { CAPABILITY, Principal } from '@sharptalk/types';
 import { Cafe24OAuthService } from './cafe24-oauth.service';
 import { Cafe24SyncService } from './cafe24-sync.service';
 import { Cafe24ProductSyncService } from './cafe24-product-sync.service';

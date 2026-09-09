@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
+import { CAPABILITY, Principal } from '@sharptalk/types';
 import { AiAgentService } from './ai-agent.service';
 import { AiAgentMapper } from './ai-agent.mapper';
 import { CreateAiAgentRequest, UpdateAiAgentRequest } from './dto/request/ai-agent.request';

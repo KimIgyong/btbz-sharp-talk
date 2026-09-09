@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { CJM_STAGE, ORDER_STATUS_INTERNAL, internalToUiStatus } from '@ivy/types';
+import { CJM_STAGE, ORDER_STATUS_INTERNAL, internalToUiStatus } from '@sharptalk/types';
 import { OrderCache } from './entity/order-cache.entity';
 import { OrderItem } from './entity/order-item.entity';
 import { ShopifyAdminClient, ShopifyOrderDto } from './shopify-admin.client';

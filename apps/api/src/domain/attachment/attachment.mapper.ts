@@ -1,4 +1,4 @@
-import { ChatAttachmentResponse } from '@ivy/types';
+import { ChatAttachmentResponse } from '@sharptalk/types';
 import { MessageAttachment } from './entity/message-attachment.entity';
 import { FileVariant, signFileUrl } from '../../global/util/crypto.util';
 

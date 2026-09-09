@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpStatus, Param, Put } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Principal } from '@ivy/types';
+import { Principal } from '@sharptalk/types';
 import { AdminOnly } from '../../global/decorator/auth.decorator';
 import { CurrentUser } from '../../global/decorator/current-user.decorator';
 import { BusinessException } from '../../global/exception/business.exception';

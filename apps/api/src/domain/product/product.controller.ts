@@ -1,7 +1,7 @@
 import { Controller, Get, HttpStatus, Logger, Param, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, CJM_STAGE, Principal } from '@ivy/types';
-import { buildPagination, normalizePage } from '@ivy/common';
+import { CAPABILITY, CJM_STAGE, Principal } from '@sharptalk/types';
+import { buildPagination, normalizePage } from '@sharptalk/common';
 import { ProductService } from './product.service';
 import { ProductSyncService } from './product-sync.service';
 import {

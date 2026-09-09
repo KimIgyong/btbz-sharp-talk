@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { INTEGRATION_PROVIDER, ORDER_STATUS_INTERNAL, internalToUiStatus } from '@ivy/types';
+import { INTEGRATION_PROVIDER, ORDER_STATUS_INTERNAL, internalToUiStatus } from '@sharptalk/types';
 import { OrderCache } from '../order/entity/order-cache.entity';
 import { OrderItem } from '../order/entity/order-item.entity';
 import { CustomerService } from '../customer/customer.service';

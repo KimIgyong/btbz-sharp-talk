@@ -14,7 +14,7 @@ import {
   MFA_STEP_UP_TTL_SEC,
 } from '../../global/constant/security.constant';
 import { validatePassword } from '../../global/util/password-policy.util';
-import { AdminLevel, JobLabel, Principal, UserRank } from '@ivy/types';
+import { AdminLevel, JobLabel, Principal, UserRank } from '@sharptalk/types';
 import { AdminUser } from './entity/admin-user.entity';
 import { User } from '../user/entity/user.entity';
 import { JobLabel as JobLabelEntity } from '../user/entity/job-label.entity';

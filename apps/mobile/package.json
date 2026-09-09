@@ -1,5 +1,5 @@
 {
-  "name": "@ivy/mobile",
+  "name": "@sharptalk/mobile",
   "version": "1.0.0",
   "private": true,
   "main": "expo-router/entry",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
-    "@ivy/types": "*",
+    "@sharptalk/types": "*",
     "@tanstack/react-query": "^5.51.0",
     "expo": "~52.0.0",
     "expo-constants": "~17.0.8",

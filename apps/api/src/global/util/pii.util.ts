@@ -1,6 +1,6 @@
 /**
  * PII masking for logs, audit targets, and excerpts (POL / GDPR compliance).
- * Mirrors the `maskEmail` idea from `@ivy/common`: keep a short head, mask the rest.
+ * Mirrors the `maskEmail` idea from `@sharptalk/common`: keep a short head, mask the rest.
  */
 
 /**

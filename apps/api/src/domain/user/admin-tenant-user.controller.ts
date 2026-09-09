@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { HttpStatus } from '@nestjs/common';
-import { Principal } from '@ivy/types';
-import { buildPagination, normalizePage } from '@ivy/common';
+import { Principal } from '@sharptalk/types';
+import { buildPagination, normalizePage } from '@sharptalk/common';
 import { UserService } from './user.service';
 import { IssueTempPasswordRequest } from './dto/request/user.request';
 import { MfaService } from '../auth/mfa.service';

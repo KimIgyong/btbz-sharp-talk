@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AI_FUNCTION, MODERATION_ACTION, MODERATION_DECISION, ModerationDecision } from '@ivy/types';
-import { truncate } from '@ivy/common';
+import { AI_FUNCTION, MODERATION_ACTION, MODERATION_DECISION, ModerationDecision } from '@sharptalk/types';
+import { truncate } from '@sharptalk/common';
 import { ContentFilterRule } from './entity/content-filter-rule.entity';
 import { ModerationLog } from './entity/moderation-log.entity';
 import { AiGatewayService } from '../../infrastructure/external/ai/ai-gateway.service';

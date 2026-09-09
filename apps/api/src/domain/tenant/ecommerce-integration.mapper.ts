@@ -1,4 +1,4 @@
-import { GenericIntegrationProvider, INTEGRATION_FIELDS } from '@ivy/types';
+import { GenericIntegrationProvider, INTEGRATION_FIELDS } from '@sharptalk/types';
 import { IntegrationCredential } from './entity/integration-credential.entity';
 import { IntegrationSettingsResponse } from './dto/response/tenant.response';
 

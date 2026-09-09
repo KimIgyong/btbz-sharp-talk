@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { MenuCode, Principal } from '@ivy/types';
+import { MenuCode, Principal } from '@sharptalk/types';
 import { REQUIRE_MENU_KEY } from '../decorator/auth.decorator';
 import { IS_PUBLIC_KEY } from '../decorator/public.decorator';
 import { BusinessException } from '../exception/business.exception';

@@ -4,7 +4,7 @@
  * code (결정 3). `#N` = tenant-local issue number.
  */
 
-import type { SessionLanguage } from '@ivy/types';
+import type { SessionLanguage } from '@sharptalk/types';
 
 export type NoticeLang = SessionLanguage;
 

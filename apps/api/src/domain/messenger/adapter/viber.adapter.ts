@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { createHmac, timingSafeEqual } from 'crypto';
-import { MESSENGER_PROVIDER } from '@ivy/types';
+import { MESSENGER_PROVIDER } from '@sharptalk/types';
 import { BusinessException } from '../../../global/exception/business.exception';
 import { ERROR_CODE } from '../../../global/constant/error-code.constant';
 import { ChannelThread } from '../entity/channel-thread.entity';

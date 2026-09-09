@@ -153,7 +153,7 @@ All three achieve the same thing: load one line of `embed.js` on every store pag
 The app ships an **app-embed block** the merchant toggles in Theme editor → *App embeds*. No theme code edits, easy on/off, favorable for app review.
 
 ```liquid
-{%- comment -%} extensions/ivy-talktalk/blocks/app-embed.liquid {%- endcomment -%}
+{%- comment -%} extensions/btbz-sharptalk/blocks/app-embed.liquid {%- endcomment -%}
 <script>
   window.IVY_WIDGET_CONFIG = {
     shop: {{ shop.permanent_domain | json }},

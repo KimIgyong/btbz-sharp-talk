@@ -1,4 +1,4 @@
-import type { LocalizedText, SessionLanguage } from '@ivy/types';
+import type { LocalizedText, SessionLanguage } from '@sharptalk/types';
 
 /**
  * A scenario button's label in one language (PLN-260903 S3).

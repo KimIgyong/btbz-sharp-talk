@@ -5,7 +5,7 @@ import { bigintTransformer } from '../../../global/util/transformers';
  * tenant_role_menus — the tenant's own rank × menu matrix
  * (PLN-260812-Menu-Provisioning-Access, layer ②, defaults).
  *
- * Absent rows fall back to `DEFAULT_ROLE_MENUS` in @ivy/common, so an untouched
+ * Absent rows fall back to `DEFAULT_ROLE_MENUS` in @sharptalk/common, so an untouched
  * tenant behaves exactly as the console did before this table existed.
  *
  * Deliberately NOT the legacy `roles_permissions` table: that one has no

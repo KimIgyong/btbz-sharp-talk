@@ -84,10 +84,10 @@ window.__shoptalkHost('{"type":"ivy:identify","user":{...}}')
 
 ## 4. React Native
 
-참조 구현이 `packages/shoptalk-rn`에 있습니다. 복사하거나 경로 의존으로 쓰세요.
+참조 구현이 `packages/sharptalk-rn`에 있습니다. 복사하거나 경로 의존으로 쓰세요.
 
 ```tsx
-import { ShopTalkChat } from '@ivy/shoptalk-rn';
+import { ShopTalkChat } from '@sharptalk/react-native';
 
 <ShopTalkChat
   widgetUrl="https://talk.example.com/widget/"

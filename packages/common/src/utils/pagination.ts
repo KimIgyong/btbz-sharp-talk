@@ -1,4 +1,4 @@
-import { PaginationMeta } from '@ivy/types';
+import { PaginationMeta } from '@sharptalk/types';
 
 export interface PageParams {
   page: number;

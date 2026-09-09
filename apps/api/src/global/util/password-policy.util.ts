@@ -1,5 +1,5 @@
 import { registerDecorator, ValidationArguments, ValidationOptions } from 'class-validator';
-import { generateCode } from '@ivy/common';
+import { generateCode } from '@sharptalk/common';
 import {
   PASSWORD_IDENTITY_MIN_LENGTH,
   PASSWORD_MIN_CHAR_CLASSES,

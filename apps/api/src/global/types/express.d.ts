@@ -1,4 +1,4 @@
-import { Principal } from '@ivy/types';
+import { Principal } from '@sharptalk/types';
 
 /** Augment Express Request with the authenticated principal set by JwtAuthGuard. */
 declare global {

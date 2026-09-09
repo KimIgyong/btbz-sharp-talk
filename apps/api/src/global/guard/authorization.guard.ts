@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, HttpStatus, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { AdminLevel, UserRank, Capability, Principal } from '@ivy/types';
-import { adminCan, userCan } from '@ivy/common';
+import { AdminLevel, UserRank, Capability, Principal } from '@sharptalk/types';
+import { adminCan, userCan } from '@sharptalk/common';
 import {
   ALLOWED_ACTOR_KEY,
   MASTER_OR_ADMIN_KEY,
@@ -9,7 +9,7 @@ import {
   REQUIRE_CAPABILITY_KEY,
   REQUIRE_RANK_KEY,
 } from '../decorator/auth.decorator';
-import { USER_RANK } from '@ivy/types';
+import { USER_RANK } from '@sharptalk/types';
 import { BusinessException } from '../exception/business.exception';
 import { ERROR_CODE } from '../constant/error-code.constant';
 
@@ -18,7 +18,7 @@ import { ERROR_CODE } from '../constant/error-code.constant';
  *  - allowed actor type (admin vs tenant user),
  *  - admin level (super_admin/admin),
  *  - tenant-user rank,
- *  - capability (rank × label matrix — @ivy/common).
+ *  - capability (rank × label matrix — @sharptalk/common).
  * Deny by default (FR-056).
  */
 @Injectable()

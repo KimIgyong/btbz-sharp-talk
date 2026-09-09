@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { MODERATION_DECISION } from '@ivy/types';
+import { MODERATION_DECISION } from '@sharptalk/types';
 import { KbConflictService, isStale } from './kb-conflict.service';
 import { KbDocument } from './entity/kb-document.entity';
 import { KbConflict } from './entity/kb-conflict.entity';

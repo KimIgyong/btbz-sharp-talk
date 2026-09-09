@@ -3,7 +3,7 @@ import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { Principal } from '@ivy/types';
+import { Principal } from '@sharptalk/types';
 import { AdminUser } from './entity/admin-user.entity';
 import { MfaCredential } from './entity/mfa-credential.entity';
 import { MfaRecoveryCode } from './entity/mfa-recovery-code.entity';

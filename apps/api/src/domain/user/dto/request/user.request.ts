@@ -8,7 +8,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { USER_RANK } from '@ivy/types';
+import { USER_RANK } from '@sharptalk/types';
 import { IsStrongPassword } from '../../../../global/util/password-policy.util';
 import { PASSWORD_MIN_LENGTH } from '../../../../global/constant/security.constant';
 

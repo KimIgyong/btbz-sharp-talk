@@ -1,14 +1,14 @@
 import { Body, Controller, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
-import { buildPagination, normalizePage } from '@ivy/common';
+import { CAPABILITY, Principal } from '@sharptalk/types';
+import { buildPagination, normalizePage } from '@sharptalk/common';
 import { AffiliateService } from './affiliate.service';
 import { Affiliate } from './entity/affiliate.entity';
 import { Public } from '../../global/decorator/public.decorator';
 import { RequireCapability } from '../../global/decorator/auth.decorator';
 import { CurrentUser } from '../../global/decorator/current-user.decorator';
 import { Paginated } from '../../global/interceptor/transform.interceptor';
-import type { AffiliateStatusResponse } from '@ivy/types';
+import type { AffiliateStatusResponse } from '@sharptalk/types';
 import { BusinessException } from '../../global/exception/business.exception';
 import { ERROR_CODE } from '../../global/constant/error-code.constant';
 import { ApplyRequest, ReviewRequest } from './dto/request/affiliate.request';

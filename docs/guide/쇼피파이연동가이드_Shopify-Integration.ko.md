@@ -154,7 +154,7 @@ export function ensureSession(sessionToken: string | null, locale: string, shopD
 앱이 제공하는 **app-embed 블록**을 상점주가 테마 편집기 → *앱 임베드*에서 토글한다. 테마 코드 수정 불필요, 켜고 끄기 쉬움, 앱 심사에 유리.
 
 ```liquid
-{%- comment -%} extensions/ivy-talktalk/blocks/app-embed.liquid {%- endcomment -%}
+{%- comment -%} extensions/btbz-sharptalk/blocks/app-embed.liquid {%- endcomment -%}
 <script>
   window.IVY_WIDGET_CONFIG = {
     shop: {{ shop.permanent_domain | json }},

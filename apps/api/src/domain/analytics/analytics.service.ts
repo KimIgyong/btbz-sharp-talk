@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { CONVERSATION_STATUS, SENDER_TYPE } from '@ivy/types';
+import { CONVERSATION_STATUS, SENDER_TYPE } from '@sharptalk/types';
 import { Conversation } from '../chat/entity/conversation.entity';
 import { Message } from '../chat/entity/message.entity';
 import { Notification } from '../notification/entity/notification.entity';

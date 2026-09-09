@@ -1,8 +1,8 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, IsNull, Not, Repository } from 'typeorm';
-import { normalizePage } from '@ivy/common';
-import { MODERATION_DECISION } from '@ivy/types';
+import { normalizePage } from '@sharptalk/common';
+import { MODERATION_DECISION } from '@sharptalk/types';
 import { AiGatewayService } from '../../infrastructure/external/ai/ai-gateway.service';
 import { RagService } from '../chat/rag.service';
 import { ModerationService } from '../moderation/moderation.service';

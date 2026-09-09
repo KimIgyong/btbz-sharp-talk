@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Not, Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { ADMIN_LEVEL, AdminLevel } from '@ivy/types';
+import { ADMIN_LEVEL, AdminLevel } from '@sharptalk/types';
 import { AdminUser } from './entity/admin-user.entity';
 import { LoginRateLimitService } from './login-rate-limit.service';
 import { AuditService } from '../audit/audit.service';

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, LessThanOrEqual, MoreThan, Or, Repository } from 'typeorm';
-import { CHANNEL_DIRECTION, OUTBOX_STATUS, SENDER_TYPE } from '@ivy/types';
+import { CHANNEL_DIRECTION, OUTBOX_STATUS, SENDER_TYPE } from '@sharptalk/types';
 import { Message } from '../chat/entity/message.entity';
 import { MessengerChannel } from './entity/messenger-channel.entity';
 import { ChannelThread } from './entity/channel-thread.entity';

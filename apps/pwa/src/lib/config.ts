@@ -11,7 +11,7 @@ export const SHOP_DOMAIN = import.meta.env.VITE_SHOP_DOMAIN ?? 'ambshop-dev.mysh
 /** Storefront opens in a NEW TAB — Shopify forbids iframing (REQ-PWA C1). */
 export const STOREFRONT_URL = `https://${SHOP_DOMAIN}`;
 
-// Runtime table from the registry source: '@ivy/types' publishes CJS and the
+// Runtime table from the registry source: '@sharptalk/types' publishes CJS and the
 // bundler cannot trace a named export through its `export *` chain.
 import { LANGUAGES, LANGUAGE_CODES } from '../../../../packages/types/src/common/language';
 

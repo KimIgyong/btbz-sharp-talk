@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { join, resolve } from 'path';
 import { randomUUID } from 'crypto';
-import { AI_FUNCTION } from '@ivy/types';
+import { AI_FUNCTION } from '@sharptalk/types';
 import { AiGatewayService } from '../../infrastructure/external/ai/ai-gateway.service';
 import { KbFile } from './entity/kb-file.entity';
 import { KbCategoryService } from './kb-category.service';

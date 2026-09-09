@@ -1,7 +1,7 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BaseListResponse, BaseSingleResponse, PaginationMeta } from '@ivy/types';
+import { BaseListResponse, BaseSingleResponse, PaginationMeta } from '@sharptalk/types';
 
 /** Marker an interceptor recognizes to emit a list envelope with pagination. */
 export class Paginated<T> {

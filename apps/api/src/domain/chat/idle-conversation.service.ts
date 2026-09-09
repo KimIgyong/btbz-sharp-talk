@@ -1,8 +1,8 @@
 import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, IsNull, LessThan, MoreThan, Repository } from 'typeorm';
-import { CONVERSATION_STATUS, SENDER_TYPE, localized } from '@ivy/types';
-import type { LocalizedText } from '@ivy/types';
+import { CONVERSATION_STATUS, SENDER_TYPE, localized } from '@sharptalk/types';
+import type { LocalizedText } from '@sharptalk/types';
 import { Conversation } from './entity/conversation.entity';
 import { Message } from './entity/message.entity';
 import { Session } from '../session/entity/session.entity';

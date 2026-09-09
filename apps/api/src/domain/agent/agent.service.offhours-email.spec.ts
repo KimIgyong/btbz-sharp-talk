@@ -1,4 +1,4 @@
-import { CONSENT_STATE, MODERATION_DECISION } from '@ivy/types';
+import { CONSENT_STATE, MODERATION_DECISION } from '@sharptalk/types';
 import { AgentService } from './agent.service';
 import { Conversation } from '../chat/entity/conversation.entity';
 import { Message } from '../chat/entity/message.entity';

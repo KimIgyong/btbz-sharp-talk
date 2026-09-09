@@ -1,12 +1,12 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CONSENT_STATE, MODERATION_DECISION, SENDER_TYPE, languageBySession } from '@ivy/types';
+import { CONSENT_STATE, MODERATION_DECISION, SENDER_TYPE, languageBySession } from '@sharptalk/types';
 import type {
   ScenarioFollowUpResponse,
   ScenarioTurnResponse,
   SessionLanguage,
-} from '@ivy/types';
+} from '@sharptalk/types';
 import { Message } from './entity/message.entity';
 import { Session } from '../session/entity/session.entity';
 import { ChatService, sysMsg } from './chat.service';
@@ -22,7 +22,7 @@ import { ERROR_CODE } from '../../global/constant/error-code.constant';
 import { SCENARIOS, resolveScriptAction, isValidFollowUpId } from './scenario-scripts';
 import type { Lang, ScenarioScript } from './scenario-scripts';
 
-/** Response shapes live in `@ivy/types` — the widget imports the same contract. */
+/** Response shapes live in `@sharptalk/types` — the widget imports the same contract. */
 export type ScenarioFollowUp = ScenarioFollowUpResponse;
 export type ScenarioTurnResult = ScenarioTurnResponse;
 

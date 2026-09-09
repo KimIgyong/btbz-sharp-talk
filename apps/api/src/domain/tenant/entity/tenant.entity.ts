@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
 import { bigintTransformer } from '../../../global/util/transformers';
 import { decryptSecret, encryptSecret } from '../../../global/util/crypto.util';
-import type { WidgetTheme } from '@ivy/types';
+import type { WidgetTheme } from '@sharptalk/types';
 
 /**
  * The embed secret is a credential, so it never sits in the database as text.

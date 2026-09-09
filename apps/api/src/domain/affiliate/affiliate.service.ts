@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { generateCode } from '@ivy/common';
+import { generateCode } from '@sharptalk/common';
 import { Affiliate } from './entity/affiliate.entity';
 import { Session } from '../session/entity/session.entity';
 import { SessionService } from '../session/session.service';

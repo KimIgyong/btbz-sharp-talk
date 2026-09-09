@@ -6,14 +6,14 @@ import { Card } from '@/components/Card';
 import { apiBaseUrl } from '@/lib/api-client';
 import { Button } from '@/components/Button';
 import { FormRow, Input, Select } from '@/components/Field';
-// Type-only: @ivy/types ships CJS whose runtime exports Rollup cannot see.
+// Type-only: @sharptalk/types ships CJS whose runtime exports Rollup cannot see.
 import type {
   WidgetHeaderStyle,
   WidgetLauncher,
   WidgetLoginMode,
   WidgetTab,
   WidgetTabPosition,
-} from '@ivy/types';
+} from '@sharptalk/types';
 import { LanguageTabs } from '../ai-settings/LanguageTabs';
 // Runtime table from the registry source (see apps/web/src/i18n/i18n.ts for why).
 import { LANGUAGE_TIMEZONES } from '../../../../../packages/types/src/common/language';

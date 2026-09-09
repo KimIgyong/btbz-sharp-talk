@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
+import { CAPABILITY, Principal } from '@sharptalk/types';
 import { InquiryService } from './inquiry.service';
 import { CreateInquiryRequest, InquiryListQuery } from './dto/request/inquiry.request';
 import { Public } from '../../global/decorator/public.decorator';

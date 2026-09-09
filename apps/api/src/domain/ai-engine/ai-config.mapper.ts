@@ -1,4 +1,4 @@
-import { WIDGET_COPY_DEFAULTS } from '@ivy/types';
+import { WIDGET_COPY_DEFAULTS } from '@sharptalk/types';
 import type { AiConfigDefaults } from './ai-config.service';
 import type { TenantAiConfigRevision } from './entity/tenant-ai-config-revision.entity';
 

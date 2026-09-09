@@ -4,7 +4,7 @@ import type { WidgetTheme } from './types';
 /**
  * Applying the tenant's brand theme (PLN-260818 S4).
  *
- * Imported from source rather than '@ivy/types' for the same reason as the
+ * Imported from source rather than '@sharptalk/types' for the same reason as the
  * language registry and the tab constants: the package publishes CJS and a value
  * import of its entry point fails the widget build.
  */

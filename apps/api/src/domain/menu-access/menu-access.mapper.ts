@@ -6,8 +6,8 @@ import {
   MenuCode,
   MenuProvisionMode,
   UserRank,
-} from '@ivy/types';
-import { roleAllows, RoleMenuRow } from '@ivy/common';
+} from '@sharptalk/types';
+import { roleAllows, RoleMenuRow } from '@sharptalk/common';
 
 export interface TenantMenuRow {
   code: MenuCode;

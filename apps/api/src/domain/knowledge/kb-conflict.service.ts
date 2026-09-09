@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Not, Repository } from 'typeorm';
-import { AI_FUNCTION, MODERATION_DECISION } from '@ivy/types';
+import { AI_FUNCTION, MODERATION_DECISION } from '@sharptalk/types';
 import { DOC_GROUP, KbDocument } from './entity/kb-document.entity';
 import {
   CONFLICT_FAILURE,

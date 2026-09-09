@@ -1,4 +1,4 @@
-import { CONSENT_STATE, ConsentState } from '@ivy/types';
+import { CONSENT_STATE, ConsentState } from '@sharptalk/types';
 
 /**
  * Consent-gated processing purposes (PLN-Privacy-Control-Gap Stage 1, decision

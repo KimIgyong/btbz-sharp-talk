@@ -2,7 +2,7 @@ import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/commo
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Between, In, Repository } from 'typeorm';
-import { SENDER_TYPE } from '@ivy/types';
+import { SENDER_TYPE } from '@sharptalk/types';
 import { Message } from '../chat/entity/message.entity';
 import { Conversation } from '../chat/entity/conversation.entity';
 import { KbDocument } from '../knowledge/entity/kb-document.entity';

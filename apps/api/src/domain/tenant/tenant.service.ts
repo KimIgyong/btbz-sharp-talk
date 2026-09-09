@@ -10,7 +10,7 @@ import {
   NOTIFICATION_CATEGORY,
   WIDGET_TABS_DEFAULT,
   normalizeWidgetTabs,
-} from '@ivy/types';
+} from '@sharptalk/types';
 
 /** Real categories the policy may mention ('all' is a query filter, not a kind). */
 const NOTIFICATION_CATEGORY_KEYS: string[] = Object.values(NOTIFICATION_CATEGORY).filter(
@@ -49,7 +49,7 @@ import {
 import { AuditService } from '../audit/audit.service';
 import { LogoUpload, WidgetLogoService } from './widget-logo.service';
 import { parseOrigin } from '../embed/embed-origin.util';
-import { DEFAULT_BRAND } from '@ivy/types';
+import { DEFAULT_BRAND } from '@sharptalk/types';
 import { ShopifyTestResponse } from './dto/response/tenant.response';
 
 /** provider/name key used for the Shopify credential and integration status. */

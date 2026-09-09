@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import { ArrayMaxSize, IsArray, IsBoolean, IsIn, IsString, ValidateNested } from 'class-validator';
-import { ALL_MENU_CODES, MENU_ACCESS_MODE, MENU_PROVISION_MODE, USER_RANK } from '@ivy/types';
+import { ALL_MENU_CODES, MENU_ACCESS_MODE, MENU_PROVISION_MODE, USER_RANK } from '@sharptalk/types';
 
 const MENU_CODES = [...ALL_MENU_CODES];
 const PROVISION_MODES = Object.values(MENU_PROVISION_MODE);

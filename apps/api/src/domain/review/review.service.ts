@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CJM_STAGE, MODERATION_DECISION } from '@ivy/types';
+import { CJM_STAGE, MODERATION_DECISION } from '@sharptalk/types';
 import { Review, ReviewStatus } from './entity/review.entity';
 import { Session } from '../session/entity/session.entity';
 import { SessionService } from '../session/session.service';

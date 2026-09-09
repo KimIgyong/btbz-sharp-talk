@@ -23,8 +23,8 @@ RUN npm install
 # Source.
 COPY . .
 
-# Build @ivy/web and its workspace deps (^build).
-RUN npx turbo run build --filter=@ivy/web...
+# Build @sharptalk/web and its workspace deps (^build).
+RUN npx turbo run build --filter=@sharptalk/web...
 
 # ---- Runtime stage (nginx static) -----------------------------------------
 FROM nginx:alpine AS runtime

@@ -1,4 +1,4 @@
-import { AdminLevel, JobLabel, UserRank } from '@ivy/types';
+import { AdminLevel, JobLabel, UserRank } from '@sharptalk/types';
 
 /** Response DTO — camelCase. */
 export interface AuthTokensResponse {

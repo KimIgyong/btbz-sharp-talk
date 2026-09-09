@@ -1,7 +1,7 @@
 import type {
   NotificationPrefResponse,
   NotificationResponse,
-} from '@ivy/types';
+} from '@sharptalk/types';
 import { Notification } from './entity/notification.entity';
 import { NotificationPref } from './entity/notification-pref.entity';
 
