@@ -32,7 +32,7 @@ Create under `apps/api/src/domain/{domain}/`:
 - Service in `services/` using the shared `api-client` (unwraps the standard envelope).
 - React Query hook in `hooks/` — **include `tenantId` in the query key**; mutations invalidate the right keys.
 - Zustand store only for cross-component global state.
-- ALL visible text via `t('ns:key')`; add keys to **all six** locale files and register the namespace in `i18n.ts` (the console globs them). Verify with `npm run i18n:check` — a key missing in one language does not fail, it silently serves English. No hardcoded strings, no English-only aria-labels. Never re-declare the language list in an app: import it from the registry source (`@ivy/types` value imports break browser builds).
+- ALL visible text via `t('ns:key')`; add keys to **all six** locale files and register the namespace in `i18n.ts` (the console globs them). Verify with `npm run i18n:check` — a key missing in one language does not fail, it silently serves English. No hardcoded strings, no English-only aria-labels. Never re-declare the language list in an app: import it from the registry source (`@sharptalk/types` value imports break browser builds).
 - Use design tokens (Tailwind theme): primary `#6366F1`, header 64px, sidebar 240/64px, Pretendard font; reusable Button/Table/Modal/Badge/Pagination; modal `role="dialog"`+Esc, chat `aria-live`.
 
 ## 3. Cross-cutting rules (MUST)

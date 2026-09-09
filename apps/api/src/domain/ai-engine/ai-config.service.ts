@@ -1,8 +1,8 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import type { LocalizedText, ScenarioConfigResponse } from '@ivy/types';
-import { SESSION_LANGUAGE_CODES, languageBySession } from '@ivy/types';
+import type { LocalizedText, ScenarioConfigResponse } from '@sharptalk/types';
+import { SESSION_LANGUAGE_CODES, languageBySession } from '@sharptalk/types';
 import {
   HandoffConfig,
   ScenarioButton,

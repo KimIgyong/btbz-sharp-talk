@@ -2,7 +2,7 @@ import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { randomBytes } from 'crypto';
-import { MESSENGER_FIELDS, MESSENGER_MODE, MESSENGER_PROVIDER, type MessengerProvider } from '@ivy/types';
+import { MESSENGER_FIELDS, MESSENGER_MODE, MESSENGER_PROVIDER, type MessengerProvider } from '@sharptalk/types';
 import { BusinessException } from '../../global/exception/business.exception';
 import { ERROR_CODE } from '../../global/constant/error-code.constant';
 import { AuditService } from '../audit/audit.service';

@@ -1,4 +1,4 @@
-import { ORDER_STATUS_INTERNAL } from '@ivy/types';
+import { ORDER_STATUS_INTERNAL } from '@sharptalk/types';
 import { Cafe24AdminClient } from './cafe24-admin.client';
 
 /** Pure mapping logic — no HTTP. */

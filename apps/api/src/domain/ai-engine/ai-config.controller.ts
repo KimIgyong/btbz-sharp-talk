@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
+import { CAPABILITY, Principal } from '@sharptalk/types';
 import { AiConfigService } from './ai-config.service';
 import { AiConfigRevisionService } from './ai-config-revision.service';
 import { AiConfigMapper } from './ai-config.mapper';

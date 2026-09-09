@@ -21,7 +21,7 @@ COMMON_DIR="$(git rev-parse --git-common-dir)"
 # The primary checkout owns the gitignored runtime files (secrets/) that a fresh
 # worktree has no copy of.
 PRIMARY="$(cd "$(dirname "$COMMON_DIR")" && pwd)"
-WORKTREE_HOME="${SESSION_WORKTREE_HOME:-$HOME/orca/worktrees/ivyusa-talktalk}"
+WORKTREE_HOME="${SESSION_WORKTREE_HOME:-$HOME/orca/worktrees/btbz-sharptalk}"
 BRANCH_PREFIX="session"
 
 die() { echo "error: $*" >&2; exit 1; }
@@ -47,7 +47,7 @@ cmd_new() {
 
   # node_modules is ~700MB and a fresh `npm ci` takes minutes. An APFS clone is
   # seconds and costs almost no disk (copy-on-write), and — the part that
-  # matters — it copies node_modules/@ivy/* as the *relative* symlinks they are,
+  # matters — it copies node_modules/@sharptalk/* as the *relative* symlinks they are,
   # so they resolve to THIS worktree's apps/ and packages/. A plain symlink of
   # the whole node_modules directory would resolve them to the source worktree
   # instead, silently building the wrong code.

@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MODERATION_DECISION } from '@ivy/types';
+import { MODERATION_DECISION } from '@sharptalk/types';
 import { BOARD_DOC_STATUS, BoardDocument } from '../board/entity/board-document.entity';
 import { DOC_GROUP, KbDocument } from './entity/kb-document.entity';
 import { CATEGORY_ORIGIN } from './entity/kb-category.entity';

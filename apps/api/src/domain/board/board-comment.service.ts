@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { USER_RANK } from '@ivy/types';
+import { USER_RANK } from '@sharptalk/types';
 import { BoardComment } from './entity/board-comment.entity';
 import { User } from '../user/entity/user.entity';
 import { BoardActor } from './board.service';

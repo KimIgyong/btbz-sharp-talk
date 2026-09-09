@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, LessThan, Repository } from 'typeorm';
-import { MODERATION_DECISION, SENDER_TYPE } from '@ivy/types';
+import { MODERATION_DECISION, SENDER_TYPE } from '@sharptalk/types';
 import { JourneyReport, REPORT_KIND, REPORT_STATUS } from './entity/journey-report.entity';
 import { JourneyMetricsService, JourneyWindow } from './journey-metrics.service';
 import { JourneyCriteriaService } from './journey-criteria.service';

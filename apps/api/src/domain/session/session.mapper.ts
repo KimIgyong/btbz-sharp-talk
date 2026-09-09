@@ -1,9 +1,9 @@
-import type { SessionResponse } from '@ivy/types';
+import type { SessionResponse } from '@sharptalk/types';
 import { Session } from './entity/session.entity';
 import { PrivacyNoticeInfo } from './session.service';
 
 /**
- * Response shape lives in `@ivy/types` — the widget imports the same contract, so
+ * Response shape lives in `@sharptalk/types` — the widget imports the same contract, so
  * the privacy-notice fields added here cannot drift from what the widget reads.
  */
 export type { SessionResponse };

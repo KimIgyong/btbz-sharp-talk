@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
-import { Principal } from '@ivy/types';
+import { Principal } from '@sharptalk/types';
 import { BusinessException } from '../../global/exception/business.exception';
 import { ERROR_CODE } from '../../global/constant/error-code.constant';
 

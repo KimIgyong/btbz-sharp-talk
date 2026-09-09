@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Headers, Ip, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Principal } from '@ivy/types';
+import { Principal } from '@sharptalk/types';
 import { AuthService } from './auth.service';
 import { AmaSsoService } from './ama-sso.service';
 import { MfaService } from './mfa.service';

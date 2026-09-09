@@ -4,7 +4,7 @@ import { DataSource } from 'typeorm';
 import { Request } from 'express';
 import { Observable, from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { Principal } from '@ivy/types';
+import { Principal } from '@sharptalk/types';
 import { tenantStorage } from '../../infrastructure/tenant/tenant-context';
 
 /**

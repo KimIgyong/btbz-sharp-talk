@@ -1,6 +1,6 @@
 import { ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { MENU, Principal } from '@ivy/types';
+import { MENU, Principal } from '@sharptalk/types';
 import { MenuAccessGuard } from './menu-access.guard';
 import { MenuAccessService } from '../../domain/menu-access/menu-access.service';
 import { BusinessException } from '../exception/business.exception';

@@ -1,8 +1,8 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Not, Repository } from 'typeorm';
-import { CAPABILITY, JobLabel, UserRank } from '@ivy/types';
-import { userCan } from '@ivy/common';
+import { CAPABILITY, JobLabel, UserRank } from '@sharptalk/types';
+import { userCan } from '@sharptalk/common';
 import { AiConfigService } from '../ai-engine/ai-config.service';
 import type { RecordRevisionMeta } from '../ai-engine/ai-config-revision.service';
 import {

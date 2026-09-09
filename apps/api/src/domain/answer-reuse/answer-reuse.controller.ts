@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
-import { buildPagination, normalizePage } from '@ivy/common';
+import { CAPABILITY, Principal } from '@sharptalk/types';
+import { buildPagination, normalizePage } from '@sharptalk/common';
 import { AnswerReuseService } from './answer-reuse.service';
 import { AnswerReuseMapper } from './answer-reuse.mapper';
 import { UpdateAnswerReuseRequest } from './dto/request/answer-reuse.request';

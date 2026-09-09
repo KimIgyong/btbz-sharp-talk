@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { randomBytes } from 'crypto';
-import { INTEGRATION_PROVIDER } from '@ivy/types';
+import { INTEGRATION_PROVIDER } from '@sharptalk/types';
 import { RedisService } from '../../infrastructure/cache/redis.service';
 import { TenantService } from '../tenant/tenant.service';
 import { BusinessException } from '../../global/exception/business.exception';

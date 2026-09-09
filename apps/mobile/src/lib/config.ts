@@ -17,7 +17,7 @@ export const SHOP_DOMAIN = process.env.EXPO_PUBLIC_SHOP_DOMAIN ?? 'ambshop-dev.m
 export const STOREFRONT_URL =
   process.env.EXPO_PUBLIC_STOREFRONT_URL ?? `https://${SHOP_DOMAIN}`;
 
-// Runtime table from the registry source: '@ivy/types' publishes CJS and the
+// Runtime table from the registry source: '@sharptalk/types' publishes CJS and the
 // bundler cannot trace a named export through its `export *` chain.
 import { LANGUAGES, LANGUAGE_CODES } from '../../../../packages/types/src/common/language';
 

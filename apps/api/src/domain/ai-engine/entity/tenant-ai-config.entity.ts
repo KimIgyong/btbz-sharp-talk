@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
-import type { LocalizedText } from '@ivy/types';
+import type { LocalizedText } from '@sharptalk/types';
 import { bigintTransformer } from '../../../global/util/transformers';
 
 /** Scenario button shown in the widget menu (FR-003 / FN-009). */

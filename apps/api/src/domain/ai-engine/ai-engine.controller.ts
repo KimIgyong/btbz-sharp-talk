@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY } from '@ivy/types';
+import { CAPABILITY } from '@sharptalk/types';
 import { AdminOnly, RequireCapability } from '../../global/decorator/auth.decorator';
 import { AiEngineService } from './ai-engine.service';
 import { AiEngineMapper } from './ai-engine.mapper';

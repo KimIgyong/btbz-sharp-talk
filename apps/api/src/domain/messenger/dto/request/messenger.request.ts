@@ -8,7 +8,7 @@ import {
   Length,
   MaxLength,
 } from 'class-validator';
-import { MESSENGER_CONSENT_MODE, MESSENGER_PROVIDER } from '@ivy/types';
+import { MESSENGER_CONSENT_MODE, MESSENGER_PROVIDER } from '@sharptalk/types';
 import { REPLY_MODES } from '../../auto-reply.util';
 
 const PROVIDERS = Object.values(MESSENGER_PROVIDER);

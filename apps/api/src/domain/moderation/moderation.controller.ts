@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestj
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CAPABILITY, Principal } from '@ivy/types';
+import { CAPABILITY, Principal } from '@sharptalk/types';
 import { ContentFilterRule } from './entity/content-filter-rule.entity';
 import { RequireCapability } from '../../global/decorator/auth.decorator';
 import { CurrentUser } from '../../global/decorator/current-user.decorator';

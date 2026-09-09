@@ -1,5 +1,5 @@
 import { ModerationService, ModerateInput } from './moderation.service';
-import { MODERATION_DECISION } from '@ivy/types';
+import { MODERATION_DECISION } from '@sharptalk/types';
 
 /**
  * DB-free unit tests for the outbound moderation gate (FR-069 / NFR-013).

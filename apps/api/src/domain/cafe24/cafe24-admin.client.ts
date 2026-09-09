@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { ORDER_STATUS_INTERNAL, OrderStatusInternal } from '@ivy/types';
+import { ORDER_STATUS_INTERNAL, OrderStatusInternal } from '@sharptalk/types';
 import { BusinessException } from '../../global/exception/business.exception';
 import { ERROR_CODE } from '../../global/constant/error-code.constant';
 

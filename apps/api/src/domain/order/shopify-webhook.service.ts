@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { FULFILLMENT_STATUS } from '@ivy/types';
+import { FULFILLMENT_STATUS } from '@sharptalk/types';
 import { OrderCache } from './entity/order-cache.entity';
 import { OrderService } from './order.service';
 import { ShopifySyncService } from './shopify-sync.service';

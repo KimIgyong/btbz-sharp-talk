@@ -9,8 +9,8 @@ import {
   SENDER_TYPE,
   isSupportedLanguage,
   localized,
-} from '@ivy/types';
-import type { LocalizedText } from '@ivy/types';
+} from '@sharptalk/types';
+import type { LocalizedText } from '@sharptalk/types';
 import { Conversation } from '../chat/entity/conversation.entity';
 import { Message } from '../chat/entity/message.entity';
 import { AiAgent } from '../ai-engine/entity/ai-agent.entity';

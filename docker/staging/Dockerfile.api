@@ -19,8 +19,8 @@ RUN npm install
 # Source.
 COPY . .
 
-# Build @ivy/api and its workspace deps (^build → packages/types, packages/common).
-RUN npx turbo run build --filter=@ivy/api...
+# Build @sharptalk/api and its workspace deps (^build → packages/types, packages/common).
+RUN npx turbo run build --filter=@sharptalk/api...
 
 # ---- Runtime stage --------------------------------------------------------
 FROM node:20-alpine AS runtime

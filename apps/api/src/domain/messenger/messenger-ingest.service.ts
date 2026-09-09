@@ -9,8 +9,8 @@ import {
   SENDER_TYPE,
   SESSION_IDENTITY,
   localized,
-} from '@ivy/types';
-import { generateToken } from '@ivy/common';
+} from '@sharptalk/types';
+import { generateToken } from '@sharptalk/common';
 import { Session } from '../session/entity/session.entity';
 import { Conversation } from '../chat/entity/conversation.entity';
 import { Message } from '../chat/entity/message.entity';

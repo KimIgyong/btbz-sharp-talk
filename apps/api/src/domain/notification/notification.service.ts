@@ -16,7 +16,7 @@ import {
   channelAllowedByTenant,
   isMarketingCategory,
   type NotificationScope,
-} from '@ivy/types';
+} from '@sharptalk/types';
 
 /** Every real category (excludes the 'all' sentinel, which is a query filter). */
 const NOTIFICATION_CATEGORY_LIST = Object.values(NOTIFICATION_CATEGORY).filter((c) => c !== 'all');
@@ -72,7 +72,7 @@ function scopedWhere(
   return where;
 }
 
-// Both lists moved to @ivy/types so the widget's marketing opt-out covers
+// Both lists moved to @sharptalk/types so the widget's marketing opt-out covers
 // exactly the categories the server treats as marketing — a second copy here
 // would drift the first time a category is added, and the failure mode is
 // silent delivery to someone who opted out

@@ -4,7 +4,7 @@ import { createReadStream, promises as fs } from 'fs';
 import type { ReadStream } from 'fs';
 import { randomUUID } from 'crypto';
 import { dirname, join, normalize, resolve, sep } from 'path';
-import type { WidgetLogo } from '@ivy/types';
+import type { WidgetLogo } from '@sharptalk/types';
 import { BusinessException } from '../../global/exception/business.exception';
 import { ERROR_CODE } from '../../global/constant/error-code.constant';
 

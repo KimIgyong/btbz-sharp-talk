@@ -15,8 +15,8 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal, USER_RANK } from '@ivy/types';
-import { normalizePage, buildPagination } from '@ivy/common';
+import { CAPABILITY, Principal, USER_RANK } from '@sharptalk/types';
+import { normalizePage, buildPagination } from '@sharptalk/common';
 import { AgentService } from './agent.service';
 import { AgentAlertService } from './agent-alert.service';
 import { BriefingService } from './briefing.service';

@@ -10,8 +10,8 @@ import {
   MODERATION_DECISION,
   SENDER_TYPE,
   localized,
-} from '@ivy/types';
-import type { LocalizedText } from '@ivy/types';
+} from '@sharptalk/types';
+import type { LocalizedText } from '@sharptalk/types';
 import { Conversation } from './entity/conversation.entity';
 import { CSAT_WINDOW_MS } from './chat.mapper';
 import { Message } from './entity/message.entity';
@@ -25,7 +25,7 @@ import { RagService, RagAnswer } from './rag.service';
 import { ModerationService } from '../moderation/moderation.service';
 import { AnswerReuseService } from '../answer-reuse/answer-reuse.service';
 import { IssueService } from '../issue/issue.service';
-import type { ChatTurnResponse } from '@ivy/types';
+import type { ChatTurnResponse } from '@sharptalk/types';
 import { OrderService } from '../order/order.service';
 import { SessionService, sessionCacheKey } from '../session/session.service';
 import { CustomerService } from '../customer/customer.service';
@@ -83,7 +83,7 @@ const RETRIEVAL_CONTEXT_CHARS = 200;
 
 /**
  * Localized backend-generated conversational strings keyed by session.language
- * (the six registered in @ivy/types). Backend ERROR messages stay English
+ * (the six registered in @sharptalk/types). Backend ERROR messages stay English
  * (localized by code on the client); these are user-facing chat turns, so they
  * honor the UI language.
  */
@@ -171,7 +171,7 @@ export interface ChatDraft {
 }
 
 /**
- * Response shape lives in `@ivy/types` — the widget imports the same contract.
+ * Response shape lives in `@sharptalk/types` — the widget imports the same contract.
  * `draft` is additive and only ever set for callers that asked for draft mode,
  * so the widget contract is unchanged.
  */

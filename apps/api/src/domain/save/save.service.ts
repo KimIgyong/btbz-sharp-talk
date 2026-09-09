@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { CJM_STAGE } from '@ivy/types';
+import { CJM_STAGE } from '@sharptalk/types';
 import { ProductSave, SAVE_LIST, SaveList } from './entity/product-save.entity';
 import { ProductCache } from '../product/entity/product-cache.entity';
 import { SessionService } from '../session/session.service';

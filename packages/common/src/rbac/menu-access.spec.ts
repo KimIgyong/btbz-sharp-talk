@@ -1,4 +1,4 @@
-import { ALL_MENU_CODES, JOB_LABEL, JobLabel, MENU, MenuCode, USER_RANK, UserRank } from '@ivy/types';
+import { ALL_MENU_CODES, JOB_LABEL, JobLabel, MENU, MenuCode, USER_RANK, UserRank } from '@sharptalk/types';
 import {
   DEFAULT_ROLE_MENUS,
   resolveEffectiveMenus,

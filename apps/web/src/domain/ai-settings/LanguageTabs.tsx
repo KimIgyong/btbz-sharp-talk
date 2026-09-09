@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/cn';
 import type { ScenarioLang } from './ai-settings.service';
-// Runtime table from the registry source — '@ivy/types' publishes CJS, which the
+// Runtime table from the registry source — '@sharptalk/types' publishes CJS, which the
 // bundler cannot trace a named export through (see apps/web/src/i18n/i18n.ts).
 import { LANGUAGES } from '../../../../../packages/types/src/common/language';
 

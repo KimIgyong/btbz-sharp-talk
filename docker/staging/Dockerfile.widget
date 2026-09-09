@@ -23,7 +23,7 @@ RUN npm install
 
 COPY . .
 
-RUN npx turbo run build --filter=@ivy/widget...
+RUN npx turbo run build --filter=@sharptalk/widget...
 
 # ---- Runtime stage (nginx static, served under /widget/) -------------------
 FROM nginx:alpine AS runtime

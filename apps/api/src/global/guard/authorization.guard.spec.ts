@@ -8,7 +8,7 @@ import {
   REQUIRE_CAPABILITY_KEY,
   REQUIRE_RANK_KEY,
 } from '../decorator/auth.decorator';
-import { ADMIN_LEVEL, USER_RANK, JOB_LABEL, CAPABILITY, Principal } from '@ivy/types';
+import { ADMIN_LEVEL, USER_RANK, JOB_LABEL, CAPABILITY, Principal } from '@sharptalk/types';
 
 /**
  * Unit tests for the AuthorizationGuard. The Reflector is mocked to return

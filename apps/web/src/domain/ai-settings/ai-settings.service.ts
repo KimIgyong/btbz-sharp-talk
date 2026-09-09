@@ -1,4 +1,4 @@
-import type { SessionLanguage } from '@ivy/types';
+import type { SessionLanguage } from '@sharptalk/types';
 import { apiGet, apiPut, apiPost, apiDelete } from '@/lib/api-client';
 
 export type AiFunction = 'chat' | 'rag' | 'summary' | 'assist' | 'moderation' | 'coach';

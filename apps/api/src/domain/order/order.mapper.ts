@@ -4,12 +4,12 @@ import {
   type OrderItemResponse,
   type OrderListItemResponse,
   type OrderLookupResponse,
-} from '@ivy/types';
+} from '@sharptalk/types';
 import { OrderCache } from './entity/order-cache.entity';
 import { OrderItem } from './entity/order-item.entity';
 
 /**
- * Response shapes live in `@ivy/types` so the widget consumes the same contract —
+ * Response shapes live in `@sharptalk/types` so the widget consumes the same contract —
  * see the note there. Aliased locally to keep existing call sites readable.
  */
 export type OrderSummary = OrderLookupResponse;

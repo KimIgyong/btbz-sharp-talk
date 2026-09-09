@@ -2,7 +2,7 @@
  * Widget-side view of the API contracts.
  *
  * The response shapes are NOT redeclared here — they are imported from
- * `@ivy/types`, the same file the API mappers return. That is deliberate: this
+ * `@sharptalk/types`, the same file the API mappers return. That is deliberate: this
  * file used to hand-maintain its own copies, nothing compared the two, and they
  * drifted into runtime crashes (an order detail typed `{ order, items }` against a
  * flat payload took the whole widget down). Now a backend shape change that the
@@ -30,7 +30,7 @@ import type {
   ScenarioTurnResponse,
   SessionResponse,
   TrackingResponse,
-} from '@ivy/types';
+} from '@sharptalk/types';
 
 export type { SessionResponse };
 export type {
@@ -41,7 +41,7 @@ export type {
   WidgetTabPosition,
   WidgetTheme,
   WidgetLogo,
-} from '@ivy/types';
+} from '@sharptalk/types';
 
 /** Narrowed for the UI's sender switch; the wire type is a plain string. */
 export type SenderType = 'user' | 'ai' | 'agent' | 'system';
@@ -50,7 +50,7 @@ export type Citation = ChatCitation;
 
 /**
  * Narrowed for the UI's consent switch. `SessionResponse` is NOT redeclared here —
- * it comes from `@ivy/types` above, including the privacy-notice fields, so the
+ * it comes from `@sharptalk/types` above, including the privacy-notice fields, so the
  * consent UI cannot drift from what the session mapper actually sends.
  */
 export type ConsentState = 'pending' | 'granted' | 'declined';

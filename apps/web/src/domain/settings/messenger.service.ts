@@ -4,7 +4,7 @@ import { apiDelete, apiGet, apiPatch, apiPost } from '@/lib/api-client';
  * Messenger channel registry — mirror of the API's MESSENGER_FIELDS.
  *
  * Same rule as `integration-providers.ts`: the web app does not depend on
- * `@ivy/types` (CJS, and not in apps/web/package.json), so the shape is
+ * `@sharptalk/types` (CJS, and not in apps/web/package.json), so the shape is
  * re-declared here. KEEP IN SYNC with packages/types/src/common/enum.types.ts.
  */
 export const MESSENGER_PROVIDERS = [

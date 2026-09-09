@@ -8,9 +8,9 @@ import {
   deliverySteps,
   fulfillmentStepIndex,
   internalToUiStatus,
-} from '@ivy/types';
-import { buildPagination, normalizePage } from '@ivy/common';
-import { INTEGRATION_PROVIDER } from '@ivy/types';
+} from '@sharptalk/types';
+import { buildPagination, normalizePage } from '@sharptalk/common';
+import { INTEGRATION_PROVIDER } from '@sharptalk/types';
 import { OrderCache } from './entity/order-cache.entity';
 import { OrderItem } from './entity/order-item.entity';
 import { Fulfillment } from './entity/fulfillment.entity';

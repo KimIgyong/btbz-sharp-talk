@@ -6,7 +6,7 @@ import { FormRow, Select } from '@/components/Field';
 import { useSetTenantPlan, useSetTenantWorkflowMode } from './admin.hooks';
 import type { Tenant } from './admin.service';
 
-// Local mirrors of TENANT_PLAN / WORKFLOW_MODE (@ivy/types values cannot be
+// Local mirrors of TENANT_PLAN / WORKFLOW_MODE (@sharptalk/types values cannot be
 // imported in web bundles — LESSON 2026-07-16; the API validates with @IsIn).
 export const TENANT_PLANS = ['starter', 'growth', 'enterprise', 'custom'] as const;
 const WORKFLOW_MODES = ['base', 'bridge', 'native'] as const;

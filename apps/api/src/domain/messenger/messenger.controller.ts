@@ -10,7 +10,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
+import { CAPABILITY, Principal } from '@sharptalk/types';
 import { RequireCapability, RequireMenu } from '../../global/decorator/auth.decorator';
 import { CurrentUser } from '../../global/decorator/current-user.decorator';
 import { BusinessException } from '../../global/exception/business.exception';

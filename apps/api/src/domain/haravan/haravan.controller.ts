@@ -1,6 +1,6 @@
 import { Controller, HttpStatus, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
+import { CAPABILITY, Principal } from '@sharptalk/types';
 import { HaravanProductSyncService } from './haravan-product-sync.service';
 import { HaravanSyncService } from './haravan-sync.service';
 import { RequireCapability, RequireMenu } from '../../global/decorator/auth.decorator';

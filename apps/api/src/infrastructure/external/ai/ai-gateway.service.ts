@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Repository } from 'typeorm';
-import { AiFunction } from '@ivy/types';
+import { AiFunction } from '@sharptalk/types';
 import { AiEngine } from '../../../domain/ai-engine/entity/ai-engine.entity';
 import { TenantAiSetting } from '../../../domain/ai-engine/entity/tenant-ai-setting.entity';
 import { AiUsageService } from '../../../domain/ai-engine/ai-usage.service';

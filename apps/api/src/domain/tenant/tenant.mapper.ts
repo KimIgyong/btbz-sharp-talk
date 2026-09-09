@@ -10,7 +10,7 @@ import {
   WIDGET_TABS_DEFAULT,
   normalizeWidgetTabs,
   DEFAULT_BRAND,
-} from '@ivy/types';
+} from '@sharptalk/types';
 import {
   CredentialResponse,
   PrivacyNoticeResponse,
@@ -26,7 +26,7 @@ import { defaultOrigins } from '../embed/embed-origin.util';
 
 /** Entity -> response mapping. Keeps secrets out of API payloads. */
 /** The built-in brand colour — what an unthemed widget renders (index.css). */
-// DEFAULT_BRAND now lives with the theme contract in @ivy/types, so the console
+// DEFAULT_BRAND now lives with the theme contract in @sharptalk/types, so the console
 // preview, the API and the widget cannot disagree about the unthemed palette.
 
 export class TenantMapper {

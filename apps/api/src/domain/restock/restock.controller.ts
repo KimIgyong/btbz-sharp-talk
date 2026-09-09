@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
-import { buildPagination, normalizePage } from '@ivy/common';
+import { CAPABILITY, Principal } from '@sharptalk/types';
+import { buildPagination, normalizePage } from '@sharptalk/common';
 import { RestockService } from './restock.service';
 import { Public } from '../../global/decorator/public.decorator';
 import { RequireCapability } from '../../global/decorator/auth.decorator';

@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AI_FUNCTION, isSupportedLanguage } from '@ivy/types';
+import { AI_FUNCTION, isSupportedLanguage } from '@sharptalk/types';
 import { ConversationBriefing } from './entity/conversation-briefing.entity';
 import { PROMPT_LANGUAGE_NAMES } from './prompt-language';
 import { AgentService } from './agent.service';

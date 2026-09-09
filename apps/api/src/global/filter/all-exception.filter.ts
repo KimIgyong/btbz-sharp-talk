@@ -7,7 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { BaseSingleResponse } from '@ivy/types';
+import { BaseSingleResponse } from '@sharptalk/types';
 import { BusinessException } from '../exception/business.exception';
 import { ERROR_CODE } from '../constant/error-code.constant';
 

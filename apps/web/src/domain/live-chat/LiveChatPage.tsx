@@ -63,7 +63,7 @@ import { useAuthStore } from '@/store/auth-store';
 import { liveChatService } from './live-chat.service';
 import type { AgentSession, ChatMessage, CustomerContext } from './live-chat.service';
 import { cn } from '@/lib/cn';
-// Source deep-import, not '@ivy/types': the package's CJS runtime exports are
+// Source deep-import, not '@sharptalk/types': the package's CJS runtime exports are
 // invisible to the browser build (see BriefingCard).
 import { LANGUAGES } from '../../../../../packages/types/src/common/language';
 

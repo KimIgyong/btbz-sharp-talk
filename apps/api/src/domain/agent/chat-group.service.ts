@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, In, LessThan, Repository } from 'typeorm';
-import { CONVERSATION_STATUS } from '@ivy/types';
+import { CONVERSATION_STATUS } from '@sharptalk/types';
 import { ChatGroup, GroupKind } from './entity/chat-group.entity';
 import { ChatGroupMember } from './entity/chat-group-member.entity';
 import { Session } from '../session/entity/session.entity';

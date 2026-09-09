@@ -6,7 +6,7 @@ import type {
   WidgetLoginMode,
   WidgetTab,
   WidgetTabPosition,
-} from '@ivy/types';
+} from '@sharptalk/types';
 import type { SaveTenantEngineBody, UsageGroupBy } from './settings.service';
 import { settingsService } from './settings.service';
 import type { SaveShopifyBody, UpdateCredentialBody, WidgetCopyDraft } from './settings.service';

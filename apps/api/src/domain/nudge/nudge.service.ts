@@ -1,8 +1,8 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CJM_STAGE } from '@ivy/types';
-import { generateCode } from '@ivy/common';
+import { CJM_STAGE } from '@sharptalk/types';
+import { generateCode } from '@sharptalk/common';
 import { Nudge } from './entity/nudge.entity';
 import { ProductCache } from '../product/entity/product-cache.entity';
 import { Customer } from '../customer/entity/customer.entity';

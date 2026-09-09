@@ -24,7 +24,7 @@ RUN npm install
 
 COPY . .
 
-RUN npx turbo run build --filter=@ivy/pwa...
+RUN npx turbo run build --filter=@sharptalk/pwa...
 
 # ---- Runtime stage (nginx static, served under /app/) ----------------------
 FROM nginx:alpine AS runtime

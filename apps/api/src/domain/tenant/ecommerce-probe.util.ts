@@ -1,6 +1,6 @@
 import { promises as dns } from 'dns';
 import { isIP } from 'net';
-import { GenericIntegrationProvider } from '@ivy/types';
+import { GenericIntegrationProvider } from '@sharptalk/types';
 
 export interface ProbeResult {
   ok: boolean;

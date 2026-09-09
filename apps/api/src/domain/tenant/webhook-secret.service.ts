@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { INTEGRATION_PROVIDER } from '@ivy/types';
+import { INTEGRATION_PROVIDER } from '@sharptalk/types';
 import { IntegrationCredential } from './entity/integration-credential.entity';
 import { decryptSecret } from '../../global/util/crypto.util';
 

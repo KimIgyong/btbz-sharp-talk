@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-// Imported from source, not through '@ivy/types': the package publishes CJS, and
+// Imported from source, not through '@sharptalk/types': the package publishes CJS, and
 // Rollup cannot trace a named export through its `export *` chain, so a value
 // import of the entry point fails the widget build ("not exported by dist/index.js").
 // Types come through the package as usual; only this runtime table takes the

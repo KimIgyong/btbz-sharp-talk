@@ -15,7 +15,7 @@ import { RedisService } from '../../infrastructure/cache/redis.service';
 import { encryptSecret } from '../../global/util/crypto.util';
 import { generateTotpSecret, timeStep, totpCode } from '../../global/util/totp.util';
 import { MfaChallengeResponse } from './dto/response/auth.response';
-import { Principal } from '@ivy/types';
+import { Principal } from '@sharptalk/types';
 
 const PASSWORD = 'secret-pw';
 const IP = '203.0.113.7';

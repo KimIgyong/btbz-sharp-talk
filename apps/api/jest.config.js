@@ -4,10 +4,10 @@ module.exports = {
   testEnvironment: 'node',
   roots: ['<rootDir>/src'],
   // Map workspace packages to their TS source so tests don't depend on a
-  // prior `tsup`/`tsc` build of @ivy/common and @ivy/types.
+  // prior `tsup`/`tsc` build of @sharptalk/common and @sharptalk/types.
   moduleNameMapper: {
-    '^@ivy/types$': '<rootDir>/../../packages/types/src/index.ts',
-    '^@ivy/common$': '<rootDir>/../../packages/common/src/index.ts',
+    '^@sharptalk/types$': '<rootDir>/../../packages/types/src/index.ts',
+    '^@sharptalk/common$': '<rootDir>/../../packages/common/src/index.ts',
   },
   transform: {
     '^.+\\.ts$': [

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { ADMIN_LEVEL, Principal } from '@ivy/types';
+import { ADMIN_LEVEL, Principal } from '@sharptalk/types';
 import { AdminUserService } from './admin-user.service';
 import { toAdminUserResponse } from './admin-user.mapper';
 import { AdminOnly } from '../../global/decorator/auth.decorator';

@@ -8,7 +8,7 @@ import { CreateCampaignRequest, UpdateCampaignRequest } from './dto/request/camp
 import { EventBusService, EVENTS } from '../../infrastructure/infrastructure.module';
 import { NotificationService } from '../notification/notification.service';
 import { ModerationService } from '../moderation/moderation.service';
-import { MODERATION_DECISION } from '@ivy/types';
+import { MODERATION_DECISION } from '@sharptalk/types';
 import { AuditService } from '../audit/audit.service';
 import { BusinessException } from '../../global/exception/business.exception';
 import { ERROR_CODE } from '../../global/constant/error-code.constant';

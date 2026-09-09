@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { USER_RANK } from '@ivy/types';
+import { USER_RANK } from '@sharptalk/types';
 import { Board } from './entity/board.entity';
 import { BOARD_DOC_STATUS, BoardDocument } from './entity/board-document.entity';
 import {
@@ -10,7 +10,7 @@ import {
 } from './entity/board-document-revision.entity';
 import { DOC_GROUP, KbDocument } from '../knowledge/entity/kb-document.entity';
 import { Paginated } from '../../global/interceptor/transform.interceptor';
-import { buildPagination, normalizePage } from '@ivy/common';
+import { buildPagination, normalizePage } from '@sharptalk/common';
 import { BoardMapper } from './board.mapper';
 import { BusinessException } from '../../global/exception/business.exception';
 import { ERROR_CODE } from '../../global/constant/error-code.constant';

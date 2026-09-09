@@ -1,5 +1,5 @@
 {
-  "name": "@ivy/shoptalk-rn",
+  "name": "@sharptalk/react-native",
   "version": "0.1.0",
   "private": true,
   "description": "Reference React Native component that hosts the ShopTalk widget in a WebView",

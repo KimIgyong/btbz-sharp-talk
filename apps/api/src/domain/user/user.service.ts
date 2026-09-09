@@ -2,7 +2,7 @@ import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { generateToken } from '@ivy/common';
+import { generateToken } from '@sharptalk/common';
 import { User } from './entity/user.entity';
 import { JobLabel } from './entity/job-label.entity';
 import { UserJobLabel } from './entity/user-job-label.entity';

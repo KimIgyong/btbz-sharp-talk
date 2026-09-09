@@ -3,7 +3,7 @@ import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
-import { Principal } from '@ivy/types';
+import { Principal } from '@sharptalk/types';
 import { IS_PUBLIC_KEY } from '../decorator/public.decorator';
 import { ALLOW_PENDING_PASSWORD_KEY } from '../decorator/allow-pending-password.decorator';
 import { ALLOW_PENDING_MFA_KEY } from '../decorator/allow-pending-mfa.decorator';

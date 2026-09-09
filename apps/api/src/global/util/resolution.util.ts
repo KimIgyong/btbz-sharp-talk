@@ -1,4 +1,4 @@
-import { SENDER_TYPE } from '@ivy/types';
+import { SENDER_TYPE } from '@sharptalk/types';
 
 /**
  * Why a conversation counts as resolved (PLN-260825, moved here 2026-08-26).

@@ -1,7 +1,7 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThan, Repository } from 'typeorm';
-import { SENDER_TYPE } from '@ivy/types';
+import { SENDER_TYPE } from '@sharptalk/types';
 import { ExternalTicket } from './entity/external-ticket.entity';
 import { Tenant } from '../tenant/entity/tenant.entity';
 import { Conversation } from '../chat/entity/conversation.entity';

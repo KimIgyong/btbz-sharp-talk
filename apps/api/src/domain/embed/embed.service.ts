@@ -2,7 +2,7 @@ import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { createHmac, randomBytes, timingSafeEqual } from 'crypto';
 import { Repository } from 'typeorm';
-import { SESSION_IDENTITY } from '@ivy/types';
+import { SESSION_IDENTITY } from '@sharptalk/types';
 import { Tenant } from '../tenant/entity/tenant.entity';
 import { Customer } from '../customer/entity/customer.entity';
 import { Session } from '../session/entity/session.entity';

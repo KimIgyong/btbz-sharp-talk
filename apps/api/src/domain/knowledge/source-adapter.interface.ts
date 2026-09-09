@@ -1,4 +1,4 @@
-import { IntegrationProvider } from '@ivy/types';
+import { IntegrationProvider } from '@sharptalk/types';
 import { KnowledgeSource } from './entity/knowledge-source.entity';
 
 /**

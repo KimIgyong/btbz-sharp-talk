@@ -80,7 +80,7 @@ storefront), ko internal, vi/ja/zh added 2026-08-17 (REQ/PLN-260817).
 `packages/types/src/common/language.ts` is the **single registry**: codes, endonyms,
 session values, timezone defaults and review state. A seventh language is one row
 there plus its translation files — the four apps and the backend read from it, and
-the browser bundles deep-import that source file because `@ivy/types` publishes CJS.
+the browser bundles deep-import that source file because `@sharptalk/types` publishes CJS.
 Backend error messages stay English (client localizes by Exxxx code); AI/RAG answers
 honor `session.language` (the prompt passes the code through, so no code change per
 language); backend conversational system strings are localized in all six.
@@ -123,7 +123,7 @@ External: Shopify (OAuth/App Proxy/webhooks) · Fulfillment webhook · Klaviyo �
 
 ### 4.1 Monorepo Structure
 ```
-ivy-talktalk/
+btbz-sharptalk/
 ├── apps/{api,web,widget,mobile,pwa} # NestJS API · React admin · React widget · Expo RN app · installable PWA
 ├── packages/{types,common}      # shared enums/response envelope/RBAC matrix/utils
 ├── docker/                      # compose {dev,staging,production} + Dockerfiles + nginx + deploy-*.sh
@@ -225,8 +225,8 @@ Base `/api/v1` · Bearer JWT · Swagger `/api/v1/docs`. Widget endpoints are `@P
 ### 7.2 Response Structure
 Global transform interceptor wraps all responses:
 `BaseSingleResponse<T>` `{success,data,error?,timestamp}` and `BaseListResponse<T>`
-`{success,data,pagination,timestamp}` (`@ivy/types`). Pagination meta
-(`buildPagination` in `@ivy/common`): `{page, size, totalCount, totalPages, hasNext,
+`{success,data,pagination,timestamp}` (`@sharptalk/types`). Pagination meta
+(`buildPagination` in `@sharptalk/common`): `{page, size, totalCount, totalPages, hasNext,
 hasPrev}` — field name `size`, not the kit's `limit` (approved deviation, §13);
 `size` caps at 100. Never hand-build the envelope in controllers.
 
@@ -278,7 +278,7 @@ Access 1 h (`JWT_ACCESS_TTL`, silent refresh in the console) · Refresh 7 days (
 ### 8.3 Permission System (RBAC)
 Global `JwtAuthGuard` (authn) + `AuthorizationGuard` (authz). Decorators: `@Auth()`,
 `@AdminOnly(level?)`, `@RequireRank(...ranks)`, `@RequireCapability(...caps)`, `@Public()`.
-RBAC = rank × label capability matrix (`@ivy/common/permission-matrix`, overridable via
+RBAC = rank × label capability matrix (`@sharptalk/common/permission-matrix`, overridable via
 `roles_permissions`). ACL owner-visibility (POL-019) layered above.
 > The standard's `@MasterOrAdmin()`/`@PartnerOnly()` map to `@RequireRank`/`@AdminOnly` here.
 

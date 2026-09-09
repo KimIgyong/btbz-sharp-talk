@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IsNull, Repository } from 'typeorm';
-import { buildPagination, normalizePage } from '@ivy/common';
+import { buildPagination, normalizePage } from '@sharptalk/common';
 import { Inquiry } from './entity/inquiry.entity';
 import { Session } from '../session/entity/session.entity';
 import { InquiryMapper } from './inquiry.mapper';

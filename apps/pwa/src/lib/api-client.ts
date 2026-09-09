@@ -9,7 +9,7 @@ interface Envelope<T> {
   pagination?: PaginationMeta;
 }
 
-/** List pagination meta (mirrors @ivy/types PaginationMeta). */
+/** List pagination meta (mirrors @sharptalk/types PaginationMeta). */
 export interface PaginationMeta {
   page: number;
   size: number;

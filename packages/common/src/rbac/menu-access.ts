@@ -7,7 +7,7 @@ import {
   USER_RANK,
   UserRank,
   JobLabel,
-} from '@ivy/types';
+} from '@sharptalk/types';
 
 /**
  * Menu access resolution — PLN-260812-Menu-Provisioning-Access.

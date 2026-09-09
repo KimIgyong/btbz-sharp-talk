@@ -10,7 +10,7 @@ import {
   USER_RANK,
   UserPrincipal,
   UserRank,
-} from '@ivy/types';
+} from '@sharptalk/types';
 import {
   DEFAULT_ROLE_MENUS,
   resolveEffectiveMenus,
@@ -18,7 +18,7 @@ import {
   RoleMenuRow,
   TenantMenuOverride,
   UserMenuRow,
-} from '@ivy/common';
+} from '@sharptalk/common';
 import { RedisService } from '../../infrastructure/cache/redis.service';
 import { BusinessException } from '../../global/exception/business.exception';
 import { ERROR_CODE } from '../../global/constant/error-code.constant';

@@ -6,7 +6,7 @@ import { Session } from '../session/entity/session.entity';
 import { Tenant } from '../tenant/entity/tenant.entity';
 import { EventBusService } from '../../infrastructure/infrastructure.module';
 import { RedisService } from '../../infrastructure/cache/redis.service';
-import { ORDER_NOTIFICATION_CATEGORIES } from '@ivy/types';
+import { ORDER_NOTIFICATION_CATEGORIES } from '@sharptalk/types';
 
 const EXTERNAL = ['email', 'sms', 'web_push', 'push'];
 const CATEGORIES = ['payment', 'shipping', 'event', 'review', 'chat'];

@@ -1,7 +1,7 @@
 /**
  * Target-language names for translation prompts (briefing + message
  * translation). Prompt-side detail only — the language SET itself still lives
- * in @ivy/types (codes are validated against it); an unknown-but-supported
+ * in @sharptalk/types (codes are validated against it); an unknown-but-supported
  * code would fall back to itself.
  *
  * Own module on purpose: agent.service needs this and briefing.service needs

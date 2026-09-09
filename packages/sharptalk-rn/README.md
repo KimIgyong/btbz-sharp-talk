@@ -1,4 +1,4 @@
-# @ivy/shoptalk-rn
+# @sharptalk/react-native
 
 Reference React Native host for the ShopTalk widget (PLN-260820).
 
@@ -8,7 +8,7 @@ SDK. Copy it into your app or depend on it by path — the contract in
 an iOS or Android host implements the same four messages in about thirty lines.
 
 ```tsx
-import { ShopTalkChat } from '@ivy/shoptalk-rn';
+import { ShopTalkChat } from '@sharptalk/react-native';
 
 <ShopTalkChat
   widgetUrl="https://talk.example.com/widget/"

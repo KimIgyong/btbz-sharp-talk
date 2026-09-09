@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, MoreThan, Repository } from 'typeorm';
-import { SENDER_TYPE, USER_RANK } from '@ivy/types';
+import { SENDER_TYPE, USER_RANK } from '@sharptalk/types';
 import type { IssueCardContext } from './issue.mapper';
 import {
   Issue,

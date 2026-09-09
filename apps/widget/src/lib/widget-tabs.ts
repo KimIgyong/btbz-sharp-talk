@@ -1,4 +1,4 @@
-// Imported from source, not through '@ivy/types': the package publishes CJS and
+// Imported from source, not through '@sharptalk/types': the package publishes CJS and
 // Rollup cannot trace a named export through its `export *` chain, so a value
 // import of the entry point fails the widget build. Same treatment as the
 // language registry in `i18n/i18n.ts` — types still come through the package,

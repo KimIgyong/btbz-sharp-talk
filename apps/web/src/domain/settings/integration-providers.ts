@@ -3,7 +3,7 @@
  *
  * The canonical source is `INTEGRATION_FIELDS` / `ECOMMERCE_PROVIDERS` /
  * `EcommerceProvider` / `IntegrationFieldSpec` in `packages/types`. The web app
- * does NOT depend on `@ivy/types` (it isn't in apps/web/package.json, so a clean
+ * does NOT depend on `@sharptalk/types` (it isn't in apps/web/package.json, so a clean
  * build never builds that package) and it builds to CommonJS which Vite can't read
  * runtime values from anyway — so both the types and the constants are re-declared
  * here to keep the web build self-contained.

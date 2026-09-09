@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';
-import { buildPagination, normalizePage } from '@ivy/common';
-import { NOTIFICATION_SCOPE, type NotificationScope } from '@ivy/types';
+import { buildPagination, normalizePage } from '@sharptalk/common';
+import { NOTIFICATION_SCOPE, type NotificationScope } from '@sharptalk/types';
 import { NotificationService } from './notification.service';
 import {
   ReadNotificationRequest,

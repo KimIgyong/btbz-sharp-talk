@@ -5,7 +5,7 @@ import {
   GENERIC_INTEGRATION_PROVIDERS,
   GenericIntegrationProvider,
   INTEGRATION_FIELDS,
-} from '@ivy/types';
+} from '@sharptalk/types';
 import { IntegrationCredential } from './entity/integration-credential.entity';
 import { IntegrationService } from '../integration/integration.service';
 import { BusinessException } from '../../global/exception/business.exception';

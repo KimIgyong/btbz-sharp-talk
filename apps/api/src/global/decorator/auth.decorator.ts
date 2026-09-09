@@ -1,6 +1,6 @@
 import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { AdminLevel, UserRank, Capability, MenuCode } from '@ivy/types';
+import { AdminLevel, UserRank, Capability, MenuCode } from '@sharptalk/types';
 import { JwtAuthGuard } from '../guard/jwt-auth.guard';
 import { AuthorizationGuard } from '../guard/authorization.guard';
 import { MenuAccessGuard } from '../guard/menu-access.guard';

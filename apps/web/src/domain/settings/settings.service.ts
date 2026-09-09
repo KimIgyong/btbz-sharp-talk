@@ -6,7 +6,7 @@ import type {
   WidgetTab,
   WidgetTabPosition,
   WidgetTheme,
-} from '@ivy/types';
+} from '@sharptalk/types';
 
 export interface CredentialStatus {
   provider: string;

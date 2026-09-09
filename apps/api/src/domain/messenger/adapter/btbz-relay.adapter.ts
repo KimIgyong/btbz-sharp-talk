@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { MESSENGER_PROVIDER } from '@ivy/types';
+import { MESSENGER_PROVIDER } from '@sharptalk/types';
 import { RedisService } from '../../../infrastructure/cache/redis.service';
 import { ChannelThread } from '../entity/channel-thread.entity';
 import { MessengerChannel } from '../entity/messenger-channel.entity';

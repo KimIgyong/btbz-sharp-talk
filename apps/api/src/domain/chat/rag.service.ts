@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brackets, In, Repository } from 'typeorm';
-import { AI_FUNCTION } from '@ivy/types';
+import { AI_FUNCTION } from '@sharptalk/types';
 import { KbDocument } from '../knowledge/entity/kb-document.entity';
 import { Tenant } from '../tenant/entity/tenant.entity';
 import { normalizeStorefrontUrl, productLinkFor } from '../../global/util/storefront-url.util';

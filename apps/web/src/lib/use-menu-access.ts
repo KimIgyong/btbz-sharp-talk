@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-// Type-only: @ivy/types ships CJS whose runtime exports Rollup cannot see.
-import type { MenuCode } from '@ivy/types';
+// Type-only: @sharptalk/types ships CJS whose runtime exports Rollup cannot see.
+import type { MenuCode } from '@sharptalk/types';
 import { apiGet } from './api-client';
 import { makeCan, type Capability } from './rbac';
 import { useAuthStore } from '@/store/auth-store';

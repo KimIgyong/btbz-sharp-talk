@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpStatus, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CAPABILITY, Principal } from '@ivy/types';
+import { CAPABILITY, Principal } from '@sharptalk/types';
 import { OrderService } from './order.service';
 import { GuestLookupRequest, OrderListQuery } from './dto/request/order.request';
 import { Public } from '../../global/decorator/public.decorator';

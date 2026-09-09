@@ -1,4 +1,4 @@
-import { WidgetLoginMode, WidgetTab, WidgetTabPosition, WidgetTheme } from '@ivy/types';
+import { WidgetLoginMode, WidgetTab, WidgetTabPosition, WidgetTheme } from '@sharptalk/types';
 
 /** Response DTOs — camelCase. `uuid` is the external tenant identifier. */
 export interface TenantResponse {

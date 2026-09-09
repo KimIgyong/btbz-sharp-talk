@@ -1,5 +1,5 @@
 import { adminCan, userCan } from './permission-matrix';
-import { ADMIN_LEVEL, USER_RANK, JOB_LABEL, CAPABILITY } from '@ivy/types';
+import { ADMIN_LEVEL, USER_RANK, JOB_LABEL, CAPABILITY } from '@sharptalk/types';
 
 describe('permission-matrix — adminCan', () => {
   it('grants super_admin the full system capability set', () => {
