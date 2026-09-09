@@ -58,7 +58,7 @@ RABBITMQ_PASSWORD=${RABBIT_PW}
 # Emitted with the password already in it. Printing the two separately left the
 # template's CHANGE_ME in the URL, so RabbitMQ took the new password and the API
 # kept trying the old one.
-RABBITMQ_URL=amqp://ivy:${RABBIT_PW}@rabbitmq:5672
+RABBITMQ_URL=amqp://sharptalk:${RABBIT_PW}@rabbitmq:5672
 
 # First console login; must be changed on first sign-in.
 SEED_PASSWORD=$(hex 8)!Aa

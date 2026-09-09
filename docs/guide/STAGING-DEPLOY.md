@@ -61,7 +61,7 @@ curl -s -X POST http://localhost:8080/api/v1/auth/admin/login \
 git checkout <previous-good-commit>
 bash docker/staging/deploy-staging.sh
 ```
-Data volumes (`ivy_mysql_staging_data`, …) persist across redeploys. To wipe staging data:
+Data volumes (`sharptalk_mysql_staging_data` (physical `staging_ivy_mysql_staging_data`), …) persist across redeploys. To wipe staging data:
 `docker compose -f docker/staging/docker-compose.staging.yml down -v`.
 
 ## 7. Notes / differences from production

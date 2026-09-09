@@ -8,7 +8,7 @@ services:
     build:
       context: ../..
       dockerfile: docker/production/Dockerfile.api
-    container_name: ivy_api_production
+    container_name: sharptalk_api_production
     restart: always
     env_file:
       - ./.env.production
@@ -34,14 +34,14 @@ services:
       dockerfile: docker/production/Dockerfile.web
       args:
         VITE_API_BASE_URL: ${VITE_API_BASE_URL}
-    container_name: ivy_web_production
+    container_name: sharptalk_web_production
     restart: always
     expose:
       - '80'
 
   mysql:
     image: mysql:8.0
-    container_name: ivy_mysql_production
+    container_name: sharptalk_mysql_production
     restart: always
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
@@ -51,7 +51,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
     # No host port published in production — DB is internal-network only.
     volumes:
-      - ivy_mysql_production_data:/var/lib/mysql
+      - sharptalk_mysql_production_data:/var/lib/mysql
       # Schema is applied via migrations (DB_SYNCHRONIZE=false).
       - ../init-sql:/docker-entrypoint-initdb.d:ro
     healthcheck:
@@ -62,32 +62,32 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: ivy_redis_production
+    container_name: sharptalk_redis_production
     restart: always
     volumes:
-      - ivy_redis_production_data:/data
+      - sharptalk_redis_production_data:/data
 
   rabbitmq:
     image: rabbitmq:3.13-management-alpine
-    container_name: ivy_rabbitmq_production
+    container_name: sharptalk_rabbitmq_production
     restart: always
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     volumes:
-      - ivy_rabbitmq_production_data:/var/lib/rabbitmq
+      - sharptalk_rabbitmq_production_data:/var/lib/rabbitmq
 
   qdrant:
     image: qdrant/qdrant:v1.15.1
-    container_name: ivy_qdrant_production
+    container_name: sharptalk_qdrant_production
     restart: always
     # Internal-network only — the API reaches it via QDRANT_URL=http://qdrant:6333.
     volumes:
-      - ivy_qdrant_production_data:/qdrant/storage
+      - sharptalk_qdrant_production_data:/qdrant/storage
 
   nginx:
     image: nginx:alpine
-    container_name: ivy_nginx_production
+    container_name: sharptalk_nginx_production
     restart: always
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
@@ -98,7 +98,7 @@ services:
       - '80:80'
 
 volumes:
-  ivy_mysql_production_data:
-  ivy_redis_production_data:
-  ivy_rabbitmq_production_data:
-  ivy_qdrant_production_data:
+  sharptalk_mysql_production_data:
+  sharptalk_redis_production_data:
+  sharptalk_rabbitmq_production_data:
+  sharptalk_qdrant_production_data:

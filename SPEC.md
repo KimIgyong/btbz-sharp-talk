@@ -177,7 +177,7 @@ crossed with job labels (Consult/Accounting/Operations). ACL owner-visibility la
 ## 6. Database Design (데이터베이스 설계)
 
 ### 6.1 Database Information
-Name `db_ivy_talktalk` · MySQL 8 · utf8mb4 / InnoDB · 39 tables / 41 TypeORM entities.
+Name `db_sharptalk` · MySQL 8 · utf8mb4 / InnoDB · 39 tables / 41 TypeORM entities.
 Source of truth for orders = Shopify/Odoo (cached locally). DDL: `docker/init-sql/01-schema.sql`
 (= `design/chat-widget-schema.sql`); dev/staging build via TypeORM `synchronize`.
 

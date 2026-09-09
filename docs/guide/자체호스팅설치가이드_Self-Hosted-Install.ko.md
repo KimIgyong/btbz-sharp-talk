@@ -33,7 +33,7 @@ Node.js는 필요하지 않습니다.
 ## 2. 설치
 
 ```bash
-git clone <repo> shoptalk && cd shoptalk
+git clone <repo> btbz-sharptalk && cd btbz-sharptalk
 
 # 2-1. 설정 파일
 cp docker/self-hosted/.env.self-hosted.example docker/self-hosted/.env.self-hosted
@@ -136,7 +136,7 @@ bash scripts/restore-self-hosted.sh /backup/shoptalk/20260820
 | 증상 | 확인 |
 |---|---|
 | 배포 후 500이 쏟아진다 | `bash scripts/check-migrations.sh` — 미적용 스키마 변경 |
-| 컨테이너가 계속 재시작한다 | `docker logs shoptalk_api` — 시크릿이 짧거나 placeholder면 **의도적으로 부팅을 거부**합니다 |
+| 컨테이너가 계속 재시작한다 | `docker logs sharptalk_api` — 시크릿이 짧거나 placeholder면 **의도적으로 부팅을 거부**합니다 |
 | 첨부가 재배포 후 사라졌다 | `UPLOAD_DIR`이 `/data/uploads`인지, compose 볼륨이 붙어 있는지 |
 | 위젯이 뜨지 않는다 | 콘솔 → 설정 → 임베드에서 **허용 도메인** 확인 |
 | 위젯이 엉뚱한 API를 부른다 | `docker/self-hosted/widget-config.js` — 배포 스크립트가 `VITE_API_BASE_URL`로 생성합니다 |
@@ -145,10 +145,10 @@ bash scripts/restore-self-hosted.sh /backup/shoptalk/20260820
 
 | 데이터 | 위치 |
 |---|---|
-| 대화·고객·설정 | `shoptalk_mysql_data` 볼륨 |
-| 첨부파일·위젯 로고 | `shoptalk_uploads` 볼륨 |
-| 검색 인덱스(임베딩) | `shoptalk_qdrant_data` 볼륨 |
-| 세션 캐시 | `shoptalk_redis_data` 볼륨 |
+| 대화·고객·설정 | `sharptalk_mysql_data` 볼륨 |
+| 첨부파일·위젯 로고 | `sharptalk_uploads` 볼륨 |
+| 검색 인덱스(임베딩) | `sharptalk_qdrant_data` 볼륨 |
+| 세션 캐시 | `sharptalk_redis_data` 볼륨 |
 | **외부로 나가는 것** | AI 모델 호출(대화 본문 포함), 켜둔 연동의 커머스/메신저 API |
 
 마지막 줄은 계약서에 그대로 반영되어야 합니다: **저장은 고객사, 처리(AI)는 외부 모델**입니다.

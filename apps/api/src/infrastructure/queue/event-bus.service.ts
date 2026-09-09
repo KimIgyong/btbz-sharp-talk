@@ -13,7 +13,7 @@ export type EventHandler = (payload: unknown) => void | Promise<void>;
 @Injectable()
 export class EventBusService implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(EventBusService.name);
-  private readonly exchange = 'ivy.events';
+  private readonly exchange = 'sharptalk.events';
   private conn: amqp.ChannelModel | null = null;
   private channel: amqp.Channel | null = null;
   private readonly handlers = new Map<string, EventHandler[]>();

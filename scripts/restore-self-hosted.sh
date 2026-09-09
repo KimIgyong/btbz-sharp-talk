@@ -10,8 +10,8 @@ set -euo pipefail
 
 SRC="${1:-}"
 [[ -n "$SRC" && -d "$SRC" ]] || { echo "usage: $0 <backup-dir>" >&2; exit 2; }
-MYSQL_CONTAINER="${MYSQL_CONTAINER:-shoptalk_mysql}"
-API_CONTAINER="${API_CONTAINER:-shoptalk_api}"
+MYSQL_CONTAINER="${MYSQL_CONTAINER:-sharptalk_mysql}"
+API_CONTAINER="${API_CONTAINER:-sharptalk_api}"
 
 for f in db.sql.gz uploads.tar.gz; do
   [[ -s "$SRC/$f" ]] || { echo "ERROR: $SRC/$f is missing or empty" >&2; exit 1; }

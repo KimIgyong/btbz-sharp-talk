@@ -15,8 +15,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 DEST="${1:-$REPO_ROOT/backups/$(date -u +%Y%m%dT%H%M%SZ)}"
-MYSQL_CONTAINER="${MYSQL_CONTAINER:-shoptalk_mysql}"
-API_CONTAINER="${API_CONTAINER:-shoptalk_api}"
+MYSQL_CONTAINER="${MYSQL_CONTAINER:-sharptalk_mysql}"
+API_CONTAINER="${API_CONTAINER:-sharptalk_api}"
 
 mkdir -p "$DEST"
 echo "==> Backing up to $DEST"

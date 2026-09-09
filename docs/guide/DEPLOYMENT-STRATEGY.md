@@ -96,7 +96,7 @@ Each step is a gate: don't promote a commit that hasn't passed the prior environ
 git checkout <previous-good-commit>
 bash docker/staging/deploy-staging.sh        # or deploy-production.sh
 ```
-- Data volumes (`ivy_mysql_*_data`, redis, rabbitmq) **persist** across redeploys — rollback is code-only, data survives.
+- Data volumes (`sharptalk_mysql_*_data` (staging physical names stay `staging_ivy_*`, pinned via `name:`), redis, rabbitmq) **persist** across redeploys — rollback is code-only, data survives.
 - Full wipe (staging only): `docker compose -f docker/staging/docker-compose.staging.yml down -v`.
 - **Gotcha:** editing `nginx.conf` needs `up -d --force-recreate nginx` (bind-mounted config isn't hot-reloaded).
 
@@ -125,7 +125,7 @@ bash docker/staging/deploy-staging.sh        # or deploy-production.sh
 | DNS | `shoptalk.amoeba.site` |
 | SSH user | `shoptalk` |
 | SSH key | `secrets/ssh/ivy_staging_ed25519` (private, gitignored) |
-| Deploy path | `/home/shoptalk/ivyusa-shopping-talktalk` |
+| Deploy path | `/home/shoptalk/btbz-sharptalk` |
 | Repo | `github.com/KimIgyong/btbz-sharp-talk.git` |
 | Public web | `https://shoptalk.amoeba.site/` (admin console) |
 | Public widget | `https://shoptalk.amoeba.site/widget/` |
@@ -136,7 +136,7 @@ bash docker/staging/deploy-staging.sh        # or deploy-production.sh
 
 ```bash
 ssh -i secrets/ssh/ivy_staging_ed25519 shoptalk@211.110.140.172   # key auth (password auth also enabled)
-cd /home/shoptalk/ivyusa-shopping-talktalk && git pull            # on main
+cd /home/shoptalk/btbz-sharptalk && git pull            # on main
 bash docker/staging/deploy-staging.sh
 curl -s https://shoptalk.amoeba.site/api/v1/health               # {"status":"ok","db":"up"}
 ```
