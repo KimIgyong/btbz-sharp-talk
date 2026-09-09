@@ -112,7 +112,7 @@ export const PASSWORD_BLOCKLIST: readonly string[] = [
   'rose', 'roses', 'ruby', 'russia', 'sabertooth', 'sadie', 'sailing', 'sailor', 'sakura', 'salary',
   'sam', 'sample', 'samsung', 'samurai', 'sapphire', 'sasuke', 'satan', 'saturn', 'sayonara', 'school',
   'scooby', 'scoobydoo', 'scorpion', 'seahawks', 'secret', 'secret1', 'sensei', 'seoul', 'serenity', 'sergeant',
-  'server', 'service', 'sexy', 'sexy123', 'shadow', 'shark', 'sheriff', 'shogun', 'shopify', 'shoptalk',
+  'server', 'service', 'sexy', 'sexy123', 'shadow', 'shark', 'sheriff', 'shogun', 'shopify', 'shoptalk', 'sharptalk', 'btbz',
   'sierra', 'sigma', 'signal', 'silver', 'simba', 'singer', 'sisterhood', 'sith', 'skeleton', 'skittles',
   'skull', 'sky', 'skywalker', 'slytherin', 'smile', 'smokey', 'snapchat', 'snickers', 'snoopy', 'snow',
   'snowball', 'snuggle', 'soccer', 'soccer1', 'soccer12', 'soldier', 'sonic', 'sophie', 'soul', 'soulmate',

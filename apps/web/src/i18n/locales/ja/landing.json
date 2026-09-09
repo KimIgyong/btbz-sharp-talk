@@ -1,6 +1,6 @@
 {
   "heroTitle": "オンラインストアのためのAIチャット＆サポート",
-  "heroSubtitle": "ShopTalkは24時間365日お客様に回答し、必要なときは担当チームへ引き継ぎ、英語・スペイン語・韓国語・ベトナム語・日本語・中国語でご案内します。",
+  "heroSubtitle": "SharpTalkは24時間365日お客様に回答し、必要なときは担当チームへ引き継ぎ、英語・スペイン語・韓国語・ベトナム語・日本語・中国語でご案内します。",
   "workspaceLabel": "ワークスペース",
   "workspacePlaceholder": "your-workspace",
   "signIn": "ログイン",
@@ -15,5 +15,5 @@
   "featureCommerceDesc": "Shopifyと連携。注文・顧客・キャンペーンが会話のすぐ隣にあります。",
   "featureI18nTitle": "はじめから多言語対応",
   "featureI18nDesc": "お客様は6つの言語のいずれでもチャットでき、ウィジェットとAIが自動でその言語に合わせます。",
-  "footerCopy": "ShopTalk — チャット＆サポートウィジェット"
+  "footerCopy": "SharpTalk — チャット＆サポートウィジェット"
 }

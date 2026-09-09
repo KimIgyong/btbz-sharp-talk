@@ -3,7 +3,7 @@
   "newTenant": "新規テナント",
   "name": "名称",
   "slug": "ログインパス",
-  "slugPlaceholder": "例：ivyusa",
+  "slugPlaceholder": "例：sharptalk",
   "slugHint": "小文字・数字・ハイフンが使えます。空欄の場合は名称から自動生成します。担当者は /<パス> からログインします。",
   "shopDomain": "ショップドメイン",
   "plan": "プラン",

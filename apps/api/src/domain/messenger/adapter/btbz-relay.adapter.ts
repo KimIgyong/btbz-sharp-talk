@@ -196,7 +196,7 @@ interface ProviderCommand {
  *
  * KSR bridges what no official API reaches: KakaoTalk personal/group rooms
  * (captured by the merchant's own Windows agent) and inbound SMS (their own
- * Android device). ShopTalk talks to it as an operator client — same polling
+ * Android device). SharpTalk talks to it as an operator client — same polling
  * shape as the AmoebaTalk hub — with two properties the other channels lack:
  * SMS threads cannot be replied to, and a reply is a *command* handed to a
  * device, so delivery is never confirmed at send time (REQ §1.5, G12/G13).
@@ -492,7 +492,7 @@ export class BtbzRelayAdapter implements MessengerAdapter {
 
   /**
    * A reply is queued as a command for the capturing device agent, so this
-   * returns `unconfirmed`: the message left ShopTalk but nothing yet proves it
+   * returns `unconfirmed`: the message left SharpTalk but nothing yet proves it
    * reached the room. `confirm` resolves it later.
    */
   async send(ctx: AdapterContext, thread: ChannelThread, text: string): Promise<SendResult> {

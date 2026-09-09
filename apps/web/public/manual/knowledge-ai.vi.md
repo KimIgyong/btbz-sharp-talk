@@ -1,4 +1,4 @@
-# Sổ tay đăng ký tri thức·cài đặt AI ShopTalk — Pipeline tri thức và vận hành tiếp khách
+# Sổ tay đăng ký tri thức·cài đặt AI SharpTalk — Pipeline tri thức và vận hành tiếp khách
 
 > Phiên bản 1.1 · Bản đầu 2026-08-24 · **cập nhật 2026-09-04** · Biên soạn dựa trên mã nguồn
 > Đối tượng: người vận hành tenant · phụ trách CS (khuyến nghị master/director — Cài đặt AI chỉ dành cho cấp bậc cao)
@@ -363,7 +363,7 @@ Thu hẹp phạm vi nghĩa là chỉ agent được chọn mới trích dẫn đ
 | Đoạn mã điểm vào | Đoạn mã cài đặt để mở widget với một agent cụ thể |
 | Persona / quy tắc trả lời | Mô tả giọng điệu·nguyên tắc của bot / danh sách quy tắc nhất định phải tuân thủ (được nạp vào bước ③ pipeline §0) |
 | Nút kịch bản | Nút menu nhanh dưới cùng của widget. Chọn trong 7 loại hành động; **nhãn quản lý theo từng ngôn ngữ** |
-| Hội thoại mặc định | Chỉnh nội dung phản hồi·chip tiếp theo của **7 kịch bản có sẵn** trong ShopTalk (§4.7) |
+| Hội thoại mặc định | Chỉnh nội dung phản hồi·chip tiếp theo của **7 kịch bản có sẵn** trong SharpTalk (§4.7) |
 | Chức năng AI (function) | 5 vị trí AI được dùng (chat/rag/summary/assist/moderation) — mỗi vị trí chỉ định một công cụ |
 | Quy tắc kiểm duyệt | Quy tắc cấm kiểm tra tin nhắn gửi đi (bước ④ pipeline §0) |
 | Tái sử dụng câu trả lời | Chức năng phát lại câu trả lời cũ đã duyệt cho cùng câu hỏi, không gọi LLM |
@@ -513,7 +513,7 @@ agent của danh mục (§3.5).
 
 ### 4.7 Hội thoại mặc định (7 kịch bản có sẵn)
 
-Thẻ *Hội thoại mặc định* liệt kê **toàn bộ kịch bản ShopTalk cung cấp sẵn** — không chỉ
+Thẻ *Hội thoại mặc định* liệt kê **toàn bộ kịch bản SharpTalk cung cấp sẵn** — không chỉ
 các kịch bản do nút kịch bản chạy mà cả **những kịch bản khách chỉ đến được qua chip tiếp
 theo** — tổng cộng 7 (hủy/hoàn tiền · hủy đơn · chính sách hoàn tiền · trả/đổi hàng ·
 chính sách giao hàng · trợ giúp đơn hàng · trợ giúp sản phẩm chung).

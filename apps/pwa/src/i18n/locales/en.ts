@@ -1,5 +1,5 @@
 export default {
-  app: { title: 'ShopTalk' },
+  app: { title: 'SharpTalk' },
   header: { shop: 'Shop' },
   tabs: {
     chat: 'Chat',
@@ -148,7 +148,7 @@ export default {
     iosTitle: 'To get notifications on iPhone',
     iosStep1: 'Tap the Share button at the bottom of Safari',
     iosStep2: 'Choose “Add to Home Screen”',
-    iosStep3: 'Reopen ShopTalk from the home screen icon',
+    iosStep3: 'Reopen SharpTalk from the home screen icon',
   },
   push: {
     promptHint: 'Turn on push notifications to get order, shipping and support updates.',

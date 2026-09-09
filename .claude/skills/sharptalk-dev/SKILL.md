@@ -1,9 +1,9 @@
 ---
-name: ivy-talktalk-dev
-description: Development skill for the IVY USA Chat & Support Widget monorepo. Use whenever adding/editing a backend domain module (NestJS), a frontend feature (React admin/widget), entities, DTOs, RBAC, i18n, or AI/moderation code in this repo. Encodes the Amoeba company standards — source of truth `reference/btbz-dev-kit/` (code convention v3.0 + dev/git/deploy standards + lessons-learned), superseding the amoeba_* v2 docs — as applied here with this repo's approved deviations. Trigger on tasks touching apps/api, apps/web, apps/widget, or packages/*.
+name: sharptalk-dev
+description: Development skill for the btbz-SharpTalk monorepo. Use whenever adding/editing a backend domain module (NestJS), a frontend feature (React admin/widget), entities, DTOs, RBAC, i18n, or AI/moderation code in this repo. Encodes the Amoeba company standards — source of truth `reference/btbz-dev-kit/` (code convention v3.0 + dev/git/deploy standards + lessons-learned), superseding the amoeba_* v2 docs — as applied here with this repo's approved deviations. Trigger on tasks touching apps/api, apps/web, apps/widget, or packages/*.
 ---
 
-# IVY TalkTalk — Development Skill
+# btbz-SharpTalk — Development Skill
 
 Apply this whenever you implement or modify code in this monorepo. It distills the Amoeba
 standards for this project — source of truth is **`reference/btbz-dev-kit/`** (2026-07-30:

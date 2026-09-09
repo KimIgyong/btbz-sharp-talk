@@ -1,6 +1,6 @@
 {
-  "name": "ShopTalk",
-  "short_name": "ShopTalk",
+  "name": "SharpTalk",
+  "short_name": "SharpTalk",
   "description": "Order updates, shipping status and support chat for your store.",
   "start_url": "/app/",
   "scope": "/app/",

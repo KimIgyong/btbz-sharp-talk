@@ -1,5 +1,5 @@
 export default {
-  app: { title: 'ShopTalk' },
+  app: { title: 'SharpTalk' },
   header: { shop: '쇼핑하기' },
   tabs: {
     chat: '상담',
@@ -148,7 +148,7 @@ export default {
     iosTitle: '아이폰에서 알림을 받으려면',
     iosStep1: 'Safari 하단의 공유 버튼을 탭하세요',
     iosStep2: '“홈 화면에 추가”를 선택하세요',
-    iosStep3: '홈 화면 아이콘으로 ShopTalk을 다시 여세요',
+    iosStep3: '홈 화면 아이콘으로 SharpTalk을 다시 여세요',
   },
   push: {
     promptHint: '푸시 알림을 켜면 주문·배송·상담 소식을 바로 받아볼 수 있어요.',

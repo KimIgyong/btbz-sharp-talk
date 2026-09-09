@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thông tin xác thực kết nối · ShopTalk</title>
+<title>Thông tin xác thực kết nối · SharpTalk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
@@ -525,7 +525,7 @@
     <div class="langbar" role="group" aria-label="Language"><a href="platform-integration.ko.html">한국어</a><a href="platform-integration.en.html">EN</a><a href="platform-integration.vi.html" aria-current="true">VI</a></div>
   </div>
 <header class="masthead">
-    <p class="eyebrow">ShopTalk · Cài đặt → Nền tảng</p>
+    <p class="eyebrow">SharpTalk · Cài đặt → Nền tảng</p>
     <h1>Kết nối nền tảng thương mại: nhập giá trị nào, tìm ở đâu</h1>
     <p class="lede">
       Hướng dẫn thực tế về các giá trị bạn nhập ở <code>/settings/platforms</code> để kết nối
@@ -572,7 +572,7 @@
         <span class="auth-chip">Admin API · token app tùy chỉnh</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">ShopTalk yêu cầu gì</p>
+        <p class="sub-label">SharpTalk yêu cầu gì</p>
         <div class="fields">
           <div class="field"><span class="f-label">Địa chỉ cửa hàng<span class="f-key">shop_domain</span></span><span class="f-desc"><code>your-store.myshopify.com</code></span><span class="tags"><span class="tag req">bắt buộc</span></span></div>
           <div class="field"><span class="f-label">Admin API access token<span class="f-key">access_token</span></span><span class="f-desc"><code>shpat_…</code></span><span class="tags"><span class="tag req">bắt buộc</span><span class="tag secret">bí mật</span></span></div>
@@ -585,7 +585,7 @@
           <li><b>Develop apps → Create an app</b>, rồi đặt tên app.</li>
           <li>Ở <b>Configuration → Admin API integration</b>, cấp các scope đọc.<span class="note"><code>read_orders</code> · <code>read_customers</code> · <code>read_fulfillments</code> · <code>read_products</code></span></li>
           <li>Nhấn <b>API credentials → Install app</b>.</li>
-          <li>Sao chép <b>Admin API access token</b> (<code>shpat_…</code>) hiển thị ngay sau khi cài.<span class="note">Token chỉ hiển thị một lần — lưu vào ShopTalk ngay.</span></li>
+          <li>Sao chép <b>Admin API access token</b> (<code>shpat_…</code>) hiển thị ngay sau khi cài.<span class="note">Token chỉ hiển thị một lần — lưu vào SharpTalk ngay.</span></li>
           <li><b>Địa chỉ cửa hàng</b> là phần <code>xxxx.myshopify.com</code> trong URL quản trị (không phải tên miền thương hiệu).</li>
         </ol>
         <figure class="shot">
@@ -608,7 +608,7 @@
           </div>
           <figcaption>Màn hình Admin API access token — chỉ hiển thị một lần, ngay sau khi cài. UI thật có thể khác.</figcaption>
         </figure>
-        <div class="tip"><span class="i">↔</span><span>Nếu đã cài qua nút "Connect" của app công khai ShopTalk, token được lưu tự động. Nhập thủ công ở trên là dành cho app tùy chỉnh do bạn tự vận hành.</span></div>
+        <div class="tip"><span class="i">↔</span><span>Nếu đã cài qua nút "Connect" của app công khai SharpTalk, token được lưu tự động. Nhập thủ công ở trên là dành cho app tùy chỉnh do bạn tự vận hành.</span></div>
       </div>
     </section>
 
@@ -623,7 +623,7 @@
         <span class="auth-chip">Admin API v2 · Bearer (OAuth)</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">ShopTalk yêu cầu gì</p>
+        <p class="sub-label">SharpTalk yêu cầu gì</p>
         <div class="fields">
           <div class="field"><span class="f-label">Mall ID<span class="f-key">mall_id</span></span><span class="f-desc">ID cửa hàng (vd: <code>yourmall</code>)</span><span class="tags"><span class="tag req">bắt buộc</span></span></div>
           <div class="field"><span class="f-label">Access token<span class="f-key">access_token</span></span><span class="f-desc">Token Admin API OAuth</span><span class="tags"><span class="tag req">bắt buộc</span><span class="tag secret">bí mật</span></span></div>
@@ -671,7 +671,7 @@
         <span class="auth-chip">REST v3 · Basic auth</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">ShopTalk yêu cầu gì</p>
+        <p class="sub-label">SharpTalk yêu cầu gì</p>
         <div class="fields">
           <div class="field"><span class="f-label">Store URL<span class="f-key">store_url</span></span><span class="f-desc"><code>https://store.example.com</code></span><span class="tags"><span class="tag req">bắt buộc</span></span></div>
           <div class="field"><span class="f-label">Consumer key<span class="f-key">consumer_key</span></span><span class="f-desc"><code>ck_…</code></span><span class="tags"><span class="tag req">bắt buộc</span><span class="tag secret">bí mật</span></span></div>
@@ -698,7 +698,7 @@
               </div>
               <div class="win-main">
                 <div class="crumb">Advanced <span>›</span> <b>REST API</b> <span>›</span> Add key</div>
-                <div class="ui-field"><span class="lab">Description</span><span class="val mut">ShopTalk</span></div>
+                <div class="ui-field"><span class="lab">Description</span><span class="val mut">SharpTalk</span></div>
                 <div class="ui-field"><span class="lab">Permissions</span><span class="val">Read</span></div>
                 <div class="ui-field target"><span class="lab">Consumer key</span><span class="val">ck_9f3a•••• / cs_7d21••••</span><span class="pin">4</span></div>
                 <span class="ui-btn">Generate API key</span>
@@ -722,7 +722,7 @@
         <span class="star-tag">★ trọng tâm</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">ShopTalk yêu cầu gì</p>
+        <p class="sub-label">SharpTalk yêu cầu gì</p>
         <div class="fields">
           <div class="field"><span class="f-label">Server URL<span class="f-key">url</span></span><span class="f-desc"><code>https://my-odoo.example.com</code></span><span class="tags"><span class="tag req">bắt buộc</span></span></div>
           <div class="field"><span class="f-label">Database<span class="f-key">db</span></span><span class="f-desc">Tên cơ sở dữ liệu</span><span class="tags"><span class="tag req">bắt buộc</span></span></div>
@@ -730,7 +730,7 @@
           <div class="field"><span class="f-label">API key<span class="f-key">api_key</span></span><span class="f-desc">API key cá nhân (thay cho mật khẩu)</span><span class="tags"><span class="tag req">bắt buộc</span><span class="tag secret">bí mật</span></span></div>
         </div>
         <p style="font-size:13.5px;color:var(--muted);margin:16px 0 0">
-          ShopTalk xác minh bốn giá trị này bằng cách gọi <code>common.authenticate(db, username, api_key)</code> tại <code>{url}/jsonrpc</code>.
+          SharpTalk xác minh bốn giá trị này bằng cách gọi <code>common.authenticate(db, username, api_key)</code> tại <code>{url}/jsonrpc</code>.
         </p>
 
         <p class="sub-label mt">① Server URL</p>
@@ -805,7 +805,7 @@
         <span class="auth-chip">Admin API · Bearer</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">ShopTalk yêu cầu gì</p>
+        <p class="sub-label">SharpTalk yêu cầu gì</p>
         <div class="fields">
           <div class="field"><span class="f-label">Địa chỉ cửa hàng<span class="f-key">shop_domain</span></span><span class="f-desc"><code>your-store.myharavan.com</code></span><span class="tags"><span class="tag req">bắt buộc</span></span></div>
           <div class="field"><span class="f-label">Access token<span class="f-key">access_token</span></span><span class="f-desc">Admin API access token</span><span class="tags"><span class="tag req">bắt buộc</span><span class="tag secret">bí mật</span></span></div>
@@ -814,7 +814,7 @@
         <p class="sub-label mt">Phát hành trong trang quản trị Haravan</p>
         <ol class="steps">
           <li><b>Địa chỉ cửa hàng</b> — địa chỉ quản trị Haravan <code>your-store.myharavan.com</code>.</li>
-          <li><b>Access token</b> — tạo <b>Private App</b> hoặc tích hợp Admin API trong mục <b>Apps</b> của trang quản trị và dùng token nó phát hành.<span class="note">Cấp quyền đọc đơn hàng, khách hàng và sản phẩm. Admin API của Haravan tương thích Shopify, nên ShopTalk xác minh với <code>…/admin/shop.json</code> bằng Bearer token.</span></li>
+          <li><b>Access token</b> — tạo <b>Private App</b> hoặc tích hợp Admin API trong mục <b>Apps</b> của trang quản trị và dùng token nó phát hành.<span class="note">Cấp quyền đọc đơn hàng, khách hàng và sản phẩm. Admin API của Haravan tương thích Shopify, nên SharpTalk xác minh với <code>…/admin/shop.json</code> bằng Bearer token.</span></li>
           <li>Dán token vào ô <b>Access token</b>, lưu và kiểm tra. <code>401</code> = token sai/hết hạn.</li>
         </ol>
         <figure class="shot">
@@ -858,7 +858,7 @@
   </main>
 
   <footer>
-    <span>ShopTalk · Thông tin xác thực kết nối thương mại</span>
+    <span>SharpTalk · Thông tin xác thực kết nối thương mại</span>
     <span class="mono">GUIDE-260826 · 2026-08-26</span>
   </footer>
 </div>

@@ -9,7 +9,7 @@ import {
 import { bigintTransformer } from '../../../global/util/transformers';
 
 /**
- * channel_message_map — external message id ↔ ShopTalk message id.
+ * channel_message_map — external message id ↔ SharpTalk message id.
  *
  * One table, three jobs (AMA kakao-integration lesson): duplicate inbound
  * delivery is skipped, an inbound-origin message is never echoed back out, and

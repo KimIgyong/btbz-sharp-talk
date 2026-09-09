@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# IVY TalkTalk — dev infra bring-up. Amoeba Structure v2 §5.1.
+# btbz-SharpTalk — dev infra bring-up. Amoeba Structure v2 §5.1.
 # Starts dev infra (MySQL, Redis, RabbitMQ) and seeds the database.
 set -euo pipefail
 

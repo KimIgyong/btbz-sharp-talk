@@ -3,7 +3,7 @@
   "newTenant": "新建租户",
   "name": "名称",
   "slug": "登录路径",
-  "slugPlaceholder": "例如 ivyusa",
+  "slugPlaceholder": "例如 sharptalk",
   "slugHint": "可使用小写字母、数字和连字符。留空则根据名称自动生成。员工在 /<路径> 登录。",
   "shopDomain": "店铺域名",
   "plan": "套餐",

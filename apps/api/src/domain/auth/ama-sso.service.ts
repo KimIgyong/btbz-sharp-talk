@@ -29,7 +29,7 @@ const LIMITER_SCOPE = 'ama_sso';
  *
  * Mapping is decision D1/D2: the tenant comes from the URL slug and the account
  * must already exist (active, same email) in that tenant — no provisioning.
- * The ShopTalk session is always our own JWT (AuthService.issueForSso).
+ * The SharpTalk session is always our own JWT (AuthService.issueForSso).
  */
 @Injectable()
 export class AmaSsoService {

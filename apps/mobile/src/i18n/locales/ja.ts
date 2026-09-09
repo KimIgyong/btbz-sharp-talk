@@ -16,7 +16,7 @@ export default {
     "save": "保存"
   },
   "onboarding": {
-    "welcome": "ShopTalkへようこそ",
+    "welcome": "SharpTalkへようこそ",
     "intro": "ご注文の更新、配送状況、サポートチャットをこのアプリで。",
     "chooseLanguage": "言語を選択してください",
     "notifTitle": "最新情報をお届けします",
@@ -29,7 +29,7 @@ export default {
     "title": "ショップ"
   },
   "home": {
-    "title": "ShopTalk",
+    "title": "SharpTalk",
     "visitShop": "ショップを見る",
     "newArrivals": "新着",
     "recommended": "AIのおすすめ",

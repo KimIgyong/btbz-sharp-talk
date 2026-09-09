@@ -166,7 +166,7 @@ export function ensureSession(sessionToken: string | null, locale: string, shopD
 
 {% schema %}
 {
-  "name": "IVY USA TalkTalk",
+  "name": "SharpTalk",
   "target": "body",
   "settings": [
     { "type": "text", "id": "widget_url", "label": "Widget URL",

@@ -2,7 +2,7 @@
 
 - 대상: go2joy 노션 워크스페이스 관리자 (통합 "Truc connection" 소유자)
 - 근거: `docs/analysis/REQ-260828-Go2Joy-Notion-KB-Analysis.md` §9
-- 목적: 노션 페이지를 ShopTalk 지식으로 등록하기 위한 **go2joy 측 1가지 조치**(페이지에 통합 연결) 요청과, 완료 후 진행 절차·제약 안내
+- 목적: 노션 페이지를 SharpTalk 지식으로 등록하기 위한 **go2joy 측 1가지 조치**(페이지에 통합 연결) 요청과, 완료 후 진행 절차·제약 안내
 
 ---
 
@@ -20,7 +20,7 @@
 
 > Could not find page with ID: 8968fee0-…. Make sure the relevant pages and databases are **shared with your integration "Truc connection"**.
 
-**VI** — Các bước cấu hình phía ShopTalk đã hoàn tất (token hợp lệ, nguồn tri thức đã đăng ký). Đồng bộ thất bại vì **trang Notion chưa được kết nối (share) với integration "Truc connection"**. Đây là thao tác chỉ thực hiện được từ phía quản trị Notion của go2joy.
+**VI** — Các bước cấu hình phía SharpTalk đã hoàn tất (token hợp lệ, nguồn tri thức đã đăng ký). Đồng bộ thất bại vì **trang Notion chưa được kết nối (share) với integration "Truc connection"**. Đây là thao tác chỉ thực hiện được từ phía quản trị Notion của go2joy.
 
 ---
 
@@ -87,4 +87,4 @@
 
 **VI** — Vui lòng phản hồi: ① đã thêm "Truc connection" vào Connections của trang (kèm 1 ảnh chụp màn hình danh sách Connections nếu có thể), ② trang có nằm cùng workspace với integration hay không.
 
-문의: ShopTalk 운영팀 (기존 연락 채널) / Liên hệ: đội vận hành ShopTalk (kênh liên lạc hiện có).
+문의: SharpTalk 운영팀 (기존 연락 채널) / Liên hệ: đội vận hành SharpTalk (kênh liên lạc hiện có).

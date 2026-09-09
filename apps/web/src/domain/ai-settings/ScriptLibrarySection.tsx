@@ -10,7 +10,7 @@ import { ScenarioReplyEditor } from './ScenarioReplyEditor';
 import type { ScenarioOverride } from './ai-settings.service';
 
 /**
- * Every conversation shopTalk ships with, in one list (PLN-260903 S1-7).
+ * Every conversation SharpTalk ships with, in one list (PLN-260903 S1-7).
  *
  * Four of the seven scripts are reachable only as a follow-up chip inside
  * another script, so before this section they existed in the product and

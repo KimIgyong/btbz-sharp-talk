@@ -1,7 +1,7 @@
 import type { Translation } from './en';
 
 export const vi: Translation = {
-  appName: 'IVY USA',
+  appName: 'SharpTalk',
   notificationCenter: 'Trung tâm thông báo',
   settings: 'Cài đặt',
 

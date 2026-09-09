@@ -1,4 +1,6 @@
-# IVY USA Chat & Support Widget
+# btbz-SharpTalk
+
+> 구 명칭 **ShopTalk / IVY TalkTalk / IVY USA Chat & Support Widget** = 동일 제품. 2026-09-09 **btbz-SharpTalk**(SharpTalk, 한국어 샵톡)으로 통일 — 과거 문서·PR 본문의 구 명칭은 그대로 둔다 (REQ/PLN-260909).
 
 > Multi-tenant, AI-assisted chat & customer-support widget for Shopify storefronts
 > (Naver TalkTalk style) — customer widget + tenant operator console + platform-admin console.
@@ -83,7 +85,7 @@ ivy-talktalk/
 ├── reference/  standards/   # Amoeba company standards (knowledge)
 ├── secrets/       # gitignored — staging server & SSH keys (never committed)
 ├── SPEC.md  CONFIG.md  CLAUDE.md  CHANGELOG.md
-└── .claude/skills/ivy-talktalk-dev/   # project dev skill
+└── .claude/skills/sharptalk-dev/   # project dev skill
 ```
 
 **Backend module** (`apps/api/src/domain/{domain}/`): `entity/` · `dto/request/*.request.ts` (snake_case) + `dto/response/*.response.ts` (camelCase) · `{domain}.service.ts` · `{domain}.controller.ts` · `{domain}.mapper.ts` · `{domain}.module.ts`. Controllers do DTO/mapper glue only; services own business logic + tenant scoping.
@@ -140,7 +142,7 @@ curl -s https://shoptalk.amoeba.site/api/v1/health   # {"status":"ok","db":"up"}
 This repo follows the **Amoeba v2 standards** (`reference/`, `standards/`): SPEC, Structure,
 Code Convention, Web Style Guide, Privacy/Compliance, and the Spec-Generator skill. Working
 rules for this repo are in [CLAUDE.md](CLAUDE.md) and the project skill
-[`.claude/skills/ivy-talktalk-dev/SKILL.md`](.claude/skills/ivy-talktalk-dev/SKILL.md).
+[`.claude/skills/sharptalk-dev/SKILL.md`](.claude/skills/sharptalk-dev/SKILL.md).
 
 Key rules: DTO request `snake_case` / response `camelCase` (via Mapper); 4-layer
 Controller→Service→Entity→Repository; RBAC = rank × label + ACL owner-visibility; multi-tenant

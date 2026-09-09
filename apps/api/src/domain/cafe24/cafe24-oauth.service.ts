@@ -22,7 +22,7 @@ interface OAuthState {
  * authenticated console (so the tenant binding is server-trusted, carried in the
  * Redis state — not the URL); the callback is public. One shared PMM-style public
  * app: client_id/secret in env, per-tenant input is the mall_id. Ported from
- * btbz-shop-pmm's cafe24-oauth flow, using ShopTalk's Redis-state + credential store.
+ * btbz-shop-pmm's cafe24-oauth flow, using SharpTalk's Redis-state + credential store.
  */
 @Injectable()
 export class Cafe24OAuthService {

@@ -1,4 +1,4 @@
-# ShopTalk Knowledge & AI Setup Manual — The Knowledge Pipeline and Customer-Response Operations
+# SharpTalk Knowledge & AI Setup Manual — The Knowledge Pipeline and Customer-Response Operations
 
 > Version 1.1 · First edition 2026-08-24 · **updated 2026-09-04** · Written against the code
 > Audience: tenant operators · CS staff (master/director recommended — AI settings are restricted to senior ranks)
@@ -367,7 +367,7 @@ documents (answer reuse follows the same scope).
 | Entry snippet | An installation code fragment that launches the widget with a specific agent |
 | Persona / response rules | The bot's tone·principles description / the list of rules it must obey (injected at pipeline ③ in §0) |
 | Scenario buttons | The quick-menu buttons at the bottom of the widget. Choose among 7 actions; **labels are managed per language** |
-| Built-in conversations | Editing the response copy·follow-up chips of the **7 built-in scripts** ShopTalk ships with (§4.7) |
+| Built-in conversations | Editing the response copy·follow-up chips of the **7 built-in scripts** SharpTalk ships with (§4.7) |
 | AI function | The 5 places AI is used (chat/rag/summary/assist/moderation) — an engine is assigned per place |
 | Moderation rules | The rules that inspect outbound messages (pipeline ④ in §0) |
 | Answer reuse | Replaying an approved past answer for the same question without an LLM call |
@@ -520,7 +520,7 @@ answers still pass moderation, and they follow the category agent scope (§3.5) 
 
 ### 4.7 Built-in conversations (the 7 built-in scripts)
 
-The *Built-in conversations* card lists **every script ShopTalk ships with** — not only the
+The *Built-in conversations* card lists **every script SharpTalk ships with** — not only the
 ones scenario buttons run, but also **those a customer only reaches through a follow-up
 chip** — 7 in total (cancel/refund · order cancellation · refund policy · return/exchange ·
 shipping policy · order help · general product help).

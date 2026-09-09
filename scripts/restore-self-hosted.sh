@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ShopTalk — restore a self-hosted deployment (PLN-260820 W4).
+# SharpTalk — restore a self-hosted deployment (PLN-260820 W4).
 #
 #   bash scripts/restore-self-hosted.sh <backup-dir>
 #

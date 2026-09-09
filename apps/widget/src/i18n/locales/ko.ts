@@ -1,7 +1,7 @@
 import type { Translation } from './en';
 
 export const ko: Translation = {
-  appName: 'IVY USA',
+  appName: 'SharpTalk',
   notificationCenter: '알림 센터',
   settings: '설정',
 

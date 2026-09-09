@@ -1,5 +1,5 @@
 export const en = {
-  appName: 'IVY USA',
+  appName: 'SharpTalk',
   notificationCenter: 'Notification Center',
   settings: 'Settings',
 

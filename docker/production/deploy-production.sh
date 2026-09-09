@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# IVY TalkTalk — production deploy. Amoeba Structure v2 §5.1 (deploy scripts mandatory).
+# btbz-SharpTalk — production deploy. Amoeba Structure v2 §5.1 (deploy scripts mandatory).
 set -euo pipefail
 
 # Resolve repo root from this script's location (docker/production/).

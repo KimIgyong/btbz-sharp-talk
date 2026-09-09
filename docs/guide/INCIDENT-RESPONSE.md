@@ -4,7 +4,7 @@
 |---|---|
 | 문서 ID | GUIDE-Incident-Response-20260731 |
 | 작성일 | 2026-07-31 |
-| 범위 | ShopTalk 전 환경(스테이징 `shoptalk.amoeba.site`, 향후 프로덕션)의 개인정보 침해·유출 의심 사고 |
+| 범위 | SharpTalk 전 환경(스테이징 `shoptalk.amoeba.site`, 향후 프로덕션)의 개인정보 침해·유출 의심 사고 |
 | 기준 | `reference/amoeba_privacy_compliance_v2.md` §8 (PRV-041 사고대응 문서화, PRV-032 GDPR 72시간 통지) · REQ-Privacy-Control-Gap-20260731 #7 |
 | 소유자 | 사고 지휘(Incident Commander, TBD/지정 필요) |
 

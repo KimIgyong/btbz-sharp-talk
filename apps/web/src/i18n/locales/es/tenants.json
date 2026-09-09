@@ -3,7 +3,7 @@
   "newTenant": "Nuevo inquilino",
   "name": "Nombre",
   "slug": "Ruta de acceso",
-  "slugPlaceholder": "p. ej. ivyusa",
+  "slugPlaceholder": "p. ej. sharptalk",
   "slugHint": "Minúsculas, números y guiones. Déjalo vacío para derivarlo del nombre. El personal inicia sesión en /<ruta>.",
   "shopDomain": "Dominio de la tienda",
   "plan": "Plan",

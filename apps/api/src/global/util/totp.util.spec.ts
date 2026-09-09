@@ -79,9 +79,9 @@ describe('totp.util (RFC 6238 / RFC 4226)', () => {
   });
 
   it('builds an otpauth URI with issuer, encoded label, and TOTP params', () => {
-    const uri = buildOtpauthUri('ShopTalk', 'dev@amoeba.group', RFC_SECRET);
+    const uri = buildOtpauthUri('SharpTalk', 'dev@amoeba.group', RFC_SECRET);
     expect(uri).toBe(
-      `otpauth://totp/ShopTalk:dev%40amoeba.group?secret=${RFC_SECRET}&issuer=ShopTalk&algorithm=SHA1&digits=6&period=30`,
+      `otpauth://totp/SharpTalk:dev%40amoeba.group?secret=${RFC_SECRET}&issuer=SharpTalk&algorithm=SHA1&digits=6&period=30`,
     );
   });
 });

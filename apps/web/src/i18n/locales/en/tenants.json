@@ -3,7 +3,7 @@
   "newTenant": "New tenant",
   "name": "Name",
   "slug": "Login path",
-  "slugPlaceholder": "e.g. ivyusa",
+  "slugPlaceholder": "e.g. sharptalk",
   "slugHint": "Lowercase letters, numbers and dashes. Leave empty to derive it from the name. Staff sign in at /<path>.",
   "shopDomain": "Shop domain",
   "plan": "Plan",

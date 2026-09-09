@@ -1,6 +1,6 @@
 /**
  * The system's language registry — the single source of truth for "which
- * languages does ShopTalk speak" (REQ-260817 §1a / PLN-260817 §1).
+ * languages does SharpTalk speak" (REQ-260817 §1a / PLN-260817 §1).
  *
  * Before this file the list lived in five places (SESSION_LANGUAGE, four apps'
  * SUPPORTED_LANGUAGES) plus eight `'EN' | 'ES' | 'KO'` type literals and six UI

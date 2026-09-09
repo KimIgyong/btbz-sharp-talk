@@ -57,16 +57,16 @@ export function Sidebar() {
           <div className="min-w-0 leading-tight">
             {isAdmin ? (
               <>
-                <p className="truncate text-sm font-semibold text-gray-900">ShopTalk</p>
+                <p className="truncate text-sm font-semibold text-gray-900">SharpTalk</p>
                 <p className="text-xs text-gray-400">{t('platformAdmin')}</p>
               </>
             ) : (
               <>
                 {/* Tenant-first: shop name on top, brand underneath, smaller. */}
                 <p className="truncate text-sm font-semibold text-gray-900">
-                  {tenantName ?? tenantSlug ?? 'ShopTalk'}
+                  {tenantName ?? tenantSlug ?? 'SharpTalk'}
                 </p>
-                <p className="text-xs text-gray-400">ShopTalk</p>
+                <p className="text-xs text-gray-400">SharpTalk</p>
               </>
             )}
           </div>

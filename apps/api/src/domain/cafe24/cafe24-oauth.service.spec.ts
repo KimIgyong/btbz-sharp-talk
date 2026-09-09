@@ -17,7 +17,7 @@ describe('Cafe24OAuthService.handleCallback', () => {
 
   /**
    * A refusal used to surface as "invalid or expired state" — the message points
-   * at ShopTalk while the actual fix (a permission the app registration lacks)
+   * at SharpTalk while the actual fix (a permission the app registration lacks)
    * is in Cafe24's developer admin. Diagnosing the real case cost a trip through
    * the nginx access log.
    */

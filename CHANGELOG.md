@@ -1,9 +1,12 @@
 # Changelog
 
-All notable changes to the IVY USA Chat & Support Widget implementation.
+All notable changes to the btbz-SharpTalk implementation.
 Format based on [Keep a Changelog](https://keepachangelog.com/); follows Amoeba SDLC.
 
 ## [Unreleased]
+
+### Changed — 2026-09-09 프로젝트명 통일
+- 제품명 **SharpTalk / IVY TalkTalk → btbz-SharpTalk (SharpTalk, 한국어 샵톡)**. 표시 문자열·살아있는 문서·스킬명(`sharptalk-dev`)만 변경; 기술 접두어(`ivy_`/`ivy:`), 임베드 계약(`IVY_WIDGET_CONFIG`, `window.ShopTalk`), 도메인, 역사 문서는 그대로 (REQ/PLN-260909).
 
 ### Added — Stage 3 Implementation (Build)
 - **Monorepo scaffold** (Turborepo): `apps/{api,web,widget}`, `packages/{types,common}`. Root configs, `env/`, `docker/`, `sql/`, `docs/`, `reference/`, `scripts/` per Amoeba Structure v2. `SPEC.md`, `CLAUDE.md`.
@@ -20,7 +23,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/); follows Amoeba 
 ### Added — i18n + Standards alignment (2026-06-19)
 - **i18n en/es/ko** end-to-end: react-i18next in `apps/web` (16 namespaces) and `apps/widget` (session-tied), language switchers, `fallbackLng:'en'`; backend chat conversational strings localized by `session.language`. No hardcoded UI text (per code_convention §14).
 - **Standards-compliance audit** → `docs/report/RPT-Standards-Compliance-Audit-20260619.md` (6 standards + code_convention violation table + remediation roadmap).
-- **Standard-aligned docs**: `SPEC.md` rewritten to the Amoeba SPEC v2 12-section template (+ approved deviations §13, gap roadmap §14); `CLAUDE.md` rewritten to skill/convention/structure; new project skill `.claude/skills/ivy-talktalk-dev/SKILL.md`.
+- **Standard-aligned docs**: `SPEC.md` rewritten to the Amoeba SPEC v2 12-section template (+ approved deviations §13, gap roadmap §14); `CLAUDE.md` rewritten to skill/convention/structure; new project skill `.claude/skills/sharptalk-dev/SKILL.md`.
 - **High-priority gap fixes**:
   - **Privacy/GDPR** (`domain/privacy`): Shopify compliance webhooks (`customers/data_request`, `customers/redact`, `shop/redact`, HMAC-verified) + DSAR endpoints (export/portability, delete/anonymize) + CCPA "Do Not Sell or Share" opt-out toggle. Privileged actions audited.
   - **Tenant threading**: `sessions.tenant_id` added and used by chat (removed the "first tenant" lookup; safe fallback retained).

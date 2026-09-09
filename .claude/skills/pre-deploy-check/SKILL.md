@@ -1,14 +1,14 @@
 ---
 name: pre-deploy-check
 description: Check for missing schema migrations right before/after a staging or production
-  deploy of IVY TalkTalk. Use when - (1) a PR being deployed touches `sql/*.sql` or
+  deploy of btbz-SharpTalk. Use when - (1) a PR being deployed touches `sql/*.sql` or
   `apps/api/src/**/*.entity.ts`, (2) investigating 500/502 where "Table ... doesn't exist" /
   "Unknown column" is suspected, (3) regression check right after a redeploy. Target -
   staging `shoptalk.amoeba.site` (host 211.110.140.172, creds in `secrets/staging-server.md`,
   MySQL container `ivy_mysql_staging`); production TBD.
 ---
 
-# Pre-Deploy Migration Check (IVY TalkTalk)
+# Pre-Deploy Migration Check (btbz-SharpTalk)
 
 Adapted from `reference/btbz-dev-kit/claude/skills-guide.md` template 1 for this
 project's MySQL stack. The deploy script (`docker/staging/deploy-staging.sh`) does

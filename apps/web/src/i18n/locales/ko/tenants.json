@@ -3,7 +3,7 @@
   "newTenant": "새 테넌트",
   "name": "이름",
   "slug": "로그인 경로",
-  "slugPlaceholder": "예: ivyusa",
+  "slugPlaceholder": "예: sharptalk",
   "slugHint": "소문자, 숫자, 하이픈만 사용합니다. 비워 두면 이름에서 자동 생성됩니다. 직원은 /<경로> 에서 로그인합니다.",
   "shopDomain": "쇼핑몰 도메인",
   "plan": "요금제",

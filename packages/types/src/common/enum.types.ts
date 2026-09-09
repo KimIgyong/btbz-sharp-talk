@@ -427,7 +427,7 @@ export const INTEGRATION_FIELDS: Record<GenericIntegrationProvider, IntegrationF
 
 /**
  * External messenger channels (PLN-260810). Distinct from INTEGRATION_PROVIDER:
- * these carry *conversations* (inbound messages become ShopTalk conversations and
+ * these carry *conversations* (inbound messages become SharpTalk conversations and
  * outbound replies go back out), not store/marketing credentials.
  */
 export const MESSENGER_PROVIDER = {
@@ -439,7 +439,7 @@ export const MESSENGER_PROVIDER = {
 } as const;
 export type MessengerProvider = (typeof MESSENGER_PROVIDER)[keyof typeof MESSENGER_PROVIDER];
 
-/** Channels ShopTalk speaks to directly (own webhook + own send API) — PR-M1. */
+/** Channels SharpTalk speaks to directly (own webhook + own send API) — PR-M1. */
 export const DIRECT_MESSENGER_PROVIDERS = [
   MESSENGER_PROVIDER.TELEGRAM,
   MESSENGER_PROVIDER.VIBER,

@@ -4,7 +4,7 @@
 |---|---|
 | 문서 ID | GUIDE-AI-DPIA-Gate-20260731 |
 | 작성일 | 2026-07-31 |
-| 범위 | ShopTalk의 현행 및 신규 AI 기능 전부(완성·임베딩·분류 등 AI 게이트웨이를 경유하는 모든 처리) |
+| 범위 | SharpTalk의 현행 및 신규 AI 기능 전부(완성·임베딩·분류 등 AI 게이트웨이를 경유하는 모든 처리) |
 | 기준 | `reference/amoeba_privacy_compliance_v2.md` PRV-006/PRV-042(DPIA, 고위험 처리) · GDPR Art.22(자동화 결정) · CCPA/CPRA ADMT 규정 방향 · REQ-Privacy-Control-Gap-20260731 #8, #16 |
 | 소유자 | 개인정보 보호책임자(TBD/지정 필요) · 기술 확인: 개발팀 |
 

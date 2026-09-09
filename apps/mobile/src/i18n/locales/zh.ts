@@ -16,7 +16,7 @@ export default {
     "save": "保存"
   },
   "onboarding": {
-    "welcome": "欢迎使用 ShopTalk",
+    "welcome": "欢迎使用 SharpTalk",
     "intro": "在这里查看订单更新、配送状态，并与客服聊天。",
     "chooseLanguage": "请选择您的语言",
     "notifTitle": "随时掌握动态",
@@ -29,7 +29,7 @@ export default {
     "title": "商店"
   },
   "home": {
-    "title": "ShopTalk",
+    "title": "SharpTalk",
     "visitShop": "去逛商店",
     "newArrivals": "新品上架",
     "recommended": "AI 为你推荐",

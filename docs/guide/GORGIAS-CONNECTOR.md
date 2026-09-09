@@ -1,6 +1,6 @@
 # Gorgias 커넥터 설정 가이드 (bridge 모드)
 
-ShopTalk 에스컬레이션을 Gorgias 티켓으로 전달(L1)하고, 티켓 상태를 위젯 알림으로 회신(L2)하는 설정.
+SharpTalk 에스컬레이션을 Gorgias 티켓으로 전달(L1)하고, 티켓 상태를 위젯 알림으로 회신(L2)하는 설정.
 관련: PLN-260808-Issue-Workflow-P2 §S4, PLN-260809-Issue-Workflow-P3 §S3.
 
 ## 1. 자격증명 (콘솔)

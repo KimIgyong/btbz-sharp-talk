@@ -1,4 +1,4 @@
-# IVY TalkTalk — production stack. Amoeba Structure v2 §5.1.
+# btbz-SharpTalk — production stack. Amoeba Structure v2 §5.1.
 # Run: docker compose -f docker/production/docker-compose.production.yml \
 #        --env-file docker/production/.env.production up -d --build
 # Build context is the repo root (../..) so turbo sees the whole workspace.

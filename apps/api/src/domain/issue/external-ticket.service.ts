@@ -259,7 +259,7 @@ export class ExternalTicketService implements OnModuleInit {
     if (orderNote) messages.push({ fromAgent: true, bodyText: orderNote });
 
     const lastUser = [...transcript].reverse().find((m) => m.senderType === SENDER_TYPE.USER);
-    const subject = `[ShopTalk] ${reason} — ${(lastUser?.body ?? 'chat escalation').slice(0, 80)}`;
+    const subject = `[SharpTalk] ${reason} — ${(lastUser?.body ?? 'chat escalation').slice(0, 80)}`;
     const externalId = await this.withRetry(() =>
       createGorgiasTicket(cfg, {
         customerEmail: email,
@@ -354,7 +354,7 @@ export class ExternalTicketService implements OnModuleInit {
       const lines = orders.map(
         (o) => `#${o.orderNumber} · ${o.statusUi ?? o.statusInternal ?? '-'} · ${o.total ?? '-'} ${o.currency ?? ''}`,
       );
-      return `[ShopTalk] Recent orders:\n${lines.join('\n')}`;
+      return `[SharpTalk] Recent orders:\n${lines.join('\n')}`;
     } catch {
       return null;
     }

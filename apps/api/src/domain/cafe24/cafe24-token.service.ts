@@ -23,7 +23,7 @@ export interface Cafe24Credential {
 /**
  * Resolves a tenant's Cafe24 connection (mall + a fresh access token). Access
  * tokens live ~2h and are cached in memory only; the refresh token (14d, rotating)
- * is the persisted secret. Mirrors ShopTalk's Shopify token-refresh design, ported
+ * is the persisted secret. Mirrors SharpTalk's Shopify token-refresh design, ported
  * from btbz-shop-pmm's `cafe24-token.service`.
  */
 @Injectable()

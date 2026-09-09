@@ -1,5 +1,5 @@
 export default {
-  app: { title: 'ShopTalk' },
+  app: { title: 'SharpTalk' },
   header: { shop: 'Tienda' },
   tabs: {
     chat: 'Chat',
@@ -148,7 +148,7 @@ export default {
     iosTitle: 'Para recibir notificaciones en iPhone',
     iosStep1: 'Toca el botón Compartir en la parte inferior de Safari',
     iosStep2: 'Elige “Añadir a pantalla de inicio”',
-    iosStep3: 'Vuelve a abrir ShopTalk desde el icono de la pantalla de inicio',
+    iosStep3: 'Vuelve a abrir SharpTalk desde el icono de la pantalla de inicio',
   },
   push: {
     promptHint: 'Activa las notificaciones push para recibir avisos de pedidos, envíos y soporte.',

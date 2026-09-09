@@ -3,7 +3,7 @@
   "newTenant": "Gian hàng mới",
   "name": "Tên",
   "slug": "Đường dẫn đăng nhập",
-  "slugPlaceholder": "ví dụ: ivyusa",
+  "slugPlaceholder": "ví dụ: sharptalk",
   "slugHint": "Chữ thường, số và dấu gạch ngang. Để trống để tự tạo từ tên. Nhân viên đăng nhập tại /<đường-dẫn>.",
   "shopDomain": "Tên miền cửa hàng",
   "plan": "Gói dịch vụ",

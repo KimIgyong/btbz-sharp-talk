@@ -325,7 +325,7 @@
   "scriptNone": "Sin guion integrado: la etiqueta se envía como mensaje de chat (responde la IA)",
   "scripts": {
     "title": "Conversaciones integradas",
-    "hint": "Todos los guiones que incluye shopTalk, incluidos los que solo se alcanzan con un botón de seguimiento.",
+    "hint": "Todos los guiones que incluye SharpTalk, incluidos los que solo se alcanzan con un botón de seguimiento.",
     "viaButton": "Botón del menú · {{action}}",
     "viaFollowUp": "Solo botón de seguimiento",
     "edited": "{{count}} idioma(s) editado(s)",

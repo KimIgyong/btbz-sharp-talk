@@ -58,7 +58,7 @@ interface InboxMessage {
  * AmoebaTalk hub adapter (PLN-260810 PR-M2).
  *
  * AmoebaTalk already carries Zalo, LINE, WhatsApp (and Facebook/KakaoTalk) with
- * the platform reviews cleared, so ShopTalk reaches those channels through its
+ * the platform reviews cleared, so SharpTalk reaches those channels through its
  * Inbox API instead of re-certifying with each vendor. It exposes no outbound
  * webhook, hence polling; when one is added, only `pull` is replaced.
  */

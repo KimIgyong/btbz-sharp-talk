@@ -165,7 +165,7 @@ The app ships an **app-embed block** the merchant toggles in Theme editor → *A
 
 {% schema %}
 {
-  "name": "IVY USA TalkTalk",
+  "name": "SharpTalk",
   "target": "body",
   "settings": [
     { "type": "text", "id": "widget_url", "label": "Widget URL",

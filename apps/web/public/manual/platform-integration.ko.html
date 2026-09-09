@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>커머스 연동 자격증명 · ShopTalk</title>
+<title>커머스 연동 자격증명 · SharpTalk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
@@ -525,7 +525,7 @@
     <div class="langbar" role="group" aria-label="Language"><a href="platform-integration.ko.html" aria-current="true">한국어</a><a href="platform-integration.en.html">EN</a><a href="platform-integration.vi.html">VI</a></div>
   </div>
 <header class="masthead">
-    <p class="eyebrow">ShopTalk · 설정 → 플랫폼</p>
+    <p class="eyebrow">SharpTalk · 설정 → 플랫폼</p>
     <h1>커머스 플랫폼 연동, 어떤 값을 어디서 찾나</h1>
     <p class="lede">
       <code>/settings/platforms</code> 에서 각 쇼핑몰을 연결할 때 넣는 사용자명·데이터베이스명·
@@ -571,7 +571,7 @@
         <span class="auth-chip">Admin API · 커스텀 앱 토큰</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">ShopTalk가 요구하는 값</p>
+        <p class="sub-label">SharpTalk가 요구하는 값</p>
         <div class="fields">
           <div class="field"><span class="f-label">쇼핑몰 주소<span class="f-key">shop_domain</span></span><span class="f-desc"><code>your-store.myshopify.com</code></span><span class="tags"><span class="tag req">필수</span></span></div>
           <div class="field"><span class="f-label">Admin API 액세스 토큰<span class="f-key">access_token</span></span><span class="f-desc"><code>shpat_…</code></span><span class="tags"><span class="tag req">필수</span><span class="tag secret">시크릿</span></span></div>
@@ -584,7 +584,7 @@
           <li><b>Develop apps(앱 개발) → Create an app(앱 만들기)</b> 으로 앱을 만들고 이름을 입력합니다.</li>
           <li><b>Configuration → Admin API integration</b> 에서 읽기 스코프를 허용합니다.<span class="note"><code>read_orders</code> · <code>read_customers</code> · <code>read_fulfillments</code> · <code>read_products</code></span></li>
           <li><b>API credentials(자격 증명) → Install app(앱 설치)</b> 를 클릭합니다.</li>
-          <li>설치 직후 표시되는 <b>Admin API access token</b>(<code>shpat_…</code>)을 복사합니다.<span class="note">이 토큰은 한 번만 표시됩니다 — 즉시 ShopTalk에 저장하세요.</span></li>
+          <li>설치 직후 표시되는 <b>Admin API access token</b>(<code>shpat_…</code>)을 복사합니다.<span class="note">이 토큰은 한 번만 표시됩니다 — 즉시 SharpTalk에 저장하세요.</span></li>
           <li><b>쇼핑몰 주소</b>는 관리자 URL의 <code>xxxx.myshopify.com</code> 부분입니다(브랜드 도메인이 아님).</li>
         </ol>
         <figure class="shot">
@@ -607,7 +607,7 @@
           </div>
           <figcaption>Admin API access token 발급 화면 — 설치 직후 토큰이 한 번만 표시됩니다. 실제 UI와 다를 수 있습니다.</figcaption>
         </figure>
-        <div class="tip"><span class="i">↔</span><span>이미 ShopTalk 공개 앱의 "연결" 버튼으로 설치했다면 토큰은 자동 저장됩니다. 위 수동 입력은 커스텀 앱을 직접 쓰는 경우입니다.</span></div>
+        <div class="tip"><span class="i">↔</span><span>이미 SharpTalk 공개 앱의 "연결" 버튼으로 설치했다면 토큰은 자동 저장됩니다. 위 수동 입력은 커스텀 앱을 직접 쓰는 경우입니다.</span></div>
       </div>
     </section>
 
@@ -622,7 +622,7 @@
         <span class="auth-chip">Admin API v2 · Bearer(OAuth)</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">ShopTalk가 요구하는 값</p>
+        <p class="sub-label">SharpTalk가 요구하는 값</p>
         <div class="fields">
           <div class="field"><span class="f-label">몰 ID<span class="f-key">mall_id</span></span><span class="f-desc">상점 아이디 (예: <code>yourmall</code>)</span><span class="tags"><span class="tag req">필수</span></span></div>
           <div class="field"><span class="f-label">액세스 토큰<span class="f-key">access_token</span></span><span class="f-desc">Admin API OAuth 토큰</span><span class="tags"><span class="tag req">필수</span><span class="tag secret">시크릿</span></span></div>
@@ -670,7 +670,7 @@
         <span class="auth-chip">REST v3 · Basic auth</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">ShopTalk가 요구하는 값</p>
+        <p class="sub-label">SharpTalk가 요구하는 값</p>
         <div class="fields">
           <div class="field"><span class="f-label">스토어 URL<span class="f-key">store_url</span></span><span class="f-desc"><code>https://store.example.com</code></span><span class="tags"><span class="tag req">필수</span></span></div>
           <div class="field"><span class="f-label">Consumer key<span class="f-key">consumer_key</span></span><span class="f-desc"><code>ck_…</code></span><span class="tags"><span class="tag req">필수</span><span class="tag secret">시크릿</span></span></div>
@@ -697,7 +697,7 @@
               </div>
               <div class="win-main">
                 <div class="crumb">Advanced <span>›</span> <b>REST API</b> <span>›</span> Add key</div>
-                <div class="ui-field"><span class="lab">Description</span><span class="val mut">ShopTalk</span></div>
+                <div class="ui-field"><span class="lab">Description</span><span class="val mut">SharpTalk</span></div>
                 <div class="ui-field"><span class="lab">Permissions</span><span class="val">Read</span></div>
                 <div class="ui-field target"><span class="lab">Consumer key</span><span class="val">ck_9f3a•••• / cs_7d21••••</span><span class="pin">4</span></div>
                 <span class="ui-btn">Generate API key</span>
@@ -721,7 +721,7 @@
         <span class="star-tag">★ 요청 핵심</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">ShopTalk가 요구하는 값</p>
+        <p class="sub-label">SharpTalk가 요구하는 값</p>
         <div class="fields">
           <div class="field"><span class="f-label">서버 URL<span class="f-key">url</span></span><span class="f-desc"><code>https://my-odoo.example.com</code></span><span class="tags"><span class="tag req">필수</span></span></div>
           <div class="field"><span class="f-label">데이터베이스<span class="f-key">db</span></span><span class="f-desc">데이터베이스 이름</span><span class="tags"><span class="tag req">필수</span></span></div>
@@ -729,7 +729,7 @@
           <div class="field"><span class="f-label">API 키<span class="f-key">api_key</span></span><span class="f-desc">개인 API 키 (비밀번호 대체)</span><span class="tags"><span class="tag req">필수</span><span class="tag secret">시크릿</span></span></div>
         </div>
         <p style="font-size:13.5px;color:var(--muted);margin:16px 0 0">
-          ShopTalk는 이 4개 값으로 <code>{url}/jsonrpc</code> 에 <code>common.authenticate(db, username, api_key)</code> 를 호출해 검증합니다.
+          SharpTalk는 이 4개 값으로 <code>{url}/jsonrpc</code> 에 <code>common.authenticate(db, username, api_key)</code> 를 호출해 검증합니다.
         </p>
 
         <p class="sub-label mt">① 서버 URL</p>
@@ -804,7 +804,7 @@
         <span class="auth-chip">Admin API · Bearer</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">ShopTalk가 요구하는 값</p>
+        <p class="sub-label">SharpTalk가 요구하는 값</p>
         <div class="fields">
           <div class="field"><span class="f-label">쇼핑몰 주소<span class="f-key">shop_domain</span></span><span class="f-desc"><code>your-store.myharavan.com</code></span><span class="tags"><span class="tag req">필수</span></span></div>
           <div class="field"><span class="f-label">액세스 토큰<span class="f-key">access_token</span></span><span class="f-desc">Admin API 액세스 토큰</span><span class="tags"><span class="tag req">필수</span><span class="tag secret">시크릿</span></span></div>
@@ -813,7 +813,7 @@
         <p class="sub-label mt">Haravan 관리자에서 발급</p>
         <ol class="steps">
           <li><b>쇼핑몰 주소</b> — Haravan 관리자 접속 주소 <code>your-store.myharavan.com</code> 입니다.</li>
-          <li><b>액세스 토큰</b> — 관리자 <b>앱/개발(Apps)</b> 영역에서 <b>비공개 앱(Private App)</b> 또는 Admin API 연동을 만들고 발급되는 토큰을 사용합니다.<span class="note">주문·고객·상품 읽기 권한을 부여하세요. Haravan Admin API는 Shopify 호환이라 ShopTalk는 <code>…/admin/shop.json</code> 을 Bearer 토큰으로 검증합니다.</span></li>
+          <li><b>액세스 토큰</b> — 관리자 <b>앱/개발(Apps)</b> 영역에서 <b>비공개 앱(Private App)</b> 또는 Admin API 연동을 만들고 발급되는 토큰을 사용합니다.<span class="note">주문·고객·상품 읽기 권한을 부여하세요. Haravan Admin API는 Shopify 호환이라 SharpTalk는 <code>…/admin/shop.json</code> 을 Bearer 토큰으로 검증합니다.</span></li>
           <li>발급된 토큰을 <b>액세스 토큰</b> 칸에 붙여넣고 저장 → 연결 테스트합니다. <code>401</code>=토큰 무효·만료.</li>
         </ol>
         <figure class="shot">
@@ -857,7 +857,7 @@
   </main>
 
   <footer>
-    <span>ShopTalk 커머스 연동 자격증명 가이드</span>
+    <span>SharpTalk 커머스 연동 자격증명 가이드</span>
     <span class="mono">GUIDE-260826 · 2026-08-26</span>
   </footer>
 

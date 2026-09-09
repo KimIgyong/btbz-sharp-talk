@@ -19,8 +19,8 @@ describe('adapter failure classification', () => {
 
     expect(failure.reason).toBe(TEST_FAILURE_REASON.CREDENTIALS);
     expect(failure.message).toContain('rejected the account: 401');
-    // The actual mistake: a ShopTalk console login typed into the relay's field.
-    expect(failure.message).toContain('not the ShopTalk console login');
+    // The actual mistake: a SharpTalk console login typed into the relay's field.
+    expect(failure.message).toContain('not the SharpTalk console login');
     // Still names the endpoint — a wrong base URL is the other candidate.
     expect(failure.message).toContain('https://messenger.amoeba.site/api/auth/login');
   });

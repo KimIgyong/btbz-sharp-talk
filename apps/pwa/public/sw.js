@@ -1,4 +1,4 @@
-/* ShopTalk PWA service worker (plain JS — not typechecked, see tsconfig include).
+/* SharpTalk PWA service worker (plain JS — not typechecked, see tsconfig include).
  * Scope: /app/ only. NEVER intercepts /api/ requests (network always). */
 
 const SHELL_CACHE = 'shoptalk-shell-v2';
@@ -68,7 +68,7 @@ self.addEventListener('push', (event) => {
   } catch (e) {
     payload = {};
   }
-  const title = payload.title || 'ShopTalk';
+  const title = payload.title || 'SharpTalk';
   event.waitUntil(
     self.registration.showNotification(title, {
       body: payload.body || '',

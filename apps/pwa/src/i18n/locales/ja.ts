@@ -1,6 +1,6 @@
 export default {
   "app": {
-    "title": "ShopTalk"
+    "title": "SharpTalk"
   },
   "header": {
     "shop": "ショップ"
@@ -151,7 +151,7 @@ export default {
     "iosTitle": "iPhoneで通知を受け取るには",
     "iosStep1": "Safari下部の共有ボタンをタップ",
     "iosStep2": "「ホーム画面に追加」を選択",
-    "iosStep3": "ホーム画面のアイコンからShopTalkを開き直す"
+    "iosStep3": "ホーム画面のアイコンからSharpTalkを開き直す"
   },
   "push": {
     "promptHint": "プッシュ通知をオンにすると、注文・配送・サポートの更新をお届けします。",

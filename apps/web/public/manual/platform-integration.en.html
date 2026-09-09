@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Commerce Integration Credentials · ShopTalk</title>
+<title>Commerce Integration Credentials · SharpTalk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
@@ -525,7 +525,7 @@
     <div class="langbar" role="group" aria-label="Language"><a href="platform-integration.ko.html">한국어</a><a href="platform-integration.en.html" aria-current="true">EN</a><a href="platform-integration.vi.html">VI</a></div>
   </div>
 <header class="masthead">
-    <p class="eyebrow">ShopTalk · Settings → Platforms</p>
+    <p class="eyebrow">SharpTalk · Settings → Platforms</p>
     <h1>Commerce integrations: which value, and where to find it</h1>
     <p class="lede">
       A practical guide to the values you enter on <code>/settings/platforms</code> to connect
@@ -572,7 +572,7 @@
         <span class="auth-chip">Admin API · custom-app token</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">What ShopTalk asks for</p>
+        <p class="sub-label">What SharpTalk asks for</p>
         <div class="fields">
           <div class="field"><span class="f-label">Shop domain<span class="f-key">shop_domain</span></span><span class="f-desc"><code>your-store.myshopify.com</code></span><span class="tags"><span class="tag req">required</span></span></div>
           <div class="field"><span class="f-label">Admin API access token<span class="f-key">access_token</span></span><span class="f-desc"><code>shpat_…</code></span><span class="tags"><span class="tag req">required</span><span class="tag secret">secret</span></span></div>
@@ -585,7 +585,7 @@
           <li><b>Develop apps → Create an app</b>, then name the app.</li>
           <li>Under <b>Configuration → Admin API integration</b>, grant the read scopes.<span class="note"><code>read_orders</code> · <code>read_customers</code> · <code>read_fulfillments</code> · <code>read_products</code></span></li>
           <li>Click <b>API credentials → Install app</b>.</li>
-          <li>Copy the <b>Admin API access token</b> (<code>shpat_…</code>) shown right after install.<span class="note">The token is shown only once — save it to ShopTalk immediately.</span></li>
+          <li>Copy the <b>Admin API access token</b> (<code>shpat_…</code>) shown right after install.<span class="note">The token is shown only once — save it to SharpTalk immediately.</span></li>
           <li>The <b>shop domain</b> is the <code>xxxx.myshopify.com</code> part of the admin URL (not your branded domain).</li>
         </ol>
         <figure class="shot">
@@ -608,7 +608,7 @@
           </div>
           <figcaption>Admin API access token screen — shown only once, right after install. Real UI may differ.</figcaption>
         </figure>
-        <div class="tip"><span class="i">↔</span><span>If you already installed via ShopTalk's public-app "Connect" button, the token is stored automatically. The manual entry above is for a custom app you run yourself.</span></div>
+        <div class="tip"><span class="i">↔</span><span>If you already installed via SharpTalk's public-app "Connect" button, the token is stored automatically. The manual entry above is for a custom app you run yourself.</span></div>
       </div>
     </section>
 
@@ -623,7 +623,7 @@
         <span class="auth-chip">Admin API v2 · Bearer (OAuth)</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">What ShopTalk asks for</p>
+        <p class="sub-label">What SharpTalk asks for</p>
         <div class="fields">
           <div class="field"><span class="f-label">Mall ID<span class="f-key">mall_id</span></span><span class="f-desc">Store ID (e.g. <code>yourmall</code>)</span><span class="tags"><span class="tag req">required</span></span></div>
           <div class="field"><span class="f-label">Access token<span class="f-key">access_token</span></span><span class="f-desc">Admin API OAuth token</span><span class="tags"><span class="tag req">required</span><span class="tag secret">secret</span></span></div>
@@ -671,7 +671,7 @@
         <span class="auth-chip">REST v3 · Basic auth</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">What ShopTalk asks for</p>
+        <p class="sub-label">What SharpTalk asks for</p>
         <div class="fields">
           <div class="field"><span class="f-label">Store URL<span class="f-key">store_url</span></span><span class="f-desc"><code>https://store.example.com</code></span><span class="tags"><span class="tag req">required</span></span></div>
           <div class="field"><span class="f-label">Consumer key<span class="f-key">consumer_key</span></span><span class="f-desc"><code>ck_…</code></span><span class="tags"><span class="tag req">required</span><span class="tag secret">secret</span></span></div>
@@ -698,7 +698,7 @@
               </div>
               <div class="win-main">
                 <div class="crumb">Advanced <span>›</span> <b>REST API</b> <span>›</span> Add key</div>
-                <div class="ui-field"><span class="lab">Description</span><span class="val mut">ShopTalk</span></div>
+                <div class="ui-field"><span class="lab">Description</span><span class="val mut">SharpTalk</span></div>
                 <div class="ui-field"><span class="lab">Permissions</span><span class="val">Read</span></div>
                 <div class="ui-field target"><span class="lab">Consumer key</span><span class="val">ck_9f3a•••• / cs_7d21••••</span><span class="pin">4</span></div>
                 <span class="ui-btn">Generate API key</span>
@@ -722,7 +722,7 @@
         <span class="star-tag">★ key request</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">What ShopTalk asks for</p>
+        <p class="sub-label">What SharpTalk asks for</p>
         <div class="fields">
           <div class="field"><span class="f-label">Server URL<span class="f-key">url</span></span><span class="f-desc"><code>https://my-odoo.example.com</code></span><span class="tags"><span class="tag req">required</span></span></div>
           <div class="field"><span class="f-label">Database<span class="f-key">db</span></span><span class="f-desc">Database name</span><span class="tags"><span class="tag req">required</span></span></div>
@@ -730,7 +730,7 @@
           <div class="field"><span class="f-label">API key<span class="f-key">api_key</span></span><span class="f-desc">Personal API key (replaces the password)</span><span class="tags"><span class="tag req">required</span><span class="tag secret">secret</span></span></div>
         </div>
         <p style="font-size:13.5px;color:var(--muted);margin:16px 0 0">
-          ShopTalk verifies these four values by calling <code>common.authenticate(db, username, api_key)</code> at <code>{url}/jsonrpc</code>.
+          SharpTalk verifies these four values by calling <code>common.authenticate(db, username, api_key)</code> at <code>{url}/jsonrpc</code>.
         </p>
 
         <p class="sub-label mt">① Server URL</p>
@@ -805,7 +805,7 @@
         <span class="auth-chip">Admin API · Bearer</span>
       </div>
       <div class="p-body">
-        <p class="sub-label">What ShopTalk asks for</p>
+        <p class="sub-label">What SharpTalk asks for</p>
         <div class="fields">
           <div class="field"><span class="f-label">Shop domain<span class="f-key">shop_domain</span></span><span class="f-desc"><code>your-store.myharavan.com</code></span><span class="tags"><span class="tag req">required</span></span></div>
           <div class="field"><span class="f-label">Access token<span class="f-key">access_token</span></span><span class="f-desc">Admin API access token</span><span class="tags"><span class="tag req">required</span><span class="tag secret">secret</span></span></div>
@@ -814,7 +814,7 @@
         <p class="sub-label mt">Issue it in the Haravan admin</p>
         <ol class="steps">
           <li><b>Shop domain</b> — your Haravan admin address <code>your-store.myharavan.com</code>.</li>
-          <li><b>Access token</b> — create a <b>Private App</b> or Admin API integration under <b>Apps</b> in the admin and use the token it issues.<span class="note">Grant read access to orders, customers and products. Haravan's Admin API is Shopify-compatible, so ShopTalk verifies it against <code>…/admin/shop.json</code> with the Bearer token.</span></li>
+          <li><b>Access token</b> — create a <b>Private App</b> or Admin API integration under <b>Apps</b> in the admin and use the token it issues.<span class="note">Grant read access to orders, customers and products. Haravan's Admin API is Shopify-compatible, so SharpTalk verifies it against <code>…/admin/shop.json</code> with the Bearer token.</span></li>
           <li>Paste the token into the <b>Access token</b> field, save, and test. <code>401</code> = token invalid/expired.</li>
         </ol>
         <figure class="shot">
@@ -858,7 +858,7 @@
   </main>
 
   <footer>
-    <span>ShopTalk · Commerce integration credentials</span>
+    <span>SharpTalk · Commerce integration credentials</span>
     <span class="mono">GUIDE-260826 · 2026-08-26</span>
   </footer>
 </div>

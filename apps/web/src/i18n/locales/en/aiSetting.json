@@ -325,7 +325,7 @@
   "scriptNone": "No built-in script — the label is sent as a chat message (AI answers it)",
   "scripts": {
     "title": "Built-in conversations",
-    "hint": "Every script shopTalk ships with, including the ones a customer only reaches through a follow-up chip.",
+    "hint": "Every script SharpTalk ships with, including the ones a customer only reaches through a follow-up chip.",
     "viaButton": "Menu button · {{action}}",
     "viaFollowUp": "Follow-up chip only",
     "edited": "{{count}} language(s) edited",

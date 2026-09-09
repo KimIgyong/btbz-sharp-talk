@@ -224,7 +224,7 @@ export function InstallGuideCard() {
 
   // Generic HTML embed — works on any platform that lets you edit theme HTML.
   const htmlSnippet =
-    `<!-- ShopTalk widget -->\n` +
+    `<!-- SharpTalk widget -->\n` +
     `<script>\n` +
     `  window.IVY_WIDGET_CONFIG = {\n` +
     `    shop: ${JSON.stringify(shop)},\n` +
@@ -236,7 +236,7 @@ export function InstallGuideCard() {
   // Cafe24 classic mall: point sign-in at the mall's own login page (no login API;
   // login happens in the top window, then the widget reopens) — PLN-260807.
   const cafe24Snippet =
-    `<!-- ShopTalk widget (Cafe24) -->\n` +
+    `<!-- SharpTalk widget (Cafe24) -->\n` +
     `<script>\n` +
     `  window.IVY_WIDGET_CONFIG = {\n` +
     `    shop: ${JSON.stringify(shop)},\n` +
@@ -253,7 +253,7 @@ export function InstallGuideCard() {
   // hide list or the widget mounts on the login page and burns the one-shot
   // reopen flag (same failure mode as the tenant login page, PR #321).
   const odooSnippet =
-    `<!-- ShopTalk widget (Odoo) -->\n` +
+    `<!-- SharpTalk widget (Odoo) -->\n` +
     `<script>\n` +
     `  window.IVY_WIDGET_CONFIG = {\n` +
     `    shop: ${JSON.stringify(shop)},\n` +
@@ -275,7 +275,7 @@ export function InstallGuideCard() {
     `}`;
 
   const wooSnippet =
-    `// ShopTalk widget — add to your (child) theme's functions.php\n` +
+    `// SharpTalk widget — add to your (child) theme's functions.php\n` +
     `add_action( 'wp_footer', function () { ?>\n` +
     `  <script>\n` +
     `    window.IVY_WIDGET_CONFIG = {\n` +

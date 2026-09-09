@@ -7,7 +7,7 @@
 
 ## 1. The service at a glance
 
-The IVY USA Chat & Support Widget is a **multi-tenant, AI-assisted support widget embedded in a Shopify storefront**. It delivers a Naver-TalkTalk-style experience and handles customer inquiries in three tiers — automated and human combined:
+The btbz-SharpTalk is a **multi-tenant, AI-assisted support widget embedded in a Shopify storefront**. It delivers a Naver-TalkTalk-style experience and handles customer inquiries in three tiers — automated and human combined:
 
 1. **Scenario chatbot** — instantly guides routine inquiries (delivery, cancel/refund, product, affiliate, etc.) through a button-driven menu.
 2. **RAG knowledge-based AI chatbot** — answers what the scenario menu can't, grounded in the tenant's knowledge base (KB), and cites its sources.

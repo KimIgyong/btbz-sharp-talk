@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# IVY TalkTalk — Web admin (Vite static) image, staging. Amoeba Structure v2 §5.1.
+# btbz-SharpTalk — Web admin (Vite static) image, staging. Amoeba Structure v2 §5.1.
 # Build context MUST be the repo root: docker build -f docker/staging/Dockerfile.web .
 
 # ---- Build stage ----------------------------------------------------------
