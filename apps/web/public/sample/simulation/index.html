@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SharpTalk Chat Simulator — Go2Joy</title>
-<meta name="description" content="SharpTalk × Go2Joy — Stage 1·2-A·2-B chat simulation / 상담 시뮬레이션. Agent role boundaries, liability routing and guardrails.">
+<meta name="description" content="SharpTalk x Go2Joy - Stage 1/2 chat simulation. Runtime conditions, ticket lifecycle states and reply ownership. Scripted replay, not a live AI.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#EDEFF2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#10161C" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:title" content="SharpTalk Chat Simulator — Go2Joy">
-<meta property="og:description" content="SharpTalk × Go2Joy — Stage 1·2-A·2-B chat simulation / 상담 시뮬레이션. Agent role boundaries, liability routing and guardrails.">
+<meta property="og:description" content="SharpTalk x Go2Joy - Stage 1/2 chat simulation. Runtime conditions, ticket lifecycle states and reply ownership. Scripted replay, not a live AI.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%AC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,11 +19,8 @@
 <style>
   html { -webkit-text-size-adjust: 100%; }
   img { max-width: 100%; }
-  .nsbox {
-    margin: 24px; padding: 14px 18px; border-radius: 4px;
-    border: 1px solid #CDD5DD; background: #fff; color: #121A22;
-    font-family: system-ui, sans-serif; font-size: 14px;
-  }
+  .nsbox { margin:24px; padding:14px 18px; border-radius:4px; border:1px solid #CDD5DD;
+            background:#fff; color:#121A22; font-family:system-ui,sans-serif; font-size:14px; }
 </style>
 </head>
 <body>
@@ -35,6 +32,7 @@
     --line:#CDD5DD; --line-soft:#DEE4EA;
     --brass:#9A6B1E; --brass-soft:#F0E2C8;
     --s1:#3F5D77; --s2a:#2E6B66; --s2b:#9A6B1E;
+    --own-hotel:#3F5D77; --own-g2j:#9A6B1E; --own-pg:#A33A2A;
     --warn:#A33A2A; --warn-soft:#F7E2DE;
     --bot-bg:#E8ECF0; --me-bg:#3F5D77; --me-fg:#F4F7FA;
     --screen:#F4F6F8; --chrome:#FFFFFF;
@@ -50,6 +48,7 @@
       --line:#2C3841; --line-soft:#232E37;
       --brass:#D8A54F; --brass-soft:#3A2E18;
       --s1:#7FA6C9; --s2a:#5FB3AB; --s2b:#D8A54F;
+      --own-hotel:#7FA6C9; --own-g2j:#D8A54F; --own-pg:#E0836F;
       --warn:#E0836F; --warn-soft:#3A211B;
       --bot-bg:#242F39; --me-bg:#3E6288; --me-fg:#EAF1F8;
       --screen:#131A21; --chrome:#1B242D;
@@ -62,6 +61,7 @@
     --line:#2C3841; --line-soft:#232E37;
     --brass:#D8A54F; --brass-soft:#3A2E18;
     --s1:#7FA6C9; --s2a:#5FB3AB; --s2b:#D8A54F;
+      --own-hotel:#7FA6C9; --own-g2j:#D8A54F; --own-pg:#E0836F;
     --warn:#E0836F; --warn-soft:#3A211B;
     --bot-bg:#242F39; --me-bg:#3E6288; --me-fg:#EAF1F8;
     --screen:#131A21; --chrome:#1B242D;
@@ -293,32 +293,78 @@
 
   /* ---------- bilingual ---------- */
   .ko { color: var(--ink-3); font-weight: 400; }
-  h1 .ko {
-    display: block; margin-top: 8px; font-size: .5em; letter-spacing: 0;
-    font-family: "IBM Plex Sans KR", sans-serif;
-  }
-  .lede .ko { display: block; margin-top: 9px; font-size: 14px; }
+  h1 .ko { display:block; margin-top:8px; font-size:.5em; letter-spacing:0; font-family:"IBM Plex Sans KR",sans-serif; }
+  .lede .ko { display:block; margin-top:9px; font-size:14px; }
   .lede .ko b { color: var(--ink-2); }
-  .card h3 .ko { letter-spacing: 0; text-transform: none; font-size: 11px; }
-  .card p.desc .ko { display: block; margin-top: 3px; }
-  .scn .t b .ko { display: block; font-size: 12.5px; font-weight: 500; margin-top: 1px; }
-  .scn .t em .ko { display: block; margin-top: 1px; }
-  .row label .ko { font-size: 12px; }
-  .tab .sm .ko { color: inherit; }
-  .note .v .ko { display: block; margin-top: 4px; }
-  .note .k .ko { display: block; text-transform: none; letter-spacing: 0; font-size: 10.5px; opacity: .85; }
-  .note .v { display: block; }
-  .hint .ko { display: block; margin-top: 3px; }
-  footer .ko { display: block; margin-top: 2px; }
-  .linkbtn .ko { color: inherit; opacity: .7; }
+  .card h3 .ko { letter-spacing:0; text-transform:none; font-size:11px; }
+  .card p.desc .ko { display:block; margin-top:3px; }
+  .scn .t b .ko { display:block; font-size:12.5px; font-weight:500; margin-top:1px; }
+  .scn .t em .ko { display:block; margin-top:1px; }
+  .row label .ko { font-size:12px; }
+  .tab .sm .ko { color:inherit; }
+  .note .v { display:block; }
+  .note .v .ko { display:block; margin-top:4px; }
+  .note .k .ko { display:block; text-transform:none; letter-spacing:0; font-size:10.5px; opacity:.85; }
+  .hint .ko { display:block; margin-top:3px; }
+  footer .ko { display:block; margin-top:2px; }
+  .linkbtn .ko { color:inherit; opacity:.7; }
+
+  /* ---------- v2: scope banner ---------- */
+  .scope {
+    display:flex; gap:14px; align-items:flex-start; margin-top:26px;
+    background:var(--surface); border:1px solid var(--line);
+    border-left:3px solid var(--brass); border-radius:0 3px 3px 0;
+    padding:13px 17px; box-shadow:var(--shadow); max-width:78ch;
+  }
+  .scope .k {
+    font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace;
+    font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--brass); flex:none; padding-top:3px;
+  }
+  .scope .v { font-size:13.5px; color:var(--ink-2); line-height:1.55; }
+  .scope .v b { color:var(--ink); }
+  .scope .v .ko { display:block; margin-top:5px; font-size:12.5px; }
+
+  /* ---------- v2: owner chip ---------- */
+  .own {
+    display:inline-flex; align-items:center; gap:2px;
+    font-family:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace;
+    font-size:10px; letter-spacing:.03em; white-space:nowrap;
+    border:1px solid var(--oc); color:var(--oc);
+    border-radius:2px; padding:0 5px; opacity:.9;
+  }
+  .own .ko { color:inherit; opacity:.75; }
+
+  /* ---------- v2: condition control ---------- */
+  .row.col { flex-direction:column; align-items:stretch; gap:7px; }
+  .row.col label { margin-bottom:1px; }
+  .seg.wide { width:100%; }
+  .seg.wide button { flex:1; text-align:center; padding:6px 4px; font-size:11.5px; }
+  .scn button { position:relative; }
+  .scn .fork {
+    position:absolute; top:9px; right:9px; font-size:12px;
+    color:var(--tc); opacity:.8; line-height:1;
+  }
+  .legend {
+    margin:10px 0 0; font-size:11.5px; color:var(--ink-3);
+  }
+  .legend .ko { display:block; margin-top:2px; }
+  .ownlist { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; }
+  .ownlist li { font-size:12.5px; color:var(--ink-3); display:flex; flex-direction:column; gap:3px; align-items:flex-start; }
+  .ownlist li .ko { display:block; }
 </style>
 
 <div class="wrap">
 
   <header class="hd">
-    <p class="eyebrow">SharpTalk × Go2Joy · Chat Simulation · v1.1</p>
+    <p class="eyebrow">SharpTalk × Go2Joy · Chat Simulation · v2.0</p>
     <h1>Stage 1 · 2 Chat Simulation<span class="ko" data-ko>Stage 1 · 2 상담 시뮬레이션</span></h1>
-    <p class="lede">A test bench for the role boundaries, liability routing and guardrails defined in the agent catalog (SHARPTALK-G2J-AGENTCAT-1.2.0) — <b>how they actually surface in a conversation</b>. Pick a scenario on the left to replay it, or type into the composer yourself. Dialogue is Vietnamese with a Korean gloss.<span class="ko" data-ko>에이전트 카탈로그에 정의한 역할 경계·귀책 라우팅·가드레일이 <b>실제 대화에서 어떻게 드러나는지</b> 검증하는 화면입니다. 왼쪽 시나리오를 누르면 대화가 재생되고, 아래 입력창에 직접 쳐볼 수도 있습니다. 대화는 베트남어 원문에 한국어 해석을 병기했습니다.</span></p>
+    <p class="lede">A test bench for the role boundaries, liability routing and guardrails defined in the agent catalog — <b>how they actually surface in a conversation</b>. v2.0 adds runtime conditions, ticket lifecycle states and an explicit owner on every reply.<span class="ko" data-ko>에이전트 카탈로그의 역할 경계·귀책 라우팅·가드레일이 <b>실제 대화에서 어떻게 드러나는지</b> 검증하는 화면입니다. v2.0에서 조회 조건 분기, 접수·승인 상태 구분, 응답별 담당 주체 표시를 추가했습니다.</p>
+
+    <div class="scope">
+      <span class="k">Scope</span>
+      <span class="v">This is <b>scripted replay + keyword responses</b>, not a live AI. It validates roles, wording and state handling — not contextual understanding or real task execution. Figures, hotels and tickets are examples, not Go2Joy data.<span class="ko" data-ko>이 화면은 <b>예시 대화 재생 + 키워드 응답 체험</b>이며 실제 AI가 아닙니다. 역할·문구·상태 처리를 검증하는 용도이고 문맥 이해나 실제 업무 처리 능력을 보여주지 않습니다. 수치·호텔명·티켓번호는 예시이며 실제 Go2Joy 데이터가 아닙니다.</span></span>
+    </div>
   </header>
 
   <div class="tabs" role="tablist" id="tabs"></div>
@@ -329,9 +375,18 @@
         <h3>Scenarios <span class="ko" data-ko>시나리오</span></h3>
         <p class="desc" id="scnDesc"></p>
         <div class="scn" id="scnList"></div>
+        <p class="legend">⑂ branches on the runtime condition<span class="ko" data-ko>⑂ 조회 조건에 따라 응답이 갈립니다</span></p>
       </div>
       <div class="card ctrl">
         <h3 style="margin-bottom:10px">Controls <span class="ko" data-ko>설정</span></h3>
+        <div class="row col">
+          <label>Runtime condition <span class="ko" data-ko>조회 조건</span></label>
+          <div class="seg wide" id="condSeg">
+            <button type="button" data-cond="OK" aria-pressed="true">Lookup OK</button>
+            <button type="button" data-cond="LOOKUP_FAIL" aria-pressed="false">Lookup fail</button>
+            <button type="button" data-cond="STAFF_TIMEOUT" aria-pressed="false">No reply</button>
+          </div>
+        </div>
         <div class="row" id="roleRow" hidden>
           <label>Partner role <span class="ko" data-ko>파트너 권한</span></label>
           <div class="seg" id="roleSeg">
@@ -355,14 +410,22 @@
         </div>
         <button class="linkbtn" id="resetBtn" type="button">Reset conversation <span class="ko" data-ko>· 대화 초기화</span></button>
       </div>
+      <div class="card">
+        <h3>Reply owner <span class="ko" data-ko>담당 주체</span></h3>
+        <ul class="ownlist">
+          <li><span class="own" style="--oc:var(--own-hotel)">Hotel<span class="ko" data-ko>·호텔</span></span> service requests, room state<span class="ko" data-ko>서비스 요청, 객실 상태</span></li>
+          <li><span class="own" style="--oc:var(--own-g2j)">Go2Joy<span class="ko" data-ko>·고투조이</span></span> payment, refunds, disputes with the hotel<span class="ko" data-ko>결제·환불, 호텔과의 분쟁</span></li>
+          <li><span class="own" style="--oc:var(--own-pg)">Payment<span class="ko" data-ko>·결제사</span></span> authorization failures<span class="ko" data-ko>결제 승인 실패</span></li>
+        </ul>
+      </div>
     </div>
 
     <div class="stagearea"><div id="device"></div></div>
   </div>
 
   <footer>
-    <span>Dialogue and figures are design-validation examples — not real Go2Joy data.<span class="ko" data-ko>대화·수치는 설계 검증용 예시이며 실제 Go2Joy 데이터가 아닙니다.</span></span>
-    <span>Amoeba (BitBiz) × Go2Joy · 2026-08-31</span>
+    <span>Scripted replay for design validation — dialogue, figures and tickets are examples, not Go2Joy data.<span class="ko" data-ko>설계 검증용 예시 재생입니다. 대화·수치·티켓번호는 실제 Go2Joy 데이터가 아닙니다.</span></span>
+    <span>Amoeba (BitBiz) × Go2Joy · rev. 2026-09-08</span>
   </footer>
 </div>
 
@@ -381,307 +444,587 @@
       seed:[{t:"sys",vi:"Khách sạn Minh Anh · Quản lý"}],
       scn:[
         { label:"Reconciliation dispute", labelKo:"정산 이의제기",
-          sub:"A no-show booking was charged commission", subKo:"미투숙 건이 정산에 잡혔다", turns:[
+          sub:"Draft only from confirmed facts", subKo:"확인된 사실만으로 초안을 쓴다", turns:[
           {t:"me",vi:"Kỳ đối soát này có 1 booking khách không đến mà vẫn bị tính hoa hồng.",
                  ko:"이번 정산 주기에 손님이 안 왔는데 수수료가 붙은 예약이 1건 있습니다."},
-          {t:"bot",aid:"ST-S1-03",
-                 vi:"Trường hợp này bạn nộp khiếu nại với lý do «Khách không nhận phòng».\n\n① Mở «Chi tiết đối soát» của kỳ này\n② Tìm mã đặt phòng ở ô «Tìm theo mã đặt phòng»\n③ Bấm «Khiếu nại» ở cột Thao tác → chọn «Khách không nhận phòng»\n④ Bấm «Gửi Go2Joy xử lý»",
-                 ko:"이 경우 «Khách không nhận phòng»(고객 미투숙) 사유로 이의를 제기하시면 됩니다.\n\n① 이번 주기 «Chi tiết đối soát» 열기\n② «Tìm theo mã đặt phòng»에서 예약번호 검색\n③ Thao tác 열의 «Khiếu nại» → «Khách không nhận phòng» 선택\n④ «Gửi Go2Joy xử lý» 클릭",
-                 note:{k:"Evidence",kko:"근거",
-                   v:"The console offers exactly <b>two</b> complaint reasons — no-show and wrong booking data. The agent never invents one outside that list.",
-                   vko:"콘솔의 이의제기 사유는 <b>2종</b>뿐 — 미투숙 / 예약정보 오류. 에이전트는 이 목록 밖의 사유를 만들어내지 않는다."}},
-          {t:"bot",aid:"ST-S1-09",
-                 vi:"Lưu ý: hạn đối soát của kỳ này còn 3 ngày. Các booking không khiếu nại sẽ tự động được xác nhận đúng theo bảng đối soát.",
-                 ko:"참고로 이번 주기 정산 기한이 3일 남았습니다. 이의를 제기하지 않은 예약은 정산표대로 자동 확정됩니다.",
-                 note:{k:"Linked",kko:"연동",
-                   v:"The deadline alert is pushed by <b>ST-S1-09</b>. Missing it costs real money, so it works as a pair with ST-S1-03.",
-                   vko:"기한 알림은 <b>ST-S1-09</b>가 능동 발신한다. 놓치면 곧 금전 손실이므로 ST-S1-03과 한 쌍으로 동작한다."}},
-          {t:"me",vi:"Vậy bạn khiếu nại và bấm «Hoàn tất đối soát» giúp mình luôn nhé.",
-                 ko:"그럼 이의 넣고 «Hoàn tất đối soát»까지 대신 처리해줘요."},
-          {t:"bot",aid:"ST-S1-03",
-                 vi:"Nội dung khiếu nại mình soạn sẵn để bạn dán vào. Nhưng nút «Hoàn tất đối soát» phải do bạn bấm — thao tác đó xác nhận «không sửa đổi thông tin đối soát về sau».\n\nBản nháp:\n「Khách không đến nhận phòng. Nhân viên lễ tân đã gọi 2 lần lúc 21:40 và 22:15 nhưng không liên lạc được.」",
-                 ko:"이의 내용은 붙여 넣으실 수 있게 초안으로 드리겠습니다. 다만 «Hoàn tất đối soát» 버튼은 직접 눌러주셔야 합니다. 그 조작은 «이후 정산 내용을 수정하지 않는다»는 확정이라서요.\n\n초안:\n「고객이 체크인하지 않았습니다. 프런트에서 21:40, 22:15 두 차례 전화했으나 연락되지 않았습니다.」",
+          {t:"bot",aid:"ST-S1-03",own:"G2J",
+                 vi:"Mình đã tra cứu:\n· Mã đặt phòng G2J-79341 · Qua đêm · 24/08\n· Trạng thái đối soát «Chưa đối soát»\n· Hạn khiếu nại 03/09 — còn 3 ngày\n\nLý do khiếu nại phù hợp là «Khách không nhận phòng».",
+                 ko:"조회했습니다.\n· 예약번호 G2J-79341 · 숙박 · 08/24\n· 정산 상태 «Chưa đối soát»(미정산)\n· 이의제기 마감 09/03 — 3일 남음\n\n해당하는 이의 사유는 «Khách không nhận phòng»(고객 미투숙)입니다.",
+                 note:{k:"Lookup-gated",kko:"조회 근거",
+                   v:"The deadline and booking id appear <b>only because the lookup succeeded</b>. Flip the runtime condition to «Lookup fail» to see the alternative.",
+                   vko:"기한과 예약번호는 <b>조회에 성공했기 때문에</b> 표시된다. 우측 «조회 조건»을 «조회 실패»로 바꿔보면 대체 응답을 볼 수 있다."},
+                 swap:{LOOKUP_FAIL:{aid:"ST-S1-03",own:"G2J",
+                   vi:"Hiện mình không truy vấn được hệ thống đối soát nên chưa thể cho bạn số tiền và hạn khiếu nại.\n\nBạn kiểm tra trực tiếp tại: Quản lý đối soát → Chi tiết đối soát → mục «Hạn đối soát».\nKhi truy vấn khôi phục mình sẽ báo lại bạn.",
+                   ko:"지금 정산 시스템 조회가 되지 않아 금액과 이의제기 기한을 확인해 드릴 수 없습니다.\n\n직접 확인하실 경로: Quản lý đối soát → Chi tiết đối soát → «Hạn đối soát» 항목\n조회가 복구되면 다시 알려드리겠습니다.",
+                   note:{warn:true,k:"No lookup, no number",kko:"조회 없으면 수치 없음",
+                     v:"With the query down the agent states <b>no amount and no deadline</b>. It gives the verification path instead of a remembered figure.",
+                     vko:"조회가 안 되면 <b>금액도 기한도 말하지 않는다.</b> 기억나는 수치 대신 확인 경로를 준다."}}}},
+          {t:"me",vi:"Bạn soạn giúp mình nội dung khiếu nại luôn nhé.",
+                 ko:"이의 내용 초안 좀 써주세요."},
+          {t:"bot",aid:"ST-S1-03",own:"G2J",
+                 vi:"Trước khi soạn, mình cần xác nhận vì nội dung khiếu nại chỉ được ghi những gì đã xác minh.\n\nHiện hệ thống chỉ cho mình một dữ kiện: «không có thao tác nhận phòng».\n\nBạn cho mình biết thêm:\n① Khách sạn có gọi cho khách không? Nếu có, lúc mấy giờ?\n② Phòng có để trống suốt đêm không?",
+                 ko:"초안을 쓰기 전에 확인이 필요합니다. 이의 내용에는 확인된 사실만 들어가야 합니다.\n\n지금 시스템에서 제가 확인할 수 있는 것은 «체크인 처리 기록 없음» 하나뿐입니다.\n\n알려주세요.\n① 고객에게 연락을 시도하셨나요? 하셨다면 몇 시인가요?\n② 객실은 밤새 미사용 상태였나요?",
+                 note:{warn:true,k:"No invented facts",kko:"미확인 사실 생성 금지",
+                   v:"An earlier version wrote «called twice at 21:40 and 22:15» — a fact <b>nobody had stated</b>. In an evidence document that is the most dangerous failure mode, and it contradicted this design's own grounding rule. The agent now asks first.",
+                   vko:"이전 버전은 «21:40, 22:15 두 차례 전화»를 초안에 넣었다. <b>아무도 말하지 않은 사실</b>이다. 증빙 문서에서 가장 위험한 실패이며 이 설계의 근거 원칙과 정면 충돌한다. 이제는 먼저 묻는다."}},
+          {t:"me",vi:"Có, mình gọi 1 lần lúc 21:40, khách không bắt máy. Phòng để trống cả đêm.",
+                 ko:"네, 21:40에 한 번 전화했고 안 받았습니다. 방은 밤새 비어 있었어요."},
+          {t:"bot",aid:"ST-S1-03",own:"G2J",
+                 vi:"Bản nháp chỉ gồm dữ kiện đã xác nhận:\n\n「Khách không nhận phòng. Hệ thống không ghi nhận thao tác nhận phòng. Khách sạn đã gọi cho khách lúc 21:40 ngày 24/08, khách không bắt máy. Phòng để trống cả đêm.」\n\nBạn đính kèm ảnh chụp lịch sử cuộc gọi sẽ tăng khả năng được chấp nhận.\n\nNút «Hoàn tất đối soát» bạn phải tự bấm — thao tác đó xác nhận «không sửa đổi thông tin đối soát về sau».",
+                 ko:"확인된 사실만 담은 초안입니다.\n\n「고객이 체크인하지 않았습니다. 시스템에 체크인 처리 기록이 없습니다. 호텔에서 08/24 21:40에 고객에게 전화했으나 받지 않았습니다. 객실은 밤새 미사용 상태였습니다.」\n\n통화 기록 화면을 첨부하시면 수용 가능성이 올라갑니다.\n\n«Hoàn tất đối soát» 버튼은 직접 눌러주셔야 합니다 — 이후 정산 내용을 수정하지 않는다는 확정이라서요.",
                  note:{warn:true,k:"Guardrail",kko:"가드레일",
-                   v:"<b>Action authority boundary</b> — the agent never performs an irreversible confirmation. Drafting and verification are its ceiling.",
-                   vko:"<b>행동 권한 경계</b> — 되돌릴 수 없는 확정 클릭은 대행하지 않는다. 초안 작성·검증까지가 에이전트의 상한선."}}
+                   v:"Every sentence traces to something the partner said or the system returned. <b>Action authority boundary</b> still holds — the final confirmation stays with the human.",
+                   vko:"모든 문장이 파트너의 발언이나 시스템 조회값으로 추적된다. <b>행동 권한 경계</b>도 유지 — 최종 확정은 사람이 누른다."}}
         ]},
+
         { label:"Cancellation reason", labelKo:"취소 사유 선택",
           sub:"One reason decides who pays", subKo:"사유 하나가 귀책을 가른다", turns:[
           {t:"me",vi:"Khách gọi báo bận không đến được, mình hủy giúp khách nhé?",
                  ko:"손님이 바빠서 못 온다고 전화 왔는데, 취소해드리면 될까요?"},
-          {t:"bot",aid:"ST-S1-01",
-                 vi:"Chọn lý do «Khách có việc bận, nhờ hủy».\nĐặt phòng sẽ chuyển sang trạng thái «Chờ G2J xử lý» để Go2Joy xét duyệt — chưa hoàn tiền ngay.",
+          {t:"bot",aid:"ST-S1-01",own:"G2J",
+                 vi:"Chọn lý do «Khách có việc bận, nhờ hủy».\nĐặt phòng chuyển sang «Chờ G2J xử lý» để Go2Joy xét duyệt — chưa hoàn tiền ngay.",
                  ko:"«Khách có việc bận, nhờ hủy»(고객 사정으로 취소 요청) 사유를 선택하세요.\n예약은 «Chờ G2J xử lý» 상태로 넘어가 Go2Joy가 심사합니다 — 즉시 환불되지 않습니다.",
                  note:{k:"Liability routing",kko:"귀책 라우팅",
-                   v:"The 4 guest-side reasons route to <b>review</b>; the 7 hotel-side reasons trigger <b>immediate cancellation and refund</b>. This is ST-PLT-04's judgment made visible.",
-                   vko:"고객 귀책 4종은 <b>심사 경로</b>, 호텔 귀책 7종은 <b>즉시 취소·환불</b>. ST-PLT-04의 판정이 여기서 드러난다."}},
+                   v:"The 4 guest-side reasons route to <b>review</b>; the 7 hotel-side reasons start an immediate cancellation. This is ST-PLT-04's judgment made visible.",
+                   vko:"고객 귀책 4종은 <b>심사 경로</b>, 호텔 귀책 7종은 즉시 취소 절차. ST-PLT-04의 판정이 여기서 드러난다."}},
           {t:"me",vi:"Chọn «Khách sạn hết phòng» cho nhanh được không?",
                  ko:"빨리 끝내려면 «만실»로 골라도 되나요?"},
-          {t:"bot",aid:"ST-S1-01",
-                 vi:"Không nên. «Khách sạn hết phòng» là lý do thuộc lỗi khách sạn: hệ thống sẽ hủy và hoàn tiền ngay, và chi phí do khách sạn chịu.\nLý do phải khớp với tình huống thực tế.",
-                 ko:"권하지 않습니다. «Khách sạn hết phòng»은 호텔 귀책 사유라 시스템이 즉시 취소·환불하고 그 비용은 호텔이 부담합니다.\n사유는 실제 상황과 일치해야 합니다.",
-                 note:{warn:true,k:"Loss prevention",kko:"손실 방지",
-                   v:"A mis-picked reason is a refund the hotel eats. This exchange is <b>ST-S1-01's primary value</b> — not how to cancel, but which reason to pick.",
-                   vko:"사유 오선택은 곧 환불 손실이다. 이 대화가 <b>ST-S1-01의 1차 가치</b> — 취소 방법이 아니라 «어느 사유를 골라야 하는가»."}}
+          {t:"bot",aid:"ST-S1-01",own:"G2J",
+                 vi:"Không nên. «Khách sạn hết phòng» là lỗi khách sạn, và chi phí do khách sạn chịu.\n\nNgoài ra lý do đó không kết thúc ngay ở «đã hoàn tiền». Có 3 bước tách biệt:\n① Huỷ đặt phòng — ngay\n② Duyệt hoàn tiền — Go2Joy xử lý\n③ Hoàn về phương thức thanh toán — theo lịch của ngân hàng/thẻ\n\nVới khách nên nói «đã duyệt hoàn tiền, đang hoàn về thẻ», không nói «đã hoàn tiền xong».",
+                 ko:"권하지 않습니다. «Khách sạn hết phòng»은 호텔 귀책이고 비용은 호텔이 부담합니다.\n\n그리고 그 사유를 골라도 «환불 완료»로 끝나지 않습니다. 세 단계가 분리되어 있습니다.\n① 예약 취소 — 즉시\n② 환불 승인 — Go2Joy 처리\n③ 결제수단 반환 — 카드사·은행 일정\n\n고객에게는 «환불 승인, 반환 진행 중»으로 안내하셔야 분쟁이 줄어듭니다.",
+                 note:{warn:true,k:"Three states, not one",kko:"환불은 3단 상태",
+                   v:"«Immediate cancellation and refund» collapses three separate states. What a guest hears as «refunded» is not what the system has completed — that gap is a dispute generator.",
+                   vko:"«즉시 취소·환불»은 세 개의 상태를 하나로 뭉갠 표현이다. 고객이 이해하는 «환불 완료»와 시스템 처리 완료가 다르고, 그 간극이 분쟁을 만든다."}}
         ]},
-        { label:"Price breakdown", labelKo:"요금 구성 설명",
-          sub:"Why it sold at this price", subKo:"왜 이 가격에 팔렸나", turns:[
-          {t:"me",vi:"Sao phòng Deluxe tối qua chỉ thu được 350.000đ? Giá niêm yết là 500.000đ mà.",
-                 ko:"어젯밤 디럭스룸이 왜 35만동만 들어왔죠? 표시가는 50만동인데요."},
-          {t:"bot",aid:"ST-S1-02",
-                 vi:"Theo bảng đối soát của booking đó:\n\nGiá gốc qua đêm      500.000đ\nGiảm giá trực tiếp −20%   −100.000đ\nCoupon (Go2Joy tài trợ)   −50.000đ\n──────────────\nKhách thanh toán       350.000đ\n\nPhần 50.000đ của coupon do Go2Joy chịu, sẽ được cộng lại ở mục «Khuyến mãi G2J» trong đối soát.",
-                 ko:"해당 예약의 정산표 기준입니다.\n\n숙박 기본가            500,000đ\n직접할인 −20%          −100,000đ\n쿠폰(Go2Joy 후원)       −50,000đ\n──────────────\n고객 결제액            350,000đ\n\n쿠폰 5만동은 Go2Joy 부담분이라 정산의 «Khuyến mãi G2J» 항목에서 되돌려 받습니다.",
+
+        { label:"Settlement amount", labelKo:"정산 입금액 확인",
+          sub:"Guest payment is not hotel payout", subKo:"고객 결제액과 정산 입금액은 다르다", turns:[
+          {t:"me",vi:"Sao phòng Deluxe tối qua chỉ được 350.000đ? Giá niêm yết 500.000đ mà.",
+                 ko:"어젯밤 디럭스룸이 왜 35만동이죠? 표시가는 50만동인데요."},
+          {t:"bot",aid:"ST-S1-02",own:"G2J",
+                 vi:"Trước hết mình cần phân biệt: bạn đang hỏi «số khách đã thanh toán» hay «số khách sạn sẽ nhận được khi đối soát»? Hai con số này khác nhau.",
+                 ko:"먼저 구분이 필요합니다. 지금 물어보시는 게 «고객이 결제한 금액»인가요, «정산으로 호텔이 받을 금액»인가요? 두 숫자는 다릅니다.",
+                 note:{k:"Disambiguate first",kko:"먼저 구분",
+                   v:"«Only 350,000 came in» is ambiguous. Answering the wrong one produces a confident, wrong explanation.",
+                   vko:"«35만동만 들어왔다»는 모호하다. 어느 쪽인지 정하지 않고 답하면 확신에 찬 오답이 나온다."}},
+          {t:"me",vi:"Số khách sạn nhận được.",ko:"정산으로 받는 금액이요."},
+          {t:"bot",aid:"ST-S1-02",own:"G2J",
+                 vi:"Theo bảng đối soát của booking G2J-79102:\n\nGiá gốc qua đêm            500.000\nKS giảm giá (trực tiếp −20%)  −100.000   ← khách sạn chịu\nKhuyến mãi G2J (Coupon Back)   −50.000   ← Go2Joy chịu\n──────────────────────\nKhách thanh toán            350.000\nG2J bù phần tài trợ         +50.000\nChiết khấu (hoa hồng)       −60.000\nĐiều chỉnh                        0\n──────────────────────\nDự kiến đối soát            340.000\n\nTrạng thái «Chưa đối soát» · dự kiến thanh toán 10/09.",
+                 ko:"예약 G2J-79102의 정산표 기준입니다.\n\n숙박 기본가                500,000\n호텔 할인(직접할인 −20%)    −100,000   ← 호텔 부담\nGo2Joy 프로모션(Coupon Back) −50,000   ← Go2Joy 부담\n──────────────────────\n고객 결제액                350,000\nGo2Joy 지원금 보전          +50,000\n수수료(Chiết khấu)          −60,000\n조정액                            0\n──────────────────────\n정산 예정액                340,000\n\n상태 «Chưa đối soát» · 지급 예정 09/10.",
                  note:{k:"Amount integrity",kko:"금액 무결성",
-                   v:"These figures are copied from a <b>system query</b>. The LLM does not compute them — §3.3 guardrail.",
-                   vko:"이 숫자는 <b>시스템 조회값</b>을 그대로 옮긴 것이다. LLM이 직접 계산하지 않는다 — §3.3 가드레일."}}
+                   v:"Every row is a <b>system value</b>, split by who bears the cost. The LLM does not add them up — it prints what the reconciliation table returned.",
+                   vko:"모든 행이 <b>시스템 조회값</b>이고 부담 주체별로 나뉜다. LLM이 합산하지 않고 정산표가 반환한 것을 그대로 표시한다."}}
         ]},
+
         { label:"Out-of-role request", labelKo:"권한 밖 문의",
-          sub:"A front-desk account asks about settlement", subKo:"Lễ tân 계정이 정산을 묻는다", role:"Lễ tân", turns:[
+          sub:"Scope rule, not a settlement exception", subKo:"정산만의 예외가 아니라 스코프 규칙", role:"Lễ tân", turns:[
           {t:"sys",vi:"Đăng nhập lại: Lễ tân · Khách sạn Minh Anh"},
           {t:"me",vi:"Cho mình xem công nợ kỳ này với số tài khoản nhận tiền.",
                  ko:"이번 주기 미수금이랑 입금 계좌 좀 보여주세요."},
-          {t:"bot",aid:"ST-PLT-02",
-                 vi:"Tài khoản của bạn là «Lễ tân» nên mình không tra cứu được thông tin đối soát và tài khoản thanh toán.\nBạn có thể nhờ tài khoản «Quản lý» của khách sạn xem giúp.\n\nMình vẫn hỗ trợ được: đặt phòng, nhận phòng, báo khách không đến, tình trạng phòng và đánh giá.",
-                 ko:"«Lễ tân»(프런트) 권한이라 정산 정보와 결제 계좌는 조회해 드릴 수 없습니다.\n호텔의 «Quản lý»(관리자) 계정으로 확인해 주세요.\n\n제가 도와드릴 수 있는 범위는 예약, 체크인, 노쇼 신고, 객실 상태, 리뷰입니다.",
+          {t:"bot",aid:"ST-PLT-02",own:"G2J",
+                 vi:"Tài khoản của bạn là «Lễ tân» nên mình không tra cứu được thông tin đối soát và tài khoản thanh toán. Bạn nhờ tài khoản «Quản lý» của khách sạn giúp nhé.",
+                 ko:"«Lễ tân»(프런트) 권한이라 정산 정보와 결제 계좌는 조회해 드릴 수 없습니다. 호텔의 «Quản lý»(관리자) 계정으로 확인해 주세요.",
                  note:{warn:true,k:"RBAC",kko:"권한 모델",
-                   v:"Role is fixed at session start by <b>ST-PLT-02</b>, not by the domain agent. A front-desk account never receives settlement, bank, staff or ad-budget data.",
-                   vko:"권한 판정은 도메인 에이전트가 아니라 <b>ST-PLT-02</b>가 세션 시작 시 확정한다. 프런트 계정에는 정산·계좌·직원·광고 예산을 응답하지 않는다."}}
+                   v:"Role is fixed at session start by <b>ST-PLT-02</b>, before any domain agent runs.",
+                   vko:"권한은 도메인 에이전트가 돌기 전에 <b>ST-PLT-02</b>가 세션 시작 시 확정한다."}},
+          {t:"me",vi:"Vậy ngân sách quảng cáo và danh sách nhân viên thì sao?",
+                 ko:"그럼 광고 예산이랑 직원 목록은요?"},
+          {t:"bot",aid:"ST-PLT-02",own:"G2J",
+                 vi:"Cũng không được — cùng một quy tắc phạm vi.\n\nVới quyền «Lễ tân» mình hỗ trợ: đặt phòng, nhận phòng, báo khách không đến, tình trạng phòng, đánh giá, và yêu cầu của khách đang ở.",
+                 ko:"그것도 안 됩니다 — 같은 스코프 규칙입니다.\n\n«Lễ tân» 권한으로 제가 지원하는 범위는 예약, 체크인, 노쇼 신고, 객실 상태, 리뷰, 그리고 투숙객 요청입니다.",
+                 note:{warn:true,k:"Consistent gate",kko:"일관 적용",
+                   v:"An earlier build gated only settlement keywords — staff and ad budget slipped through. The scope check now runs on <b>every</b> restricted domain, not a keyword list.",
+                   vko:"이전 빌드는 정산 키워드에만 차단이 걸려 직원·광고 예산이 통과됐다. 이제 스코프 검사는 키워드가 아니라 <b>제한 도메인 전체</b>에 적용된다."}}
+        ]},
+
+        { label:"Paid but no booking", labelKo:"결제·예약 불일치",
+          sub:"Guest at the desk, no record in admin", subKo:"고객은 결제했다는데 어드민에 예약이 없다", turns:[
+          {t:"me",vi:"Khách nói đã thanh toán mà admin không có đặt phòng nào. Khách đang đứng ở quầy.",
+                 ko:"고객은 결제했다는데 어드민에 예약이 없습니다. 지금 프런트에 서 있어요."},
+          {t:"bot",aid:"ST-S1-01",own:"G2J",
+                 vi:"Trường hợp này mình không tự phán đoán được — Go2Joy phải đối chiếu trạng thái thanh toán và đặt phòng.\n\nBạn xin khách 3 thứ:\n① Ảnh màn hình lịch sử thanh toán trong app\n② Tin nhắn/thông báo trừ tiền của ngân hàng\n③ Mã đặt phòng (nếu có)\n\n«Đừng thu tiền lại tại quầy» trước khi đối chiếu xong — sẽ thành thu trùng.",
+                 ko:"이 경우는 제가 임의로 판단할 수 없습니다 — Go2Joy가 결제 상태와 예약을 대조해야 합니다.\n\n고객에게 세 가지를 받아주세요.\n① 앱 결제 내역 화면 캡처\n② 은행 출금·승인 알림 문자\n③ 예약번호(있으면)\n\n«대조 전에는 현장에서 다시 결제받지 마세요» — 중복 수금이 됩니다.",
+                 note:{warn:true,k:"Duplicate charge",kko:"중복 수금 방지",
+                   v:"The instruction not to re-charge comes <b>before</b> any diagnosis. Money moving twice is harder to undo than a delayed check-in.",
+                   vko:"재결제 금지 안내가 진단보다 <b>먼저</b> 나온다. 돈이 두 번 움직이는 것이 입실 지연보다 되돌리기 어렵다."}},
+          {t:"sys",vi:"Chuyển khẩn → CSKH Go2Joy (L2) · Ticket #CS-20412 · Đã tiếp nhận"},
+          {t:"bot",aid:"ST-PLT-05",own:"G2J",
+                 vi:"Đã có phản hồi tiếp nhận từ hệ thống: ticket #CS-20412, mức phản hồi 15 phút.\nKhách đang chờ nên việc cho nhận phòng hay không sẽ do Go2Joy xác nhận rồi báo lại.",
+                 ko:"접수 시스템의 성공 응답을 확인했습니다 — 티켓 #CS-20412, 대응 기준 15분.\n고객이 대기 중이므로 입실 처리 여부는 Go2Joy 확인 후 안내드립니다.",
+                 note:{k:"Intake ≠ resolution",kko:"접수 ≠ 해결",
+                   v:"«Received» is said only because the ticket system returned success with an id. No id, no «received».",
+                   vko:"«접수했습니다»는 티켓 시스템이 ID와 함께 성공을 반환했기 때문에 말한다. ID가 없으면 접수했다고 말하지 않는다."},
+                 swap:{STAFF_TIMEOUT:{aid:"ST-PLT-05",own:"G2J",
+                   vi:"Hệ thống tiếp nhận không phản hồi nên «mình chưa gửi được» yêu cầu này.\nBạn gọi trực tiếp hotline đối tác Go2Joy và giữ khách tại quầy. Mình sẽ thử lại và báo bạn.",
+                   ko:"접수 시스템이 응답하지 않아 «이 요청은 전달되지 않았습니다.»\nGo2Joy 파트너 핫라인으로 직접 연락하시고 고객을 대기시켜 주세요. 저는 재시도 후 알려드리겠습니다.",
+                   note:{warn:true,k:"Intake failure",kko:"접수 실패",
+                     v:"When the intake system does not answer, the agent says <b>it was not delivered</b> and gives a fallback channel — it never lets silence look like success.",
+                     vko:"접수 시스템이 응답하지 않으면 <b>전달되지 않았다</b>고 명시하고 대체 연락 경로를 준다. 침묵을 성공처럼 보이게 하지 않는다."}}}}
+        ]},
+
+        { label:"Sold out mismatch", labelKo:"만실 불일치",
+          sub:"App shows rooms, the hotel is full", subKo:"앱에는 방이 있는데 실제로는 만실", turns:[
+          {t:"me",vi:"App hiện còn phòng tối nay mà khách sạn hết phòng rồi.",
+                 ko:"앱에는 오늘 밤 방이 있다고 뜨는데 실제로는 만실입니다."},
+          {t:"bot",aid:"ST-S1-02",own:"HOTEL",
+                 vi:"Mình đã tra: Deluxe · Qua đêm · tối nay đang mở bán, còn 2 phòng. Đã có 3 đặt phòng xác nhận.\n\nĐể dừng bán ngay: Quản lý loại phòng → Thiết lập khóa phòng → chọn hôm nay + «Qua đêm» → «Thêm lịch khoá phòng».\n\n«3 đặt phòng đã xác nhận không bị huỷ theo lệnh khoá phòng.» Bạn muốn xử lý 3 booking đó thế nào — huỷ, hay chuyển phòng khác?",
+                 ko:"조회했습니다. Deluxe · 숙박 · 오늘 밤 판매 중이고 잔여 2실입니다. 확정 예약은 3건입니다.\n\n판매를 즉시 멈추려면: Quản lý loại phòng → Thiết lập khóa phòng → 오늘 날짜 + «Qua đêm» 선택 → «Thêm lịch khoá phòng».\n\n«이미 확정된 예약 3건은 객실 잠금으로 취소되지 않습니다.» 그 3건은 어떻게 하시겠어요 — 취소인가요, 다른 객실 배정인가요?",
+                 note:{k:"Two separate actions",kko:"두 개의 별개 조작",
+                   v:"Blocking sales and handling existing bookings are <b>different operations</b>. Answering only the first leaves three guests about to be refused at the door.",
+                   vko:"판매 중지와 기존 예약 처리는 <b>별개 조작</b>이다. 앞의 것만 답하면 문 앞에서 거절당할 고객 3명이 남는다."},
+                 swap:{LOOKUP_FAIL:{aid:"ST-S1-02",own:"HOTEL",
+                   vi:"Mình chưa truy vấn được tình trạng bán phòng nên không nói được số phòng còn lại hay số booking đã xác nhận.\n\nBạn dừng bán trước tại: Quản lý loại phòng → Thiết lập khóa phòng.\nSau đó kiểm tra Danh sách đặt phòng để xem các booking đã xác nhận cho tối nay.",
+                   ko:"판매 상태를 조회하지 못해 잔여 객실 수와 확정 예약 건수를 말씀드릴 수 없습니다.\n\n먼저 판매를 멈추세요: Quản lý loại phòng → Thiết lập khóa phòng.\n그다음 Danh sách đặt phòng에서 오늘 밤 확정 예약을 직접 확인해 주세요.",
+                   note:{warn:true,k:"Act without numbers",kko:"수치 없이 행동",
+                     v:"The urgent action is still given — only the unverified numbers are withheld.",
+                     vko:"급한 조치는 그대로 안내하고, 확인되지 않은 수치만 뺀다."}}}},
+          {t:"me",vi:"Mình sẽ chuyển sang phòng khác.",ko:"다른 방으로 배정할게요."},
+          {t:"bot",aid:"ST-S1-01",own:"HOTEL",
+                 vi:"Vậy «đừng huỷ đặt phòng» — trong 11 lý do huỷ không có lý do nào là «đổi phòng».\n\nBạn xếp phòng cùng hạng hoặc cao hơn và báo khách về việc đổi phòng.\nNếu xếp phòng hạng thấp hơn thì cần Go2Joy xác nhận vì dễ thành tranh chấp.",
+                 ko:"그러면 «예약 취소는 하지 마세요» — 취소 사유 11종 중 «객실 변경»에 해당하는 것이 없습니다.\n\n동급 이상 객실로 배정하시고 고객에게 변경 사실을 고지하세요.\n등급이 낮아지는 배정은 분쟁이 되므로 Go2Joy 확인이 필요합니다.",
+                 note:{warn:true,k:"Don't force-fit",kko:"억지 매핑 금지",
+                   v:"When the situation has no matching code, the agent says so instead of picking the nearest one. A forced reason becomes a wrong liability record.",
+                   vko:"상황에 맞는 코드가 없으면 가장 가까운 것을 고르지 않고 없다고 말한다. 억지로 고른 사유는 잘못된 귀책 기록이 된다."}}
+        ]},
+
+        { label:"Wrong reason submitted", labelKo:"취소 사유 오선택",
+          sub:"There is no undo — only a correction request", subKo:"되돌리기가 아니라 정정 요청", turns:[
+          {t:"me",vi:"Mình chọn nhầm lý do huỷ. Thực tế là khách bận nhưng mình bấm «Khách sạn hết phòng».",
+                 ko:"취소 사유를 잘못 골랐습니다. 실제로는 고객 사정인데 «만실»로 눌렀어요."},
+          {t:"bot",aid:"ST-S1-03",own:"G2J",
+                 vi:"Mình kiểm tra trạng thái trước: đặt phòng đã huỷ, hoàn tiền «đã được duyệt», đang hoàn về thẻ.\n\nConsole không có chức năng sửa lý do huỷ sau khi đã gửi.\n\nViệc cần làm:\n① Gửi yêu cầu đính chính cho Go2Joy — kèm mã đặt phòng, tình huống thực tế, lý do đã chọn nhầm\n② Gửi «trước khi kỳ đối soát chốt» thì phần chi phí mới có thể điều chỉnh\n\nMình soạn nội dung đính chính cho bạn nhé?",
+                 ko:"먼저 상태를 확인했습니다. 예약은 취소됐고 환불은 «승인 완료», 카드 반환 진행 중입니다.\n\n콘솔에는 전송 후 취소 사유를 수정하는 기능이 없습니다.\n\n하실 일은 두 가지입니다.\n① Go2Joy에 정정 요청 — 예약번호, 실제 상황, 잘못 선택한 사유를 함께 전달\n② «정산 주기가 마감되기 전에» 요청해야 비용 부담이 조정될 수 있습니다\n\n정정 요청 내용을 초안으로 작성해 드릴까요?",
+                 note:{warn:true,k:"After the fact",kko:"사후 처리",
+                   v:"The agent checks <b>current processing state</b> before advising. What is possible depends on whether the refund is approved and whether reconciliation has closed.",
+                   vko:"조언 전에 <b>현재 처리 상태</b>를 확인한다. 가능한 조치는 환불 승인 여부와 정산 마감 여부에 따라 달라진다."}}
+        ]},
+
+        { label:"Extension conflicts", labelKo:"연장 시간 겹침",
+          sub:"Check the next booking before approving", subKo:"후속 예약까지 확인하고 승인한다", turns:[
+          {t:"me",vi:"Khách phòng 302 xin ở thêm tới 14:00, mà 13:00 có booking theo giờ.",
+                 ko:"302호 손님이 14시까지 연장 요청했는데 13시에 시간제 예약이 있습니다."},
+          {t:"bot",aid:"ST-S1-01",own:"HOTEL",
+                 vi:"Bị trùng. Ba mốc cần đối chiếu:\n① Booking kế tiếp — 13:00, Theo giờ, đã xác nhận\n② Thời gian dọn phòng — theo tiêu chuẩn của khách sạn\n③ Yêu cầu ở thêm — đến 14:00\n\nNếu giữ booking 13:00 thì phải từ chối ở thêm. Mình gửi lý do từ chối cho khách nhé? Khách sẽ nhận được «không thể ở thêm do có đặt phòng kế tiếp».\n\nViệc dời booking 13:00 cần khách kia đồng ý nên mình không tự đề xuất.",
+                 ko:"겹칩니다. 확인할 세 지점입니다.\n① 후속 예약 — 13:00, 시간제, 확정\n② 청소 소요 시간 — 호텔 기준값\n③ 연장 요청 — 14:00까지\n\n13시 예약을 지키려면 연장은 거절하셔야 합니다. 거절 사유를 고객에게 전달해 드릴까요? «후속 예약으로 연장 불가»로 안내됩니다.\n\n13시 예약을 옮기는 것은 그 고객의 동의가 필요하므로 제가 임의로 제안하지 않겠습니다.",
+                 note:{k:"Whole timeline",kko:"타임라인 전체",
+                   v:"Approving an extension is not a two-party decision. The next booking and the cleaning window are both parties to it.",
+                   vko:"연장 승인은 둘 사이의 결정이 아니다. 후속 예약과 청소 시간도 이해당사자다."}}
         ]}
       ],
       kw:[
-        {m:["đối soát","정산","khiếu nại","이의","공제","수수료","hoa hồng","settle","reconcil"],aid:"ST-S1-03",
-         vi:"Về đối soát: bạn có thể khiếu nại từng booking với 2 lý do — «Khách không nhận phòng» hoặc «Sai thông tin đặt phòng» — rồi bấm «Gửi Go2Joy xử lý». Lưu ý các booking không khiếu nại sẽ tự động được xác nhận đúng khi hết hạn.",
-         ko:"정산 관련 — 예약 건별로 «Khách không nhận phòng» 또는 «Sai thông tin đặt phòng» 두 사유로 이의를 제기한 뒤 «Gửi Go2Joy xử lý»를 누르시면 됩니다. 이의를 넣지 않은 건은 기한이 지나면 자동 확정되니 주의하세요.",
-         gated:true},
-        {m:["hủy","취소","huỷ","khách không đến","노쇼","cancel","no-show"],aid:"ST-S1-01",
-         vi:"Khi hủy, lý do bạn chọn quyết định kết quả: 7 lý do thuộc lỗi khách sạn sẽ hủy và hoàn tiền ngay; 4 lý do thuộc phía khách sẽ chuyển sang «Chờ G2J xử lý» để Go2Joy xét duyệt. Bạn cho mình biết tình huống cụ thể nhé.",
-         ko:"취소는 선택한 사유가 결과를 결정합니다. 호텔 귀책 7종은 즉시 취소·환불되고, 고객 귀책 4종은 «Chờ G2J xử lý»로 넘어가 Go2Joy가 심사합니다. 구체적인 상황을 알려주세요."},
-        {m:["giá","요금","가격","flash sale","phụ thu","giảm giá","할인","rate","price"],aid:"ST-S1-02",
-         vi:"Giá cuối cùng của một booking = giá gốc theo loại đặt phòng (Theo giờ / Qua đêm / Theo ngày) ± phụ thu, trừ giảm giá trực tiếp, Flash Sale và coupon. Bạn cho mình mã đặt phòng, mình tách từng khoản cho bạn.",
-         ko:"최종 금액 = 예약 유형별(시간제/숙박/일단위) 기본가 ± 추가요금 − 직접할인 − Flash Sale − 쿠폰입니다. 예약번호를 주시면 항목별로 분해해 드리겠습니다."},
-        {m:["coupon","쿠폰","quảng cáo","광고","tài trợ","후원","ad "],aid:"ST-S1-05",
-         vi:"Khách sạn của bạn đang có ngân sách «Coupon Back» (Go2Joy tài trợ 100%) chưa dùng. Ngân sách này có thời hạn — bạn muốn mình hướng dẫn tạo coupon từ ngân sách đó không?",
-         ko:"현재 호텔에 미사용 «Coupon Back»(Go2Joy 100% 후원) 예산이 남아 있습니다. 기간 한정이라 소멸됩니다 — 이 예산으로 쿠폰 만드는 절차를 안내드릴까요?"},
-        {m:["đánh giá","리뷰","평점","review"],aid:"ST-S1-06",
-         vi:"Mình soạn nháp trả lời đánh giá cho bạn. Lưu ý chỉ những đánh giá có nhận xét mới trả lời được.",
-         ko:"리뷰 답변 초안을 작성해 드리겠습니다. 코멘트가 없는 리뷰에는 답변을 달 수 없습니다."},
-        {m:["sản phẩm","상품","đồ ăn","부가","product"],aid:"ST-S1-12",
-         vi:"Sản phẩm mới đăng ký sẽ ở trạng thái «Chờ xác nhận» cho đến khi Go2Joy duyệt. Bạn muốn thêm loại nào?",
-         ko:"신규 등록 상품은 Go2Joy 승인 전까지 «Chờ xác nhận» 상태로 있습니다. 어떤 유형을 추가하시겠어요?"},
-        {m:["nhân viên","직원","계정","quyền","권한","staff","role"],aid:"ST-S1-08",
-         vi:"Có 2 quyền: «Quản lý» (chọn được nhiều khách sạn) và «Lễ tân» (cố định 1 khách sạn). Bạn muốn tạo tài khoản loại nào?",
-         ko:"권한은 «Quản lý»(다중 호텔 선택 가능)와 «Lễ tân»(단일 호텔 고정) 두 가지입니다. 어느 유형으로 만드시겠어요?"},
-        {m:["lỗi","오류","không vào được","안 됨","안돼","장애","error","bug"],aid:"ST-S1-11",
-         vi:"Bạn cho mình biết màn hình nào và thông báo lỗi hiện ra là gì? Mình cũng cần biết phiên bản console đang hiển thị ở góc dưới trái.",
-         ko:"어느 화면에서, 어떤 오류 메시지가 떴는지 알려주세요. 화면 좌측 하단의 콘솔 버전도 함께 확인 부탁드립니다."}
+        {m:["đối soát","doi soat","정산","khiếu nại","khieu nai","이의","수수료","hoa hồng","settle","reconcil"],
+         aid:"ST-S1-03",own:"G2J",scope:"FINANCE",needsLookup:true,
+         vi:"Về đối soát: bạn khiếu nại từng booking với 2 lý do — «Khách không nhận phòng» hoặc «Sai thông tin đặt phòng» — rồi bấm «Gửi Go2Joy xử lý». Booking không khiếu nại sẽ tự động được xác nhận đúng khi hết hạn. Bạn cho mình mã đặt phòng để mình tra cụ thể.",
+         ko:"정산 관련 — 예약 건별로 «Khách không nhận phòng» 또는 «Sai thông tin đặt phòng» 두 사유로 이의를 제기한 뒤 «Gửi Go2Joy xử lý»를 누르시면 됩니다. 이의를 넣지 않은 건은 기한이 지나면 자동 확정됩니다. 예약번호를 주시면 구체적으로 조회해 드리겠습니다."},
+        {m:["hủy","huỷ","huy dat phong","취소","khách không đến","khach khong den","노쇼","cancel","no-show"],
+         aid:"ST-S1-01",own:"G2J",
+         vi:"Lý do huỷ quyết định kết quả: 7 lý do lỗi khách sạn → huỷ ngay và khách sạn chịu chi phí; 4 lý do phía khách → «Chờ G2J xử lý». Lưu ý hoàn tiền có 3 bước tách biệt: huỷ → duyệt hoàn → hoàn về thẻ. Bạn kể tình huống cụ thể giúp mình.",
+         ko:"취소 사유가 결과를 결정합니다. 호텔 귀책 7종 → 즉시 취소·호텔 비용 부담, 고객 귀책 4종 → «Chờ G2J xử lý». 환불은 취소 → 승인 → 반환 3단계로 분리된다는 점도 유의하세요. 구체적인 상황을 알려주세요."},
+        {m:["giá","gia phong","요금","가격","flash sale","phụ thu","phu thu","할인","rate","price","공제"],
+         aid:"ST-S1-02",own:"G2J",needsLookup:true,
+         vi:"Bạn đang hỏi số khách thanh toán hay số khách sạn nhận khi đối soát? Hai con số khác nhau. Cho mình mã đặt phòng, mình tách từng khoản theo bên chịu chi phí.",
+         ko:"고객 결제액을 물어보시는 건가요, 정산으로 받는 금액인가요? 두 숫자는 다릅니다. 예약번호를 주시면 부담 주체별로 항목을 분해해 드리겠습니다."},
+        {m:["hết phòng","het phong","만실","overbook","오버부킹"],
+         aid:"ST-S1-02",own:"HOTEL",needsLookup:true,
+         vi:"Dừng bán ngay tại: Quản lý loại phòng → Thiết lập khóa phòng. Nhưng các booking đã xác nhận «không» bị huỷ theo lệnh khoá — bạn phải xử lý riêng từng booking đó.",
+         ko:"즉시 판매 중지 경로: Quản lý loại phòng → Thiết lập khóa phòng. 다만 이미 확정된 예약은 잠금으로 «취소되지 않습니다» — 그 건들은 따로 처리하셔야 합니다."},
+        {m:["đã thanh toán","da thanh toan","결제했다는데","không có đặt phòng","khong co dat phong","예약이 없","불일치"],
+         aid:"ST-S1-01",own:"G2J",
+         vi:"Mình không tự phán đoán được — Go2Joy phải đối chiếu thanh toán và đặt phòng. «Đừng thu tiền lại tại quầy.» Bạn xin khách ảnh lịch sử thanh toán và thông báo ngân hàng, mình chuyển khẩn cho CSKH.",
+         ko:"제가 임의로 판단할 수 없습니다 — Go2Joy가 결제와 예약을 대조해야 합니다. «현장에서 다시 결제받지 마세요.» 고객의 결제 내역 캡처와 은행 알림을 받아주시면 고객지원으로 긴급 이관하겠습니다."},
+        {m:["coupon","쿠폰","quảng cáo","quang cao","광고","tài trợ","tai tro","후원","ad "],
+         aid:"ST-S1-05",own:"G2J",scope:"FINANCE",needsLookup:true,
+         vi:"Mình kiểm tra ngân sách «Coupon Back» (Go2Joy tài trợ) của khách sạn bạn và báo lại phần chưa dùng cùng hạn sử dụng. Bạn muốn mình hướng dẫn tạo coupon từ ngân sách đó không?",
+         ko:"호텔의 «Coupon Back»(Go2Joy 후원) 예산을 조회해 미사용분과 사용 기한을 알려드리겠습니다. 그 예산으로 쿠폰 만드는 절차를 안내드릴까요?"},
+        {m:["đánh giá","danh gia","리뷰","평점","review"],aid:"ST-S1-06",own:"HOTEL",
+         vi:"Mình soạn nháp trả lời đánh giá. Chỉ đánh giá có nhận xét mới trả lời được.",
+         ko:"리뷰 답변 초안을 작성해 드리겠습니다. 코멘트가 있는 리뷰만 답변할 수 있습니다."},
+        {m:["sản phẩm","san pham","상품","đồ ăn","do an","부가","product"],aid:"ST-S1-12",own:"HOTEL",
+         vi:"Sản phẩm mới đăng ký ở trạng thái «Chờ xác nhận» đến khi Go2Joy duyệt. Bạn muốn thêm loại nào?",
+         ko:"신규 등록 상품은 Go2Joy 승인 전까지 «Chờ xác nhận» 상태입니다. 어떤 유형을 추가하시겠어요?"},
+        {m:["nhân viên","nhan vien","직원","tài khoản","tai khoan","계정","quyền","quyen","권한","staff","role"],
+         aid:"ST-S1-08",own:"G2J",scope:"STAFF",
+         vi:"Có 2 quyền: «Quản lý» (nhiều khách sạn) và «Lễ tân» (cố định 1 khách sạn). Bạn muốn tạo tài khoản loại nào?",
+         ko:"권한은 «Quản lý»(다중 호텔)와 «Lễ tân»(단일 호텔 고정) 두 가지입니다. 어느 유형으로 만드시겠어요?"},
+        {m:["lỗi","loi","오류","안 됨","안돼","장애","error","bug","không vào được","khong vao duoc"],
+         aid:"ST-S1-11",own:"G2J",
+         vi:"Bạn cho mình biết màn hình nào và thông báo lỗi là gì? Kèm phiên bản console hiển thị ở góc dưới trái.",
+         ko:"어느 화면에서 어떤 오류 메시지가 떴는지 알려주세요. 화면 좌측 하단의 콘솔 버전도 함께 부탁드립니다."}
       ],
       gate:{
-        vi:"Tài khoản «Lễ tân» không xem được thông tin đối soát và tài khoản thanh toán. Bạn nhờ tài khoản «Quản lý» giúp nhé.",
-        ko:"«Lễ tân» 권한으로는 정산 정보와 결제 계좌를 조회할 수 없습니다. «Quản lý» 계정으로 확인해 주세요.",
-        aid:"ST-PLT-02",
+        aid:"ST-PLT-02",own:"G2J",
+        vi:"Tài khoản «Lễ tân» không xem được thông tin đối soát, tài khoản thanh toán, ngân sách quảng cáo và danh sách nhân viên. Bạn nhờ tài khoản «Quản lý» giúp nhé.",
+        ko:"«Lễ tân» 권한으로는 정산 정보, 결제 계좌, 광고 예산, 직원 목록을 조회할 수 없습니다. «Quản lý» 계정으로 확인해 주세요.",
         note:{warn:true,k:"RBAC",kko:"권한 모델",
-          v:"Requests outside the role scope are blocked before they ever reach a domain agent.",
-          vko:"권한 스코프 밖 요청은 도메인 에이전트에 닿기 전에 차단된다."}
+          v:"The scope check covers <b>every</b> restricted domain — finance, staff and ad budget alike — not just settlement keywords.",
+          vko:"스코프 검사는 정산 키워드만이 아니라 재무·직원·광고 예산 <b>모든 제한 도메인</b>에 걸린다."}
       },
-      fb:{aid:"ST-PLT-03",
-        vi:"Mình chưa có căn cứ chắc chắn cho nội dung này nên chưa trả lời được. Mình kiểm tra rồi báo lại bạn — hoặc chuyển cho CS Go2Joy nếu bạn cần gấp.",
+      lookupFail:{
+        aid:"ST-PLT-03",own:"G2J",
+        vi:"Hiện mình không truy vấn được hệ thống nên chưa đưa được con số hay hạn cụ thể. Bạn kiểm tra trực tiếp trong Hotel Admin, hoặc mình báo lại khi truy vấn khôi phục.",
+        ko:"지금 시스템 조회가 되지 않아 구체적인 수치나 기한을 드릴 수 없습니다. Hotel Admin에서 직접 확인하시거나, 조회가 복구되면 다시 알려드리겠습니다.",
+        note:{warn:true,k:"Lookup failed",kko:"조회 실패",
+          v:"Figure-bearing answers are <b>suppressed</b> when the lookup fails. The agent offers a verification path, never a remembered number.",
+          vko:"조회 실패 시 수치가 들어가는 답변은 <b>차단</b>된다. 기억한 숫자가 아니라 확인 경로를 준다."}
+      },
+      fb:{aid:"ST-PLT-03",own:"G2J",
+        vi:"Mình chưa có căn cứ chắc chắn cho nội dung này nên chưa trả lời được. Mình kiểm tra rồi báo lại — hoặc chuyển CSKH Go2Joy nếu bạn cần gấp.",
         ko:"이 내용은 확실한 근거가 없어 지금 답변드리기 어렵습니다. 확인 후 다시 안내드리겠습니다 — 급하시면 Go2Joy CS로 이관하겠습니다.",
         note:{k:"Grounding",kko:"근거",
-          v:"With no evidence the agent does not infer — it answers «will confirm and follow up» — §3.3.",
-          vko:"근거 없으면 추론하지 않고 «확인 후 안내»로 처리한다 — §3.3."}}
+          v:"With no evidence the agent does not infer — it answers «will confirm and follow up».",
+          vko:"근거 없으면 추론하지 않고 «확인 후 안내»로 처리한다."}}
     },
-
     s2a: {
       key:"s2a", name:"Stage 2-A", en:"Guest · pre-booking", ko:"게스트 — 예약 전", color:"var(--s2a)",
       frame:"phone", url:"", initials:"G2J",
       agentName:"Go2Joy Trợ lý", agentSub:"Tìm phòng · Hỗ trợ đặt phòng",
       desc:"In-app chat in the Go2Joy app. The platform owns the session and no booking exists yet.",
       descKo:"Go2Joy 앱 인앱챗. 세션 소유자는 플랫폼이며 아직 예약 전이다.",
-      seed:[{t:"sys",vi:"Phiên khách chưa đăng nhập · chưa có đặt phòng"}],
+      seed:[{t:"sys",vi:"Phiên khách · chưa có đặt phòng · giờ VN (UTC+7)"}],
       scn:[
-        { label:"Conditional search", labelKo:"조건 검색",
-          sub:"Natural language into search parameters", subKo:"자연어 → 검색 파라미터", turns:[
-          {t:"me",vi:"Tối nay mình cần phòng qua đêm gần Quận 1, có chỗ đậu ô tô, dưới 600k.",
-                 ko:"오늘 밤 1군 근처 숙박이요, 자동차 주차 되고 60만동 이하로."},
-          {t:"bot",aid:"ST-S2A-01",
-                 vi:"Mình hiểu là:\n· Loại đặt phòng — Qua đêm (22:00 → 12:00 hôm sau)\n· Khu vực — quanh Quận 1\n· Tiện ích — chỗ đậu ô tô\n· Giá — dưới 600.000đ\n\nCó 3 khách sạn còn phòng. Bạn muốn xem theo giá hay theo khoảng cách?",
-                 ko:"이렇게 이해했습니다.\n· 예약 유형 — 숙박(22:00 → 익일 12:00)\n· 지역 — 1군 인근\n· 편의시설 — 자동차 주차\n· 가격 — 60만동 이하\n\n잔여 객실이 있는 호텔 3곳이 있습니다. 가격순으로 볼까요, 거리순으로 볼까요?",
-                 note:{k:"Role",kko:"역할",
-                   v:"Turning natural language into <b>search parameters</b> is where ST-S2A-01 stops. Booking type is a first-class concept, not a detail.",
-                   vko:"자연어를 <b>검색 파라미터로 변환</b>하는 것까지가 ST-S2A-01. 예약 유형 3종을 1급 개념으로 다룬다."}},
-          {t:"me",vi:"Theo giá.",ko:"가격순으로요."},
-          {t:"bot",aid:"ST-S2A-01",
-                 vi:"1. Khách sạn Minh Anh — 480.000đ · 1,2km · bãi xe ô tô\n2. Khách sạn Bảo Long — 550.000đ · 0,8km · bãi xe ô tô\n3. Khách sạn Hoa Sứ — 590.000đ · 2,1km · bãi xe ô tô\n\nBạn muốn hỏi chi tiết khách sạn nào?",
-                 ko:"1. Minh Anh 호텔 — 480,000đ · 1.2km · 자동차 주차\n2. Bảo Long 호텔 — 550,000đ · 0.8km · 자동차 주차\n3. Hoa Sứ 호텔 — 590,000đ · 2.1km · 자동차 주차\n\n어느 호텔 상세를 확인해 드릴까요?"}
+        { label:"Search across midnight", labelKo:"자정 넘는 조건 검색",
+          sub:"Confirm the date boundary, not just the words", subKo:"말이 아니라 날짜 경계를 확인한다", turns:[
+          {t:"me",vi:"toi nay minh can phong qua dem gan quan 1, co cho dau o to, duoi 600k",
+                 ko:"오늘 밤 1군 근처 숙박이요, 자동차 주차 되고 60만동 이하로 (성조 없이 입력)"},
+          {t:"bot",aid:"ST-S2A-01",own:"G2J",
+                 vi:"Mình hiểu là:\n· Loại — Qua đêm (22:00 hôm nay → 12:00 mai)\n· Khu vực — quanh Quận 1 · Tiện ích — đậu ô tô · Giá — dưới 600.000đ\n\nHôm nay là 08/09 (giờ VN). Đúng là đêm 08/09 sang sáng 09/09 phải không?",
+                 ko:"이렇게 이해했습니다.\n· 유형 — 숙박(오늘 22:00 → 익일 12:00)\n· 지역 — 1군 인근 · 편의시설 — 자동차 주차 · 가격 — 60만동 이하\n\n오늘은 09/08(베트남 시간)입니다. 09/08 밤부터 09/09 아침까지가 맞나요?",
+                 note:{k:"Diacritic-free input",kko:"무성조 입력",
+                   v:"«qua dem», «o to» arrive without tone marks — how people actually type. Matching normalizes rather than requiring correct Vietnamese.",
+                   vko:"«qua dem», «o to»처럼 성조 없이 들어온다 — 실제 입력 형태다. 정확한 베트남어를 요구하지 않고 정규화해 매칭한다."}},
+          {t:"me",vi:"Thực ra mình vào lúc 1h sáng và trả phòng 7h sáng.",
+                 ko:"사실 새벽 1시에 들어가서 아침 7시에 나갈 거예요."},
+          {t:"bot",aid:"ST-S2A-01",own:"G2J",
+                 vi:"Vậy thì khác. 1h sáng là «ngày 09/09», không phải đêm 08/09.\n\nHai lựa chọn:\n① «Qua đêm» đêm 08→09: nhận phòng từ 22:00 hôm nay. Bạn vào lúc 1h sáng vẫn dùng được, nhưng tính tiền từ đầu đêm.\n② «Theo giờ» 6 tiếng từ 01:00 ngày 09/09: thường rẻ hơn cho khoảng thời gian này.\n\nBạn muốn mình tìm theo phương án nào?",
+                 ko:"그러면 달라집니다. 새벽 1시는 «09/09»이지 09/08 밤이 아닙니다.\n\n두 가지 선택지가 있습니다.\n① «숙박» 08→09일 밤: 오늘 22:00부터 입실 가능. 새벽 1시에 들어가셔도 되지만 요금은 밤 시작부터 계산됩니다.\n② «시간제» 09/09 01:00부터 6시간: 이 구간에서는 보통 더 저렴합니다.\n\n어느 쪽으로 찾아드릴까요?",
+                 note:{warn:true,k:"Date boundary",kko:"날짜 경계",
+                   v:"«Tonight» and «1am» are different calendar days. On an hourly-stay platform this decides both the booking type and the price — it must be confirmed, not assumed.",
+                   vko:"«오늘 밤»과 «새벽 1시»는 다른 날짜다. 시간제 플랫폼에서는 이것이 예약 유형과 요금을 모두 결정하므로 추정하지 않고 확인해야 한다."}}
         ]},
+
         { label:"Property facts", labelKo:"숙소 조건 확인",
           sub:"No answer without a source", subKo:"근거 없는 답은 하지 않는다", turns:[
-          {t:"me",vi:"Khách sạn Minh Anh cho mang thú cưng không?",
-                 ko:"Minh Anh 호텔 반려동물 데려가도 되나요?"},
-          {t:"bot",aid:"ST-S2A-02",
+          {t:"me",vi:"Khách sạn Minh Anh cho mang thú cưng không?",ko:"Minh Anh 호텔 반려동물 되나요?"},
+          {t:"bot",aid:"ST-S2A-02",own:"G2J",
                  vi:"Theo thông tin khách sạn đăng ký: không nhận thú cưng.\nTrong 3 khách sạn vừa rồi, Hoa Sứ có nhận thú cưng nhỏ. Bạn muốn xem không?",
-                 ko:"호텔이 등록한 정보 기준으로 반려동물은 받지 않습니다.\n방금 보여드린 3곳 중에서는 Hoa Sứ 호텔이 소형 반려동물을 받습니다. 확인해 보시겠어요?",
+                 ko:"호텔이 등록한 정보 기준으로 반려동물은 받지 않습니다.\n방금 보여드린 3곳 중 Hoa Sứ 호텔이 소형 반려동물을 받습니다. 확인해 보시겠어요?",
                  note:{k:"Grounding",kko:"근거 명시",
-                   v:"«Per the information the hotel registered» is <b>part of the answer</b>, not a hedge. Nothing is inferred without a source.",
-                   vko:"«호텔이 등록한 정보 기준»이라는 <b>출처 명시</b>가 답변의 일부다. 근거가 없으면 추정하지 않는다."}},
+                   v:"«Per the information the hotel registered» is <b>part of the answer</b>. Unregistered attributes are never inferred.",
+                   vko:"«호텔이 등록한 정보 기준»이 <b>답변의 일부</b>다. 미등록 항목은 추정하지 않는다."}},
           {t:"me",vi:"Phòng đó giờ còn trống thật không? Bạn gọi hỏi lễ tân giúp mình.",
                  ko:"그 방 지금 진짜 비어 있어요? 프런트에 전화해서 확인해주세요."},
-          {t:"bot",aid:"ST-S2A-02",
-                 vi:"Trước khi đặt phòng, mình chỉ xem được tình trạng phòng trên hệ thống Go2Joy, chưa liên hệ trực tiếp lễ tân được.\nSau khi bạn đặt phòng xong, kênh chat sẽ chuyển sang lễ tân của chính khách sạn đó và bạn hỏi trực tiếp được.",
-                 ko:"예약 전에는 Go2Joy 시스템의 객실 상태까지만 확인 가능하고, 프런트에 직접 연락드릴 수는 없습니다.\n예약을 완료하시면 채팅이 해당 호텔 리셉션으로 넘어가서 직접 문의하실 수 있습니다.",
-                 note:{warn:true,k:"Session ownership",kko:"세션 소유권",
-                   v:"A pre-booking session is <b>platform-owned</b> and carries no right to reach the front desk. That right appears the moment <code>booking_id</code> exists.",
-                   vko:"예약 전 세션은 <b>플랫폼 소유</b>라 호텔 프런트 이관 권한이 없다. 권한이 생기는 시점은 <code>booking_id</code> 생성 순간."}}
+          {t:"bot",aid:"ST-S2A-02",own:"G2J",
+                 vi:"Trước khi đặt phòng mình chỉ xem được tình trạng trên hệ thống Go2Joy, chưa liên hệ trực tiếp lễ tân được.\nSau khi đặt phòng và được xác nhận, kênh chat sẽ chuyển sang lễ tân của khách sạn đó.",
+                 ko:"예약 전에는 Go2Joy 시스템의 상태까지만 확인 가능하고 프런트에 직접 연락드릴 수는 없습니다.\n예약이 완료·확정되면 채팅이 해당 호텔 리셉션으로 넘어갑니다.",
+                 note:{warn:true,k:"Ownership, corrected",kko:"소유권 — 정정됨",
+                   v:"An earlier note said the handover right appears «the moment <code>booking_id</code> exists». That was wrong: an id can belong to a pending, failed or cancelled booking. Transfer requires <b>identity verified + booking confirmed + this guest bound to this property</b>.",
+                   vko:"이전 주석은 «<code>booking_id</code> 생성 순간» 이관 권한이 생긴다고 했다. 틀렸다 — 예약번호는 결제 대기·실패·취소 상태일 수도 있다. 이관에는 <b>본인 확인 + 예약 확정 상태 + 해당 호텔과의 관계</b>가 모두 필요하다."}}
         ]},
-        { label:"Payment failure", labelKo:"결제 실패",
-          sub:"PG-owned issues are not answered", subKo:"결제사 소관은 답하지 않는다", turns:[
-          {t:"me",vi:"Mình bấm thanh toán mà báo lỗi hoài, bạn trừ tiền giúp mình đi.",
-                 ko:"결제 눌렀는데 계속 오류 나요, 그냥 결제 처리해주세요."},
-          {t:"bot",aid:"ST-S2A-04",
-                 vi:"Mình không thực hiện thanh toán thay bạn được. Lỗi này thường do 3 nguyên nhân:\n① Thẻ chưa bật thanh toán trực tuyến\n② Sai mã OTP hoặc hết hạn\n③ Ngân hàng đang bảo trì\n\nBạn thử đổi sang «Thanh toán tại khách sạn» để giữ phòng trước nhé — phòng này còn cho phép.",
-                 ko:"제가 대신 결제를 진행해 드릴 수는 없습니다. 이 오류는 보통 세 가지 원인입니다.\n① 카드의 온라인 결제 미활성화\n② OTP 오류 또는 만료\n③ 은행 시스템 점검\n\n우선 «Thanh toán tại khách sạn»(현장 결제)로 바꿔 객실을 확보해 보세요 — 이 객실은 현장 결제가 가능합니다.",
-                 note:{warn:true,k:"Liability routing",kko:"귀책 라우팅",
-                   v:"A declined authorization is <b>PG-owned</b>. The agent goes as far as likely causes and a workaround — ST-PLT-04.",
-                   vko:"결제 승인 실패는 <b>PG 소관</b>이다. 에이전트는 원인 안내와 우회 경로까지만 — ST-PLT-04."}}
+
+        { label:"Paid, no booking", labelKo:"결제·예약 불일치",
+          sub:"Check the charge before suggesting a retry", subKo:"재결제 권유 전에 거래 상태를 본다", turns:[
+          {t:"me",vi:"Tien da bi tru ma khong thay dat phong dau.",
+                 ko:"돈은 빠졌는데 예약이 안 보여요."},
+          {t:"bot",aid:"ST-S2A-04",own:"PG",
+                 vi:"Bạn «đừng thanh toán lại» trước khi mình kiểm tra — có thể thành trả tiền hai lần.\n\nCho mình biết:\n① Trong «Đặt phòng của tôi» có mục nào ở trạng thái «Chờ thanh toán» không?\n② Ngân hàng báo trừ tiền hay báo tạm giữ (authorization)?",
+                 ko:"확인 전에는 «다시 결제하지 마세요» — 중복 결제가 될 수 있습니다.\n\n알려주세요.\n① «내 예약»에 «Chờ thanh toán»(결제 대기) 상태 건이 있나요?\n② 은행 알림이 출금인가요, 승인 대기(가승인)인가요?",
+                 note:{warn:true,k:"State before retry",kko:"재시도 전 상태 확인",
+                   v:"An earlier build suggested switching to pay-at-hotel immediately. If money already moved, that creates a double charge or a duplicate booking.",
+                   vko:"이전 빌드는 곧바로 현장 결제를 권했다. 이미 돈이 움직였다면 중복 결제나 중복 예약이 된다."}},
+          {t:"me",vi:"Ngan hang bao da tru tien roi.",ko:"은행에서 출금됐다고 왔어요."},
+          {t:"bot",aid:"ST-S2A-04",own:"G2J",
+                 vi:"Vậy tiền đã đi nhưng đặt phòng chưa tạo được. Mình đã gửi cho CSKH Go2Joy đối chiếu — ticket #CS-77120, hệ thống đã xác nhận tiếp nhận.\n\nBạn gửi mình mã giao dịch và giờ trừ tiền để đối chiếu nhanh hơn.\n«Đừng đặt lại phòng khác» cho tới khi có kết quả.",
+                 ko:"결제는 됐는데 예약 생성이 안 된 상태입니다. Go2Joy 고객지원으로 대조 요청을 보냈고 접수 확인을 받았습니다 — 티켓 #CS-77120.\n\n결제 승인번호와 출금 시각을 알려주시면 대조가 빨라집니다.\n결과가 나올 때까지 «다시 예약하지 마세요.»",
+                 note:{k:"Owner switch",kko:"담당 전환",
+                   v:"Ownership moves <b>PG → Go2Joy</b> once the charge is confirmed: it is no longer a card problem, it is a reconciliation the platform must run.",
+                   vko:"출금이 확인되면 담당이 <b>PG → Go2Joy</b>로 넘어간다. 카드사 문제가 아니라 플랫폼이 대조해야 할 사안이 된다."}}
+        ]},
+
+        { label:"Late vs. reschedule", labelKo:"지각과 예약 변경",
+          sub:"Two different things, two different prices", subKo:"다른 처리, 다른 요금", turns:[
+          {t:"me",vi:"Minh tre khoang 1 tieng.",ko:"1시간 정도 늦을 것 같아요."},
+          {t:"bot",aid:"ST-S2A-04",own:"G2J",
+                 vi:"Hai việc khác nhau, bạn chọn giúp mình:\n\n① «Đến trễ» — giữ nguyên đặt phòng. Giờ trả phòng không đổi nên thời gian sử dụng ngắn lại. Giá không đổi.\n② «Đổi giờ đặt phòng» — sửa đặt phòng, áp lại phòng trống và giá tại giờ mới.\n\nNếu chỉ đến trễ, khách sạn vẫn nên được báo để giữ phòng — việc đó mình chuyển giúp được sau khi đặt phòng đã xác nhận.",
+                 ko:"두 가지가 다릅니다. 선택해 주세요.\n\n① «지각» — 예약은 그대로. 퇴실 시각이 같아 이용 시간이 줄어듭니다. 요금 변동 없음.\n② «예약 시간 변경» — 예약을 수정하고 새 시각의 잔여 객실·요금이 재적용됩니다.\n\n지각이라도 객실 유지를 위해 호텔에 알리는 게 좋습니다 — 예약이 확정된 뒤라면 제가 전달해 드릴 수 있습니다.",
+                 note:{k:"Hourly precision",kko:"시간제 정밀도",
+                   v:"On an hourly platform an hour is a meaningful share of the stay. Treating «late» as «reschedule» silently changes the price.",
+                   vko:"시간제 플랫폼에서 1시간은 이용 시간의 상당 부분이다. 지각을 예약 변경으로 처리하면 요금이 조용히 바뀐다."}}
         ]}
       ],
       kw:[
-        {m:["tìm","검색","phòng","방","gần","근처","đặt","search","find"],aid:"ST-S2A-01",
-         vi:"Bạn cho mình biết: khu vực, loại đặt phòng (Theo giờ / Qua đêm / Theo ngày), khoảng giá và tiện ích cần có. Mình lọc giúp bạn.",
-         ko:"지역, 예약 유형(시간제/숙박/일단위), 가격대, 필요한 편의시설을 알려주시면 걸러서 보여드리겠습니다."},
-        {m:["đậu xe","주차","thú cưng","반려","hút thuốc","흡연","wifi","와이파이","parking","pet"],aid:"ST-S2A-02",
+        {m:["tìm","tim phong","검색","phòng","방","gần","gan","근처","đặt","dat phong","search","find"],
+         aid:"ST-S2A-01",own:"G2J",
+         vi:"Bạn cho mình: khu vực, loại đặt phòng (Theo giờ / Qua đêm / Theo ngày), giờ nhận–trả cụ thể và khoảng giá. Nếu qua nửa đêm mình sẽ xác nhận lại ngày giúp bạn.",
+         ko:"지역, 예약 유형(시간제/숙박/일단위), 구체적인 입·퇴실 시각, 가격대를 알려주세요. 자정을 넘는 경우 날짜를 다시 확인해 드리겠습니다."},
+        {m:["đậu xe","dau xe","주차","thú cưng","thu cung","반려","wifi","와이파이","parking","pet","hút thuốc","흡연"],
+         aid:"ST-S2A-02",own:"G2J",
          vi:"Mình tra theo thông tin khách sạn đã đăng ký trên Go2Joy. Bạn cho mình tên khách sạn cụ thể nhé.",
          ko:"호텔이 Go2Joy에 등록한 정보를 기준으로 확인해 드립니다. 호텔명을 알려주세요."},
-        {m:["coupon","쿠폰","điểm","포인트","giảm","할인","discount"],aid:"ST-S2A-03",
-         vi:"Coupon và điểm được áp dụng ở bước thanh toán. Mình kiểm tra giúp coupon nào dùng được cho đặt phòng này nhé.",
+        {m:["thanh toán","thanh toan","결제","lỗi","loi","오류","otp","payment","trừ tiền","tru tien","출금"],
+         aid:"ST-S2A-04",own:"PG",
+         vi:"Trước khi thanh toán lại, bạn kiểm tra giúp: có đặt phòng nào ở «Chờ thanh toán» không, và ngân hàng báo trừ tiền hay tạm giữ? «Đừng thanh toán lại» khi chưa rõ.",
+         ko:"다시 결제하시기 전에 확인해 주세요 — «Chờ thanh toán»(결제 대기) 상태 예약이 있는지, 그리고 은행 알림이 출금인지 가승인인지. 확실해지기 전에는 «재결제하지 마세요.»"},
+        {m:["trễ","tre","지각","늦","đổi giờ","doi gio","변경","late","reschedule"],
+         aid:"ST-S2A-04",own:"G2J",
+         vi:"Bạn muốn «đến trễ» (giữ nguyên đặt phòng, thời gian sử dụng ngắn lại) hay «đổi giờ» (sửa đặt phòng, áp lại giá và phòng trống)? Hai việc khác nhau.",
+         ko:"«지각»(예약 유지, 이용 시간 단축)인가요, «예약 시간 변경»(예약 수정, 요금·잔여 객실 재적용)인가요? 둘은 다른 처리입니다."},
+        {m:["coupon","쿠폰","điểm","diem","포인트","giảm","giam","할인","discount"],
+         aid:"ST-S2A-03",own:"G2J",needsLookup:true,
+         vi:"Coupon và điểm áp dụng ở bước thanh toán. Mình kiểm tra coupon nào dùng được cho đặt phòng này.",
          ko:"쿠폰과 포인트는 결제 단계에서 적용됩니다. 이 예약에 사용 가능한 쿠폰을 확인해 드리겠습니다."},
-        {m:["thanh toán","결제","lỗi","오류","otp","payment"],aid:"ST-S2A-04",
-         vi:"Bạn cho mình biết thông báo lỗi hiện ra là gì? Nếu là lỗi từ phía ngân hàng thì mình sẽ hướng dẫn cách khác để giữ phòng.",
-         ko:"어떤 오류 메시지가 떴는지 알려주세요. 은행 쪽 오류라면 객실을 확보할 다른 방법을 안내드리겠습니다."},
-        {m:["đăng nhập","로그인","tài khoản","계정","앱","login","app"],aid:"ST-S2A-05",
+        {m:["đăng nhập","dang nhap","로그인","tài khoản","tai khoan","계정","login","app"],
+         aid:"ST-S2A-05",own:"G2J",
          vi:"Bạn đăng nhập bằng số điện thoại hay email? Mình hướng dẫn từng bước.",
          ko:"전화번호로 로그인하시나요, 이메일인가요? 순서대로 안내드리겠습니다."}
       ],
-      fb:{aid:"ST-PLT-03",
-        vi:"Mình chưa có thông tin chắc chắn cho câu này. Bạn cho mình thêm chi tiết, hoặc mình chuyển cho CSKH Go2Joy nhé?",
+      lookupFail:{
+        aid:"ST-PLT-03",own:"G2J",
+        vi:"Hiện mình không truy vấn được hệ thống nên chưa xác nhận được giá và tình trạng phòng. Bạn thử lại sau ít phút, hoặc mình chuyển CSKH giúp bạn.",
+        ko:"지금 시스템 조회가 되지 않아 요금과 객실 상태를 확인해 드릴 수 없습니다. 잠시 후 다시 시도하시거나, 고객센터로 연결해 드리겠습니다.",
+        note:{warn:true,k:"Lookup failed",kko:"조회 실패",
+          v:"Prices and availability are never answered from memory.",
+          vko:"요금과 잔여 객실은 기억으로 답하지 않는다."}
+      },
+      fb:{aid:"ST-PLT-03",own:"G2J",
+        vi:"Mình chưa có thông tin chắc chắn cho câu này. Bạn cho mình thêm chi tiết, hoặc mình chuyển CSKH Go2Joy nhé?",
         ko:"이 질문은 확실한 정보가 없습니다. 조금 더 자세히 알려주시겠어요? 아니면 Go2Joy 고객센터로 연결해 드릴까요?",
         note:{k:"Grounding",kko:"근거",
           v:"Ask again or hand off — never infer without evidence.",
           vko:"근거 없는 추론 대신 재질문 또는 이관."}}
     },
-
     s2b: {
-      key:"s2b", name:"Stage 2-B", en:"Guest · post-booking", ko:"게스트 — 예약 후 리셉션", color:"var(--s2b)",
+      key:"s2b", name:"Stage 2-B", en:"Guest · post-booking", ko:"게스트 — 예약 후", color:"var(--s2b)",
       frame:"phone", url:"", initials:"MA",
-      agentName:"Khách sạn Minh Anh", agentSub:"Lễ tân · Trả lời tự động",
-      desc:"Session ownership moved to the property once the booking was confirmed. The hotel overlay is injected.",
-      descKo:"예약 확정 후 세션 소유자가 해당 호텔로 넘어온 상태. 호텔 오버레이가 주입돼 있다.",
-      seed:[{t:"sys",vi:"Đặt phòng G2J-84120 · Qua đêm · Chờ nhận phòng"}],
+      agentName:"Khách sạn Minh Anh", agentSub:"Lễ tân · Go2Joy hỗ trợ",
+      desc:"One chat surface after booking. The property answers service requests; ownership switches to Go2Joy for payment, refunds and disputes with the hotel.",
+      descKo:"예약 후에도 채팅 화면은 하나다. 서비스 요청은 호텔이, 결제·환불·호텔과의 분쟁은 Go2Joy가 담당한다.",
+      seed:[{t:"sys",vi:"Đặt phòng G2J-84120 · Qua đêm · Chờ nhận phòng · đã xác minh"}],
       scn:[
         { label:"Check-in", labelKo:"체크인",
-          sub:"Door code only after verification", subKo:"도어락 코드는 인증 후", turns:[
+          sub:"Door code only in a verified terminal", subKo:"도어락 코드는 인증 단말에서만", turns:[
           {t:"me",vi:"Mình tới rồi, nhận phòng kiểu gì ạ?",ko:"저 도착했는데 체크인 어떻게 하나요?"},
-          {t:"bot",aid:"ST-S2B-03",
-                 vi:"Chào bạn, khách sạn Minh Anh đây.\nĐặt phòng G2J-84120 · Qua đêm · phòng Deluxe 302.\n\nSau 22:00 quầy lễ tân không có người trực. Bạn dùng kiosk ở sảnh:\n① Nhập mã đặt phòng G2J-84120\n② Quét CCCD/hộ chiếu\n③ Kiosk sẽ hiện mã mở cửa phòng",
-                 ko:"안녕하세요, Minh Anh 호텔입니다.\n예약 G2J-84120 · 숙박 · 디럭스 302호입니다.\n\n22시 이후에는 프런트에 상주 직원이 없습니다. 로비 키오스크를 이용해 주세요.\n① 예약번호 G2J-84120 입력\n② 신분증·여권 스캔\n③ 키오스크에 객실 도어락 코드가 표시됩니다",
+          {t:"bot",aid:"ST-S2B-03",own:"HOTEL",
+                 vi:"Chào bạn, khách sạn Minh Anh đây.\nĐặt phòng G2J-84120 · Qua đêm · Deluxe 302.\n\nSau 22:00 quầy lễ tân không có người trực. Bạn dùng kiosk ở sảnh:\n① Nhập mã G2J-84120\n② Quét CCCD/hộ chiếu\n③ Kiosk hiện mã mở cửa",
+                 ko:"안녕하세요, Minh Anh 호텔입니다.\n예약 G2J-84120 · 숙박 · 디럭스 302호.\n\n22시 이후에는 프런트에 상주 직원이 없습니다. 로비 키오스크를 이용해 주세요.\n① 예약번호 G2J-84120 입력\n② 신분증·여권 스캔\n③ 키오스크에 도어락 코드 표시",
                  note:{k:"Overlay",kko:"오버레이",
-                   v:"«Unstaffed after 22:00» and «lobby kiosk» come from <b>this property's Property Brain</b>. Another hotel injects a different procedure.",
-                   vko:"«22시 이후 무인», «로비 키오스크»는 <b>이 호텔의 Property Brain</b>에서 나온 값이다. 다른 호텔은 다른 절차가 주입된다."}},
-          {t:"me",vi:"Bạn nhắn mã mở cửa qua đây luôn cho nhanh.",ko:"그냥 여기로 도어락 코드 보내주세요, 빠르게요."},
-          {t:"bot",aid:"ST-S2B-03",
-                 vi:"Mã mở cửa chỉ hiển thị sau khi xác minh giấy tờ tại kiosk, mình không gửi qua chat được.\nNếu kiosk không nhận giấy tờ, bạn bấm nút gọi trên kiosk — mình chuyển yêu cầu cho nhân viên trực đêm ngay.",
-                 ko:"도어락 코드는 키오스크에서 신분증 확인을 마친 뒤에만 표시되며 채팅으로는 전달해 드릴 수 없습니다.\n키오스크가 신분증을 인식하지 못하면 키오스크의 호출 버튼을 눌러 주세요 — 야간 담당자에게 바로 전달하겠습니다.",
+                   v:"«Unstaffed after 22:00» and «lobby kiosk» come from <b>this property's</b> overlay. Another hotel injects a different procedure.",
+                   vko:"«22시 이후 무인», «로비 키오스크»는 <b>이 호텔</b> 오버레이에서 나온 값이다. 다른 호텔은 다른 절차가 주입된다."}},
+          {t:"me",vi:"Bạn nhắn mã mở cửa qua đây luôn cho nhanh.",ko:"그냥 여기로 도어락 코드 보내주세요."},
+          {t:"bot",aid:"ST-S2B-03",own:"HOTEL",
+                 vi:"Mã mở cửa chỉ hiện sau khi xác minh giấy tờ tại kiosk, mình không gửi qua chat được.\nNếu kiosk không nhận giấy tờ, bạn bấm nút gọi trên kiosk và báo mình — mình chuyển ngay cho trực đêm.",
+                 ko:"도어락 코드는 키오스크에서 신분증 확인을 마친 뒤에만 표시되며 채팅으로는 전달해 드릴 수 없습니다.\n키오스크가 신분증을 인식하지 못하면 호출 버튼을 누르시고 저에게도 알려주세요 — 야간 담당자에게 바로 전달하겠습니다.",
                  note:{warn:true,k:"PII",kko:"개인정보",
-                   v:"The door code is released <b>only inside a verified session</b>. Chat is not a verified channel — §3.3.",
-                   vko:"도어락 코드는 <b>인증된 세션 안에서만</b> 노출된다. 채팅은 인증 채널이 아니다 — §3.3."}}
+                   v:"Chat is not a verified channel. The code is not fetched at all in this path — suppression happens at the query, not the text.",
+                   vko:"채팅은 인증 채널이 아니다. 이 경로에서는 코드를 아예 조회하지 않는다 — 텍스트가 아니라 조회 단계에서 차단한다."}}
         ]},
+
         { label:"Stay extension", labelKo:"이용 시간 연장",
-          sub:"Intake only, never a promise", subKo:"접수까지, 확약은 하지 않는다", turns:[
-          {t:"me",vi:"Cho mình ở thêm tới 14:00 được không?",ko:"14시까지 더 있어도 될까요?"},
-          {t:"bot",aid:"ST-S2B-04",
-                 vi:"Trả phòng chuẩn của đặt phòng Qua đêm là 12:00. Ở thêm tới 14:00 tính phụ thu 2 giờ — 120.000đ theo bảng giá hiện tại.\n\nMình đã gửi yêu cầu cho lễ tân. Việc có phòng trống để ở thêm hay không thì lễ tân xác nhận, mình chưa chốt giúp bạn được.",
-                 ko:"숙박 예약의 기본 체크아웃은 12:00입니다. 14:00까지 연장하시면 2시간 추가요금 — 현재 요율로 120,000đ입니다.\n\n프런트에 요청을 전달했습니다. 연장 가능한 객실이 있는지는 프런트가 확인해야 해서, 제가 확정해 드릴 수는 없습니다.",
-                 note:{warn:true,k:"No guarantee",kko:"확약 금지",
-                   v:"The agent's job ends at <b>intake</b>. Approval belongs to the front desk, routed through ST-S2B-08 Staff Bridge.",
-                   vko:"요청 <b>접수</b>까지가 에이전트의 역할. 승낙은 프런트가 한다 — ST-S2B-08 Staff Bridge로 전달."}},
-          {t:"sys",vi:"Đã chuyển yêu cầu → Hộp thư lễ tân (ST-S1-10)"},
-          {t:"bot",aid:"ST-S2B-08",
-                 vi:"Lễ tân đã xác nhận: phòng 302 ở thêm được tới 14:00. Phụ thu 120.000đ sẽ thu khi trả phòng.",
-                 ko:"프런트 확인 완료 — 302호는 14:00까지 연장 가능합니다. 추가요금 120,000đ는 체크아웃 시 정산됩니다.",
-                 note:{k:"Pipe",kko:"파이프",
-                   v:"Guest requests flow <b>ST-S2B-08 → ST-S1-10</b>. That is why the Stage 1 channel is Stage 2-B's landing point.",
-                   vko:"게스트 요청은 <b>ST-S2B-08 → ST-S1-10</b>으로 흐른다. Stage 1 채널이 Stage 2-B의 착지점인 이유."}}
+          sub:"Intent → intake → approval, three states", subKo:"의사확인 → 접수 → 승인, 3단 상태", turns:[
+          {t:"me",vi:"Cho mình o them toi 14:00 duoc khong?",ko:"14시까지 더 있어도 될까요? (성조 없이 입력)"},
+          {t:"bot",aid:"ST-S2B-04",own:"HOTEL",
+                 vi:"Trả phòng chuẩn của Qua đêm là 12:00. Ở thêm tới 14:00 là 2 giờ phụ thu — 120.000đ theo bảng giá hiện tại, thu khi trả phòng.\n\nĐây mới là thông tin. Bạn có muốn mình «gửi yêu cầu» ở thêm cho lễ tân không?",
+                 ko:"숙박 예약의 기본 퇴실은 12:00입니다. 14:00까지면 2시간 추가요금 — 현재 요율로 120,000đ이며 퇴실 시 정산됩니다.\n\n여기까지는 안내입니다. 연장 «신청을 접수»해 드릴까요?",
+                 note:{k:"Ask before intake",kko:"접수 전 의사 확인",
+                   v:"«Can I?» is a question; a paid extension is an application. An earlier build filed a ticket on the question alone.",
+                   vko:"«가능한가요»는 질문이고 유료 연장은 신청이다. 이전 빌드는 질문만으로 티켓을 발행했다."}},
+          {t:"me",vi:"Có, bạn gửi giúp mình.",ko:"네, 접수해 주세요."},
+          {t:"sys",vi:"Ticket #RQ-3391 · Trạng thái: ĐÃ TIẾP NHẬN · Chờ lễ tân"},
+          {t:"bot",aid:"ST-S2B-08",own:"HOTEL",
+                 vi:"Đã gửi — ticket #RQ-3391, hệ thống xác nhận tiếp nhận.\n«Đây chưa phải là đã được duyệt.» Lễ tân xác nhận xong mình báo bạn ngay.",
+                 ko:"전달했습니다 — 티켓 #RQ-3391, 접수 시스템 확인 완료.\n«아직 승인된 것은 아닙니다.» 프런트가 확인하면 바로 알려드리겠습니다.",
+                 note:{k:"Received ≠ approved",kko:"접수 ≠ 승인",
+                   v:"«Received» requires a success response from the intake system. «Confirmed» requires an approval record from a person. They are separate sentences.",
+                   vko:"«접수»는 접수 시스템의 성공 응답이, «확정»은 담당자의 승인 기록이 있어야 말할 수 있다. 두 문장은 분리된다."}},
+          {t:"sys",vi:"Ticket #RQ-3391 · Trạng thái: ĐÃ DUYỆT · Lễ tân · 11:24"},
+          {t:"bot",aid:"ST-S2B-08",own:"HOTEL",
+                 vi:"Lễ tân đã duyệt: phòng 302 ở thêm tới 14:00.\nPhụ thu 120.000đ, thanh toán tại quầy khi trả phòng.",
+                 ko:"프런트 승인 완료 — 302호 14:00까지 연장.\n추가요금 120,000đ는 퇴실 시 프런트에서 결제하시면 됩니다.",
+                 note:{k:"Approval record",kko:"승인 기록",
+                   v:"Confirmed only after an approval record exists. Switch the runtime condition to «Staff no-reply» to see the other branch.",
+                   vko:"승인 기록이 생긴 뒤에야 확정으로 말한다. 우측 조건을 «직원 미응답»으로 바꾸면 다른 분기를 볼 수 있다."},
+                 swap:{STAFF_TIMEOUT:{aid:"ST-PLT-05",own:"G2J",
+                   vi:"Quá 20 phút chưa có phản hồi từ lễ tân nên mình đã chuyển lên CSKH Go2Joy — ticket #CS-88014.\n\n«Yêu cầu vẫn chưa được duyệt.» Nếu tới 12:00 vẫn chưa có xác nhận thì giờ trả phòng tiêu chuẩn được áp dụng, và bạn không bị tính phụ thu.",
+                   ko:"20분 기준 시간 내 프런트 회신이 없어 Go2Joy 고객지원으로 승격했습니다 — 티켓 #CS-88014.\n\n«연장은 아직 승인되지 않았습니다.» 12:00까지 확정되지 않으면 기본 퇴실 시각이 적용되고 추가요금은 청구되지 않습니다.",
+                   note:{warn:true,k:"No-reply branch",kko:"미응답 분기",
+                     v:"Silence is not approval. The timeout escalates <b>and</b> tells the guest what happens if nothing is confirmed.",
+                     vko:"침묵은 승인이 아니다. 기준 시간 초과 시 승격하고, 확정되지 않으면 어떻게 되는지까지 고객에게 알린다."}}}}
         ]},
-        { label:"Ancillary order", labelKo:"부가상품 주문",
-          sub:"Products registered back in Stage 1", subKo:"Stage 1이 등록한 상품", turns:[
-          {t:"me",vi:"Khuya rồi, có gì ăn không ạ?",ko:"늦었는데 먹을 거 있나요?"},
-          {t:"bot",aid:"ST-S2B-04",
-                 vi:"Khách sạn có phục vụ đêm:\n· Mì ly + trứng — 45.000đ\n· Bánh mì thịt nguội — 60.000đ\n· Nước suối / bia — 15.000đ / 35.000đ\n\nBạn chọn món nào? Phí sẽ cộng vào hóa đơn phòng 302.",
-                 ko:"야간 제공 메뉴입니다.\n· 컵라면 + 계란 — 45,000đ\n· 반미(햄) — 60,000đ\n· 생수 / 맥주 — 15,000đ / 35,000đ\n\n어떤 걸로 하시겠어요? 302호 요금에 합산됩니다.",
+
+        { label:"Night entry failure", labelKo:"야간 연결 실패",
+          sub:"Do not wait for a front desk that is not there", subKo:"없는 프런트를 기다리게 하지 않는다", turns:[
+          {t:"me",vi:"Kiosk khong duoc, goi le tan cung khong ai nghe. Minh dang dung ngoai cua.",
+                 ko:"키오스크도 안 되고 프런트 전화도 안 받아요. 밖에 서 있습니다."},
+          {t:"bot",aid:"ST-PLT-05",own:"G2J",
+                 vi:"Mình xử lý ngay, việc này không chờ lễ tân phản hồi.\n\n① Đã chuyển trực tiếp cho trực đêm Go2Joy — ticket #CS-91077, mức phản hồi 10 phút\n② Đồng thời gọi số trực đêm của khách sạn\n③ Nếu 10 phút nữa vẫn chưa vào được phòng, Go2Joy sẽ sắp xếp chỗ ở thay thế hoặc hoàn tiền\n\nBạn đang ở ngay cửa khách sạn phải không? Nếu có vấn đề an toàn thì báo mình trước.",
+                 ko:"바로 처리하겠습니다. 이건 프런트 회신을 기다릴 사안이 아닙니다.\n\n① Go2Joy 야간 대응으로 직접 이관했습니다 — 티켓 #CS-91077, 대응 기준 10분\n② 동시에 호텔 야간 담당 번호로 연락 중입니다\n③ 10분 내 입실이 안 되면 Go2Joy가 대체 숙소 또는 환불을 안내합니다\n\n지금 호텔 입구에 계신 것 맞나요? 안전에 문제가 있으면 먼저 알려주세요.",
+                 note:{warn:true,k:"L0 → L2 bypass",kko:"L1 건너뛰기",
+                   v:"With no staff on site, routing to the front desk is routing to nobody. The unstaffed-hours bypass is <b>still undecided in the design (OQ-003)</b> — it must be settled before guest-facing launch.",
+                   vko:"현장에 직원이 없으면 프런트로 보내는 것은 아무 데도 보내지 않는 것이다. 무인 시간대 직행 경로는 <b>설계상 아직 미확정(OQ-003)</b>이며 고객 대응 출시 전에 결정해야 한다."}}
+        ]},
+
+        { label:"Hotel refuses entry", labelKo:"호텔 입실 거부",
+          sub:"Go2Joy leads, the hotel assists", subKo:"고투조이 주관, 호텔 협조", turns:[
+          {t:"me",vi:"Le tan noi khong co dat phong nao, khong cho minh nhan phong.",
+                 ko:"프런트에서 예약이 없다고 방을 못 준대요."},
+          {t:"bot",aid:"ST-PLT-04",own:"G2J",
+                 vi:"Việc này Go2Joy chủ trì xử lý, không phải khách sạn. Mình đã chuyển người phụ trách.\n\nDữ kiện đã xác nhận: G2J-84120 · Qua đêm · đã thanh toán · trạng thái «Chờ nhận phòng».\n\nĐang tiến hành:\n① Go2Joy yêu cầu khách sạn xác nhận đặt phòng — ticket #CS-91120\n② Quá 15 phút chưa xong thì sắp xếp chỗ ở cùng hạng trở lên\n\nNếu tại quầy có ai yêu cầu bạn trả thêm tiền, «bạn đừng trả» và báo cho mình.",
+                 ko:"이 건은 호텔이 아니라 Go2Joy가 주관해 처리합니다. 담당을 전환했습니다.\n\n확인된 사실: G2J-84120 · 숙박 · 결제 완료 · 상태 «Chờ nhận phòng».\n\n진행 중인 것:\n① Go2Joy가 호텔에 예약 확인 요청 — 티켓 #CS-91120\n② 15분 내 미해결 시 동급 이상 대체 숙소 안내\n\n현장에서 추가 요금을 요구받으시면 «지불하지 마시고» 저에게 알려주세요.",
+                 note:{warn:true,k:"Owner switch",kko:"담당 전환",
+                   v:"A complaint <b>about the hotel</b> must never be routed back to that hotel's front desk. Same chat surface, different owner — and the guest is told the owner changed.",
+                   vko:"<b>호텔에 대한 불만</b>을 그 호텔 프런트로 돌려보내면 안 된다. 채팅 화면은 그대로, 담당만 바뀌고 그 사실을 고객에게 알린다."}}
+        ]},
+
+        { label:"Duplicate order", labelKo:"중복 주문 방지",
+          sub:"Repeated requests must not double-charge", subKo:"같은 요청이 중복 청구가 되지 않게", turns:[
+          {t:"me",vi:"Khuya roi, co gi an khong a?",ko:"늦었는데 먹을 거 있나요?"},
+          {t:"bot",aid:"ST-S2B-04",own:"HOTEL",
+                 vi:"Phục vụ đêm:\n· Mì ly + trứng — 45.000đ\n· Bánh mì thịt nguội — 60.000đ\n· Nước suối / bia — 15.000đ / 35.000đ\n\nBạn chọn món nào? Phí cộng vào hoá đơn phòng 302.",
+                 ko:"야간 메뉴입니다.\n· 컵라면 + 계란 — 45,000đ\n· 반미(햄) — 60,000đ\n· 생수 / 맥주 — 15,000đ / 35,000đ\n\n어떤 걸로 하시겠어요? 302호 요금에 합산됩니다.",
                  note:{k:"Revenue link",kko:"매출 연결",
-                   v:"This menu is ancillary product the partner registered via <b>ST-S1-12</b>. Stage 1 registration becomes Stage 2-B sales.",
-                   vko:"이 메뉴는 파트너가 <b>ST-S1-12</b>로 등록한 부가상품이다. Stage 1 등록 → Stage 2-B 판매로 이어진다."}}
+                   v:"This menu is ancillary product the partner registered via <b>ST-S1-12</b>.",
+                   vko:"이 메뉴는 파트너가 <b>ST-S1-12</b>로 등록한 부가상품이다."}},
+          {t:"me",vi:"1 mì ly nhé.",ko:"컵라면 하나요."},
+          {t:"sys",vi:"Ticket #OD-5507 · ĐÃ TIẾP NHẬN · Mì ly + trứng ×1"},
+          {t:"me",vi:"Cho mình 1 mì ly.",ko:"컵라면 하나 주세요."},
+          {t:"bot",aid:"ST-S2B-04",own:"HOTEL",
+                 vi:"Mình thấy đã có đơn giống hệt đang xử lý — #OD-5507, Mì ly + trứng ×1, tiếp nhận lúc 23:47.\n\nBạn muốn «thêm 1 phần nữa» (tổng 2), hay đây chỉ là gửi lại tin nhắn?",
+                 ko:"동일한 주문이 이미 처리 중입니다 — #OD-5507, 컵라면+계란 ×1, 23:47 접수.\n\n«한 개 더» 추가하시는 건가요(총 2개), 아니면 메시지를 다시 보내신 건가요?",
+                 note:{warn:true,k:"Idempotency",kko:"중복 방지",
+                   v:"A repeated message must not become a second charge. The agent surfaces the existing ticket and asks — it neither silently ignores nor silently duplicates.",
+                   vko:"같은 메시지가 두 번째 청구가 되면 안 된다. 기존 티켓을 보여주고 묻는다 — 조용히 무시하지도, 조용히 중복시키지도 않는다."}}
         ]},
+
         { label:"Other-property query", labelKo:"타 숙소 문의",
-          sub:"What a property agent must not sell", subKo:"호텔 에이전트가 팔면 안 되는 것", turns:[
+          sub:"Hand over, don't sell", subKo:"판매하지 않고 넘긴다", turns:[
           {t:"me",vi:"Mai mình đi Đà Nẵng, tìm giúp mình khách sạn ở đó luôn nhé.",
                  ko:"내일 다낭 가는데 거기 호텔도 좀 찾아주세요."},
-          {t:"bot",aid:"ST-S2B-01",
-                 vi:"Kênh này là lễ tân của khách sạn Minh Anh nên mình chỉ hỗ trợ đặt phòng G2J-84120 thôi.\nBạn tìm phòng ở Đà Nẵng ngay trong app Go2Joy — trợ lý tìm phòng sẽ hỗ trợ bạn ở đó.",
-                 ko:"이 채팅은 Minh Anh 호텔 리셉션이라 예약 G2J-84120에 대해서만 도와드릴 수 있습니다.\n다낭 숙소는 Go2Joy 앱에서 검색해 주세요 — 그쪽 검색 도우미가 안내해 드립니다.",
-                 note:{warn:true,k:"Session split",kko:"세션 분리",
-                   v:"A property agent <b>selling another property</b> is an incident. New booking intent forks into a parallel Stage 2-A session.",
-                   vko:"호텔 테넌트 에이전트가 <b>타 숙소를 판매하면 사고</b>다. 신규 예약 문의는 Stage 2-A 병행 세션으로 분리한다."}}
+          {t:"bot",aid:"ST-S2B-01",own:"G2J",
+                 vi:"Việc tìm phòng mới không thuộc lễ tân khách sạn này, nên mình chuyển sang phần tư vấn tìm phòng của Go2Joy — vẫn trong cửa sổ chat này.\n\nBạn cho mình khu vực ở Đà Nẵng, loại đặt phòng và giờ nhận–trả nhé. Đặt phòng G2J-84120 hiện tại không bị ảnh hưởng.",
+                 ko:"신규 숙소 검색은 이 호텔 리셉션 담당이 아니라 Go2Joy 검색 상담으로 전환하겠습니다 — 이 채팅 창은 그대로입니다.\n\n다낭의 희망 지역, 예약 유형, 입·퇴실 시각을 알려주세요. 현재 예약 G2J-84120은 영향을 받지 않습니다.",
+                 note:{k:"One surface, two owners",kko:"한 화면, 두 담당",
+                   v:"Instead of pushing the guest to another app screen, ownership switches inside the same thread and the guest is told. The property agent still never sells another property.",
+                   vko:"다른 화면으로 밀어내지 않고 같은 스레드 안에서 담당만 전환하고 그 사실을 알린다. 호텔 에이전트가 타 숙소를 판매하지 않는 원칙은 유지된다."}}
         ]},
-        { label:"Post-stay lost item", labelKo:"체크아웃 후 분실물",
-          sub:"Log it, don't promise the outcome", subKo:"접수하되 결과는 확약하지 않는다", turns:[
+
+        { label:"Lost item", labelKo:"분실물 접수",
+          sub:"No deadline without confirmed hours", subKo:"운영시간이 확인돼야 기한을 말한다", turns:[
           {t:"sys",vi:"Đặt phòng G2J-84120 · Hoàn thành · Trả phòng 14:02"},
           {t:"me",vi:"Mình để quên sạc điện thoại trong phòng 302.",ko:"302호에 휴대폰 충전기를 두고 왔어요."},
-          {t:"bot",aid:"ST-S2B-06",
-                 vi:"Mình đã ghi nhận đồ thất lạc: sạc điện thoại · phòng 302 · trả phòng 14:02 hôm nay.\nBộ phận buồng phòng sẽ kiểm tra và mình báo lại bạn trong hôm nay. Mình chưa xác nhận được là có tìm thấy hay không.\n\nBạn cần hóa đơn cho lần ở này luôn không?",
-                 ko:"분실물 접수했습니다 — 휴대폰 충전기 · 302호 · 오늘 14:02 체크아웃.\n객실 정비팀이 확인한 뒤 오늘 중으로 알려드리겠습니다. 발견 여부는 지금 확답드릴 수 없습니다.\n\n이번 숙박 영수증도 함께 발급해 드릴까요?",
-                 note:{k:"Post-stay session",kko:"사후 세션",
-                   v:"The tenant session persists D+N after checkout. N is <b>still undecided</b> — OQ-002.",
-                   vko:"체크아웃 후에도 테넌트 세션이 D+N 유지된다. 유지 기간은 <b>미확정</b> — OQ-002."}}
+          {t:"bot",aid:"ST-S2B-06",own:"HOTEL",
+                 vi:"Đã ghi nhận — ticket #LF-2210 · sạc điện thoại · phòng 302 · trả phòng 14:02 hôm nay.\n\nGiờ làm việc bộ phận buồng phòng: 08:00–17:00 (đã xác nhận). Mình sẽ báo kết quả kiểm tra trước 17:00 hôm nay.\nMình chưa xác nhận được là có tìm thấy hay không.",
+                 ko:"접수했습니다 — 티켓 #LF-2210 · 휴대폰 충전기 · 302호 · 오늘 14:02 체크아웃.\n\n객실 정비팀 운영시간 08:00–17:00으로 확인됐습니다. 오늘 17:00 전까지 확인 결과를 알려드리겠습니다.\n발견 여부는 지금 확답드릴 수 없습니다.",
+                 note:{k:"Deadline needs a source",kko:"기한에도 근거가 필요",
+                   v:"«By today» is only said because the team's hours were verified. Switch to «Lookup fail» to see the version with no promise.",
+                   vko:"«오늘 중»은 담당 부서 운영시간이 확인됐기 때문에 말한다. «조회 실패»로 바꾸면 약속 없는 버전을 볼 수 있다."},
+                 swap:{LOOKUP_FAIL:{aid:"ST-S2B-06",own:"HOTEL",
+                   vi:"Đã ghi nhận — ticket #LF-2210 · sạc điện thoại · phòng 302.\n\nMình chưa xác nhận được giờ làm việc của bộ phận buồng phòng nên «chưa hẹn được thời điểm phản hồi». Có kết quả mình báo bạn ngay.",
+                   ko:"접수했습니다 — 티켓 #LF-2210 · 휴대폰 충전기 · 302호.\n\n담당 부서 운영시간을 확인하지 못해 «회신 시점을 약속드릴 수 없습니다.» 결과가 나오는 대로 알려드리겠습니다.",
+                   note:{warn:true,k:"No unbacked promise",kko:"근거 없는 약속 금지",
+                     v:"An earlier build said «I'll let you know today» with nothing behind it. Intake is confirmed; the response time is not promised.",
+                     vko:"이전 빌드는 근거 없이 «오늘 중으로 알려드리겠습니다»라고 했다. 접수는 확정하되 회신 시점은 약속하지 않는다."}}}}
+        ]},
+
+        { label:"Refund status", labelKo:"환불 상태 확인",
+          sub:"Cancelled, approved, returned — three states", subKo:"취소·승인·반환 3단 상태", turns:[
+          {t:"me",vi:"Huy phong tu 3 hom truoc ma tien van chua ve.",
+                 ko:"3일 전에 취소했는데 아직 환불이 안 들어왔어요."},
+          {t:"bot",aid:"ST-S2B-01",own:"G2J",
+                 vi:"Hoàn tiền có 3 bước, mình tra trạng thái từng bước cho bạn:\n\n① Huỷ đặt phòng — «xong» (05/09 20:11)\n② Duyệt hoàn tiền — «xong» (06/09 09:40)\n③ Hoàn về phương thức thanh toán — «đang xử lý»\n\nBước ③ theo lịch của ngân hàng phát hành thẻ, thường 3–7 ngày làm việc. Nếu tới 15/09 vẫn chưa thấy, bạn báo mình kèm 4 số cuối thẻ để Go2Joy tra soát với ngân hàng.",
+                 ko:"환불은 3단계입니다. 단계별 상태를 조회했습니다.\n\n① 예약 취소 — «완료» (09/05 20:11)\n② 환불 승인 — «완료» (09/06 09:40)\n③ 결제수단 반환 — «진행 중»\n\n③단계는 카드 발급사 일정에 따르며 보통 3~7 영업일입니다. 09/15까지 반영되지 않으면 카드 끝 4자리와 함께 알려주세요 — Go2Joy가 은행에 조회하겠습니다.",
+                 note:{k:"Three states",kko:"3단 상태",
+                   v:"«Refunded» means different things to the guest and the system. Naming all three states with timestamps is what closes that gap.",
+                   vko:"«환불됐다»는 고객과 시스템에서 다른 뜻이다. 세 상태를 시각과 함께 각각 말하는 것이 그 간극을 메운다."}}
         ]}
       ],
       kw:[
-        {m:["nhận phòng","체크인","đến rồi","도착","kiosk","키오스크","check-in","checkin"],aid:"ST-S2B-03",
-         vi:"Bạn dùng kiosk ở sảnh: nhập mã đặt phòng → quét giấy tờ → kiosk hiện mã mở cửa. Sau 22:00 quầy lễ tân không có người trực.",
-         ko:"로비 키오스크를 이용해 주세요 — 예약번호 입력 → 신분증 스캔 → 도어락 코드 표시. 22시 이후에는 프런트 상주 직원이 없습니다."},
-        {m:["thêm giờ","연장","ở thêm","trễ","레이트","muộn","extend","late"],aid:"ST-S2B-04",
-         vi:"Mình gửi yêu cầu ở thêm cho lễ tân ngay. Việc còn phòng hay không do lễ tân xác nhận, mình chưa chốt giúp bạn được.",
-         ko:"연장 요청을 프런트에 전달하겠습니다. 객실 여유 여부는 프런트가 확인해야 해서 제가 확정해 드릴 수는 없습니다."},
-        {m:["khăn","수건","dọn","청소","amenity","어메니티","wifi","와이파이","hỏng","고장","towel","clean"],aid:"ST-S2B-04",
-         vi:"Mình chuyển yêu cầu cho bộ phận phục vụ phòng ngay. Bạn cho mình biết cần bao nhiêu / hỏng chỗ nào nhé.",
-         ko:"객실 담당에게 바로 전달하겠습니다. 수량이나 고장 부위를 알려주세요."},
-        {m:["ăn","음식","đồ uống","음료","order","주문","menu","food"],aid:"ST-S2B-04",
-         vi:"Khách sạn có phục vụ đêm — mì ly, bánh mì, nước và bia. Bạn chọn món nào? Phí cộng vào hóa đơn phòng.",
-         ko:"야간 메뉴로 컵라면, 반미, 생수, 맥주가 있습니다. 어떤 걸로 하시겠어요? 객실 요금에 합산됩니다."},
-        {m:["hóa đơn","영수증","invoice","분실","để quên","thất lạc","receipt","lost"],aid:"ST-S2B-06",
-         vi:"Mình ghi nhận và chuyển cho bộ phận liên quan, sẽ báo lại bạn trong hôm nay. Mình chưa xác nhận kết quả ngay được.",
-         ko:"접수해서 담당 부서로 전달하고 오늘 중 회신드리겠습니다. 결과는 지금 확답드릴 수 없습니다."},
-        {m:["hủy","취소","hoàn tiền","환불","cancel","refund"],aid:"ST-S2B-01",
-         vi:"Chính sách hủy của đặt phòng này mình tra được, nhưng số tiền hoàn cuối cùng do Go2Joy quyết định. Bạn muốn mình gửi yêu cầu hủy không?",
-         ko:"이 예약의 취소 규정은 확인해 드릴 수 있지만, 최종 환불 금액은 Go2Joy가 결정합니다. 취소 요청을 접수해 드릴까요?"}
+        {m:["nhận phòng","nhan phong","체크인","đến rồi","den roi","도착","kiosk","키오스크","check-in","checkin"],
+         aid:"ST-S2B-03",own:"HOTEL",
+         vi:"Bạn dùng kiosk ở sảnh: nhập mã đặt phòng → quét giấy tờ → kiosk hiện mã mở cửa. Sau 22:00 không có người trực tại quầy. Mã mở cửa không gửi qua chat được.",
+         ko:"로비 키오스크를 이용해 주세요 — 예약번호 입력 → 신분증 스캔 → 도어락 코드 표시. 22시 이후에는 프런트 상주 직원이 없습니다. 도어락 코드는 채팅으로 보내드릴 수 없습니다."},
+        {m:["thêm giờ","them gio","연장","ở thêm","o them","레이트","muộn","muon","extend"],
+         aid:"ST-S2B-04",own:"HOTEL",
+         vi:"Ở thêm tính phụ thu theo giờ. Mình báo giá trước, sau đó bạn xác nhận thì mình mới «gửi yêu cầu» cho lễ tân — gửi rồi vẫn chưa phải là đã duyệt.",
+         ko:"연장은 시간당 추가요금이 붙습니다. 요금을 먼저 안내드리고, 확인해 주시면 그때 프런트에 «신청을 접수»합니다 — 접수해도 아직 승인은 아닙니다."},
+        {m:["khăn","khan","수건","dọn","don phong","청소","어메니티","amenity","hỏng","hong","고장","towel","clean"],
+         aid:"ST-S2B-04",own:"HOTEL",
+         vi:"Mình chuyển cho bộ phận phục vụ phòng. Bạn cho mình biết cần bao nhiêu hoặc hỏng chỗ nào — mình gửi rồi báo lại số ticket.",
+         ko:"객실 담당에게 전달하겠습니다. 수량이나 고장 부위를 알려주시면 접수 후 티켓 번호를 알려드리겠습니다."},
+        {m:["an dem","do an","음식","đồ uống","do uong","음료","order","주문","menu","food","야식"],
+         aid:"ST-S2B-04",own:"HOTEL",
+         vi:"Phục vụ đêm có mì ly, bánh mì, nước và bia. Bạn chọn món nào? Nếu bạn đã đặt món giống hệt gần đây mình sẽ hỏi lại trước khi tính thêm.",
+         ko:"야간 메뉴로 컵라면, 반미, 생수, 맥주가 있습니다. 어떤 걸로 하시겠어요? 최근 동일 주문이 있으면 추가 청구 전에 다시 여쭙겠습니다."},
+        {m:["hóa đơn","hoa don","영수증","invoice","분실","để quên","de quen","thất lạc","that lac","receipt","lost"],
+         aid:"ST-S2B-06",own:"HOTEL",
+         vi:"Mình ghi nhận và chuyển bộ phận liên quan, sẽ báo số ticket. Thời điểm phản hồi mình chỉ hẹn khi đã xác nhận được giờ làm việc của bộ phận đó.",
+         ko:"접수해서 담당 부서로 전달하고 티켓 번호를 알려드리겠습니다. 회신 시점은 담당 부서 운영시간이 확인된 경우에만 말씀드립니다."},
+        {m:["hoàn tiền","hoan tien","환불","refund","chưa về","chua ve"],
+         aid:"ST-S2B-01",own:"G2J",needsLookup:true,
+         vi:"Hoàn tiền có 3 bước: huỷ đặt phòng → duyệt hoàn tiền → hoàn về phương thức thanh toán. Mình tra trạng thái từng bước cho bạn.",
+         ko:"환불은 예약 취소 → 환불 승인 → 결제수단 반환 3단계입니다. 단계별 상태를 조회해 드리겠습니다."},
+        {m:["không có đặt phòng","khong co dat phong","예약이 없","입실 거부","từ chối","tu choi","refuse","đuổi"],
+         aid:"ST-PLT-04",own:"G2J",
+         vi:"Việc này Go2Joy chủ trì, không phải khách sạn. Mình chuyển người phụ trách ngay và yêu cầu khách sạn xác nhận đặt phòng. Nếu bị đòi thêm tiền tại quầy, bạn đừng trả và báo mình.",
+         ko:"이 건은 호텔이 아니라 Go2Joy가 주관합니다. 담당을 즉시 전환하고 호텔에 예약 확인을 요청하겠습니다. 현장에서 추가 요금을 요구받으면 지불하지 마시고 알려주세요."},
+        {m:["không ai nghe","khong ai nghe","전화 안","안 받","kiosk lỗi","kiosk loi","밖에","đứng ngoài","dung ngoai"],
+         aid:"ST-PLT-05",own:"G2J",
+         vi:"Việc này không chờ lễ tân. Mình chuyển thẳng cho trực đêm Go2Joy và báo bạn số ticket cùng mức phản hồi. Nếu có vấn đề an toàn, bạn báo mình trước.",
+         ko:"이건 프런트를 기다릴 사안이 아닙니다. Go2Joy 야간 대응으로 직행 이관하고 티켓 번호와 대응 기준을 알려드리겠습니다. 안전 문제가 있으면 먼저 알려주세요."},
+        {m:["đà nẵng","da nang","다낭","khách sạn khác","khach san khac","타 숙소","다른 호텔"],
+         aid:"ST-S2B-01",own:"G2J",
+         vi:"Tìm phòng mới không thuộc lễ tân khách sạn này. Mình chuyển sang phần tư vấn tìm phòng của Go2Joy ngay trong cửa sổ chat này. Đặt phòng hiện tại không bị ảnh hưởng.",
+         ko:"신규 숙소 검색은 이 호텔 리셉션 담당이 아닙니다. 이 채팅 창 안에서 Go2Joy 검색 상담으로 전환하겠습니다. 현재 예약은 영향받지 않습니다."}
       ],
-      fb:{aid:"ST-PLT-05",
-        vi:"Câu này mình chưa trả lời chắc được. Mình chuyển cho lễ tân trực và báo lại bạn sớm nhất nhé.",
-        ko:"이 부분은 확실히 답변드리기 어렵습니다. 담당 프런트로 전달하고 최대한 빨리 회신드리겠습니다.",
+      lookupFail:{
+        aid:"ST-PLT-03",own:"G2J",
+        vi:"Hiện mình không truy vấn được hệ thống nên chưa xác nhận được trạng thái hay thời điểm. Mình vẫn ghi nhận yêu cầu của bạn và báo lại khi truy vấn khôi phục.",
+        ko:"지금 시스템 조회가 되지 않아 상태나 시점을 확인해 드릴 수 없습니다. 요청은 접수해 두고 조회가 복구되면 다시 알려드리겠습니다.",
+        note:{warn:true,k:"Lookup failed",kko:"조회 실패",
+          v:"Intake still happens; the status and the timing do not get stated.",
+          vko:"접수는 그대로 하되 상태와 시점은 말하지 않는다."}
+      },
+      fb:{aid:"ST-PLT-05",own:"G2J",
+        vi:"Câu này mình chưa trả lời chắc được. Mình chuyển cho người phụ trách và báo bạn số ticket cùng mức phản hồi.",
+        ko:"이 부분은 확실히 답변드리기 어렵습니다. 담당자에게 전달하고 티켓 번호와 대응 기준을 알려드리겠습니다.",
         note:{k:"Escalation",kko:"에스컬레이션",
-          v:"Unsolved at L0 goes to <b>L1, the front desk</b>. Unstaffed hours need an L0→L2 bypass — OQ-003.",
-          vko:"L0에서 못 풀면 <b>L1 호텔 프런트</b>로. 무인 시간대에는 L2 직행 경로가 필요하다 — OQ-003."}}
+          v:"Unsolved at L0 escalates. Unstaffed hours bypass L1 — the rule itself is <b>OQ-003, still open</b>.",
+          vko:"L0에서 못 풀면 승격한다. 무인 시간대는 L1을 건너뛰며, 그 규칙 자체가 <b>OQ-003, 미확정</b>이다."}}
     }
   };
 
   var ORDER = ["s1","s2a","s2b"];
-  var cur = "s1", role = "Quản lý", showNotes = true, showKo = true;
-  var timers = [], playing = false;
+  var TOPIC = {
+    "ST-S1-01":["bookings","예약"], "ST-S1-02":["rates & inventory","요금·재고"],
+    "ST-S1-03":["settlement","정산"], "ST-S1-05":["coupons & ads","쿠폰·광고"],
+    "ST-S1-06":["reviews","리뷰"], "ST-S1-08":["staff accounts","직원 계정"],
+    "ST-S1-11":["console errors","콘솔 오류"], "ST-S1-12":["ancillary products","부가상품"],
+    "ST-S2A-01":["search","검색"], "ST-S2A-02":["property facts","숙소 조건"],
+    "ST-S2A-03":["coupons","쿠폰"], "ST-S2A-04":["payment & booking","결제·예약"],
+    "ST-S2A-05":["account","계정"], "ST-S2B-01":["booking & refund","예약·환불"],
+    "ST-S2B-03":["check-in","체크인"], "ST-S2B-04":["in-stay requests","숙박 중 요청"],
+    "ST-S2B-06":["lost & found","분실물·영수증"],
+    "ST-PLT-04":["entry refused","입실 거부"], "ST-PLT-05":["urgent escalation","긴급 이관"]
+  };
+  var OWNER = {
+    HOTEL:{en:"Hotel",ko:"호텔",c:"var(--own-hotel)"},
+    G2J:{en:"Go2Joy",ko:"고투조이",c:"var(--own-g2j)"},
+    PG:{en:"Payment",ko:"결제사",c:"var(--own-pg)"}
+  };
+
+  var cur = "s1", role = "Quản lý", cond = "OK";
+  var showNotes = true, showKo = true;
+  var timers = [];
 
   var $ = function(id){ return document.getElementById(id); };
   function esc(t){ return String(t).replace(/[<>&]/g, function(c){ return {"<":"&lt;",">":"&gt;","&":"&amp;"}[c]; }); }
   function ko(html){ return '<span class="ko" data-ko>' + html + '</span>'; }
-  function clearTimers(){ timers.forEach(clearTimeout); timers = []; playing = false; }
+  function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+
+  /* strip Vietnamese diacritics so «qua dem» matches «qua đêm» */
+  function norm(s){
+    return String(s).toLowerCase()
+      .replace(/đ/g,"d")
+      .normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  }
 
   /* ---------- tabs ---------- */
   function renderTabs(){
@@ -702,9 +1045,11 @@
     $("stagewrap").style.setProperty("--tc", d.color);
     $("scnDesc").innerHTML = esc(d.desc) + ko(esc(d.descKo));
     $("scnList").innerHTML = d.scn.map(function(s,i){
+      var hasSwap = s.turns.some(function(t){ return t.swap; });
       return '<button type="button" data-i="'+i+'"><span class="n">'+("0"+(i+1)).slice(-2)+'</span>'
            + '<span class="t"><b>'+esc(s.label)+ko(esc(s.labelKo))+'</b>'
-           + '<em>'+esc(s.sub)+ko(esc(s.subKo))+'</em></span></button>';
+           + '<em>'+esc(s.sub)+ko(esc(s.subKo))+'</em></span>'
+           + (hasSwap ? '<span class="fork" title="condition-aware">⑂</span>' : '') + '</button>';
     }).join("");
     Array.prototype.forEach.call($("scnList").querySelectorAll("button"), function(b){
       b.addEventListener("click", function(){
@@ -722,12 +1067,17 @@
       b.setAttribute("aria-pressed", String(b.dataset.role === role));
     });
   }
+  function syncCondSeg(){
+    Array.prototype.forEach.call($("condSeg").querySelectorAll("button"), function(b){
+      b.setAttribute("aria-pressed", String(b.dataset.cond === cond));
+    });
+  }
 
   /* ---------- device ---------- */
   var PLACEHOLDER = {
-    s1:  "settlement · cancel · rate · 정산 · 취소",
-    s2a: "search · parking · payment · 검색 · 결제",
-    s2b: "check-in · extend · towel · 체크인 · 연장"
+    s1:  "settlement · cancel · hết phòng · 정산 · 만실",
+    s2a: "qua dem · payment · trễ · 검색 · 결제",
+    s2b: "nhan phong · extend · hoan tien · 체크인 · 환불"
   };
 
   function renderDevice(){
@@ -744,8 +1094,8 @@
              + ' placeholder="'+PLACEHOLDER[cur]+'">'
              + '<button type="submit">Gửi</button></form>';
 
-    var hint = '<p class="hint">Type your own message — with no matching evidence the agent falls back to <code>confirm and follow up</code>.'
-             + ko('직접 입력해도 응답합니다. 매칭되는 근거가 없으면 «확인 후 안내»로 떨어집니다.') + '</p>';
+    var hint = '<p class="hint">Keyword responses — Vietnamese without tone marks works too. No matching evidence falls back to <code>confirm and follow up</code>.'
+             + ko('키워드 응답입니다. 성조 없는 베트남어도 매칭됩니다. 근거가 없으면 «확인 후 안내»로 떨어집니다.') + '</p>';
 
     if (d.frame === "desktop") {
       top = '<div class="bar"><i></i><i></i><i></i><span class="url">'+esc(d.url)+'</span></div>';
@@ -761,13 +1111,30 @@
   }
 
   /* ---------- messages ---------- */
-  function bubbleHTML(m){
+  function resolve(m){
+    if (m.swap && m.swap[cond]) {
+      var alt = m.swap[cond], out = { t: m.t };
+      for (var k in alt) { if (Object.prototype.hasOwnProperty.call(alt,k)) out[k] = alt[k]; }
+      return out;
+    }
+    return m;
+  }
+  function ownerChip(o){
+    var d = OWNER[o]; if (!d) return "";
+    return '<span class="own" style="--oc:'+d.c+'">'+d.en+ko('·'+d.ko)+'</span>';
+  }
+  function bubbleHTML(raw){
+    var m = resolve(raw);
     if (m.t === "sys") return '<div class="sys">'+esc(m.vi)+'</div>';
     var cls = m.t === "me" ? "msg me" : "msg";
     var h = '<div class="'+cls+'">';
-    if (m.t === "bot" && m.aid) h += '<div class="meta"><span class="aid">'+esc(m.aid)+'</span></div>';
+    if (m.t === "bot" && (m.aid || m.own)) {
+      h += '<div class="meta">'
+         + (m.aid ? '<span class="aid">'+esc(m.aid)+'</span>' : '')
+         + ownerChip(m.own) + '</div>';
+    }
     h += '<div class="bubble">'+esc(m.vi)+'</div>';
-    if (m.ko) h += '<div class="gloss ko" data-ko>'+esc(m.ko)+'</div>';
+    if (m.ko) h += '<div class="gloss ko:" data-ko>'+esc(m.ko)+'</div>';
     if (m.note) {
       h += '<div class="note'+(m.note.warn ? ' warn' : '')+'" data-note>'
         + '<span class="k">'+esc(m.note.k)+ko(esc(m.note.kko))+'</span>'
@@ -800,7 +1167,6 @@
   /* ---------- playback ---------- */
   function play(scn){
     clearTimers();
-    playing = true;
     $("thread").innerHTML = "";
     DATA[cur].seed.forEach(push);
     if (DATA[cur].hasRole) {
@@ -808,35 +1174,67 @@
       syncRoleSeg();
       var rb = $("roleBadge"); if (rb) rb.textContent = role;
     }
-
     var t = 260;
     scn.turns.forEach(function(m){
-      if (m.t === "bot") {
+      var r = resolve(m);
+      if (r.t === "bot") {
         timers.push(setTimeout(function(){ typing(true); }, t));
         t += 760;
         timers.push(setTimeout(function(){ typing(false); push(m); }, t));
-        t += 620;
+        t += 640;
       } else {
         timers.push(setTimeout(function(){ push(m); }, t));
-        t += 540;
+        t += 520;
       }
     });
-    timers.push(setTimeout(function(){ playing = false; }, t));
   }
 
   /* ---------- free input ---------- */
-  function match(text){
-    var d = DATA[cur], q = text.toLowerCase();
-    for (var i = 0; i < d.kw.length; i++) {
-      var r = d.kw[i];
-      for (var j = 0; j < r.m.length; j++) {
-        if (q.indexOf(r.m[j].toLowerCase()) !== -1) {
-          if (r.gated && d.gate && role === "Lễ tân") return d.gate;
-          return r;
-        }
-      }
+  var BLOCKED_FOR_FRONTDESK = { FINANCE:1, STAFF:1 };
+
+  /* short tokens must sit on a word boundary so «an» does not fire inside «hoan tien» */
+  function hit(q, tok){
+    var t = norm(tok);
+    if (!t) return 0;
+    var i = q.indexOf(t);
+    if (i === -1) return 0;
+    if (t.length < 5 && /^[a-z0-9]+$/.test(t)) {
+      var re = new RegExp("(^|[^a-z0-9])" + t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + "([^a-z0-9]|$)");
+      if (!re.test(q)) return 0;
     }
-    return d.fb;
+    return t.length;
+  }
+  function match(text){
+    var d = DATA[cur], q = norm(text), hits = [];
+    d.kw.forEach(function(r){
+      var best = 0;
+      r.m.forEach(function(tok){ var n = hit(q, tok); if (n > best) best = n; });
+      if (best) hits.push({ r:r, score:best });
+    });
+    if (!hits.length) return d.fb;
+    hits.sort(function(a,b){ return b.score - a.score; });
+
+    /* two distinct topics in one message → ask which one, don't silently pick the first */
+    var alt = null;
+    for (var i = 1; i < hits.length; i++) {
+      if (hits[i].r.aid !== hits[0].r.aid && hits[i].score >= 3) { alt = hits[i].r; break; }
+    }
+    if (alt) {
+      var a = TOPIC[hits[0].r.aid] || ["", ""], b = TOPIC[alt.aid] || ["", ""];
+      return {
+        aid:"ST-PLT-01", own:hits[0].r.own,
+        vi:"Tin nhắn của bạn có 2 nội dung: «" + a[0] + "» và «" + b[0] + "». Bạn muốn mình xử lý cái nào trước?",
+        ko:"메시지에 두 가지가 섞여 있습니다 — «" + a[1] + "»와 «" + b[1] + "». 어느 것부터 처리해 드릴까요?",
+        note:{k:"Multi-intent",kko:"복합 의도",
+          v:"An earlier build returned <b>whichever rule matched first</b>. Two topics in one message now produce a question, not a silent guess.",
+          vko:"이전 빌드는 <b>먼저 매칭된 규칙</b>을 반환했다. 이제 한 메시지에 두 주제가 있으면 조용히 추측하지 않고 되묻는다."}
+      };
+    }
+
+    var top = hits[0].r;
+    if (d.gate && role === "Lễ tân" && top.scope && BLOCKED_FOR_FRONTDESK[top.scope]) return d.gate;
+    if (top.needsLookup && cond === "LOOKUP_FAIL" && d.lookupFail) return d.lookupFail;
+    return top;
   }
   function onSend(e){
     e.preventDefault();
@@ -849,38 +1247,36 @@
     typing(true);
     timers.push(setTimeout(function(){
       typing(false);
-      push({ t:"bot", aid:r.aid, vi:r.vi, ko:r.ko, note:r.note });
+      push({ t:"bot", aid:r.aid, own:r.own, vi:r.vi, ko:r.ko, note:r.note });
     }, 720));
   }
 
   /* ---------- controls ---------- */
-  $("noteSeg").addEventListener("click", function(e){
-    var b = e.target.closest("button"); if (!b) return;
-    showNotes = b.dataset.note === "on";
-    Array.prototype.forEach.call($("noteSeg").querySelectorAll("button"), function(x){
-      x.setAttribute("aria-pressed", String(x.dataset.note === (showNotes ? "on" : "off")));
+  function segHandler(segId, attr, setter){
+    $(segId).addEventListener("click", function(e){
+      var b = e.target.closest("button"); if (!b) return;
+      setter(b.dataset[attr]);
+      Array.prototype.forEach.call($(segId).querySelectorAll("button"), function(x){
+        x.setAttribute("aria-pressed", String(x.dataset[attr] === b.dataset[attr]));
+      });
     });
-    applyToggles();
+  }
+  segHandler("noteSeg","note", function(v){ showNotes = v === "on"; applyToggles(); });
+  segHandler("glossSeg","gloss", function(v){ showKo = v === "on"; applyToggles(); });
+  segHandler("roleSeg","role", function(v){
+    role = v; var rb = $("roleBadge"); if (rb) rb.textContent = role;
   });
-  $("glossSeg").addEventListener("click", function(e){
-    var b = e.target.closest("button"); if (!b) return;
-    showKo = b.dataset.gloss === "on";
-    Array.prototype.forEach.call($("glossSeg").querySelectorAll("button"), function(x){
-      x.setAttribute("aria-pressed", String(x.dataset.gloss === (showKo ? "on" : "off")));
-    });
-    applyToggles();
-  });
-  $("roleSeg").addEventListener("click", function(e){
-    var b = e.target.closest("button"); if (!b) return;
-    role = b.dataset.role; syncRoleSeg();
-    var rb = $("roleBadge"); if (rb) rb.textContent = role;
+  segHandler("condSeg","cond", function(v){
+    cond = v;
+    var active = $("scnList").querySelector('button[aria-current="true"]');
+    if (active) play(DATA[cur].scn[+active.dataset.i]); else seed();
   });
   $("resetBtn").addEventListener("click", function(){
     Array.prototype.forEach.call($("scnList").querySelectorAll("button"), function(x){ x.removeAttribute("aria-current"); });
     seed();
   });
 
-  function renderAll(){ renderTabs(); renderSide(); renderDevice(); applyToggles(); }
+  function renderAll(){ renderTabs(); renderSide(); renderDevice(); syncCondSeg(); applyToggles(); }
   renderAll();
 })();
 </script>
