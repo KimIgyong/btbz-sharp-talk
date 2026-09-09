@@ -1,4 +1,4 @@
-# IVY USA Chat & Support Widget
+# AI based Chat & Support Widget
 
 > Multi-tenant, AI-assisted chat & customer-support widget for Shopify storefronts
 > (Naver TalkTalk style) — customer widget + tenant operator console + platform-admin console.
