@@ -10,9 +10,9 @@ import {
 import { bigintTransformer } from '../../../global/util/transformers';
 
 /**
- * channel_outbox — one row per ShopTalk message awaiting relay to its channel.
+ * channel_outbox — one row per SharpTalk message awaiting relay to its channel.
  *
- * ShopTalk's event bus publishes at-least-once but never retries, so delivery
+ * SharpTalk's event bus publishes at-least-once but never retries, so delivery
  * state lives here instead: attempts, backoff and the last error are rows an
  * operator can see, not log lines that scrolled past (PLN-260810 §4.1).
  */

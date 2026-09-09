@@ -325,7 +325,7 @@
   "scriptNone": "Không có kịch bản — nhãn được gửi như một tin nhắn và AI sẽ trả lời",
   "scripts": {
     "title": "Hội thoại mặc định",
-    "hint": "Toàn bộ kịch bản shopTalk cung cấp sẵn, kể cả những kịch bản chỉ đến được qua chip tiếp theo.",
+    "hint": "Toàn bộ kịch bản SharpTalk cung cấp sẵn, kể cả những kịch bản chỉ đến được qua chip tiếp theo.",
     "viaButton": "Nút menu · {{action}}",
     "viaFollowUp": "Chỉ qua chip tiếp theo",
     "edited": "Đã sửa {{count}} ngôn ngữ",

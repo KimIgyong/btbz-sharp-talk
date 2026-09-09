@@ -15,7 +15,7 @@
 |---|---|---|
 | ① 고객(구매자) 테스트 계정 | 스토어프론트 로그인 → 위젯 신원연동·주문탭 테스트 | Shopify Admin → Customers |
 | ② 스태프(관리자) 계정 | ambshop-dev 어드민 접근(상품·주문·설정) | Shopify Admin → Settings → Users |
-| ③ ShopTalk 콘솔 계정 | shoptalk.amoeba.site/user/ivyusa 상담 콘솔 접근 | 콘솔 → 팀 관리 (참고용) |
+| ③ SharpTalk 콘솔 계정 | shoptalk.amoeba.site/user/ivyusa 상담 콘솔 접근 | 콘솔 → 팀 관리 (참고용) |
 
 ---
 
@@ -91,7 +91,7 @@ ambshop-dev 어드민에서 상품/주문/설정을 만질 테스터용.
 > 파트너 대시보드 조직 멤버라면 별도 스태프 추가 없이 파트너 대시보드에서
 > 개발 스토어로 바로 로그인할 수도 있다 (개발 스토어는 스태프 수 제한 없음).
 
-## 4. ③ ShopTalk 콘솔 계정 (참고)
+## 4. ③ SharpTalk 콘솔 계정 (참고)
 
 상담 콘솔(`https://shoptalk.amoeba.site/user/ivyusa`) 쪽 테스터는 Shopify와 무관하게
 테넌트 마스터(`dev@amoeba.group`)가 콘솔 **팀 관리**에서 팀원(직급·라벨)을

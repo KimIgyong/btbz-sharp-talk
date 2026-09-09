@@ -6,7 +6,7 @@ import { ERROR_CODE } from '../../global/constant/error-code.constant';
 /**
  * Cafe24 Admin REST client (P-A1). Ports the platform behaviour proven in
  * btbz-shop-pmm's `cafe24.real.adapter.ts` — host split, Bearer auth, version
- * header, and leaky-bucket rate-limit handling — onto ShopTalk's stack. Read-only
+ * header, and leaky-bucket rate-limit handling — onto SharpTalk's stack. Read-only
  * for the support use case (orders + catalog); no order/product writes here.
  */
 
@@ -24,7 +24,7 @@ export function cafe24ApiHost(mallId: string): string {
   return t.replace('{mallId}', mallId);
 }
 
-/** Cafe24 order-item status code → ShopTalk internal status (PLN-260807 §3.3). */
+/** Cafe24 order-item status code → SharpTalk internal status (PLN-260807 §3.3). */
 const CAFE24_STATUS_TO_INTERNAL: Record<string, OrderStatusInternal> = {
   N00: ORDER_STATUS_INTERNAL.PENDING_PAYMENT,
   N10: ORDER_STATUS_INTERNAL.PREPARING,

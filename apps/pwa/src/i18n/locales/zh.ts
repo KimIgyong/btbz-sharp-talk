@@ -1,6 +1,6 @@
 export default {
   "app": {
-    "title": "ShopTalk"
+    "title": "SharpTalk"
   },
   "header": {
     "shop": "商店"
@@ -151,7 +151,7 @@ export default {
     "iosTitle": "要在 iPhone 上接收通知",
     "iosStep1": "点击 Safari 底部的分享按钮",
     "iosStep2": "选择「添加到主屏幕」",
-    "iosStep3": "从主屏幕图标重新打开 ShopTalk"
+    "iosStep3": "从主屏幕图标重新打开 SharpTalk"
   },
   "push": {
     "promptHint": "开启推送通知，及时获取订单、配送和客服的更新。",

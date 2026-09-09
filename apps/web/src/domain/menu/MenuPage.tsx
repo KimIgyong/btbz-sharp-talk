@@ -40,7 +40,7 @@ export function MenuPage() {
       <PageHeader
         title={t('menu:title')}
         subtitle={t('menu:subtitle', {
-          scope: isAdmin ? t('nav:platformAdmin') : (tenantName ?? tenantSlug ?? 'ShopTalk'),
+          scope: isAdmin ? t('nav:platformAdmin') : (tenantName ?? tenantSlug ?? 'SharpTalk'),
         })}
       />
 

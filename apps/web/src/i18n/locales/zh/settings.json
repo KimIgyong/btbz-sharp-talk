@@ -108,7 +108,7 @@
         "desc": "无需编辑主题代码，且可随时开关。最适合 Online Store 2.0。",
         "step1": "在 Shopify 后台打开「在线商店」→「主题」→「自定义」。",
         "step2": "打开「主题设置」→「应用嵌入」。",
-        "step3": "开启「IVY USA TalkTalk」并点击保存。"
+        "step3": "开启「SharpTalk」并点击保存。"
       },
       "scriptTag": {
         "desc": "通过 Admin API 在每个页面加载。安装应用时会自动注册；如需手动注册，请使用下方请求。",
@@ -177,7 +177,7 @@
       "title": "Odoo",
       "subtitle": "通过外部 API（URL、数据库、用户、API 密钥）连接 Odoo。",
       "syncProducts": "导入商品",
-      "syncProductsHint": "将 Odoo 目录导入 ShopTalk。导入后在知识菜单中登记为知识，即可用于挂件的商品回答。",
+      "syncProductsHint": "将 Odoo 目录导入 SharpTalk。导入后在知识菜单中登记为知识，即可用于挂件的商品回答。",
       "syncOrders": "同步订单"
     },
     "haravan": {
@@ -199,7 +199,7 @@
     "syncing": "同步中…",
     "syncProducts": "导入商品",
     "syncOrders": "同步订单",
-    "syncHint": "将目录/订单导入 ShopTalk。导入商品后在知识菜单中登记为知识，即可用于挂件的商品回答。"
+    "syncHint": "将目录/订单导入 SharpTalk。导入商品后在知识菜单中登记为知识，即可用于挂件的商品回答。"
   },
   "install": {
     "subtitle": "将聊天小组件添加到您的店铺前台。请选择您的平台。",
@@ -233,7 +233,7 @@
   "cafe24": {
     "oauth": {
       "title": "Cafe24（OAuth）",
-      "hint": "通过 OAuth 连接您的 Cafe24 商城，将订单和商品导入 ShopTalk。",
+      "hint": "通过 OAuth 连接您的 Cafe24 商城，将订单和商品导入 SharpTalk。",
       "status": "状态",
       "mallId": "商城 ID",
       "connect": "连接 Cafe24",
@@ -252,7 +252,7 @@
   "helpdeskTitle": "工单系统集成",
   "messenger": {
     "groupTitle": "外部即时通讯渠道",
-    "groupHint": "消息会进入在线聊天，ShopTalk 的 AI 会在同一渠道回复。",
+    "groupHint": "消息会进入在线聊天，SharpTalk 的 AI 会在同一渠道回复。",
     "communicationTitle": "沟通",
     "communicationHint": "把公司邮箱当作会话来处理。",
     "loading": "正在加载渠道…",
@@ -358,7 +358,7 @@
         "subtitle": "通过 AmoebaTalk 中枢"
       }
     },
-    "testRejected": "账户被拒绝——服务器有响应，但邮箱/密码不匹配。请使用该服务商自己的运营账户，而不是您的 ShopTalk 登录账号。（{{detail}}）",
+    "testRejected": "账户被拒绝——服务器有响应，但邮箱/密码不匹配。请使用该服务商自己的运营账户，而不是您的 SharpTalk 登录账号。（{{detail}}）",
     "testNotFound": "服务器 URL 可能有误——该地址有响应，但不是此服务商的 API。（{{detail}}）",
     "testUnreachable": "无法连接服务器——完全没有响应。请检查地址以及服务是否在运行。（{{detail}}）",
     "testProviderError": "服务商返回了错误——您这边无需处理，请稍后重试。（{{detail}}）",

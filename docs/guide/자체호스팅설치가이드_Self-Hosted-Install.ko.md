@@ -1,6 +1,6 @@
-# ShopTalk 자체 호스팅 설치 가이드
+# SharpTalk 자체 호스팅 설치 가이드
 
-고객사 클라우드에 ShopTalk를 설치·운영하는 절차. (PLN-260820 기준)
+고객사 클라우드에 SharpTalk를 설치·운영하는 절차. (PLN-260820 기준)
 
 대상: 고객사 인프라 담당자. 필요한 것은 **Docker와 Docker Compose가 있는 리눅스 호스트 한 대**뿐이며,
 Node.js는 필요하지 않습니다.

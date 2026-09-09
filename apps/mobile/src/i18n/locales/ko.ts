@@ -10,7 +10,7 @@ export default {
     save: '저장',
   },
   onboarding: {
-    welcome: 'ShopTalk에 오신 것을 환영합니다',
+    welcome: 'SharpTalk에 오신 것을 환영합니다',
     intro: '주문·배송 알림과 상담 채팅을 한 곳에서 받아보세요.',
     chooseLanguage: '언어를 선택하세요',
     notifTitle: '알림 받기',
@@ -21,7 +21,7 @@ export default {
   },
   shop: { title: '쇼핑' },
   home: {
-    title: 'ShopTalk',
+    title: 'SharpTalk',
     visitShop: '샵 방문',
     newArrivals: '신상품',
     recommended: 'AI 추천',

@@ -1,7 +1,7 @@
 import type { Translation } from './en';
 
 export const es: Translation = {
-  appName: 'IVY USA',
+  appName: 'SharpTalk',
   notificationCenter: 'Centro de notificaciones',
   settings: 'Configuración',
 

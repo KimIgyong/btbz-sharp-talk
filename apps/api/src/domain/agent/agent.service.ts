@@ -98,7 +98,7 @@ const AGENT_REPLY_COPY = {
  */
 const REPLY_EMAIL_COPY = {
   EN: {
-    subject: '[IVY USA] A reply to your question',
+    subject: '[SharpTalk] A reply to your question',
     footer: 'You can continue the conversation any time in the chat on our store.',
     note: 'This reply was emailed to the customer.',
     // Attachment links expire in minutes, so an email cannot carry one — it
@@ -106,31 +106,31 @@ const REPLY_EMAIL_COPY = {
     attachments: 'A file was attached to this reply. Open the chat on our store to view it.',
   },
   ES: {
-    subject: '[IVY USA] Respuesta a tu consulta',
+    subject: '[SharpTalk] Respuesta a tu consulta',
     footer: 'Puedes continuar la conversación cuando quieras en el chat de nuestra tienda.',
     note: 'Esta respuesta se envió por correo al cliente.',
     attachments: 'Esta respuesta incluye un archivo adjunto. Ábrelo en el chat de nuestra tienda.',
   },
   KO: {
-    subject: '[IVY USA] 문의하신 내용에 대한 답변',
+    subject: '[SharpTalk] 문의하신 내용에 대한 답변',
     footer: '추가 문의는 스토어의 채팅에서 언제든 이어가실 수 있어요.',
     note: '이 답변은 고객 이메일로 발송되었습니다.',
     attachments: '이 답변에는 첨부 파일이 있습니다. 스토어 채팅에서 확인해 주세요.',
   },
   VI: {
-    subject: '[IVY USA] Phản hồi cho câu hỏi của bạn',
+    subject: '[SharpTalk] Phản hồi cho câu hỏi của bạn',
     footer: 'Bạn có thể tiếp tục cuộc trò chuyện bất cứ lúc nào qua khung chat trên cửa hàng của chúng tôi.',
     note: 'Phản hồi này đã được gửi tới email của khách hàng.',
     attachments: 'Phản hồi này có kèm tệp đính kèm. Hãy mở khung chat trên cửa hàng của chúng tôi để xem.',
   },
   JA: {
-    subject: '[IVY USA] お問い合わせへのご回答',
+    subject: '[SharpTalk] お問い合わせへのご回答',
     footer: 'ご不明な点は、ストアのチャットからいつでも続けてご相談いただけます。',
     note: 'この返信はお客様のメール宛に送信されました。',
     attachments: 'この返信にはファイルが添付されています。ストアのチャットからご確認ください。',
   },
   ZH: {
-    subject: '[IVY USA] 您咨询问题的回复',
+    subject: '[SharpTalk] 您咨询问题的回复',
     footer: '如需继续咨询，您可以随时通过我们商店的在线聊天联系我们。',
     note: '此回复已通过电子邮件发送给客户。',
     attachments: '此回复带有附件。请在我们商店的在线聊天中查看。',

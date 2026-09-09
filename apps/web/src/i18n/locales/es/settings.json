@@ -108,7 +108,7 @@
         "desc": "Sin editar el código del tema y fácil de activar o desactivar. Ideal para Online Store 2.0.",
         "step1": "En el administrador de Shopify, abre Tienda online → Temas → Personalizar.",
         "step2": "Abre Configuración del tema → Inserciones de app.",
-        "step3": "Activa \"IVY USA TalkTalk\" y haz clic en Guardar."
+        "step3": "Activa \"SharpTalk\" y haz clic en Guardar."
       },
       "scriptTag": {
         "desc": "Se carga en todas las páginas mediante la Admin API. Se registra automáticamente al instalar la app; usa la solicitud siguiente para registrarlo manualmente.",
@@ -177,7 +177,7 @@
       "title": "Odoo",
       "subtitle": "Conecta Odoo mediante la API externa (URL, base de datos, usuario, API key).",
       "syncProducts": "Importar productos",
-      "syncProductsHint": "Trae el catálogo de Odoo a ShopTalk. Tras importar, regístralo como conocimiento en el menú Conocimiento para las respuestas de producto del widget.",
+      "syncProductsHint": "Trae el catálogo de Odoo a SharpTalk. Tras importar, regístralo como conocimiento en el menú Conocimiento para las respuestas de producto del widget.",
       "syncOrders": "Sincronizar pedidos"
     },
     "haravan": {
@@ -199,7 +199,7 @@
     "syncing": "Sincronizando…",
     "syncProducts": "Importar productos",
     "syncOrders": "Sincronizar pedidos",
-    "syncHint": "Importa el catálogo/pedidos a ShopTalk. Tras importar productos, regístralos como conocimiento en el menú Conocimiento para las respuestas del widget."
+    "syncHint": "Importa el catálogo/pedidos a SharpTalk. Tras importar productos, regístralos como conocimiento en el menú Conocimiento para las respuestas del widget."
   },
   "install": {
     "subtitle": "Añade el widget de chat a tu tienda. Elige tu plataforma.",
@@ -233,7 +233,7 @@
   "cafe24": {
     "oauth": {
       "title": "Cafe24 (OAuth)",
-      "hint": "Conecte su tienda Cafe24 mediante OAuth para importar sus pedidos y productos a ShopTalk.",
+      "hint": "Conecte su tienda Cafe24 mediante OAuth para importar sus pedidos y productos a SharpTalk.",
       "status": "Estado",
       "mallId": "ID de tienda",
       "connect": "Conectar Cafe24",
@@ -252,7 +252,7 @@
   "helpdeskTitle": "Integraciones de helpdesk",
   "messenger": {
     "groupTitle": "Canales de mensajería externos",
-    "groupHint": "Los mensajes llegan a Chat en vivo y la IA de ShopTalk responde por el mismo canal.",
+    "groupHint": "Los mensajes llegan a Chat en vivo y la IA de SharpTalk responde por el mismo canal.",
     "communicationTitle": "Comunicación",
     "communicationHint": "Buzones de la empresa tratados como conversaciones.",
     "loading": "Cargando canales…",
@@ -273,7 +273,7 @@
     "testing": "Probando…",
     "testOk": "Conectado — {{detail}}",
     "testFailed": "Falló la conexión — {{detail}}",
-    "testRejected": "Cuenta rechazada: el servidor respondió, pero el correo o la contraseña no coinciden. Usa la cuenta de operador de ese servicio, no tu acceso a ShopTalk. ({{detail}})",
+    "testRejected": "Cuenta rechazada: el servidor respondió, pero el correo o la contraseña no coinciden. Usa la cuenta de operador de ese servicio, no tu acceso a SharpTalk. ({{detail}})",
     "testNotFound": "La URL del servidor parece incorrecta: la dirección respondió, pero no con la API de este servicio. ({{detail}})",
     "testUnreachable": "No se pudo alcanzar el servidor: no hubo respuesta. Revisa la dirección y si el servicio está activo. ({{detail}})",
     "testProviderError": "El proveedor devolvió un error: no hay nada que corregir de este lado; inténtalo más tarde. ({{detail}})",

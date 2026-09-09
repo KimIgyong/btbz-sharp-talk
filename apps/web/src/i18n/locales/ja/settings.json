@@ -108,7 +108,7 @@
         "desc": "テーマのコード編集が不要で、オンオフの切り替えも簡単です。Online Store 2.0に最適です。",
         "step1": "Shopify管理画面で「オンラインストア」→「テーマ」→「カスタマイズ」を開きます。",
         "step2": "「テーマ設定」→「アプリ埋め込み」を開きます。",
-        "step3": "「IVY USA TalkTalk」をオンにして保存します。"
+        "step3": "「SharpTalk」をオンにして保存します。"
       },
       "scriptTag": {
         "desc": "Admin API経由で全ページに読み込まれます。アプリのインストール時に自動登録されます。手動で登録する場合は以下のリクエストを使用してください。",
@@ -177,7 +177,7 @@
       "title": "Odoo",
       "subtitle": "外部API（URL・データベース・ユーザー・APIキー）でOdooと連携します。",
       "syncProducts": "商品を取り込む",
-      "syncProductsHint": "Odoo カタログを ShopTalk に取り込みます。取り込み後、ナレッジメニューでナレッジ登録するとウィジェットの商品回答に使えます。",
+      "syncProductsHint": "Odoo カタログを SharpTalk に取り込みます。取り込み後、ナレッジメニューでナレッジ登録するとウィジェットの商品回答に使えます。",
       "syncOrders": "注文を同期"
     },
     "haravan": {
@@ -199,7 +199,7 @@
     "syncing": "同期中…",
     "syncProducts": "商品を取り込む",
     "syncOrders": "注文を同期",
-    "syncHint": "カタログ/注文を ShopTalk に取り込みます。商品を取り込んだ後、ナレッジメニューでナレッジ登録するとウィジェットの商品回答に使えます。"
+    "syncHint": "カタログ/注文を SharpTalk に取り込みます。商品を取り込んだ後、ナレッジメニューでナレッジ登録するとウィジェットの商品回答に使えます。"
   },
   "install": {
     "subtitle": "ストアフロントにチャットウィジェットを追加します。プラットフォームを選択してください。",
@@ -233,7 +233,7 @@
   "cafe24": {
     "oauth": {
       "title": "Cafe24（OAuth）",
-      "hint": "OAuthでCafe24モールと連携し、注文と商品をShopTalkに取り込みます。",
+      "hint": "OAuthでCafe24モールと連携し、注文と商品をSharpTalkに取り込みます。",
       "status": "ステータス",
       "mallId": "モールID",
       "connect": "Cafe24と連携",
@@ -252,7 +252,7 @@
   "helpdeskTitle": "ヘルプデスク連携",
   "messenger": {
     "groupTitle": "外部メッセンジャーチャネル",
-    "groupHint": "メッセージはライブチャットに届き、ShopTalkのAIが同じチャネルで回答します。",
+    "groupHint": "メッセージはライブチャットに届き、SharpTalkのAIが同じチャネルで回答します。",
     "communicationTitle": "コミュニケーション",
     "communicationHint": "会社のメールボックスを会話として扱います。",
     "loading": "チャネルを読み込み中…",
@@ -358,7 +358,7 @@
         "subtitle": "AmoebaTalkハブ経由"
       }
     },
-    "testRejected": "アカウントが拒否されました。サーバーは応答しましたが、メールアドレスとパスワードが一致しません。ShopTalkのログインではなく、プロバイダー側の運用アカウントをご利用ください。（{{detail}}）",
+    "testRejected": "アカウントが拒否されました。サーバーは応答しましたが、メールアドレスとパスワードが一致しません。SharpTalkのログインではなく、プロバイダー側の運用アカウントをご利用ください。（{{detail}}）",
     "testNotFound": "サーバーURLが誤っている可能性があります。応答はありましたが、このプロバイダーのAPIではありません。（{{detail}}）",
     "testUnreachable": "サーバーに到達できませんでした。応答が一切ありません。アドレスとサービスの稼働状況をご確認ください。（{{detail}}）",
     "testProviderError": "プロバイダーがエラーを返しました。こちら側で対応することはありません。しばらくしてからお試しください。（{{detail}}）",

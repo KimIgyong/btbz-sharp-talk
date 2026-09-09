@@ -1,7 +1,7 @@
 import type { Translation } from './en';
 
 export const ja: Translation = {
-  appName: 'IVY USA',
+  appName: 'SharpTalk',
   notificationCenter: 'お知らせセンター',
   settings: '設定',
 

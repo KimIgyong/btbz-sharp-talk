@@ -26,14 +26,14 @@ export class AdapterFailure extends Error {
  *
  * `provider` is the operator-facing name of the far side ('btbz relay'), which
  * is also the name of the account they must use — the confusion that caused
- * this was a ShopTalk console login typed into a relay's account field.
+ * this was a SharpTalk console login typed into a relay's account field.
  */
 export function loginFailure(provider: string, status: number | null, url: string): AdapterFailure {
   if (status === 401 || status === 403) {
     return new AdapterFailure(
       TEST_FAILURE_REASON.CREDENTIALS,
       `${provider} rejected the account: ${status} at ${url} — wrong email or password; ` +
-        `use the ${provider} operator account, not the ShopTalk console login`,
+        `use the ${provider} operator account, not the SharpTalk console login`,
     );
   }
   if (status === 404) {

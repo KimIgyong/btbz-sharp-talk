@@ -1,4 +1,4 @@
-# ShopTalk Chat & Customer Support Widget — User Manual (Integrated)
+# SharpTalk Chat & Customer Support Widget — User Manual (Integrated)
 
 > Version 2.1.0 · First edition 2026-07-01 · Fully revised 2026-08-24 · **Updated 2026-09-04** (against the code)
 > Audience: tenant operators · agents · platform administrators

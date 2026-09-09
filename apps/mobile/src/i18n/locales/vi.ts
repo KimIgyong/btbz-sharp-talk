@@ -16,7 +16,7 @@ export default {
     "save": "Lưu"
   },
   "onboarding": {
-    "welcome": "Chào mừng đến với ShopTalk",
+    "welcome": "Chào mừng đến với SharpTalk",
     "intro": "Cập nhật đơn hàng, tình trạng giao hàng và trò chuyện hỗ trợ cho cửa hàng của bạn.",
     "chooseLanguage": "Chọn ngôn ngữ của bạn",
     "notifTitle": "Luôn cập nhật",
@@ -29,7 +29,7 @@ export default {
     "title": "Cửa hàng"
   },
   "home": {
-    "title": "ShopTalk",
+    "title": "SharpTalk",
     "visitShop": "Vào cửa hàng",
     "newArrivals": "Hàng mới về",
     "recommended": "AI gợi ý cho bạn",

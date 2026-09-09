@@ -1,7 +1,7 @@
 import type { Translation } from './en';
 
 export const zh: Translation = {
-  appName: 'IVY USA',
+  appName: 'SharpTalk',
   notificationCenter: '通知中心',
   settings: '设置',
 

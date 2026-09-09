@@ -99,7 +99,7 @@ describe('AmaSsoService (PLN-260813-AMA-Iframe-SSO S2)', () => {
     expect((err as { errorCode: string }).errorCode).toBe(code);
   };
 
-  it('issues ShopTalk tokens for a mapped active user (happy path)', async () => {
+  it('issues SharpTalk tokens for a mapped active user (happy path)', async () => {
     const result = await svc.login(AMA_TOKEN, 'amoebaorder', '1.2.3.4');
     expect(result).toBe(tokens);
     expect(fetchMock).toHaveBeenCalledWith(

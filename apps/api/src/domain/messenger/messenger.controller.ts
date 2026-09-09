@@ -121,7 +121,7 @@ export class MessengerController {
 
   @Post(':id/register-webhook')
   @RequireCapability(CAPABILITY.INTEGRATION_CREDENTIALS_MANAGE)
-  @ApiOperation({ summary: "Register ShopTalk's receive URL with the provider" })
+  @ApiOperation({ summary: "Register SharpTalk's receive URL with the provider" })
   async registerWebhook(@CurrentUser() user: Principal, @Param('id', ParseIntPipe) id: number) {
     return this.messenger.registerWebhook(this.tenantId(user), id);
   }

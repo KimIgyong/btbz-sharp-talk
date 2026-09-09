@@ -10,7 +10,7 @@ export function Storefront() {
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-500 text-on-primary">
               I
             </span>
-            IVY USA
+            SharpTalk
           </div>
           <nav className="hidden gap-6 text-sm text-gray-600 sm:flex">
             <a href="#" className="hover:text-primary-600">Shop</a>

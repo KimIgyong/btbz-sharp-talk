@@ -9,7 +9,7 @@ import { LanguageSwitcher } from '@/layouts/Header';
  * centered card with brand mark, locale toggle and a way back to the landing page.
  *
  * With `tenantName` the header reads tenant-first: the tenant name at the
- * regular title size, the ShopTalk brand underneath 25% smaller. Without it
+ * regular title size, the SharpTalk brand underneath 25% smaller. Without it
  * (admin login, error states) the brand is the title and `subtitle` shows below.
  */
 export function AuthShell({
@@ -41,11 +41,11 @@ export function AuthShell({
               <>
                 <h1 className="text-xl font-semibold text-gray-900">{tenantName}</h1>
                 {/* Brand sits under the tenant name at 75% of its size (20px → 15px). */}
-                <p className="text-[15px] font-medium text-gray-500">ShopTalk</p>
+                <p className="text-[15px] font-medium text-gray-500">SharpTalk</p>
               </>
             ) : (
               <>
-                <h1 className="text-xl font-semibold text-gray-900">ShopTalk</h1>
+                <h1 className="text-xl font-semibold text-gray-900">SharpTalk</h1>
                 {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
               </>
             )}

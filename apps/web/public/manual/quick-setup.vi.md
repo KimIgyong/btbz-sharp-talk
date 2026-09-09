@@ -1,4 +1,4 @@
-# Sổ tay thiết lập nhanh ShopTalk — Từ khi mở tenant đến phiên tư vấn đầu tiên
+# Sổ tay thiết lập nhanh SharpTalk — Từ khi mở tenant đến phiên tư vấn đầu tiên
 
 > Phiên bản 1.1 · Bản đầu 2026-08-24 · **Cập nhật 2026-09-04** · Biên soạn dựa trên mã nguồn
 > Đối tượng: **Quản trị viên nền tảng** (chương 1) · **Quản trị viên tenant mới** (chương 2~8)
@@ -33,9 +33,9 @@ tri thức·AI, xem [Sổ tay đăng ký tri thức·cài đặt AI](knowledge-a
 
 | Thuật ngữ | Ý nghĩa |
 |---|---|
-| Tenant (gian hàng) | Một cửa hàng "vào ở" trong ShopTalk. Dữ liệu·cài đặt·tri thức được tách biệt hoàn toàn theo từng cửa hàng |
+| Tenant (gian hàng) | Một cửa hàng "vào ở" trong SharpTalk. Dữ liệu·cài đặt·tri thức được tách biệt hoàn toàn theo từng cửa hàng |
 | Slug | Đoạn địa chỉ đăng nhập riêng của tenant. Được gắn vào cuối URL như `https://shoptalk.amoeba.site/user/ivyusa` |
-| Quản trị viên nền tảng | Quản trị viên của đơn vị vận hành ShopTalk, đăng nhập qua `/admin` (có quyền mở tenant) |
+| Quản trị viên nền tảng | Quản trị viên của đơn vị vận hành SharpTalk, đăng nhập qua `/admin` (có quyền mở tenant) |
 | Quản trị viên tenant (master) | Cấp bậc cao nhất trong bảng điều khiển cửa hàng. Quản lý toàn bộ thành viên·quyền·cài đặt |
 | Mật khẩu tạm thời | Mật khẩu dùng một lần do hệ thống cấp khi mời. **Chỉ hiển thị trên màn hình đúng một lần** |
 
@@ -181,7 +181,7 @@ phải qua được **[Kiểm tra kết nối]** mới thành "Đã kết nối"
 |---|---|
 | Thông tin xác thực (credential) | Khóa·token để truy cập API của nền tảng. Được lưu mã hóa; sau khi lưu chỉ hiển thị là "Đã lưu" thay vì giá trị |
 | Kiểm tra kết nối | Nút gọi API thật một lần bằng thông tin xác thực đã lưu để kiểm tra tính hợp lệ |
-| Đồng bộ (sync) | Thao tác lấy dữ liệu đơn hàng·sản phẩm của nền tảng về bộ nhớ đệm của ShopTalk |
+| Đồng bộ (sync) | Thao tác lấy dữ liệu đơn hàng·sản phẩm của nền tảng về bộ nhớ đệm của SharpTalk |
 
 ### 3.1 Cafe24 ✅
 

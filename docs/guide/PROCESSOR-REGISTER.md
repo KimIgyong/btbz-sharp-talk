@@ -4,7 +4,7 @@
 |---|---|
 | 문서 ID | GUIDE-Processor-Register-20260731 |
 | 작성일 | 2026-07-31 |
-| 범위 | ShopTalk이 개인정보 처리를 위탁하거나 개인정보가 전송되는 모든 외부 처리자(하위처리자 포함) |
+| 범위 | SharpTalk이 개인정보 처리를 위탁하거나 개인정보가 전송되는 모든 외부 처리자(하위처리자 포함) |
 | 기준 | `reference/amoeba_privacy_compliance_v2.md` §6 (PRV-030 DPA 체결, PRV-031 국외이전 근거) · REQ-Privacy-Control-Gap-20260731 #4 |
 | 소유자 | 개인정보 보호책임자 — **임시 기본: Gray(개발 책임)**, 정식 지정 시 갱신 (2026-07-31) |
 

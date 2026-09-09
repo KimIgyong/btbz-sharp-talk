@@ -75,7 +75,7 @@ async function bootstrap(): Promise<void> {
   // Swagger exposes the full API surface — keep it out of production (SEC-M4).
   if (!isProd) {
     const swagger = new DocumentBuilder()
-      .setTitle('IVY USA Chat & Support Widget API')
+      .setTitle('btbz-SharpTalk API')
       .setDescription('CHATWIDGET — NestJS + MySQL. Follows Amoeba standards.')
       .setVersion('1.0.0')
       .addBearerAuth()

@@ -108,7 +108,7 @@
         "desc": "Không cần sửa mã giao diện và có thể bật/tắt dễ dàng. Phù hợp nhất với Online Store 2.0.",
         "step1": "Trong trang quản trị Shopify, mở Online Store → Themes → Customize.",
         "step2": "Mở Theme settings → App embeds.",
-        "step3": "Bật “IVY USA TalkTalk” rồi bấm Save."
+        "step3": "Bật “SharpTalk” rồi bấm Save."
       },
       "scriptTag": {
         "desc": "Tải trên mọi trang thông qua Admin API. Được đăng ký tự động khi cài ứng dụng; dùng yêu cầu bên dưới để đăng ký thủ công.",
@@ -177,7 +177,7 @@
       "title": "Odoo",
       "subtitle": "Kết nối Odoo qua API bên ngoài (URL, cơ sở dữ liệu, người dùng, khóa API).",
       "syncProducts": "Nhập sản phẩm",
-      "syncProductsHint": "Kéo danh mục Odoo vào ShopTalk. Sau khi nhập, đăng ký làm tri thức trong menu Tri thức để trả lời sản phẩm trên widget.",
+      "syncProductsHint": "Kéo danh mục Odoo vào SharpTalk. Sau khi nhập, đăng ký làm tri thức trong menu Tri thức để trả lời sản phẩm trên widget.",
       "syncOrders": "Đồng bộ đơn hàng"
     },
     "haravan": {
@@ -199,7 +199,7 @@
     "syncing": "Đang đồng bộ…",
     "syncProducts": "Nhập sản phẩm",
     "syncOrders": "Đồng bộ đơn hàng",
-    "syncHint": "Nhập danh mục/đơn hàng vào ShopTalk. Sau khi nhập sản phẩm, đăng ký làm tri thức trong menu Tri thức để trả lời sản phẩm trên widget."
+    "syncHint": "Nhập danh mục/đơn hàng vào SharpTalk. Sau khi nhập sản phẩm, đăng ký làm tri thức trong menu Tri thức để trả lời sản phẩm trên widget."
   },
   "install": {
     "subtitle": "Thêm widget trò chuyện vào cửa hàng của bạn. Hãy chọn nền tảng.",
@@ -233,7 +233,7 @@
   "cafe24": {
     "oauth": {
       "title": "Cafe24 (OAuth)",
-      "hint": "Kết nối gian hàng Cafe24 qua OAuth để đưa đơn hàng và sản phẩm vào ShopTalk.",
+      "hint": "Kết nối gian hàng Cafe24 qua OAuth để đưa đơn hàng và sản phẩm vào SharpTalk.",
       "status": "Trạng thái",
       "mallId": "Mall ID",
       "connect": "Kết nối Cafe24",
@@ -252,7 +252,7 @@
   "helpdeskTitle": "Tích hợp helpdesk",
   "messenger": {
     "groupTitle": "Kênh messenger bên ngoài",
-    "groupHint": "Tin nhắn sẽ vào mục Trò chuyện trực tiếp và AI của ShopTalk trả lời ngay trên kênh đó.",
+    "groupHint": "Tin nhắn sẽ vào mục Trò chuyện trực tiếp và AI của SharpTalk trả lời ngay trên kênh đó.",
     "communicationTitle": "Liên lạc",
     "communicationHint": "Hộp thư công ty được xử lý như các cuộc hội thoại.",
     "loading": "Đang tải các kênh…",
@@ -358,7 +358,7 @@
         "subtitle": "Thông qua hub AmoebaTalk"
       }
     },
-    "testRejected": "Tài khoản bị từ chối — máy chủ có phản hồi nhưng email/mật khẩu không khớp. Hãy dùng tài khoản vận hành của chính nhà cung cấp, không phải tài khoản ShopTalk của bạn. ({{detail}})",
+    "testRejected": "Tài khoản bị từ chối — máy chủ có phản hồi nhưng email/mật khẩu không khớp. Hãy dùng tài khoản vận hành của chính nhà cung cấp, không phải tài khoản SharpTalk của bạn. ({{detail}})",
     "testNotFound": "URL máy chủ có vẻ sai — địa chỉ có phản hồi nhưng không phải API của nhà cung cấp này. ({{detail}})",
     "testUnreachable": "Không kết nối được tới máy chủ — hoàn toàn không có phản hồi. Hãy kiểm tra địa chỉ và xem dịch vụ có đang chạy không. ({{detail}})",
     "testProviderError": "Nhà cung cấp trả về lỗi — phía bạn không có gì cần sửa; hãy thử lại sau. ({{detail}})",

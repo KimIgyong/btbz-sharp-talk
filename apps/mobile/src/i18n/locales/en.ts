@@ -10,7 +10,7 @@ export default {
     save: 'Save',
   },
   onboarding: {
-    welcome: 'Welcome to ShopTalk',
+    welcome: 'Welcome to SharpTalk',
     intro: 'Order updates, shipping status and support chat for your store.',
     chooseLanguage: 'Choose your language',
     notifTitle: 'Stay in the loop',
@@ -21,7 +21,7 @@ export default {
   },
   shop: { title: 'Shop' },
   home: {
-    title: 'ShopTalk',
+    title: 'SharpTalk',
     visitShop: 'Visit the shop',
     newArrivals: 'New arrivals',
     recommended: 'AI picks for you',

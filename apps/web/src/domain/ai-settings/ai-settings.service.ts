@@ -128,7 +128,7 @@ export interface HandoffConfig {
 }
 
 /**
- * The copy shopTalk ships with, served by the API (never re-declared here — a
+ * The copy SharpTalk ships with, served by the API (never re-declared here — a
  * frontend copy drifts from the widget the day either changes, invisibly).
  */
 export interface ScenarioScriptDefault {

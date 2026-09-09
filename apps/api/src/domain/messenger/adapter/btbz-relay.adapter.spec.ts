@@ -381,7 +381,7 @@ describe('BtbzRelayAdapter — server URL', () => {
 
   it('reports a rejected account as credentials, not as a failed connection', async () => {
     // The staging case (FIX-260813): messenger.amoeba.site was up and answering
-    // 401 to a ShopTalk console login, and the console said "connection failed".
+    // 401 to a SharpTalk console login, and the console said "connection failed".
     stubLogin(401);
     const adapter = new BtbzRelayAdapter(redis);
 
@@ -392,7 +392,7 @@ describe('BtbzRelayAdapter — server URL', () => {
 
     expect(result).toMatchObject({ ok: false, reason: 'credentials' });
     expect(result.detail).toContain('rejected the account: 401');
-    expect(result.detail).toContain('not the ShopTalk console login');
+    expect(result.detail).toContain('not the SharpTalk console login');
   });
 
   it('still blames the URL, not the account, on a 404', async () => {

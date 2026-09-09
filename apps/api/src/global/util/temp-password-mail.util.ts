@@ -18,9 +18,9 @@ export function buildTempPasswordMail(
   const loginLine = `${base}${loginPath}`;
   return {
     to: email,
-    subject: '[ShopTalk] Temporary password / 임시비밀번호 안내',
+    subject: '[SharpTalk] Temporary password / 임시비밀번호 안내',
     text: [
-      `A temporary password was issued for your ShopTalk account (${email}).`,
+      `A temporary password was issued for your SharpTalk account (${email}).`,
       '',
       `Temporary password: ${tempPassword}`,
       `Sign in: ${loginLine}`,
@@ -28,7 +28,7 @@ export function buildTempPasswordMail(
       'If you did not request this, contact your workspace administrator.',
       '',
       '---',
-      `ShopTalk 계정(${email})에 임시비밀번호가 발급되었습니다.`,
+      `SharpTalk 계정(${email})에 임시비밀번호가 발급되었습니다.`,
       `임시비밀번호: ${tempPassword}`,
       `로그인: ${loginLine}`,
       '로그인하면 새 비밀번호 설정을 요청받습니다.',

@@ -325,7 +325,7 @@
   "scriptNone": "无内置脚本 — 标签将作为聊天消息发送，由 AI 回答",
   "scripts": {
     "title": "默认对话内容",
-    "hint": "shopTalk 内置的全部脚本，包括只能通过后续按钮到达的脚本。",
+    "hint": "SharpTalk 内置的全部脚本，包括只能通过后续按钮到达的脚本。",
     "viaButton": "菜单按钮 · {{action}}",
     "viaFollowUp": "仅后续按钮",
     "edited": "已修改 {{count}} 种语言",

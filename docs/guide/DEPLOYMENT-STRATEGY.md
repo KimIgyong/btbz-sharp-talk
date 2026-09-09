@@ -1,4 +1,4 @@
-# Deployment Strategy — IVY USA Chat & Support Widget (배포 전략)
+# Deployment Strategy — btbz-SharpTalk (배포 전략)
 
 | | |
 |---|---|
@@ -126,7 +126,7 @@ bash docker/staging/deploy-staging.sh        # or deploy-production.sh
 | SSH user | `shoptalk` |
 | SSH key | `secrets/ssh/ivy_staging_ed25519` (private, gitignored) |
 | Deploy path | `/home/shoptalk/ivyusa-shopping-talktalk` |
-| Repo | `github.com/KimIgyong/ivyusa-shopping-talktalk.git` |
+| Repo | `github.com/KimIgyong/btbz-sharp-talk.git` |
 | Public web | `https://shoptalk.amoeba.site/` (admin console) |
 | Public widget | `https://shoptalk.amoeba.site/widget/` |
 | Public API | `https://shoptalk.amoeba.site/api/v1` (health: `/api/v1/health`) |

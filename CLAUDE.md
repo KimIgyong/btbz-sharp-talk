@@ -1,4 +1,4 @@
-# CLAUDE.md — IVY USA Chat & Support Widget
+# CLAUDE.md — btbz-SharpTalk
 
 AI working instructions for this repo, aligned to the Amoeba standards in `reference/`.
 Standards source of truth: **`reference/btbz-dev-kit/`** (2026-07-30 — code convention v3.0,
@@ -6,7 +6,7 @@ dev standard v2.0, git v2.0, deploy/ops v2.0, lessons-learned) supersedes the ol
 `reference/amoeba_*_v2` docs where they conflict. Where the kit differs from conventions
 already shipped in this repo (pagination `size`, decorator names, `tenant_id` axis), the
 repo convention stands as an approved deviation — see SPEC §13. Read with `SPEC.md` and
-the project skill `.claude/skills/ivy-talktalk-dev/SKILL.md`.
+the project skill `.claude/skills/sharptalk-dev/SKILL.md`.
 
 ## 1. What this is
 Multi-tenant Shopify chat/support widget (Naver TalkTalk style) + tenant console +

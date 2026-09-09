@@ -209,7 +209,7 @@ describe('MFA step-up flow (PLN-MFA Stage M1)', () => {
       const enrolled = await mfa.enroll(userPrincipal);
       expect(enrolled.secret).toMatch(/^[A-Z2-7]{32}$/);
       expect(enrolled.otpauthUri).toBe(
-        `otpauth://totp/ShopTalk:dev%40amoeba.group?secret=${enrolled.secret}&issuer=ShopTalk&algorithm=SHA1&digits=6&period=30`,
+        `otpauth://totp/SharpTalk:dev%40amoeba.group?secret=${enrolled.secret}&issuer=SharpTalk&algorithm=SHA1&digits=6&period=30`,
       );
       // Secret is stored encrypted, never plaintext.
       expect(credRepo.rows[0].secretEnc).not.toContain(enrolled.secret);

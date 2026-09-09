@@ -28,7 +28,7 @@ import { AttachmentModule } from '../attachment/attachment.module';
 
 /**
  * External messenger channels (PLN-260810). Telegram and Viber speak to
- * ShopTalk directly over webhooks (PR-M1); AmoebaTalk is polled as a hub so its
+ * SharpTalk directly over webhooks (PR-M1); AmoebaTalk is polled as a hub so its
  * already-certified Zalo/LINE/WhatsApp channels come for free (PR-M2); the btbz
  * KSR relay adds KakaoTalk rooms and inbound SMS (PR-M3); Gmail work mailboxes
  * arrive over IMAP/SMTP (PR-M4). Chat/Session are imported one-way — nothing there knows this

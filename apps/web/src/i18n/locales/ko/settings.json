@@ -108,7 +108,7 @@
         "desc": "테마 코드 수정 없이 켜고 끄기가 쉽습니다. Online Store 2.0에 가장 적합합니다.",
         "step1": "Shopify 관리자에서 온라인 스토어 → 테마 → 사용자 지정으로 이동합니다.",
         "step2": "테마 설정 → 앱 임베드를 엽니다.",
-        "step3": "\"IVY USA TalkTalk\"을 켜고 저장을 클릭합니다."
+        "step3": "\"SharpTalk\"을 켜고 저장을 클릭합니다."
       },
       "scriptTag": {
         "desc": "Admin API로 전 페이지에 로드됩니다. 앱 설치 시 자동 등록되며, 아래 요청으로 수동 등록도 가능합니다.",
@@ -177,7 +177,7 @@
       "title": "Odoo",
       "subtitle": "외부 API(URL·DB·사용자·API 키)로 Odoo를 연결합니다.",
       "syncProducts": "상품 가져오기",
-      "syncProductsHint": "Odoo 카탈로그를 ShopTalk으로 가져옵니다. 가져온 뒤 지식 메뉴에서 지식으로 등록하면 위젯 상품 답변에 사용됩니다.",
+      "syncProductsHint": "Odoo 카탈로그를 SharpTalk으로 가져옵니다. 가져온 뒤 지식 메뉴에서 지식으로 등록하면 위젯 상품 답변에 사용됩니다.",
       "syncOrders": "주문 동기화"
     },
     "haravan": {
@@ -199,7 +199,7 @@
     "syncing": "동기화 중…",
     "syncProducts": "상품 가져오기",
     "syncOrders": "주문 동기화",
-    "syncHint": "카탈로그/주문을 ShopTalk으로 가져옵니다. 상품을 가져온 뒤 지식 메뉴에서 지식으로 등록하면 위젯 상품 답변에 사용됩니다."
+    "syncHint": "카탈로그/주문을 SharpTalk으로 가져옵니다. 상품을 가져온 뒤 지식 메뉴에서 지식으로 등록하면 위젯 상품 답변에 사용됩니다."
   },
   "install": {
     "subtitle": "채팅 위젯을 쇼핑몰에 설치합니다. 플랫폼을 선택하세요.",
@@ -233,7 +233,7 @@
   "cafe24": {
     "oauth": {
       "title": "Cafe24 (OAuth)",
-      "hint": "Cafe24 몰을 OAuth로 연결하면 주문과 상품을 ShopTalk으로 가져올 수 있습니다.",
+      "hint": "Cafe24 몰을 OAuth로 연결하면 주문과 상품을 SharpTalk으로 가져올 수 있습니다.",
       "status": "상태",
       "mallId": "몰 ID",
       "connect": "Cafe24 연결",
@@ -273,7 +273,7 @@
     "testing": "테스트 중…",
     "testOk": "연결됨 — {{detail}}",
     "testFailed": "연결 실패 — {{detail}}",
-    "testRejected": "계정 거부 — 서버는 응답했고 이메일/비밀번호가 맞지 않습니다. ShopTalk 로그인이 아니라 해당 서비스의 운영자 계정을 입력하세요. ({{detail}})",
+    "testRejected": "계정 거부 — 서버는 응답했고 이메일/비밀번호가 맞지 않습니다. SharpTalk 로그인이 아니라 해당 서비스의 운영자 계정을 입력하세요. ({{detail}})",
     "testNotFound": "서버 주소 오류 — 주소는 응답했지만 이 서비스의 API가 아닙니다. ({{detail}})",
     "testUnreachable": "서버에 연결할 수 없음 — 응답 자체가 없습니다. 주소와 서비스 가동 여부를 확인하세요. ({{detail}})",
     "testProviderError": "상대 서버 오류 — 이쪽에서 고칠 것은 없습니다. 잠시 후 다시 시도하세요. ({{detail}})",

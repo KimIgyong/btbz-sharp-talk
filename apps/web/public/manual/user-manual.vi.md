@@ -1,4 +1,4 @@
-# Widget trò chuyện·hỗ trợ khách hàng ShopTalk — Sổ tay người dùng (tổng hợp)
+# Widget trò chuyện·hỗ trợ khách hàng SharpTalk — Sổ tay người dùng (tổng hợp)
 
 > Phiên bản 2.1.0 · Bản đầu 2026-07-01 · Sửa đổi toàn diện 2026-08-24 · **Cập nhật 2026-09-04** (dựa trên mã nguồn)
 > Đối tượng: người vận hành tenant · nhân viên tư vấn · quản trị viên nền tảng

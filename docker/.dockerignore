@@ -1,4 +1,4 @@
-# Build context exclusions for all IVY TalkTalk images.
+# Build context exclusions for all btbz-SharpTalk images.
 # NOTE: docker build with -f docker/<env>/Dockerfile.* uses the repo root as
 # context, so place ignores relative to the root. Keep this in sync with .gitignore.
 

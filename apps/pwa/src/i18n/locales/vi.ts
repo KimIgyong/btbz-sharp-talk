@@ -1,6 +1,6 @@
 export default {
   "app": {
-    "title": "ShopTalk"
+    "title": "SharpTalk"
   },
   "header": {
     "shop": "Cửa hàng"
@@ -151,7 +151,7 @@ export default {
     "iosTitle": "Để nhận thông báo trên iPhone",
     "iosStep1": "Nhấn nút Chia sẻ ở cuối Safari",
     "iosStep2": "Chọn “Thêm vào MH chính”",
-    "iosStep3": "Mở lại ShopTalk từ biểu tượng trên màn hình chính"
+    "iosStep3": "Mở lại SharpTalk từ biểu tượng trên màn hình chính"
   },
   "push": {
     "promptHint": "Bật thông báo đẩy để nhận cập nhật về đơn hàng, vận chuyển và hỗ trợ.",

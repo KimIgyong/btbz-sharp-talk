@@ -1,4 +1,4 @@
-# CONFIG — IVY USA Chat & Support Widget
+# CONFIG — btbz-SharpTalk
 
 > Technical spec + configuration reference for **development / staging / production**.
 > Companion to [SPEC.md](SPEC.md) (specification) and [README.md](README.md) (overview).

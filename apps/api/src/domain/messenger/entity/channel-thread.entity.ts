@@ -11,7 +11,7 @@ import { bigintTransformer } from '../../../global/util/transformers';
 
 /**
  * channel_threads — an external conversation (Telegram chat, Viber 1:1, hub
- * conversation, mail thread) bound to a ShopTalk session/conversation.
+ * conversation, mail thread) bound to a SharpTalk session/conversation.
  *
  * The unique key doubles as the concurrency guard: two webhook deliveries for a
  * brand-new chat race, one insert wins, the loser re-reads the winner's row.

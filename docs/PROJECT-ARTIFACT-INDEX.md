@@ -1,4 +1,4 @@
-# IVY USA Chat & Support Widget — Project Index (산출물 인덱스)
+# btbz-SharpTalk — Project Index (산출물 인덱스)
 
 문서/설계 산출물 전체 인덱스와 추적성 맵. 모든 문서는 영어 우선·한국어 병기, Amoeba SDLC 표준(`chat-widget-sdlc-process.md`)을 따른다.
 (Index and traceability map of all artifacts. Bilingual; follows the Amoeba SDLC document standard.)
@@ -7,7 +7,7 @@
 > Artifact files listed below live in [`../design/`](../design/) unless a path is given;
 > company standards live in [`../standards/`](../standards/).
 
-- **Project**: IVY USA Chat & Customer Support Widget (Shopify storefront, Naver TalkTalk 기준)
+- **Project**: btbz-SharpTalk (Shopify storefront, Naver TalkTalk 기준)
 - **Stack**: React (widget/admin) · Next.js · MySQL · RabbitMQ · Redis
 - **Integrations**: Shopify · Fulfillment · Klaviyo · Odoo · Google Drive · AmoebaTalk [TBD]
 - **Updated**: 2026-06-18

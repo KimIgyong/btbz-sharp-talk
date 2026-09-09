@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ShopTalk — deploy into a customer's own infrastructure (PLN-260820 W3).
+# SharpTalk — deploy into a customer's own infrastructure (PLN-260820 W3).
 #
 #   bash scripts/deploy-self-hosted.sh            # check, then deploy
 #   bash scripts/deploy-self-hosted.sh --check    # check only, change nothing

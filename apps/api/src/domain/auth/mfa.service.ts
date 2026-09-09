@@ -25,7 +25,7 @@ import {
 } from '../../global/util/totp.util';
 
 /** otpauth issuer shown in authenticator apps. */
-const OTPAUTH_ISSUER = 'ShopTalk';
+const OTPAUTH_ISSUER = 'SharpTalk';
 /** Recovery code shape: 10 hex chars as `xxxxx-xxxxx`. */
 const RECOVERY_CODE_RE = /^[0-9a-f]{5}-[0-9a-f]{5}$/i;
 

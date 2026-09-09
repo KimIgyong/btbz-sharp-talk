@@ -27,7 +27,7 @@ export interface InboundAttachmentRef {
   size?: number | null;
 }
 
-/** One file to deliver outbound; `url` is an absolute, signed ShopTalk link. */
+/** One file to deliver outbound; `url` is an absolute, signed SharpTalk link. */
 export interface OutboundAttachment {
   url: string;
   filename: string;
@@ -162,7 +162,7 @@ export interface MessengerAdapter {
     ref: InboundAttachmentRef,
   ): Promise<{ buffer: Buffer; filename: string; mime?: string | null } | null>;
 
-  /** Register ShopTalk's receive URL with the provider on activation. */
+  /** Register SharpTalk's receive URL with the provider on activation. */
   register?(ctx: AdapterContext, webhookUrl: string): Promise<void>;
 
   /** Resolve an asynchronous send (adapters whose `send` returns unconfirmed). */

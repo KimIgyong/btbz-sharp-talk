@@ -1,4 +1,4 @@
-# ShopTalk Quick Setup Manual — From Tenant Creation to the First Conversation
+# SharpTalk Quick Setup Manual — From Tenant Creation to the First Conversation
 
 > Version 1.1 · First published 2026-08-24 · **Updated 2026-09-04** · Written against the code
 > Audience: **Platform administrators** (Chapter 1) · **New tenant administrators** (Chapters 2–8)
@@ -32,9 +32,9 @@ chat widget actually serving customers**. For in-depth knowledge and AI configur
 
 | Term | Meaning |
 |---|---|
-| Tenant | One store hosted on ShopTalk. Data, settings, and knowledge are fully isolated per store |
+| Tenant | One store hosted on SharpTalk. Data, settings, and knowledge are fully isolated per store |
 | Slug | The tenant's dedicated login URL fragment. Appended to the address like `https://shoptalk.amoeba.site/user/ivyusa` |
-| Platform administrator | A ShopTalk operator admin who logs in at `/admin` (has tenant-creation rights) |
+| Platform administrator | A SharpTalk operator admin who logs in at `/admin` (has tenant-creation rights) |
 | Tenant administrator (master) | The highest rank in the store console. Manages all team members, permissions, and settings |
 | Temporary password | A one-time password issued by the system at invite time. **Shown on screen only once** |
 
@@ -181,7 +181,7 @@ the tab explains where to find each platform's credentials.
 |---|---|
 | Credential | Keys/tokens for accessing the platform API. Stored encrypted; after saving, only "Configured" is shown instead of the value |
 | Test connection | A button that makes one real API call with the saved credentials to verify their validity |
-| Sync | The job that pulls the platform's order/product data into the ShopTalk cache |
+| Sync | The job that pulls the platform's order/product data into the SharpTalk cache |
 
 ### 3.1 Cafe24 ✅
 

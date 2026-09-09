@@ -108,7 +108,7 @@
         "desc": "No theme code editing, and easy to toggle on and off. Best for Online Store 2.0.",
         "step1": "In Shopify admin, open Online Store → Themes → Customize.",
         "step2": "Open Theme settings → App embeds.",
-        "step3": "Turn on \"IVY USA TalkTalk\" and click Save."
+        "step3": "Turn on \"SharpTalk\" and click Save."
       },
       "scriptTag": {
         "desc": "Loads on every page via the Admin API. Registered automatically when the app is installed; use the request below to register it manually.",
@@ -177,7 +177,7 @@
       "title": "Odoo",
       "subtitle": "Connect Odoo via the external API (URL, database, user, API key).",
       "syncProducts": "Import products",
-      "syncProductsHint": "Pulls the Odoo catalogue into ShopTalk. After importing, register it as knowledge in the Knowledge menu to power widget product answers.",
+      "syncProductsHint": "Pulls the Odoo catalogue into SharpTalk. After importing, register it as knowledge in the Knowledge menu to power widget product answers.",
       "syncOrders": "Sync orders"
     },
     "haravan": {
@@ -199,7 +199,7 @@
     "syncing": "Syncing…",
     "syncProducts": "Import products",
     "syncOrders": "Sync orders",
-    "syncHint": "Import the catalogue/orders into ShopTalk. After importing products, register them as knowledge in the Knowledge menu to power widget product answers."
+    "syncHint": "Import the catalogue/orders into SharpTalk. After importing products, register them as knowledge in the Knowledge menu to power widget product answers."
   },
   "install": {
     "subtitle": "Add the chat widget to your storefront. Pick your platform.",
@@ -233,7 +233,7 @@
   "cafe24": {
     "oauth": {
       "title": "Cafe24 (OAuth)",
-      "hint": "Connect your Cafe24 mall via OAuth to pull its orders and products into ShopTalk.",
+      "hint": "Connect your Cafe24 mall via OAuth to pull its orders and products into SharpTalk.",
       "status": "Status",
       "mallId": "Mall ID",
       "connect": "Connect Cafe24",
@@ -252,7 +252,7 @@
   "helpdeskTitle": "Helpdesk integrations",
   "messenger": {
     "groupTitle": "External messenger channels",
-    "groupHint": "Messages arrive in Live Chat and ShopTalk's AI answers on the same channel.",
+    "groupHint": "Messages arrive in Live Chat and SharpTalk's AI answers on the same channel.",
     "communicationTitle": "Communication",
     "communicationHint": "Company mailboxes handled as conversations.",
     "loading": "Loading channels…",
@@ -273,7 +273,7 @@
     "testing": "Testing…",
     "testOk": "Connected — {{detail}}",
     "testFailed": "Connection failed — {{detail}}",
-    "testRejected": "Account rejected — the server answered, the email/password did not match. Use the provider’s own operator account, not your ShopTalk login. ({{detail}})",
+    "testRejected": "Account rejected — the server answered, the email/password did not match. Use the provider’s own operator account, not your SharpTalk login. ({{detail}})",
     "testNotFound": "Server URL looks wrong — the address answered, but not with this provider’s API. ({{detail}})",
     "testUnreachable": "Could not reach the server — no answer at all. Check the address and whether the service is up. ({{detail}})",
     "testProviderError": "The provider returned an error — nothing to fix on this side; try again later. ({{detail}})",

@@ -1,4 +1,4 @@
-# IVY USA Chat & Support Widget — Project Specification (SPEC)
+# btbz-SharpTalk — Project Specification (SPEC)
 
 > Authored to the **Amoeba Basic SPEC v2** template (`reference/amoeba_basic_SPEC_v2.md`).
 > Reflects the actual implementation. Intentional deviations are listed in §13;
@@ -9,7 +9,7 @@
 ### 1.1 Document Information (문서 정보)
 | | |
 |---|---|
-| Project (프로젝트) | IVY USA Chat & Customer Support Widget |
+| Project (프로젝트) | btbz-SharpTalk |
 | Code (코드) | CHATWIDGET |
 | Version (버전) | 1.1.0 |
 | Date (작성일) | 2026-07-15 (rev; base 2026-06-19) |
@@ -134,7 +134,7 @@ ivy-talktalk/
 ├── scripts/dev/                 # kill-ports.sh, start-all.sh
 ├── design/  standards/          # design artifacts & company standards (source)
 ├── turbo.json  tsconfig.json  package.json  SPEC.md  CONFIG.md  CLAUDE.md  CHANGELOG.md  README.md
-└── .claude/skills/ivy-talktalk-dev/SKILL.md   # project dev skill
+└── .claude/skills/sharptalk-dev/SKILL.md   # project dev skill
 ```
 
 ### 4.2 Backend Structure (NestJS)
@@ -439,4 +439,4 @@ Full evidence: `docs/report/RPT-Standards-Compliance-Audit-20260619.md`.
 `README.md` (overview) · `CONFIG.md` (env/config) ·
 `design/` (artifacts) · `docs/PROJECT-ARTIFACT-INDEX.md` (artifact index) ·
 `docs/implementation/RPT-ChatWidget-Implementation-20260618.md` · `docs/guide/STAGING-DEPLOY.md` ·
-`CLAUDE.md` · `.claude/skills/ivy-talktalk-dev/SKILL.md`.
+`CLAUDE.md` · `.claude/skills/sharptalk-dev/SKILL.md`.

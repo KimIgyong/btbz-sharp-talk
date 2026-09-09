@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# IVY TalkTalk — customer PWA (Vite static) image, staging. Served under /app/.
+# btbz-SharpTalk — customer PWA (Vite static) image, staging. Served under /app/.
 # Build context MUST be the repo root.
 
 # ---- Build stage ----------------------------------------------------------
