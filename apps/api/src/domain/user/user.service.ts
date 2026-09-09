@@ -271,7 +271,7 @@ export class UserService {
 
   // ---- helpers ----
 
-  /** Readable one-time temp password that satisfies the password policy (e.g. "IvyK7Q2MA3B9X!"). */
+  /** Readable one-time temp password that satisfies the password policy (e.g. "TmpK7Q2MA3B9X!"). */
   private genTempPassword(): string {
     return generateTempPassword();
   }

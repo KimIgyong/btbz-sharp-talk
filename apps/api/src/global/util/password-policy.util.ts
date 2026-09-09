@@ -157,7 +157,7 @@ export function generateTempPassword(): string {
   // Bounded loop only to guarantee termination for static analysis; a policy
   // pass on the first roll is the overwhelmingly common case.
   for (let i = 0; i < 100; i += 1) {
-    const candidate = `Ivy${generateCode(9)}!`;
+    const candidate = `Tmp${generateCode(9)}!`;
     if (validatePassword(candidate).ok) return candidate;
   }
   /* istanbul ignore next -- unreachable in practice */

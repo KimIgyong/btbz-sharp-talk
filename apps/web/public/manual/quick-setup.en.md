@@ -94,7 +94,7 @@ On the tenant row, **[Users]** → `/admin/tenants/…/users` → **[Invite user
 ┌─ Temporary password issued ──────────────────┐
 │ Temporary password for user@shop.com          │
 │ ┌──────────────────────────┐                 │
-│ │  IvyXXXXXXXXX!           │   [Copy]        │
+│ │  TmpXXXXXXXXX!           │   [Copy]        │
 │ └──────────────────────────┘                 │
 │ ⚠️ This value is shown only once, right now.  │
 │    Deliver it through a secure channel;       │
