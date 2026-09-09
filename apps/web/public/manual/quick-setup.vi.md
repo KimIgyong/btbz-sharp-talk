@@ -95,7 +95,7 @@ Trên hàng của tenant → **[Người dùng]** → `/admin/tenants/…/users`
 ┌─ Đã cấp mật khẩu tạm thời ───────────────────┐
 │ Mật khẩu tạm thời của user@shop.com           │
 │ ┌──────────────────────────┐                 │
-│ │  IvyXXXXXXXXX!           │   [Sao chép]    │
+│ │  TmpXXXXXXXXX!           │   [Sao chép]    │
 │ └──────────────────────────┘                 │
 │ ⚠️ Giá trị này chỉ hiển thị một lần ngay      │
 │    bây giờ. Hãy chuyển qua kênh an toàn;      │
