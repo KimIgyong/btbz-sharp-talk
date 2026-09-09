@@ -13,9 +13,9 @@ export const AppDataSource = new DataSource({
   type: 'mysql',
   host: process.env.DB_HOST ?? '127.0.0.1',
   port: Number(process.env.DB_PORT ?? 3306),
-  username: process.env.DB_USER ?? 'ivy',
+  username: process.env.DB_USER ?? 'sharptalk',
   password: process.env.DB_PASSWORD ?? '',
-  database: process.env.DB_NAME ?? 'db_ivy_talktalk',
+  database: process.env.DB_NAME ?? 'db_sharptalk',
   charset: 'utf8mb4',
   timezone: 'Z',
   synchronize: true, // seed bootstraps schema in dev

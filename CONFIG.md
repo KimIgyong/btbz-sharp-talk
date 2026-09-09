@@ -15,7 +15,7 @@
 | Monorepo | Turborepo | 2.x | `apps/*`, `packages/*` workspaces |
 | Backend | NestJS | 10.3 | REST `/api/v1`, Swagger `/api/v1/docs` |
 | ORM | TypeORM | 0.3.20 | `synchronize` in dev/staging; migrations in prod |
-| Database | MySQL | 8.0 | utf8mb4 / InnoDB · `db_ivy_talktalk` · 38 tables / 40 entities |
+| Database | MySQL | 8.0 | utf8mb4 / InnoDB · `db_sharptalk` · 38 tables / 40 entities |
 | Cache/session | Redis | 7 | session cache, unread counts (tenant-prefixed keys) |
 | Message bus | RabbitMQ | 3.13 | async notifications, logging, CJM (in-process fallback) |
 | Auth | @nestjs/jwt | 10.2 | access 15m / refresh 7d; bcryptjs (cost 12) |
@@ -99,7 +99,7 @@ Copy the `.example` to the real filename on the server and fill in secrets — t
 | `DB_HOST` | 127.0.0.1 | mysql | mysql | compose service name in containers |
 | `DB_PORT` | 3316 | 3306 | 3306 | |
 | `DB_USER` / `DB_PASSWORD` | ivy / dev pw | secret | secret | app DB user |
-| `DB_NAME` | db_ivy_talktalk | db_ivy_talktalk | db_ivy_talktalk | |
+| `DB_NAME` | db_sharptalk | db_sharptalk | db_sharptalk | |
 | `DB_ROOT_PASSWORD` | — | secret | secret | mysql container only |
 | `DB_SYNCHRONIZE` | true | true | **false** | prod uses migrations |
 | `DB_LOGGING` | false | false | false | |

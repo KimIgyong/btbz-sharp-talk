@@ -7,7 +7,7 @@ import { KnowledgeService } from '../domain/knowledge/knowledge.service';
 /**
  * Manual smoke harness — T7: Qdrant OUTAGE degradation
  * (PLAN-KB-VectorHybrid-Qdrant W5; results: docs/test/T-KB-VectorHybrid-*.md).
- * Stop Qdrant first (docker stop ivy_qdrant), then run:
+ * Stop Qdrant first (docker stop sharptalk_qdrant), then run:
  *   npx ts-node --files -r tsconfig-paths/register src/database/verify-fallback.ts
  * Expects retrieval/answers to degrade to FULLTEXT-only and KB writes to stay
  * accepted (status 'pending', swept by kb:reindex). Restart Qdrant afterwards.

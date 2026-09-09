@@ -85,7 +85,7 @@ https://shoptalk.amoeba.site/api/v1/auth/shopify/install?shop=ambshop-dev.myshop
 API 컨테이너 로그에서 토픽별 사유 확인:
 ```bash
 ssh -i secrets/ssh/ivy_staging_ed25519 shoptalk@211.110.140.172 \
-  "docker logs ivy_api_staging 2>&1 | grep 'Register webhook' | tail -8"
+  "docker logs sharptalk_api_staging 2>&1 | grep 'Register webhook' | tail -8"
 ```
 | 로그 메시지 | 의미 | 조치 |
 |---|---|---|
@@ -99,7 +99,7 @@ ssh -i secrets/ssh/ivy_staging_ed25519 shoptalk@211.110.140.172 \
 4. 서버 로그로도 수신 확인 가능:
    ```bash
    ssh -i secrets/ssh/ivy_staging_ed25519 shoptalk@211.110.140.172 \
-     "docker logs ivy_api_staging --since 10m 2>&1 | grep -i 'webhooks/shopify' | tail"
+     "docker logs sharptalk_api_staging --since 10m 2>&1 | grep -i 'webhooks/shopify' | tail"
    ```
 
 ### 3-4. 완료 후 선택 조치

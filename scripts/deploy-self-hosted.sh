@@ -18,8 +18,8 @@ cd "$REPO_ROOT"
 COMPOSE_FILE="docker/self-hosted/docker-compose.self-hosted.yml"
 ENV_FILE="docker/self-hosted/.env.self-hosted"
 CONFIG_FILE="docker/self-hosted/widget-config.js"
-export MYSQL_CONTAINER="${MYSQL_CONTAINER:-shoptalk_mysql}"
-export API_CONTAINER="${API_CONTAINER:-shoptalk_api}"
+export MYSQL_CONTAINER="${MYSQL_CONTAINER:-sharptalk_mysql}"
+export API_CONTAINER="${API_CONTAINER:-sharptalk_api}"
 
 check_only=false
 skip_migrations=false
@@ -125,7 +125,7 @@ console="$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:${port}/" ||
 # API_CONTAINER, not a hardcoded name: the rehearsal that proved this script
 # works ran under different container names and reported "0 boots" for a stack
 # that had booted fine.
-booted="$(docker logs "${API_CONTAINER:-shoptalk_api}" 2>&1 | grep -c 'successfully started' || true)"
+booted="$(docker logs "${API_CONTAINER:-sharptalk_api}" 2>&1 | grep -c 'successfully started' || true)"
 
 echo "    health   : ${health:-<no answer>}"
 echo "    widget   : $widget  (200 expected)"
@@ -135,7 +135,7 @@ docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" ps
 
 if [[ "$health" != *'"status":"ok"'* || "$widget" != "200" || "$console" != "200" || "$booted" -lt 1 ]]; then
   echo
-  echo "FAIL — the stack started but is not serving. Check: docker logs shoptalk_api" >&2
+  echo "FAIL — the stack started but is not serving. Check: docker logs sharptalk_api" >&2
   exit 1
 fi
 

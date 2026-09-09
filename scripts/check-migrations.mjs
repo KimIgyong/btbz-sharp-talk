@@ -34,7 +34,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SQL_DIR = path.join(ROOT, 'sql');
 
 const asJson = process.argv.includes('--json');
-const CONTAINER = process.env.MYSQL_CONTAINER || 'shoptalk_mysql';
+const CONTAINER = process.env.MYSQL_CONTAINER || 'sharptalk_mysql';
 
 /** Strip comments and string-literal quoting so one regex pass sees real DDL. */
 function normalise(sql) {

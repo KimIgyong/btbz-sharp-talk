@@ -2,7 +2,7 @@
 # Which schema migrations are still outstanding (PLN-260820 W3) — deploy-time.
 #
 #   bash scripts/check-migrations.sh
-#   MYSQL_CONTAINER=ivy_mysql_staging bash scripts/check-migrations.sh
+#   MYSQL_CONTAINER=sharptalk_mysql_staging bash scripts/check-migrations.sh
 #
 # Pure bash + the mysql client inside the database container, because a customer
 # host is not guaranteed to have Node (the staging host does not). It reads the
@@ -16,7 +16,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 MANIFEST="$REPO_ROOT/sql/artefacts.tsv"
-CONTAINER="${MYSQL_CONTAINER:-shoptalk_mysql}"
+CONTAINER="${MYSQL_CONTAINER:-sharptalk_mysql}"
 
 [[ -f "$MANIFEST" ]] || { echo "ERROR: $MANIFEST not found (run: npm run migrations:manifest)" >&2; exit 2; }
 
