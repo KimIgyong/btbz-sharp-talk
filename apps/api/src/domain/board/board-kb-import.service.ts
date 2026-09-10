@@ -67,12 +67,6 @@ export class BoardKbImportService {
     const { page, size } = normalizePage(q.page, q.size);
     const qb = this.kbRepo
       .createQueryBuilder('k')
-      .leftJoin(
-        BoardDocument,
-        'b',
-        'b.promoted_document_id = k.id AND b.tenant_id = k.tenant_id',
-      )
-      .addSelect('b.id', 'linked_board_id')
       .where('k.tenant_id = :tenantId', { tenantId })
       .andWhere('k.source_id IS NULL')
       .andWhere("k.source NOT IN ('product_catalog', 'board')")
@@ -81,19 +75,43 @@ export class BoardKbImportService {
     if (q.search?.trim()) {
       qb.andWhere('(k.title LIKE :like OR k.category LIKE :like)', { like: `%${q.search.trim()}%` });
     }
-    qb.orderBy('k.updated_at', 'DESC').offset((page - 1) * size).limit(size);
-    const { entities, raw } = await qb.getRawAndEntities();
-    const total = await qb.getCount();
-    const items: KbCandidate[] = entities.map((k, i) => ({
+    const [entities, total] = await qb
+      .orderBy('k.updated_at', 'DESC')
+      .skip((page - 1) * size)
+      .take(size)
+      .getManyAndCount();
+    // Link lookup as a second query, not a join: promoted_document_id is not
+    // unique, and a join would duplicate rows and misalign raw/entity indexes.
+    const linkedByKb = await this.linkedBoardIds(
+      tenantId,
+      entities.map((k) => Number(k.id)),
+    );
+    const items: KbCandidate[] = entities.map((k) => ({
       id: String(k.id),
       title: k.title,
       category: k.category ?? null,
       source: k.source,
       docGroup: k.docGroup,
       updatedAt: k.updatedAt,
-      linkedBoardDocumentId: raw[i]?.linked_board_id != null ? String(raw[i].linked_board_id) : null,
+      linkedBoardDocumentId: linkedByKb.get(Number(k.id)) ?? null,
     }));
     return new Paginated(items, buildPagination(page, size, total));
+  }
+
+  /** kb id → the (first) board document managing it. */
+  private async linkedBoardIds(tenantId: number, kbIds: number[]): Promise<Map<number, string>> {
+    if (!kbIds.length) return new Map();
+    const linked = await this.boardRepo.find({
+      where: { tenantId, promotedDocumentId: In(kbIds) },
+      select: ['id', 'promotedDocumentId'],
+      order: { id: 'ASC' },
+    });
+    const map = new Map<number, string>();
+    for (const b of linked) {
+      const kbId = Number(b.promotedDocumentId);
+      if (!map.has(kbId)) map.set(kbId, String(b.id));
+    }
+    return map;
   }
 
   async import(tenantId: number, ids: number[], actor: BoardActor): Promise<KbImportResult> {
@@ -103,11 +121,7 @@ export class BoardKbImportService {
 
     const rows = await this.kbRepo.find({ where: { tenantId, id: In(unique) } });
     const byId = new Map(rows.map((r) => [Number(r.id), r]));
-    const linked = await this.boardRepo.find({
-      where: { tenantId, promotedDocumentId: In(unique) },
-      select: ['id', 'promotedDocumentId'],
-    });
-    const linkedByKb = new Map(linked.map((b) => [Number(b.promotedDocumentId), Number(b.id)]));
+    const linkedByKb = await this.linkedBoardIds(tenantId, unique);
 
     for (const id of unique) {
       const kb = byId.get(id);
@@ -126,15 +140,23 @@ export class BoardKbImportService {
         result.skipped += 1;
         continue;
       }
-      const doc = await this.board.createFromKb(tenantId, kb, actor);
-      // The BRD- key is what the KB screen's "board origin" note and re-adopt
-      // key on; a key that already belongs to someone else stays theirs
-      // (REQ D-2) — the promoted_document_id link is enough.
-      if (!kb.externalKey) {
-        kb.externalKey = `BRD-${doc.id}`;
-        await this.kbRepo.save(kb);
+      try {
+        const doc = await this.board.createFromKb(tenantId, kb, actor);
+        // The BRD- key is what the KB screen's "board origin" note and re-adopt
+        // key on; a key that already belongs to someone else stays theirs
+        // (REQ D-2) — the promoted_document_id link is enough.
+        if (!kb.externalKey) {
+          kb.externalKey = `BRD-${doc.id}`;
+          await this.kbRepo.save(kb);
+        }
+        result.created += 1;
+      } catch (e) {
+        // One bad row must not abandon the rest or the audit trail (same
+        // stance as the FAQ import): report it and carry on.
+        this.logger.warn(`kb import: document ${id} failed — ${(e as Error).message}`);
+        result.invalid += 1;
+        result.errors.push({ id, reason: 'failed' });
       }
-      result.created += 1;
     }
 
     await this.audit.write({
