@@ -443,8 +443,8 @@
     "notion": "Notion",
     "product_catalog": "danh mục"
   },
-  "boardOriginNote": "Tài liệu này được đưa vào từ Smart Knowledge Board. Sửa tại đây sẽ lệch khỏi bản gốc trên bảng.",
-  "boardOriginOpen": "Mở bản gốc trên bảng",
+  "boardOriginNote": "Tài liệu này được quản lý trên Smart Knowledge Board. Hãy sửa ở đó rồi chấp nhận lại; sửa tại đây sẽ tách khỏi bản trên bảng.",
+  "boardOriginOpen": "Mở trên bảng",
   "ingestDoneBoard": "Đã đăng {{saved}} tài liệu lên bảng — hãy duyệt rồi đưa vào KB",
   "writeOnBoard": "Viết trên bảng",
   "directAddHint": "Khuyến nghị: viết và duyệt trên bảng trước rồi mới đưa vào. Thêm trực tiếp chỉ dành cho trường hợp khẩn.",

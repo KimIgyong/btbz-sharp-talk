@@ -89,6 +89,8 @@ export interface KnowledgeDocument {
 /** Detail adds the LONGTEXT content the list endpoint omits (PERF-9). */
 export interface KnowledgeDocumentDetail extends KnowledgeDocument {
   content: string | null;
+  /** Board document managing this row (adopted or KB-imported) — PLN-260910. */
+  boardDocumentId?: string | null;
 }
 
 /** KB QA answer with the source documents behind it (PLN-Knowledge-QA F1). */

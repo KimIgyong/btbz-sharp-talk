@@ -35,7 +35,9 @@ describe('BoardReviewService', () => {
     };
     const kbRepo = {
       findOne: jest.fn(async ({ where }: any) =>
-        kbRows.find((k) => k.externalKey === where.externalKey) ?? null),
+        where.id != null
+          ? kbRows.find((k) => k.id === where.id) ?? null
+          : kbRows.find((k) => k.externalKey === where.externalKey) ?? null),
       create: (d: Partial<KbDocument>) => d as KbDocument,
       save: jest.fn(async (d: KbDocument) => {
         const row = { id: d.id ?? 900, ...d } as KbDocument;
@@ -114,6 +116,16 @@ describe('BoardReviewService', () => {
     expect(h.ensured).toEqual([['잠금', 'operation']]);
     expect(h.savedBoard[0]).toMatchObject({ status: 'promoted', promotedDocumentId: 900 });
     expect(h.audited[0].action).toBe('board.document_promoted');
+  });
+
+  it('re-promote of a KB-imported row follows the id link and backfills the BRD- key (PLN-260910)', async () => {
+    const h = build({
+      doc: { status: 'promoted', promotedDocumentId: 700 },
+      kb: [{ id: 700, externalKey: null, title: '옛 제목', content: '옛 본문', category: 'policy' }],
+    });
+    await h.svc.promote(1, 5, {}, 7);
+    expect(h.kbRows).toHaveLength(1);
+    expect(h.kbRows[0]).toMatchObject({ id: 700, externalKey: 'BRD-5', title: '긴급 차단 절차', status: 'pending' });
   });
 
   it('re-promote updates the same key in place — never a duplicate', async () => {

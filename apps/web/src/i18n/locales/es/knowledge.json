@@ -443,8 +443,8 @@
     "notion": "Notion",
     "product_catalog": "catálogo"
   },
-  "boardOriginNote": "Este documento fue adoptado del Smart Knowledge Board. Editar aquí lo divergirá del original.",
-  "boardOriginOpen": "Abrir original del tablero",
+  "boardOriginNote": "Este documento se gestiona en el Smart Knowledge Board. Edítelo allí y vuelva a adoptarlo; editar aquí diverge de la copia del tablero.",
+  "boardOriginOpen": "Abrir en el tablero",
   "ingestDoneBoard": "{{saved}} documento(s) publicados en el tablero — revise y adopte al KB",
   "writeOnBoard": "Escribir en el tablero",
   "directAddHint": "Recomendado: escriba y revise primero en el tablero. La adición directa es para emergencias.",

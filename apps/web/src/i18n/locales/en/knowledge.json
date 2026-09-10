@@ -443,8 +443,8 @@
     "notion": "Notion",
     "product_catalog": "catalog"
   },
-  "boardOriginNote": "This document was adopted from the Smart Knowledge Board. Editing here diverges from the board original.",
-  "boardOriginOpen": "Open board original",
+  "boardOriginNote": "This document is managed on the Smart Knowledge Board. Edit it there and re-adopt; editing here diverges from the board copy.",
+  "boardOriginOpen": "Open on board",
   "ingestDoneBoard": "{{saved}} document(s) published to the board — review and adopt into KB",
   "writeOnBoard": "Write on board",
   "directAddHint": "Recommended: write and review on the board first, then adopt. Direct add is for emergencies.",

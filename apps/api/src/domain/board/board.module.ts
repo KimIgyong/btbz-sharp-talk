@@ -11,6 +11,7 @@ import { BoardService } from './board.service';
 import { BoardAttachmentService } from './board-attachment.service';
 import { BoardCommentService } from './board-comment.service';
 import { BoardImportService } from './board-import.service';
+import { BoardKbImportService } from './board-kb-import.service';
 import { AuditModule } from '../audit/audit.module';
 import { BoardController } from './board.controller';
 
@@ -31,7 +32,13 @@ import { BoardController } from './board.controller';
     // FAQ import writes an audit entry (B4 P6-1).
     AuditModule,
   ],
-  providers: [BoardService, BoardAttachmentService, BoardCommentService, BoardImportService],
+  providers: [
+    BoardService,
+    BoardAttachmentService,
+    BoardCommentService,
+    BoardImportService,
+    BoardKbImportService,
+  ],
   controllers: [BoardController],
   exports: [BoardService, BoardAttachmentService],
 })

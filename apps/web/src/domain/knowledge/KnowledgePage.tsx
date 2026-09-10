@@ -1942,20 +1942,25 @@ export function KnowledgePage() {
                 {t('markReviewed')}
               </Button>
             </div>
-            {detail.data?.externalKey?.startsWith('BRD-') && (
-              <div className="mb-2 rounded-md bg-primary-50 px-3 py-2 text-xs text-primary-800">
-                {t('boardOriginNote')}{' '}
-                <button
-                  type="button"
-                  className="font-medium underline"
-                  onClick={() =>
-                    navigate(`/knowledge/board/${detail.data!.externalKey!.slice(4)}`)
-                  }
-                >
-                  {t('boardOriginOpen')}
-                </button>
-              </div>
-            )}
+            {(() => {
+              // Managed on the board: adopted rows carry a BRD- key, KB-imported
+              // rows are linked by id and may keep their own key (PLN-260910 D-6).
+              const boardId =
+                detail.data?.boardDocumentId ??
+                (detail.data?.externalKey?.startsWith('BRD-') ? detail.data.externalKey.slice(4) : null);
+              return boardId ? (
+                <div className="mb-2 rounded-md bg-primary-50 px-3 py-2 text-xs text-primary-800">
+                  {t('boardOriginNote')}{' '}
+                  <button
+                    type="button"
+                    className="font-medium underline"
+                    onClick={() => navigate(`/knowledge/board/${boardId}`)}
+                  >
+                    {t('boardOriginOpen')}
+                  </button>
+                </div>
+              ) : null;
+            })()}
             {editing ? (
               /* Saving re-embeds when the content changed (updateDocument), so a
                  corrected source is searchable again straight away. */

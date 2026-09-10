@@ -73,6 +73,32 @@ export function useFaqImport() {
   });
 }
 
+export function useKbCandidates(params: { group?: string; search?: string; page?: number }, enabled: boolean) {
+  const tenantKey = useTenantKey();
+  return useQuery({
+    queryKey: ['board', tenantKey, 'kb-candidates', params],
+    queryFn: () => boardService.kbCandidates(params),
+    placeholderData: keepPreviousData,
+    enabled,
+  });
+}
+
+export function useImportFromKb() {
+  const invalidate = useBoardInvalidatorExported();
+  const qc = useQueryClient();
+  const tenantKey = useTenantKey();
+  return useMutation({
+    mutationFn: (ids: string[]) => boardService.importFromKb(ids),
+    onSuccess: () => {
+      invalidate();
+      void qc.invalidateQueries({ queryKey: ['board', tenantKey, 'kb-candidates'] });
+      void qc.invalidateQueries({ queryKey: ['board', tenantKey, 'status-counts'] });
+      // The KB detail now carries boardDocumentId for the imported rows.
+      void qc.invalidateQueries({ queryKey: ['knowledge', tenantKey] });
+    },
+  });
+}
+
 export function useCreateBoardDocument() {
   const invalidate = useBoardInvalidatorExported();
   const { t } = useTranslation('board');

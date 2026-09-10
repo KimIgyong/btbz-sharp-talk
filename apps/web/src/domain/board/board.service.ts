@@ -150,6 +150,25 @@ export interface FaqImportResult {
   errors: Array<{ row: number; reason: string }>;
 }
 
+/** KB document eligible to be managed on the board (PLN-260910 KB import). */
+export interface KbCandidate {
+  id: string;
+  title: string;
+  category: string | null;
+  source: string;
+  docGroup: string;
+  updatedAt: string;
+  linkedBoardDocumentId: string | null;
+}
+
+export interface KbImportResult {
+  requested: number;
+  created: number;
+  skipped: number;
+  invalid: number;
+  errors: Array<{ id: number; reason: string }>;
+}
+
 export interface BoardDocumentInput {
   doc_group?: string;
   category1: string;
@@ -215,4 +234,13 @@ export const boardService = {
     return apiPostForm<FaqImportResult>('/board/import', form);
   },
   linkGraph: (id: string) => apiGet<BoardLinkGraph>(`/board/documents/${id}/backlinks`),
+  kbCandidates: (params: { group?: string; search?: string; page?: number; size?: number }) =>
+    apiGetList<KbCandidate>('/board/import/kb-candidates', {
+      ...(params.group ? { group: params.group } : {}),
+      ...(params.search ? { search: params.search } : {}),
+      page: params.page ?? 1,
+      size: params.size ?? 20,
+    }),
+  importFromKb: (documentIds: string[]) =>
+    apiPost<KbImportResult>('/board/import/kb', { document_ids: documentIds.map(Number) }),
 };
