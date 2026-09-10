@@ -73,7 +73,10 @@ export function useFaqImport() {
   });
 }
 
-export function useKbCandidates(params: { group?: string; search?: string; page?: number }, enabled: boolean) {
+export function useKbCandidates(
+  params: { group?: string; search?: string; page?: number; size?: number },
+  enabled: boolean,
+) {
   const tenantKey = useTenantKey();
   return useQuery({
     queryKey: ['board', tenantKey, 'kb-candidates', params],

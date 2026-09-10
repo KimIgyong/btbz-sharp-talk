@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Modal } from '@/components/Modal';
 import { Button } from '@/components/Button';
-import { Input } from '@/components/Field';
+import { Input, Select } from '@/components/Field';
 import { Pagination } from '@/components/Pagination';
 import { toast } from '@/store/toast-store';
 import { useImportFromKb, useKbCandidates } from './board.hooks';
 import type { KbCandidate } from './board.service';
 
 const GROUPS = ['counsel', 'product', 'operation'] as const;
+/** Server caps a page at 100 (normalizePage). */
+const PAGE_SIZES = [10, 20, 50, 100] as const;
 
 /**
  * Bring existing KB documents onto the board (PLN-260910-Board-Back-Editor-KB-Import
@@ -27,9 +29,10 @@ export function KbImportModal({ open, onClose }: { open: boolean; onClose: () =>
   const [searchDraft, setSearchDraft] = useState('');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [size, setSize] = useState<number>(20);
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
-  const candidates = useKbCandidates({ group, search: search || undefined, page }, open);
+  const candidates = useKbCandidates({ group, search: search || undefined, page, size }, open);
   const importKb = useImportFromKb();
   const rows = candidates.data?.items ?? [];
   const selectable = rows.filter((r) => !r.linkedBoardDocumentId);
@@ -125,6 +128,21 @@ export function KbImportModal({ open, onClose }: { open: boolean; onClose: () =>
           }}
           className="ml-auto h-8 w-56"
         />
+        <Select
+          value={String(size)}
+          aria-label={t('kbImportPageSizeLabel')}
+          onChange={(e) => {
+            setSize(Number(e.target.value));
+            setPage(1);
+          }}
+          className="h-8 w-28"
+        >
+          {PAGE_SIZES.map((n) => (
+            <option key={n} value={n}>
+              {t('kbImportPageSize', { n })}
+            </option>
+          ))}
+        </Select>
       </div>
 
       <div className="max-h-96 overflow-y-auto rounded-md border border-gray-200">

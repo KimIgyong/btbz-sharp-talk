@@ -120,5 +120,7 @@
   "kbImportSelected": "{{count}} selected",
   "kbImportRun": "Bring onto board ({{count}})",
   "kbImportDone": "Brought onto the board: {{created}} · skipped (already on board): {{skipped}}",
-  "kbImportInvalid": "not eligible"
+  "kbImportInvalid": "not eligible",
+  "kbImportPageSize": "{{n}} per page",
+  "kbImportPageSizeLabel": "Rows per page"
 }

@@ -120,5 +120,7 @@
   "kbImportSelected": "已选 {{count}} 项",
   "kbImportRun": "导入看板 ({{count}})",
   "kbImportDone": "已导入看板 {{created}} 项 · 跳过（已在看板）{{skipped}} 项",
-  "kbImportInvalid": "不符合条件"
+  "kbImportInvalid": "不符合条件",
+  "kbImportPageSize": "每页 {{n}} 条",
+  "kbImportPageSizeLabel": "每页条数"
 }

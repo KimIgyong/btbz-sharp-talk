@@ -120,5 +120,7 @@
   "kbImportSelected": "{{count}}건 선택",
   "kbImportRun": "보드로 가져오기 ({{count}})",
   "kbImportDone": "보드로 가져옴 {{created}}건 · 건너뜀(이미 보드) {{skipped}}건",
-  "kbImportInvalid": "대상 아님"
+  "kbImportInvalid": "대상 아님",
+  "kbImportPageSize": "{{n}}건씩",
+  "kbImportPageSizeLabel": "페이지당 건수"
 }
