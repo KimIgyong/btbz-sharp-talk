@@ -10,6 +10,10 @@
 | A. **자산 저장소 + 디자인 프로필(토큰)** | 테넌트 루트 규약·등록부 테이블·범용 자산 API + `widget_theme`를 폰트·크기·아이콘 토큰으로 확장 + 설정 스냅샷 | 단일 위젯 빌드·보안 경계 유지, 로고 모델의 자연 확장, 테넌트 단위 백업·삭제 가능, 단계 분리 가능 | 스키마 1테이블, 로더/위젯 프레임 합의 필요 | **채택** |
 | B. 토큰만 확장(파일 없음) | 폰트 프리셋·크기·모서리만 JSON에 추가 | 가장 빠름(1~2일) | "파일 저장·관리"·"테넌트 폴더" 요구 미충족, 커스텀 폰트·아이콘 불가 | A의 P2로 흡수 |
 | C. 테넌트별 테마 번들(CSS/JS/템플릿 업로드) | 파일로 디자인을 통째로 교체 | 무한 자유도 | iframe이 API 오리진과 동일 → 토큰·API 접근 벡터, 위젯 업데이트마다 테넌트 CSS 깨짐(지원 비용), svg 금지 결정과 모순 | **기각** |
+| C′. 정제 CSS(허용목록) 옵션 | 토큰으로 부족한 테넌트에 한해 속성 허용목록 CSS 1파일(≤32KB) — `url()`·`@import`·`position:fixed`·`content`·선택자 외부 참조 금지, 서버 파서(css-tree)로 정규화 후 저장 | 자유도 보강, 배포 무관 | 위젯 업데이트 시 클래스 변경으로 깨질 수 있음(안정 클래스 `st-*` 계약 필요), 유출 벡터 차단을 파서가 책임 | **P4 옵션**(기본 OFF, 테넌트 플래그) |
+| D. 테넌트별 위젯 빌드 분리 | 테넌트마다 SPA 빌드·배포 | 완전 분리 | 빌드·보안패치·회귀가 테넌트 수만큼, SDK/앱모드/릴레이 계약 분기 | **기각**(REQ §2.1 c) |
+
+**2차 요구("백엔드·배포와 분리")는 A안에 흡수**: 디자인=테넌트 데이터+자산+버전, 게시=데이터 전환, 코드 배포 불필요. 정적 라이브 파일(D-14)로 서빙까지 API에서 분리.
 
 ## 1. 설계 결정
 
@@ -26,6 +30,10 @@
 | D-9 | 권한·감사 | 업로드/삭제/스냅샷: `@RequireRank(MASTER, DIRECTOR)`; 목록: 동일; 공개 자산: `@Public`. 모든 변경 `AuditService.write` |
 | D-10 | 콘솔 | 설정 > 위젯: [디자인 파일] 카드(신규) + 위젯 테마 카드 확장(폰트·크기·모서리·패널·아이콘) + 미리보기 반영. 설정 > 기타: [설정 스냅샷] 카드(신규). i18n 6언어 |
 | D-11 | 어드민(선택, P3) | 테넌트 목록에 자산 용량 컬럼·상한 조정(요금제 축) |
+| D-12 | **디자인 버전(2차)** | 신규 테이블 `widget_design_versions`(id, tenant_id, version int, status draft/live/archived, theme_json, asset_manifest json, note, created_by, published_at, created_at; `(tenant_id, version)` uniq, live는 테넌트당 1). 콘솔 [위젯 테마] 저장=**초안 갱신**, [게시]=초안→live(이전 live→archived), [롤백]=archived→live 복제. `tenants.widget_theme`는 **live 사본**(세션/위젯 계약 무변경) — 게시 시에만 갱신 |
+| D-13 | **디자인 패키지 이관(2차)** | `GET /tenants/widget-design/export`(zip: design.json + assets/…) / `POST …/import`(zip → 자산 등록 + 초안 생성, 미리보기 후 게시). 다른 테넌트·환경으로 복제 가능. 스냅샷(D-8)과 분리: 스냅샷은 설정 전체, 패키지는 위젯 디자인만 |
+| D-14 | **정적 라이브 파일(2차, 선택 b)** | 게시 시 API가 `tenants/{id}/widget/live/design.json`(정규화 결과+자산 URL)을 기록. nginx `location /widget-design/{slug}/live.json` → 볼륨 직접 서빙(`no-cache`), 자산은 버전 URL immutable. 로더가 `?shop`으로 먼저 읽어 첫 페인트 → API 부팅·세션 왕복과 무관. 세션 응답 `widgetTheme`는 동일 값(단일 쓰기 경로) |
+| D-15 | **미리보기(2차)** | 콘솔 미리보기 iframe에 `?preview=<draftToken>`로 초안 주입(서명 토큰 10분, master/director 발급) — 고객에게는 노출되지 않음 |
 
 ## 2. 단계
 
@@ -33,15 +41,17 @@
 |---|---|---|---|
 | **P1 자산 저장소** | D-1~D-4, D-9, 콘솔 [디자인 파일] 카드, SQL `tenant_assets` | API `tenant-asset` 모듈(서비스·컨트롤러·매퍼·spec), 콘솔 카드, 마이그레이션 | 업로드→목록→공개 URL immutable→삭제 왕복, 상한·거부 코드, 실부팅 |
 | **P2 디자인 프로필** | D-5~D-7, 테마 카드 확장·미리보기, 위젯·로더 | types 정규화·spec, 위젯 CSS 변수/`@font-face`/아이콘, 로더 `frame` 계약 테스트 | 프리셋·커스텀 폰트·크기·패널 크기가 스테이징 실제 스토어 임베드에서 반영, 구 캐시 호환 |
-| **P3 설정 스냅샷** | D-8, 콘솔 [설정 스냅샷] 카드, (선택) 어드민 용량 | export/import/restore API·spec, 카드 | 스냅샷 생성→다운로드→복원(diff 미리보기) 왕복, 시크릿 미포함 검증 |
+| **P3 디자인 버전·이관(2차)** | D-12·D-13·D-15, SQL `widget_design_versions`, 콘솔 초안/게시/롤백/미리보기, 패키지 zip | API `widget-design` 모듈·spec, 콘솔 버전 패널 | 초안 저장→미리보기→게시→고객 위젯 반영(배포 없음)→롤백 왕복, zip 내보내기→다른 테넌트 가져오기 |
+| **P4 정적 라이브 파일 + 설정 스냅샷** | D-14(nginx 위치·로더 선읽기)·D-8, (선택) 어드민 용량 | nginx conf·로더 계약 테스트, snapshots API·카드 | API 중지 상태에서도 위젯 첫 페인트가 테넌트 디자인, 스냅샷 왕복 |
+| **P5 정제 CSS 옵션(선택)** | C′ — 플래그·파서·안정 클래스 계약 | sanitizer spec(유출 벡터 케이스), 카드 | 금지 구문 전부 거부, 허용 CSS만 적용 |
 
-예상 규모: P1 2일 · P2 2~3일 · P3 1.5일(각 단계 REQ 승인 후 TCR/RPT 동반).
+예상 규모: P0 0.5일 · P1 2일 · P2 2~3일 · P3 2일 · P4 1.5일 · P5 2일(선택). 각 단계 착수 시 세부 PLN 보강·승인, TCR/RPT 동반.
 
 ## 3. 백엔드 작업 (P1 기준, P2/P3는 단계 착수 시 상세화)
 
 | # | 파일 | 작업 |
 |---|---|---|
-| B-1 | `sql/2609xx-tenant-assets.sql` + `docker/init-sql/01-schema.sql` + manifest | D-2 테이블 |
+| B-1 | `sql/2609xx-tenant-assets.sql` + `docker/init-sql/01-schema.sql` + manifest | D-2 테이블 (P3에서 `widget_design_versions` 추가) |
 | B-2 | `domain/tenant-asset/entity/tenant-asset.entity.ts` | 엔티티(nullable 컬럼 `type` 명시) |
 | B-3 | `domain/tenant-asset/tenant-asset.service.ts` | 저장 루트 `tenants/{id}/{area}`, kind별 검증(sharp·매직바이트), 상한 집계, soft delete+참조 카운트 unlink |
 | B-4 | `domain/tenant-asset/tenant-asset.controller.ts` | `GET/POST /tenants/assets?area=`, `DELETE /tenants/assets/:uuid`, 공개 `GET /tenants/widget-branding/asset/:uuid` |
@@ -87,7 +97,19 @@
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-### 5.3 설정 > 기타 — 설정 스냅샷 (P3)
+### 5.2′ 설정 > 위젯 — 디자인 버전 (P3)
+```
+┌ 디자인 버전 ──────────────────────────────────────────────────┐
+│ 초안 v7 (수정 9/10 14:02, dev@)   [미리보기]  [게시]            │
+│ 라이브 v6  게시 9/9 18:40  by dev@   ← 고객 위젯이 보는 버전     │
+│ 이전  v5 9/8 · v4 9/7 · v3 9/1 …                [v5로 롤백]     │
+│ [패키지 내보내기 (zip)]  [패키지 가져오기 → 초안으로]              │
+│ · 게시는 즉시 반영되며 코드 배포와 무관합니다. 잘못 게시하면 롤백하세요 │
+└──────────────────────────────────────────────────────────────┘
+미리보기 = 콘솔 안 실제 위젯 iframe(?preview=토큰) — 고객에게는 노출되지 않음
+```
+
+### 5.3 설정 > 기타 — 설정 스냅샷 (P4)
 ```
 ┌ 설정 스냅샷 ───────────────────────────── [지금 내보내기] ┐
 │ 이름 | 생성일 | 크기 | 항목 | 동작                            │
@@ -107,6 +129,8 @@
 | 보안(SI-5) | svg/css/js 거부, 폰트만 CORS, sharp 재인코딩, `@Public`은 공개 kind만 |
 | 첫 페인트(SI-6) | `font-display: swap`, 테마 캐시에 폰트 URL 포함 |
 | 프라이버시(SI-8) | 스냅샷 화이트리스트, 시크릿 제외 spec |
+| 버전·롤백(SI-13) | 초안/라이브 분리, 롤백 1클릭, 게시 감사, 초안 미리보기 토큰 |
+| 정적 서빙(SI-14/15) | 쓰기 경로는 API 하나, 라이브 파일 no-cache·자산 immutable, 로더 선읽기 후 세션 값과 동일 |
 
 ## 7. 리스크
 - **테넌트 상한과 볼륨 총량**: 상한은 코드에 두되 값은 env(`TENANT_ASSET_QUOTA_MB`)로 — 요금제 연동은 P3 어드민에서.
