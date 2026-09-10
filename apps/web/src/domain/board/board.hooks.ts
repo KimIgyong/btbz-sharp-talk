@@ -14,6 +14,28 @@ export function useBoardDocuments(params: BoardListParams) {
   });
 }
 
+/**
+ * Review-queue numbers for the knowledge page's board card (PLN-260910 D-5):
+ * published = waiting for review, promoted = adopted. Two size-1 list calls
+ * reuse the existing endpoint's pagination.total — no new API for two numbers.
+ */
+export function useBoardStatusCounts() {
+  const tenantKey = useTenantKey();
+  return useQuery({
+    queryKey: ['board', tenantKey, 'status-counts'],
+    queryFn: async () => {
+      const [published, promoted] = await Promise.all([
+        boardService.documents({ status: 'published', page: 1, size: 1 }),
+        boardService.documents({ status: 'promoted', page: 1, size: 1 }),
+      ]);
+      return {
+        pendingReview: published.total,
+        promoted: promoted.total,
+      };
+    },
+  });
+}
+
 export function useBoardCategoryCounts() {
   const tenantKey = useTenantKey();
   return useQuery({

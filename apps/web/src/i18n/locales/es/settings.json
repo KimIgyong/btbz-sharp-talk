@@ -613,5 +613,11 @@
     "replaceWarning": "Al guardar, el secreto se reemplaza de inmediato. Cambia también el sistema emisor o sus webhooks empezarán a fallar.",
     "widgetPointer": "Para el widget, ve a Ajustes del widget → Inserción y SDK."
   },
-  "integrationGuide": "Guía de integración"
+  "integrationGuide": "Guía de integración",
+  "knowledgeOptions": {
+    "title": "Opciones de conocimiento",
+    "usageGuides": "Usar guías de uso de productos",
+    "usageGuidesHint": "Gestione el conocimiento de uso por tipo de producto. Útil para tiendas: al activarlo aparece la sección “Guías de uso” en la página Conocimiento. Desactivarlo solo oculta la sección — las guías escritas y sus citas se conservan.",
+    "saved": "Opciones de conocimiento guardadas"
+  }
 }

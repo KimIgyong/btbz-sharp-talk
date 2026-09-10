@@ -613,5 +613,11 @@
     "replaceWarning": "Saving replaces the secret immediately. Update the sending system in the same change, or its webhooks start failing.",
     "widgetPointer": "For the widget itself, see Widget settings → Embed & SDK."
   },
-  "integrationGuide": "Integration guide"
+  "integrationGuide": "Integration guide",
+  "knowledgeOptions": {
+    "title": "Knowledge options",
+    "usageGuides": "Use product usage guides",
+    "usageGuidesHint": "Manage how-to-use knowledge per product type. Useful for shops: when on, a “Usage guides” section appears on the Knowledge page. Turning it off hides the section only — written guides and their citations stay.",
+    "saved": "Knowledge options saved"
+  }
 }

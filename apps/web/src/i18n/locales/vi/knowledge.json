@@ -1,6 +1,6 @@
 {
   "title": "Kho tri thức",
-  "subtitle": "Quản lý nguồn và tài liệu",
+  "subtitle": "Nguồn, bảng và tài liệu KB",
   "sources": "Nguồn",
   "documents": "Tài liệu KB",
   "addSource": "Thêm nguồn",
@@ -335,7 +335,7 @@
   "usageTypeTakenHint": "Có {{count}} sản phẩm khớp, nhưng \"{{type}}\" ở phía trên nhận chúng. Hãy đưa loại này lên trên hoặc thu hẹp từ khóa.",
   "statusPendingHint": "Đã được dùng trong câu trả lời qua tìm kiếm từ khóa; chỉ còn chờ chỉ mục ngữ nghĩa.",
   "statusLegend": "Tài liệu “đang chờ” vẫn được tìm bằng từ khóa — chỉ tìm kiếm ngữ nghĩa là phải đợi chỉ mục.",
-  "sourcesHint": "Kênh giữ cho tài liệu bên ngoài luôn được đồng bộ. Chưa đồng bộ thì chưa thành tri thức — nếu chỉ cần một lần, \"Thêm tài liệu KB\" nhanh hơn.",
+  "sourcesHint": "Đường dẫn giữ tài liệu bên ngoài luôn mới. Chưa đồng bộ thì chưa thành tri thức — tài liệu chỉ cần lấy một lần thì viết thẳng lên bảng sẽ nhanh hơn.",
   "categoryAgentsAll": "Mọi trợ lý",
   "categoryAgentsSome": "{{count}}/{{total}} trợ lý",
   "categoryAgentsTitle": "Trợ lý nào được dùng danh mục này",
@@ -348,16 +348,19 @@
   "guide": {
     "title": "Tri thức đến đây bằng cách nào",
     "collapse": "Thu gọn",
+    "intro": "Trợ lý AI của SharpTalk chỉ trả lời dựa trên nội dung định nghĩa trong tài liệu KB. Tài sản sẵn có trên Notion, Google Drive hoặc tệp — chính sách, hướng dẫn, sổ tay — được đưa vào làm Nguồn, đồng bộ, soạn và duyệt trên Bảng, rồi được chấp nhận thành tài liệu KB mà trợ lý thực sự trích dẫn.",
     "step1Title": "Nguồn",
-    "step1Body": "Drive hoặc Notion — là kênh dẫn, chưa phải tri thức.",
+    "step1Body": "Drive hoặc Notion — kết nối tài sản bạn đã có. Mới là đường dẫn, chưa phải tri thức.",
     "step2Title": "Đồng bộ",
-    "step2Body": "Kéo nội dung về. Chưa chạy thì nguồn không đóng góp gì.",
-    "step3Title": "Hướng dẫn sử dụng",
-    "step3Body": "Viết theo loại sản phẩm, được trích dẫn cùng mọi sản phẩm cùng loại.",
+    "step2Body": "[Đồng bộ] trên dòng nguồn sẽ kéo nội dung về. Chưa chạy thì nguồn chưa đóng góp gì.",
+    "step3Title": "Bảng",
+    "step3Body": "Soạn thảo và duyệt lần đầu. Đăng, kiểm tra bằng mô phỏng rồi chấp nhận.",
     "step4Title": "Tài liệu KB",
-    "step4Body": "Thứ duy nhất câu trả lời dựa vào.",
-    "noteSource": "Bạn cũng có thể viết trực tiếp một tài liệu KB, đồng bộ danh mục sản phẩm, hoặc nhập CSV — cả bốn đều về cùng một chỗ.",
-    "noteCategory": "Danh mục vừa là nhãn phân loại, vừa quyết định trợ lý nào được trích dẫn nếu bạn thu hẹp nó."
+    "step4Body": "Căn cứ duy nhất của mọi câu trả lời.",
+    "jumpHint": "Nhấp vào một bước để chuyển đến phần tương ứng.",
+    "noteSource": "Đường tắt không qua bảng: thêm tài liệu KB trực tiếp, đồng bộ danh mục hoặc nhập CSV sản phẩm — tất cả đều về tài liệu KB.",
+    "noteCategory": "Danh mục vừa là nhãn phân loại, vừa quyết định trợ lý nào được trích dẫn nếu bạn thu hẹp nó.",
+    "noteOptionalGuides": "Tùy chọn: hướng dẫn sử dụng theo loại sản phẩm đang bật cho đơn vị này — xem phần bên dưới Nguồn."
   },
   "help": {
     "whatItDoes": "Chức năng",
@@ -431,9 +434,6 @@
     "E5069": "Đang có phân tích chạy — hãy chờ hoàn tất.",
     "E5070": "Không có phụ đề (phụ đề bị tắt hoặc không phải video YouTube)."
   },
-  "boardBannerTitle": "Smart Knowledge Board",
-  "boardBannerBody": "Tri thức được viết và duyệt trên bảng trước. Đăng tài liệu, kiểm tra bằng mô phỏng rồi đưa vào KB.",
-  "boardBannerCta": "Mở bảng",
   "sourceBadge": {
     "knowledge_store": "trực tiếp",
     "board": "bảng",
@@ -448,5 +448,12 @@
   "ingestDoneBoard": "Đã đăng {{saved}} tài liệu lên bảng — hãy duyệt rồi đưa vào KB",
   "writeOnBoard": "Viết trên bảng",
   "directAddHint": "Khuyến nghị: viết và duyệt trên bảng trước rồi mới đưa vào. Thêm trực tiếp chỉ dành cho trường hợp khẩn.",
-  "ingestViewBoard": "Xem trên bảng"
+  "ingestViewBoard": "Xem trên bảng",
+  "boardCard": {
+    "title": "Smart Knowledge Board",
+    "open": "Mở bảng",
+    "write": "Viết lên bảng",
+    "body": "Tài sản từ nguồn và tri thức mới được viết và đăng trên bảng trước, kiểm tra bằng mô phỏng rồi chấp nhận thành tài liệu KB.",
+    "counts": "Chờ duyệt {{pending}} · đã chấp nhận {{promoted}}"
+  }
 }

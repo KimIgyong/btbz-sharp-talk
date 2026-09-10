@@ -613,5 +613,11 @@
     "replaceWarning": "Lưu sẽ thay khóa ngay lập tức. Hãy cập nhật hệ thống gửi trong cùng lần thay đổi, nếu không webhook sẽ bắt đầu lỗi.",
     "widgetPointer": "Với widget, xem Cài đặt widget → Nhúng & SDK."
   },
-  "integrationGuide": "Hướng dẫn kết nối"
+  "integrationGuide": "Hướng dẫn kết nối",
+  "knowledgeOptions": {
+    "title": "Tùy chọn tri thức",
+    "usageGuides": "Dùng hướng dẫn sử dụng sản phẩm",
+    "usageGuidesHint": "Quản lý tri thức cách dùng theo loại sản phẩm. Hữu ích cho cửa hàng: khi bật, phần “Hướng dẫn sử dụng” xuất hiện trên trang Tri thức. Tắt chỉ ẩn phần này — hướng dẫn đã viết và trích dẫn vẫn giữ nguyên.",
+    "saved": "Đã lưu tùy chọn tri thức"
+  }
 }

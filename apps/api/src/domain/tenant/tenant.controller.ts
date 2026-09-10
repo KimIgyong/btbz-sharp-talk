@@ -32,6 +32,7 @@ import {
   UpdatePrivacyNoticeRequest,
   UpdateShopifySettingsRequest,
   UpdateStorefrontRequest,
+  UpdateKnowledgeSettingsRequest,
   UpdateNotificationChannelsRequest,
   UpdateWidgetThemeRequest,
   UpdateEmbedOriginsRequest,
@@ -42,7 +43,7 @@ import {
   UpdateTenantWorkflowModeRequest,
 } from './dto/request/tenant.request';
 import { Paginated } from '../../global/interceptor/transform.interceptor';
-import { AdminOnly, Auth, RequireCapability, RequireRank } from '../../global/decorator/auth.decorator';
+import { AdminOnly, Auth, RequireCapability, RequireMenu, RequireRank } from '../../global/decorator/auth.decorator';
 import { Public } from '../../global/decorator/public.decorator';
 import { CurrentUser } from '../../global/decorator/current-user.decorator';
 import { BusinessException } from '../../global/exception/business.exception';
@@ -131,6 +132,31 @@ export class TenantController {
     }
     const tenant = await this.tenantService.updateStorefront(user.tenantId, user.userId, body);
     return TenantMapper.toStorefront(tenant);
+  }
+
+  // Declared before ':uuid' so 'knowledge-settings' is not captured as a UUID.
+  // GET is menu-gated, not rank-gated: every knowledge-page visitor (staff too)
+  // needs the switch to render the page; only master/director may flip it.
+  @Get('knowledge-settings')
+  @RequireMenu('knowledge')
+  @ApiOperation({ summary: 'Knowledge-page options (usage-guides section switch)' })
+  async getKnowledgeSettings(@CurrentUser() user: Principal) {
+    return TenantMapper.toKnowledgeSettings(await this.tenantService.findById(this.tenantId(user)));
+  }
+
+  @Patch('knowledge-settings')
+  @RequireRank(USER_RANK.MASTER, USER_RANK.DIRECTOR)
+  @ApiOperation({ summary: 'Set knowledge-page options (usage-guides section switch)' })
+  async updateKnowledgeSettings(
+    @CurrentUser() user: Principal,
+    @Body() body: UpdateKnowledgeSettingsRequest,
+  ) {
+    // @RequireRank guarantees a tenant user at runtime; narrow for TS.
+    if (user.actorType !== 'user') {
+      throw new BusinessException(ERROR_CODE.FORBIDDEN, HttpStatus.FORBIDDEN);
+    }
+    const tenant = await this.tenantService.updateKnowledgeSettings(user.tenantId, user.userId, body);
+    return TenantMapper.toKnowledgeSettings(tenant);
   }
 
   // Declared before ':uuid' so 'notification-channels' is not read as a UUID.

@@ -70,6 +70,10 @@ export interface StorefrontResponse {
   storefrontUrl: string | null;
 }
 
+export interface KnowledgeSettingsResponse {
+  usageGuidesEnabled: boolean;
+}
+
 export interface WidgetSettingsResponse {
   loginMode: WidgetLoginMode;
   /**

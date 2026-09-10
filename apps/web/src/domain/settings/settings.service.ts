@@ -72,6 +72,11 @@ export interface IntegrationTestResult {
 
 /** Widget behavior settings (sign-in mode) — tenant-scoped. */
 /** Customer-facing shop origin; null means product links stay off. */
+/** Knowledge-page options (PLN-260910): the usage-guides section switch. */
+export interface KnowledgeSettings {
+  usageGuidesEnabled: boolean;
+}
+
 export interface Storefront {
   storefrontUrl: string | null;
 }
@@ -153,6 +158,11 @@ export const settingsService = {
     apiPatch<NotificationChannels>('/tenants/notification-channels', { channels }),
   updateStorefront: (storefrontUrl: string) =>
     apiPatch<Storefront>('/tenants/storefront', { storefront_url: storefrontUrl }),
+  knowledgeSettings: () => apiGet<KnowledgeSettings>('/tenants/knowledge-settings'),
+  updateKnowledgeSettings: (usageGuidesEnabled: boolean) =>
+    apiPatch<KnowledgeSettings>('/tenants/knowledge-settings', {
+      usage_guides_enabled: usageGuidesEnabled,
+    }),
   saveWidgetSettings: (
     loginMode: WidgetLoginMode,
     timezone?: string | null,

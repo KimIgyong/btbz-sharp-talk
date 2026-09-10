@@ -1,5 +1,6 @@
 import {
   ArrayMaxSize,
+  IsBoolean,
   ArrayNotEmpty,
   IsArray,
   IsIn,
@@ -147,6 +148,11 @@ export class UpdatePrivacyNoticeRequest {
 export class UpdateStorefrontRequest {
   /** Customer-facing shop origin. Empty clears it (and disables product links). */
   @IsOptional() @IsString() storefront_url?: string | null;
+}
+
+/** Knowledge-page options (PLN-260910): the usage-guides section switch. */
+export class UpdateKnowledgeSettingsRequest {
+  @IsBoolean() usage_guides_enabled: boolean;
 }
 
 export class UpdateWidgetSettingsRequest {

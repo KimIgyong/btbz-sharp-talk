@@ -31,6 +31,7 @@
 260826-conversation-pin.sql	column	conversations	pinned_at
 260826-conversation-pin.sql	column	conversations	pinned_by
 260826-conversation-pin.sql	index	conversations	idx_conv_tenant_pinned
+260910-tenant-usage-guides-flag.sql	column	tenants	usage_guides_enabled
 migration_agent_coaching.sql	table	agent_coaching_threads	-
 migration_agent_coaching.sql	table	agent_coaching_messages	-
 migration_agent_coaching.sql	table	agent_coaching_proposals	-

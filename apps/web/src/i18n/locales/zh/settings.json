@@ -613,5 +613,11 @@
     "replaceWarning": "保存后密钥立即被替换。请同时更新发送方，否则其 webhook 会从此失败。",
     "widgetPointer": "挂件本身请见挂件设置 → 嵌入与 SDK。"
   },
-  "integrationGuide": "连接指南"
+  "integrationGuide": "连接指南",
+  "knowledgeOptions": {
+    "title": "知识选项",
+    "usageGuides": "使用商品使用指南",
+    "usageGuidesHint": "按商品类型管理使用方法知识。适用于商城租户：启用后，知识页面会出现“使用指南”区块。关闭仅隐藏该区块 — 已写好的指南及其引用仍然保留。",
+    "saved": "知识选项已保存"
+  }
 }
