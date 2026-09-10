@@ -1,0 +1,119 @@
+# PLN-260910 — 테넌트 자산 저장소 + 위젯 디자인 프로필 (최적안)
+
+- 근거: `docs/analysis/REQ-260910-Tenant-Asset-Store-Widget-Design.md`
+- 상태: **제안 — 승인 전(구현 미착수)**. 승인 시 단계(P1→P3)별 PR.
+
+## 0. 대안 비교와 선택
+
+| 안 | 내용 | 장점 | 단점/리스크 | 판정 |
+|---|---|---|---|---|
+| A. **자산 저장소 + 디자인 프로필(토큰)** | 테넌트 루트 규약·등록부 테이블·범용 자산 API + `widget_theme`를 폰트·크기·아이콘 토큰으로 확장 + 설정 스냅샷 | 단일 위젯 빌드·보안 경계 유지, 로고 모델의 자연 확장, 테넌트 단위 백업·삭제 가능, 단계 분리 가능 | 스키마 1테이블, 로더/위젯 프레임 합의 필요 | **채택** |
+| B. 토큰만 확장(파일 없음) | 폰트 프리셋·크기·모서리만 JSON에 추가 | 가장 빠름(1~2일) | "파일 저장·관리"·"테넌트 폴더" 요구 미충족, 커스텀 폰트·아이콘 불가 | A의 P2로 흡수 |
+| C. 테넌트별 테마 번들(CSS/JS/템플릿 업로드) | 파일로 디자인을 통째로 교체 | 무한 자유도 | iframe이 API 오리진과 동일 → 토큰·API 접근 벡터, 위젯 업데이트마다 테넌트 CSS 깨짐(지원 비용), svg 금지 결정과 모순 | **기각** |
+
+## 1. 설계 결정
+
+| # | 결정 | 내용 |
+|---|---|---|
+| D-1 | 테넌트 루트 규약 | `UPLOAD_DIR/tenants/{tenantId}/{area}/{uuid}.{ext}`, `area ∈ {design, settings}`(확장 가능: `branding`은 후속 수렴). **기존 경로 이동 없음**(REQ SI-2) |
+| D-2 | 등록부 | 신규 테이블 `tenant_assets`(id bigint, uuid char36 uniq, tenant_id, area, kind[font/icon/image/doc/settings_snapshot], filename, mime, ext, size, sha256, width/height nullable, storage_path, version int, label varchar, created_by, created_at, deleted_at) + `(tenant_id, area)` 인덱스. 삭제=soft(파일은 참조 0일 때 unlink — 보드 첨부의 참조 카운트 자세) |
+| D-3 | 검증 | kind별: font=woff2/ttf/otf ≤2MB(매직바이트), icon=png/webp ≤256KB·≤512px(sharp 재인코딩·정사각 권장), image=png/jpg/webp ≤2MB·≤2000px, doc=pdf/png/jpg ≤10MB(참고용·미적용), settings_snapshot=서버 생성 JSON만. **svg·css·js·html 거부**. 테넌트 상한 design 50MB / settings 20MB(E5081~E5085 신규 블록) |
+| D-4 | 서빙 | 공개 자산(font/icon/image): `GET /tenants/widget-branding/asset/{uuid}?v={version}` `@Public`, `v` 일치 시 `immutable`, 폰트는 `Access-Control-Allow-Origin: *` + `Cross-Origin-Resource-Policy: cross-origin`(iframe 오리진≠호스트 스토어 오리진 대비). 비공개(doc/snapshot): 서명 URL 15분(첨부 `signFileUrl` 재사용) |
+| D-5 | 디자인 프로필 | `widget_theme` JSON 확장(스키마 변경 없음): `font{ preset: 'pretendard'\|'noto-sans-kr'\|'inter'\|'system'\|'custom', assetId?, baseSize: 13~16 }`, `radius: 'sm'\|'md'\|'lg'`, `panel{ width: 360~480, height: 560~760 }`, `icons{ launcher?: assetId, tabs?: {[tab]: assetId} }`. 정규화는 범위 밖 값을 **기본값으로 낙하**(색과 달리 테마 전체를 버리지 않음 — 로고/런처 자세) |
+| D-6 | 위젯 적용 | `buildThemeVariables`에 `--ivy-font-family`·`--ivy-font-size-base`·`--ivy-radius`·`--ivy-panel-w/h` 추가; 커스텀 폰트는 위젯이 `@font-face`(`font-display: swap`)를 동적 삽입. 런처/탭 아이콘은 `<img>`로 교체(마스크 없음, 원본 색 그대로) |
+| D-7 | 로더 프레임 합의 | 위젯 → 로더 `ivy:launcher` 메시지에 `frame:{w,h}` 동봉, 로더는 `OPEN = {w:min(frame.w+40,100vw), h:min(frame.h,100vh)}`로 계산·shop별 캐시(런처와 같은 키 묶음). 앱모드(`?mode=app`) 무시 |
+| D-8 | 설정 스냅샷 | `POST /tenants/settings/snapshots` → 화이트리스트 필드(widget_theme·widget_copy·widget_tabs·widget_tab_position·notification_channels·embed_origins·usage_guides_enabled·timezone·widget_login_mode) + 자산 매니페스트(uuid·sha256)를 JSON으로 `settings/`에 저장(등록부 kind=settings_snapshot, label). `GET …/snapshots`, `GET …/snapshots/:id/download`(서명), `POST …/snapshots/:id/restore` = 미리보기(diff) 후 적용, 감사 `tenant.settings_restored`. **자격증명·시크릿 제외** |
+| D-9 | 권한·감사 | 업로드/삭제/스냅샷: `@RequireRank(MASTER, DIRECTOR)`; 목록: 동일; 공개 자산: `@Public`. 모든 변경 `AuditService.write` |
+| D-10 | 콘솔 | 설정 > 위젯: [디자인 파일] 카드(신규) + 위젯 테마 카드 확장(폰트·크기·모서리·패널·아이콘) + 미리보기 반영. 설정 > 기타: [설정 스냅샷] 카드(신규). i18n 6언어 |
+| D-11 | 어드민(선택, P3) | 테넌트 목록에 자산 용량 컬럼·상한 조정(요금제 축) |
+
+## 2. 단계
+
+| 단계 | 범위 | 산출 | 완료 기준 |
+|---|---|---|---|
+| **P1 자산 저장소** | D-1~D-4, D-9, 콘솔 [디자인 파일] 카드, SQL `tenant_assets` | API `tenant-asset` 모듈(서비스·컨트롤러·매퍼·spec), 콘솔 카드, 마이그레이션 | 업로드→목록→공개 URL immutable→삭제 왕복, 상한·거부 코드, 실부팅 |
+| **P2 디자인 프로필** | D-5~D-7, 테마 카드 확장·미리보기, 위젯·로더 | types 정규화·spec, 위젯 CSS 변수/`@font-face`/아이콘, 로더 `frame` 계약 테스트 | 프리셋·커스텀 폰트·크기·패널 크기가 스테이징 실제 스토어 임베드에서 반영, 구 캐시 호환 |
+| **P3 설정 스냅샷** | D-8, 콘솔 [설정 스냅샷] 카드, (선택) 어드민 용량 | export/import/restore API·spec, 카드 | 스냅샷 생성→다운로드→복원(diff 미리보기) 왕복, 시크릿 미포함 검증 |
+
+예상 규모: P1 2일 · P2 2~3일 · P3 1.5일(각 단계 REQ 승인 후 TCR/RPT 동반).
+
+## 3. 백엔드 작업 (P1 기준, P2/P3는 단계 착수 시 상세화)
+
+| # | 파일 | 작업 |
+|---|---|---|
+| B-1 | `sql/2609xx-tenant-assets.sql` + `docker/init-sql/01-schema.sql` + manifest | D-2 테이블 |
+| B-2 | `domain/tenant-asset/entity/tenant-asset.entity.ts` | 엔티티(nullable 컬럼 `type` 명시) |
+| B-3 | `domain/tenant-asset/tenant-asset.service.ts` | 저장 루트 `tenants/{id}/{area}`, kind별 검증(sharp·매직바이트), 상한 집계, soft delete+참조 카운트 unlink |
+| B-4 | `domain/tenant-asset/tenant-asset.controller.ts` | `GET/POST /tenants/assets?area=`, `DELETE /tenants/assets/:uuid`, 공개 `GET /tenants/widget-branding/asset/:uuid` |
+| B-5 | `global/constant/error-code.constant.ts` | E5081~E5085(형식·크기·픽셀·상한·kind) |
+| B-6 | `tenant.module.ts`/`app.module.ts` | 모듈 등록 |
+| B-7 | spec | 검증 6케이스·상한·immutable 헤더·참조 카운트 |
+
+## 4. 콘솔 작업 (P1)
+
+| # | 파일 | 작업 |
+|---|---|---|
+| W-1 | `settings/DesignAssetsCard.tsx`(신규) · `SettingsWidgetPage.tsx` | 업로드(드래그·다중)·kind 탭·목록(썸네일/폰트 미리보기 텍스트)·용량 게이지·삭제·URL 복사 |
+| W-2 | `settings/settings.service.ts`·`hooks` | assets/list/upload/remove |
+| W-3 | i18n 6언어 | `settings.designAssets.*` |
+
+## 5. UI 와이어프레임
+
+### 5.1 설정 > 위젯 — 디자인 파일 (P1)
+```
+┌ 디자인 파일 ─────────────────────────── 12.4 / 50 MB ▓▓░░░░░░ ┐
+│ [폰트] [아이콘] [이미지] [시안·가이드]              [파일 추가 ▲] │
+│ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ Aa  BrandSans-Regular.woff2   폰트  212 KB  v3  9/10  [URL][🗑] │ │
+│ │ 🖼  launcher-heart.png         아이콘 24 KB  v1  9/10  [URL][🗑] │ │
+│ │ 📄  IVY-Widget-Guide.pdf      시안  3.1 MB  v1  9/9   [↓][🗑]   │ │
+│ └─────────────────────────────────────────────────────────────┘ │
+│ · 폰트 woff2/ttf/otf ≤2MB · 아이콘 png/webp ≤256KB ≤512px · svg/css/js 불가 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 5.2 설정 > 위젯 — 위젯 테마 카드 확장 (P2)
+```
+┌ 위젯 테마 ─────────────────────────────────────────────────────┐
+│ 브랜드색 [#2B7FFF]  헤더 (●흰색 ○브랜드)  로고 [업로드]   (기존)   │
+│ 런처   위치 (○왼쪽 ●오른쪽) 크기 (○sm ●md ○lg)                   │
+│        아이콘 (○chat ○question ○headset ○로고 ●업로드: launcher-heart.png ▾) │
+│ 폰트   (●프리셋 Pretendard ▾ ○업로드 BrandSans ▾)  기본 크기 [14 ▾]px │
+│ 모서리 (○sm ●md ○lg)                                              │
+│ 패널   폭 [404 ▾] px (360~480)   높이 [680 ▾] px (560~760)         │
+│ ┌ 미리보기 ───────────────────┐  ※ 모바일·앱모드는 화면 크기를 따릅니다 │
+│ │ (브랜드색·폰트·크기·아이콘 반영) │                                     │
+│ └─────────────────────────────┘                          [저장]    │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### 5.3 설정 > 기타 — 설정 스냅샷 (P3)
+```
+┌ 설정 스냅샷 ───────────────────────────── [지금 내보내기] ┐
+│ 이름 | 생성일 | 크기 | 항목 | 동작                            │
+│ 2026-09-10 배포 전 | 9/10 11:20 | 8 KB | 테마·문구·탭·알림·오리진 | [↓][복원] │
+│ 복원 → 변경 항목 diff 미리보기 모달 → [적용]                    │
+│ · 연동 자격증명·임베드 시크릿은 포함되지 않습니다                   │
+└──────────────────────────────────────────────────────────┘
+```
+
+## 6. 측면 영향 (REQ §4 대응 요약)
+| 항목 | 대응 |
+|---|---|
+| 볼륨(SI-1) | **P0(선행, 별건 FIX)**: production compose에 API uploads 볼륨·`UPLOAD_DIR` 추가 — 실측상 현재 누락. `pre-deploy-check` 항목 추가 |
+| 기존 경로(SI-2) | 무이동. 로고 서비스는 P2에서 등록부 참조로 수렴 검토(경로 유지) |
+| 캐시 스큐(SI-3) | optional 필드+기본값, 정규화 미지 필드 무시(기존) |
+| 프레임(SI-4) | D-7 메시지 계약 + 로더 계약 테스트 |
+| 보안(SI-5) | svg/css/js 거부, 폰트만 CORS, sharp 재인코딩, `@Public`은 공개 kind만 |
+| 첫 페인트(SI-6) | `font-display: swap`, 테마 캐시에 폰트 URL 포함 |
+| 프라이버시(SI-8) | 스냅샷 화이트리스트, 시크릿 제외 spec |
+
+## 7. 리스크
+- **테넌트 상한과 볼륨 총량**: 상한은 코드에 두되 값은 env(`TENANT_ASSET_QUOTA_MB`)로 — 요금제 연동은 P3 어드민에서.
+- **커스텀 폰트 라이선스**: 업로드한 폰트의 웹 배포 권리는 테넌트 책임 — 업로드 UI에 고지 문구.
+- **아이콘 마스킹 불가**: 업로드 아이콘은 브랜드색 마스크가 적용되지 않으므로(원본 색), 미리보기에서 확인하도록 안내.
+- **로더 프레임 상한**: 480×760 초과는 모바일 클리핑·스토어 UI 가림 → 범위를 강제(요청값이 아니라 정규화값 적용).
+
+## 8. 범위 밖 (기록)
+- 자유 CSS/JS·테마 번들(기각 C안), 테넌트별 위젯 별도 빌드/배포, 이미지 CDN, 기존 첨부·보드·인제스트 경로 이관,
+  Figma 연동 자동 토큰 추출.
