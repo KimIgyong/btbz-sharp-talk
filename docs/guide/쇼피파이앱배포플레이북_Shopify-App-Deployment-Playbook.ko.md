@@ -168,7 +168,7 @@ curl -s -o /dev/null -w "%{http_code}" -X POST -H 'Content-Type: application/jso
 스토어 관리자 → Online Store → Themes → **Edit code** → `layout/theme.liquid`의 `</body>` 직전에:
 ```html
 <script>
-  window.IVY_WIDGET_CONFIG = {
+  window.SHARPTALK_WIDGET_CONFIG = {
     shop: "ambshop-dev.myshopify.com",
     widgetUrl: "https://shoptalk.amoeba.site/widget"
   };

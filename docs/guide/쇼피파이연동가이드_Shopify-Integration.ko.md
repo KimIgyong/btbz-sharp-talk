@@ -75,7 +75,7 @@ apps/api (NestJS)  ──▶ tenant 해석(shopDomain) ──▶ MySQL/Redis/Rab
 
 새 빌드 타깃(예: `apps/widget/embed/embed.ts` → `embed.js`, 의존성 없는 vanilla). 역할:
 
-1. 스토어에서 shop 도메인·설정 확보 → `Shopify.shop` 전역 또는 로더 `data-*`/`window.IVY_WIDGET_CONFIG`.
+1. 스토어에서 shop 도메인·설정 확보 → `Shopify.shop` 전역 또는 로더 `data-*`/`window.SHARPTALK_WIDGET_CONFIG`.
 2. 우측 하단 **런처 버블**과 숨겨진 **`<iframe>`** DOM 삽입.
 3. iframe `src`에 `?shop=<shop_domain>&locale=<lang>` 부착.
 4. iframe와 `postMessage`로 통신(열기/닫기, 패널 크기 리사이즈, 안읽음 배지).
@@ -93,7 +93,7 @@ apps/api (NestJS)  ──▶ tenant 해석(shopDomain) ──▶ MySQL/Redis/Rab
 ```js
 // embed.js (개념 골격)
 (function () {
-  var cfg = window.IVY_WIDGET_CONFIG || {};
+  var cfg = window.SHARPTALK_WIDGET_CONFIG || {};
   var shop = cfg.shop || (window.Shopify && window.Shopify.shop) || '';
   var base = cfg.widgetUrl || 'https://widget.ivyusa.app';
   var locale = (cfg.locale || document.documentElement.lang || 'en').slice(0, 2);
@@ -156,7 +156,7 @@ export function ensureSession(sessionToken: string | null, locale: string, shopD
 ```liquid
 {%- comment -%} extensions/btbz-sharptalk/blocks/app-embed.liquid {%- endcomment -%}
 <script>
-  window.IVY_WIDGET_CONFIG = {
+  window.SHARPTALK_WIDGET_CONFIG = {
     shop: {{ shop.permanent_domain | json }},
     locale: {{ request.locale.iso_code | json }},
     widgetUrl: "{{ block.settings.widget_url }}"
@@ -197,7 +197,7 @@ export function ensureSession(sessionToken: string | null, locale: string, shopD
 ```liquid
 {%- comment -%} theme.liquid, </body> 직전 {%- endcomment -%}
 <script>
-  window.IVY_WIDGET_CONFIG = { shop: "{{ shop.permanent_domain }}",
+  window.SHARPTALK_WIDGET_CONFIG = { shop: "{{ shop.permanent_domain }}",
     locale: "{{ request.locale.iso_code }}", widgetUrl: "https://widget.ivyusa.app" };
 </script>
 <script src="https://widget.ivyusa.app/embed.js" defer></script>

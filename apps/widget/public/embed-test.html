@@ -99,7 +99,11 @@
         // Point the loader at this same dev origin. base-path aware: the harness
         // may be served at "/" or "/widget/".
         var baseDir = window.location.pathname.replace(/embed-test\.html.*$/, '');
-        window.IVY_WIDGET_CONFIG = {
+        // New global; the ?legacy=1 query keeps a living check that the
+        // pre-rename IVY_WIDGET_CONFIG fallback still boots the widget.
+        var cfgGlobal = /[?&]legacy=1/.test(window.location.search)
+          ? 'IVY_WIDGET_CONFIG' : 'SHARPTALK_WIDGET_CONFIG';
+        window[cfgGlobal] = {
           shop: 'amoeba-9004.myshopify.com',
           locale: 'en',
           widgetUrl: window.location.origin + baseDir,
