@@ -20,13 +20,17 @@
  * spend the reopen flag the login round trip depends on.
  *
  * Usage (Shopify theme / app-embed block):
- *   <script>window.IVY_WIDGET_CONFIG = {
+ *   <script>window.SHARPTALK_WIDGET_CONFIG = {
  *     shop: "your-store.myshopify.com", locale: "en",
  *     widgetUrl: "https://widget.ivyusa.app",
  *     ga4Id: "G-XXXXXXXXXX",
  *     hideOnPaths: ["/signin"] };</script>   // optional: replace the sign-in
  *                                            // path list ([] turns it off)
  *   <script src="https://widget.ivyusa.app/embed.js" defer></script>
+ *
+ * The pre-rename global IVY_WIDGET_CONFIG is honoured forever: it is baked
+ * into store themes we cannot redeploy (ivyusa, amoebaorder, go2joy). When
+ * both are set, SHARPTALK_WIDGET_CONFIG wins.
  */
 (function () {
   // --- Auth popup return leg -------------------------------------------------
@@ -72,12 +76,13 @@
   if (document.getElementById('ivy-talktalk-frame')) return; // idempotent
 
   // --- Public SDK surface (PLN-260819 S3) -----------------------------------
-  // A page can either drop the script in with IVY_WIDGET_CONFIG (the install
-  // that is live on ivyusa and amoebaorder today, which must keep working
-  // untouched) or drive it explicitly with ShopTalk.init(). The difference is
-  // only WHEN boot() runs: config-first pages boot on load, init() pages boot
-  // when they say so.
-  var api = (window.ShopTalk = window.ShopTalk || {});
+  // A page can either drop the script in with SHARPTALK_WIDGET_CONFIG (or the
+  // pre-rename IVY_WIDGET_CONFIG — live on ivyusa and amoebaorder today, which
+  // must keep working untouched) or drive it explicitly with SharpTalk.init().
+  // The difference is only WHEN boot() runs: config-first pages boot on load,
+  // init() pages boot when they say so. SharpTalk and ShopTalk are the same
+  // object — either name drives the same widget.
+  var api = (window.ShopTalk = window.SharpTalk = window.SharpTalk || window.ShopTalk || {});
   var queued = Array.isArray(api.q) ? api.q.slice() : [];
   var listeners = {};
   var booted = false;
@@ -94,7 +99,11 @@
     }
   }
 
-  var cfg = window.IVY_WIDGET_CONFIG || {};
+  var cfg = window.SHARPTALK_WIDGET_CONFIG || window.IVY_WIDGET_CONFIG || {};
+  if (!window.SHARPTALK_WIDGET_CONFIG && window.IVY_WIDGET_CONFIG && window.console && console.info) {
+    // Old installs keep working forever — this is a nudge, not a countdown.
+    console.info('[SharpTalk] IVY_WIDGET_CONFIG still works, but new installs should use SHARPTALK_WIDGET_CONFIG.');
+  }
   var pageHost = (window.location.hostname || '').toLowerCase();
   var isCafe24Host = /(^|\.)cafe24\.com$/.test(pageHost);
 
@@ -200,7 +209,7 @@
   // Shopify App Proxy subpath on the store (Partner dashboard → App setup → App
   // proxy). A storefront-relative fetch to it is signed by Shopify and carries a
   // verified logged_in_customer_id, letting the backend hand us a customer-bound
-  // session token. Override with IVY_WIDGET_CONFIG.proxyPath if you use another.
+  // session token. Override with SHARPTALK_WIDGET_CONFIG.proxyPath if you use another.
   var proxyBase = String(cfg.proxyPath || '/apps/ivy').replace(/\/+$/, '');
   // ShopTalk API base (same origin as the widget by default). Cafe24 has no App
   // Proxy, so member sign-in runs through these public customer-auth endpoints.
@@ -736,9 +745,10 @@
 
   /**
    * Explicit setup for host applications. Optional: a page that only sets
-   * IVY_WIDGET_CONFIG keeps booting on load exactly as before.
+   * SHARPTALK_WIDGET_CONFIG (or the pre-rename IVY_WIDGET_CONFIG)
+   * keeps booting on load exactly as before.
    *
-   * Recognised keys mirror IVY_WIDGET_CONFIG (shop, widgetUrl, locale, ga4Id,
+   * Recognised keys mirror SHARPTALK_WIDGET_CONFIG (shop, widgetUrl, locale, ga4Id,
    * apiBase, loginPath, agent …). Calling it a second time is a no-op beyond
    * the queued-call drain, because the frame is already on the page.
    */
@@ -814,7 +824,7 @@
     }
   }
 
-  // Legacy install: a page that configured the widget but never calls init()
-  // still gets a widget, exactly as it did before this file grew an API.
-  if (window.IVY_WIDGET_CONFIG) boot();
+  // Config-first install: a page that configured the widget but never calls
+  // init() still gets a widget, exactly as it did before this file grew an API.
+  if (window.SHARPTALK_WIDGET_CONFIG || window.IVY_WIDGET_CONFIG) boot();
 })();

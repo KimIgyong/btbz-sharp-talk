@@ -202,7 +202,7 @@ The unconditional first-tenant fallback was removed and replaced with a safe rul
 
 Install snippet (App Embed example):
 ```html
-<script>window.IVY_WIDGET_CONFIG = {
+<script>window.SHARPTALK_WIDGET_CONFIG = {
   shop: "{{ shop.permanent_domain }}", locale: "{{ request.locale.iso_code }}",
   widgetUrl: "https://widget.ivyusa.app" };</script>
 <script src="https://widget.ivyusa.app/embed.js" defer></script>

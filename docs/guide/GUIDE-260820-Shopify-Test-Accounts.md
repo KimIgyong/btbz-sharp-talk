@@ -28,7 +28,7 @@
 1. `ambshop-dev.myshopify.com/admin` 접속 → **Settings → Customer accounts**
 2. 모드 확인:
    - **Customer accounts (신형, 권장·기본)** — 비밀번호 없음. 고객이 이메일 입력 → **6자리 인증코드**를 메일로 받아 로그인. 위젯 기본 `loginPath`(`/customer_authentication/login`)와 일치.
-   - **Legacy (구형)** — 이메일+비밀번호. 이 모드로 바꾸면 임베드 설정에서 `IVY_WIDGET_CONFIG.loginPath = '/account/login'` 오버라이드가 필요하므로, **특별한 사유가 없으면 신형 유지**.
+   - **Legacy (구형)** — 이메일+비밀번호. 이 모드로 바꾸면 임베드 설정에서 `SHARPTALK_WIDGET_CONFIG.loginPath = '/account/login'` 오버라이드가 필요하므로, **특별한 사유가 없으면 신형 유지**.
 
 > 신형 모드에서는 로그인 시 **인증코드 메일을 실제로 수신**해야 하므로, 테스트 계정 이메일은 반드시 받은편지함에 접근 가능한 주소여야 한다.
 

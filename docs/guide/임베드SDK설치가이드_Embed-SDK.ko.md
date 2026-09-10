@@ -27,8 +27,10 @@
 | `widgetUrl` | 위젯이 다른 도메인에 있을 때만 |
 | `ga4Id` | GA4 측정 ID (선택) |
 
-> 이전 방식(`window.IVY_WIDGET_CONFIG` 설정 후 스크립트 삽입)도 **그대로 동작합니다.**
-> 이미 설치된 스토어는 아무것도 바꾸지 않아도 됩니다.
+> 설정 전역 방식(`window.SHARPTALK_WIDGET_CONFIG` 설정 후 스크립트 삽입)도 **그대로
+> 동작합니다.** 2026-09-10 이전 이름인 `window.IVY_WIDGET_CONFIG`도 영구히 인식하므로
+> **이미 설치된 스토어는 아무것도 바꾸지 않아도 됩니다** — 새 설치만 새 이름을 쓰세요.
+> JS API 전역도 `window.SharpTalk`·`window.ShopTalk` 어느 쪽이든 같은 객체입니다.
 
 ## 2. 허용 도메인
 

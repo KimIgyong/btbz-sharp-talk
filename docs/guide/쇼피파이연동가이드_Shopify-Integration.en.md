@@ -75,7 +75,7 @@ Principles:
 
 A new build target (e.g. `apps/widget/embed/embed.ts` → `embed.js`, dependency-free vanilla). Responsibilities:
 
-1. Obtain the shop domain/config from the store → `Shopify.shop` global, loader `data-*`, or `window.IVY_WIDGET_CONFIG`.
+1. Obtain the shop domain/config from the store → `Shopify.shop` global, loader `data-*`, or `window.SHARPTALK_WIDGET_CONFIG`.
 2. Insert a **launcher bubble** and a hidden **`<iframe>`** into the DOM.
 3. Append `?shop=<shop_domain>&locale=<lang>` to the iframe `src`.
 4. Communicate with the iframe via `postMessage` (open/close, panel resize, unread badge).
@@ -93,7 +93,7 @@ A new build target (e.g. `apps/widget/embed/embed.ts` → `embed.js`, dependency
 ```js
 // embed.js (skeleton)
 (function () {
-  var cfg = window.IVY_WIDGET_CONFIG || {};
+  var cfg = window.SHARPTALK_WIDGET_CONFIG || {};
   var shop = cfg.shop || (window.Shopify && window.Shopify.shop) || '';
   var base = cfg.widgetUrl || 'https://widget.ivyusa.app';
   var locale = (cfg.locale || document.documentElement.lang || 'en').slice(0, 2);
@@ -155,7 +155,7 @@ The app ships an **app-embed block** the merchant toggles in Theme editor → *A
 ```liquid
 {%- comment -%} extensions/btbz-sharptalk/blocks/app-embed.liquid {%- endcomment -%}
 <script>
-  window.IVY_WIDGET_CONFIG = {
+  window.SHARPTALK_WIDGET_CONFIG = {
     shop: {{ shop.permanent_domain | json }},
     locale: {{ request.locale.iso_code | json }},
     widgetUrl: "{{ block.settings.widget_url }}"
@@ -196,7 +196,7 @@ The merchant (or we) paste the snippet just before `</body>` in the theme's `the
 ```liquid
 {%- comment -%} theme.liquid, just before </body> {%- endcomment -%}
 <script>
-  window.IVY_WIDGET_CONFIG = { shop: "{{ shop.permanent_domain }}",
+  window.SHARPTALK_WIDGET_CONFIG = { shop: "{{ shop.permanent_domain }}",
     locale: "{{ request.locale.iso_code }}", widgetUrl: "https://widget.ivyusa.app" };
 </script>
 <script src="https://widget.ivyusa.app/embed.js" defer></script>

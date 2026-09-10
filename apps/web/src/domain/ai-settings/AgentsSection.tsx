@@ -30,7 +30,7 @@ const WIDGET_URL = (
 function snippetFor(code: string, shop: string): string {
   return (
     `<script>\n` +
-    `  window.IVY_WIDGET_CONFIG = {\n` +
+    `  window.SHARPTALK_WIDGET_CONFIG = {\n` +
     `    shop: ${JSON.stringify(shop)},\n` +
     `    widgetUrl: ${JSON.stringify(WIDGET_URL)},\n` +
     `    agent: ${JSON.stringify(code)}\n` +

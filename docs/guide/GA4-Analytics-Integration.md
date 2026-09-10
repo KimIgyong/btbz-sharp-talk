@@ -14,7 +14,7 @@ Two ways to supply the GA4 measurement ID (`G-XXXXXXXXXX`):
 
 ```html
 <script>
-  window.IVY_WIDGET_CONFIG = {
+  window.SHARPTALK_WIDGET_CONFIG = {
     shop: "your-store.myshopify.com",
     locale: "en",
     widgetUrl: "https://widget.ivyusa.app",

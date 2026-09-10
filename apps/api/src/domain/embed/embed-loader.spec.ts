@@ -21,9 +21,27 @@ describe('embed.js — SDK contract (PLN-260819 S3)', () => {
     expect(() => new Function(LOADER)).not.toThrow();
   });
 
-  it('still boots a legacy config-only install', () => {
-    // The regression that would silently take two live storefronts offline.
-    expect(LOADER).toContain('if (window.IVY_WIDGET_CONFIG) boot();');
+  it('still boots a pre-rename config-only install', () => {
+    // The regression that would silently take live storefronts offline:
+    // IVY_WIDGET_CONFIG is baked into themes we cannot redeploy.
+    expect(LOADER).toContain(
+      'if (window.SHARPTALK_WIDGET_CONFIG || window.IVY_WIDGET_CONFIG) boot();',
+    );
+  });
+
+  it('reads the new global first, the old one as fallback (FIX order matters)', () => {
+    // New name wins when both are set; either alone must produce a config.
+    expect(LOADER).toContain(
+      'var cfg = window.SHARPTALK_WIDGET_CONFIG || window.IVY_WIDGET_CONFIG || {};',
+    );
+  });
+
+  it('exposes the API under both brand globals, as one object', () => {
+    // SharpTalk.init() and ShopTalk.init() must drive the same widget — two
+    // separate objects would fork the queue and the booted flag.
+    expect(LOADER).toContain(
+      'window.ShopTalk = window.SharpTalk = window.SharpTalk || window.ShopTalk || {}',
+    );
   });
 
   it('exposes the documented public methods', () => {

@@ -226,7 +226,7 @@ export function InstallGuideCard() {
   const htmlSnippet =
     `<!-- SharpTalk widget -->\n` +
     `<script>\n` +
-    `  window.IVY_WIDGET_CONFIG = {\n` +
+    `  window.SHARPTALK_WIDGET_CONFIG = {\n` +
     `    shop: ${JSON.stringify(shop)},\n` +
     `    widgetUrl: ${JSON.stringify(WIDGET_URL)}\n` +
     `  };\n` +
@@ -238,7 +238,7 @@ export function InstallGuideCard() {
   const cafe24Snippet =
     `<!-- SharpTalk widget (Cafe24) -->\n` +
     `<script>\n` +
-    `  window.IVY_WIDGET_CONFIG = {\n` +
+    `  window.SHARPTALK_WIDGET_CONFIG = {\n` +
     `    shop: ${JSON.stringify(shop)},\n` +
     `    locale: "ko",\n` +
     `    widgetUrl: ${JSON.stringify(WIDGET_URL)},\n` +
@@ -255,7 +255,7 @@ export function InstallGuideCard() {
   const odooSnippet =
     `<!-- SharpTalk widget (Odoo) -->\n` +
     `<script>\n` +
-    `  window.IVY_WIDGET_CONFIG = {\n` +
+    `  window.SHARPTALK_WIDGET_CONFIG = {\n` +
     `    shop: ${JSON.stringify(shop)},\n` +
     `    widgetUrl: ${JSON.stringify(WIDGET_URL)},\n` +
     `    loginPath: "/web/login",\n` +
@@ -278,7 +278,7 @@ export function InstallGuideCard() {
     `// SharpTalk widget — add to your (child) theme's functions.php\n` +
     `add_action( 'wp_footer', function () { ?>\n` +
     `  <script>\n` +
-    `    window.IVY_WIDGET_CONFIG = {\n` +
+    `    window.SHARPTALK_WIDGET_CONFIG = {\n` +
     `      shop: ${JSON.stringify(shop)},\n` +
     `      widgetUrl: ${JSON.stringify(WIDGET_URL)}\n` +
     `    };\n` +
