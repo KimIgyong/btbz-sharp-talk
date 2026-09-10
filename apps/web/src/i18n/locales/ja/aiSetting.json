@@ -302,7 +302,7 @@
     "snippet": "設置スニペット",
     "snippetCopied": "コピーしました。",
     "snippetCopyFailed": "コピーできませんでした — 手動で選択してコピーしてください。",
-    "snippetHint": "このエージェントが応対するページに貼り付けてください。設置済みなら IVY_WIDGET_CONFIG に agent 行を足すだけです。",
+    "snippetHint": "このエージェントが応対するページに貼り付けてください。設置済みなら SHARPTALK_WIDGET_CONFIG に agent 行を足すだけです。",
     "shared": "全エージェント共通",
     "studioAgent": "エージェント: {{name}}",
     "displayName": "ウィジェット表示名",

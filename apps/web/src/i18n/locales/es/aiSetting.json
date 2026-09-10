@@ -302,7 +302,7 @@
     "snippet": "Fragmento de instalación",
     "snippetCopied": "Fragmento copiado.",
     "snippetCopyFailed": "No se pudo copiar — selecciónalo y cópialo manualmente.",
-    "snippetHint": "Pégalo en la página que debe atender este agente. ¿Ya instalado? Añade solo la línea agent a IVY_WIDGET_CONFIG.",
+    "snippetHint": "Pégalo en la página que debe atender este agente. ¿Ya instalado? Añade solo la línea agent a SHARPTALK_WIDGET_CONFIG.",
     "shared": "común a todos los agentes",
     "studioAgent": "Agente: {{name}}",
     "displayName": "Nombre en el widget",

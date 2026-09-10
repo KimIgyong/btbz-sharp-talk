@@ -302,7 +302,7 @@
     "snippet": "Install snippet",
     "snippetCopied": "Snippet copied.",
     "snippetCopyFailed": "Could not copy — select and copy manually.",
-    "snippetHint": "Paste on the page that should talk as this agent. Already installed? Just add the agent line to IVY_WIDGET_CONFIG.",
+    "snippetHint": "Paste on the page that should talk as this agent. Already installed? Just add the agent line to SHARPTALK_WIDGET_CONFIG.",
     "shared": "shared across all agents",
     "studioAgent": "Agent: {{name}}",
     "displayName": "Widget display name",
