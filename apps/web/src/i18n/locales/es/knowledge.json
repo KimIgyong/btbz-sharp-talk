@@ -1,6 +1,6 @@
 {
   "title": "Conocimiento",
-  "subtitle": "Gestione fuentes y documentos",
+  "subtitle": "Fuentes, tablero y documentos KB",
   "sources": "Fuentes",
   "documents": "Documentos KB",
   "addSource": "Añadir fuente",
@@ -334,7 +334,7 @@
   "usageTypeTakenHint": "Coinciden {{count}} productos, pero \"{{type}}\" está por encima y se los queda. Sube este tipo o afina las palabras clave.",
   "statusPendingHint": "Ya se usa en respuestas por búsqueda de palabras clave; solo falta el índice semántico.",
   "statusLegend": "Los documentos “pendientes” ya se buscan por palabras clave: solo la búsqueda semántica espera al índice.",
-  "sourcesHint": "Un canal que mantiene sincronizados los documentos externos. Nada se convierte en conocimiento hasta sincronizar; para algo puntual, \"Añadir documento KB\" es más rápido.",
+  "sourcesHint": "El canal que mantiene actualizados los documentos externos. Nada se convierte en conocimiento hasta sincronizar — para un documento que solo necesita una vez, escribirlo en el tablero es más rápido.",
   "categoryAgentsAll": "Todos los agentes",
   "categoryAgentsSome": "{{count}}/{{total}} agentes",
   "categoryAgentsTitle": "Qué agentes pueden usar esta categoría",
@@ -347,16 +347,19 @@
   "guide": {
     "title": "Cómo llega el conocimiento",
     "collapse": "Contraer",
+    "intro": "El agente de IA de SharpTalk responde solo con lo definido en los documentos KB. Los activos que ya guarda en Notion, Google Drive o archivos — políticas, guías, manuales — entran como Fuente, se sincronizan, se redactan y revisan en el Tablero y luego se adoptan como los documentos KB que el agente cita.",
     "step1Title": "Fuente",
-    "step1Body": "Drive o Notion: un canal, no conocimiento.",
+    "step1Body": "Drive o Notion — conecta los activos que ya tiene. Un canal, todavía no conocimiento.",
     "step2Title": "Sincronizar",
-    "step2Body": "Trae el contenido. Hasta que se ejecuta, la fuente no aporta nada.",
-    "step3Title": "Guías de uso",
-    "step3Body": "Se escriben por tipo de producto y se citan con cada producto de ese tipo.",
+    "step2Body": "[Sincronizar] en la fila de la fuente trae el contenido. Hasta que se ejecute, la fuente no aporta nada.",
+    "step3Title": "Tablero",
+    "step3Body": "Primer borrador y revisión. Publique, compruebe con una simulación y adopte.",
     "step4Title": "Documento KB",
     "step4Body": "Lo único en lo que se basa una respuesta.",
-    "noteSource": "También puedes escribir un documento KB, sincronizar el catálogo o importar un CSV: las cuatro vías terminan en el mismo sitio.",
-    "noteCategory": "Una categoría es la etiqueta y, si la restringes, también qué agentes pueden citarla."
+    "jumpHint": "Haga clic en un paso para ir a su sección.",
+    "noteSource": "Atajos que omiten el tablero: añadir un documento KB directamente, sincronizar el catálogo o importar un CSV de productos — todos terminan en documentos KB.",
+    "noteCategory": "Una categoría es la etiqueta y, si la restringes, también qué agentes pueden citarla.",
+    "noteOptionalGuides": "Opcional: las guías de uso por tipo de producto están activadas para este inquilino — vea la sección debajo de Fuentes."
   },
   "help": {
     "whatItDoes": "Qué hace",
@@ -431,9 +434,6 @@
     "E5069": "Ya hay un análisis en curso; espere a que termine.",
     "E5070": "No hay transcripción disponible (subtítulos desactivados o no es YouTube)."
   },
-  "boardBannerTitle": "Smart Knowledge Board",
-  "boardBannerBody": "El conocimiento se escribe y revisa primero en el tablero. Publica un documento, compruébalo con una simulación y adóptalo al KB.",
-  "boardBannerCta": "Abrir tablero",
   "sourceBadge": {
     "knowledge_store": "directo",
     "board": "tablero",
@@ -448,5 +448,12 @@
   "ingestDoneBoard": "{{saved}} documento(s) publicados en el tablero — revise y adopte al KB",
   "writeOnBoard": "Escribir en el tablero",
   "directAddHint": "Recomendado: escriba y revise primero en el tablero. La adición directa es para emergencias.",
-  "ingestViewBoard": "Ver en el tablero"
+  "ingestViewBoard": "Ver en el tablero",
+  "boardCard": {
+    "title": "Smart Knowledge Board",
+    "open": "Abrir tablero",
+    "write": "Escribir en el tablero",
+    "body": "Los activos importados y el conocimiento nuevo se escriben y publican primero en el tablero, se comprueban con una simulación y luego se adoptan como documentos KB.",
+    "counts": "Pendientes de revisión {{pending}} · adoptados {{promoted}}"
+  }
 }

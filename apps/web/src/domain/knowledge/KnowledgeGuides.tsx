@@ -6,18 +6,36 @@ import { HelpModal, HelpSection } from '@/components/HelpModal';
 
 const COLLAPSE_KEY = 'ivy:knowledge:guide-collapsed';
 
+/** Section anchors on /knowledge that the process guide jumps to (PLN-260910 D-6). */
+export const KNOWLEDGE_SECTION = {
+  SOURCES: 'sec-sources',
+  GUIDES: 'sec-guides',
+  CATEGORIES: 'sec-categories',
+  BOARD: 'sec-board',
+  DOCUMENTS: 'sec-documents',
+} as const;
+
+/** Step number badge — circled-digit glyphs render as tiny icons in the UI font. */
+export function StepNo({ n, className = '' }: { n: number; className?: string }) {
+  return (
+    <span
+      className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-100 text-[11px] font-semibold text-primary-700 ${className}`}
+    >
+      {n}
+    </span>
+  );
+}
+
 /**
- * How a document gets here, on the page where the four ways to make one sit
- * side by side (REQ-260826 R1).
- *
- * The thing operators got wrong was the first box: a source is a pipe, and a
- * pipe that has never been synced contributes nothing. Seven of eight sources
- * on staging had never run.
+ * How knowledge gets here — Source → Sync → Board → KB-Document — on the page
+ * whose sections follow that order (REQ-260910). Every box is a link to its
+ * section; Sync has no section of its own (it is a row action on a source), so
+ * it lands on the sources card and its text says where the button is.
  *
  * Collapsible and remembered, because it is scaffolding — useful the first
  * week, clutter the tenth.
  */
-export function ProcessGuide() {
+export function ProcessGuide({ optionalGuides }: { optionalGuides: boolean }) {
   const { t } = useTranslation('knowledge');
   const [collapsed, setCollapsed] = useState(
     () => localStorage.getItem(COLLAPSE_KEY) === '1',
@@ -28,6 +46,11 @@ export function ProcessGuide() {
     setCollapsed(next);
     localStorage.setItem(COLLAPSE_KEY, next ? '1' : '0');
   };
+
+  // Instant, not smooth: a smooth scroll is silently dropped when anything else
+  // scrolls in the same frame (observed under browser automation), and the
+  // cards carry scroll-mt so the header is not glued to the viewport edge.
+  const jump = (id: string) => document.getElementById(id)?.scrollIntoView({ block: 'start' });
 
   if (collapsed) {
     return (
@@ -41,11 +64,19 @@ export function ProcessGuide() {
     );
   }
 
-  const step = (n: string, title: string, body: string) => (
-    <li className="flex-1 rounded-lg border border-gray-100 p-3">
-      <p className="text-xs font-semibold text-gray-400">{n}</p>
-      <p className="text-sm font-medium text-gray-800">{title}</p>
-      <p className="mt-1 text-xs text-gray-500">{body}</p>
+  const step = (n: number, title: string, body: string, target: string) => (
+    <li className="flex-1">
+      <button
+        type="button"
+        onClick={() => jump(target)}
+        className="h-full w-full rounded-lg border border-gray-100 p-3 text-left hover:border-primary-300 hover:bg-primary-50"
+      >
+        <p className="flex items-center gap-2 text-sm font-medium text-gray-800">
+          <StepNo n={n} />
+          {title}
+        </p>
+        <p className="mt-1 text-xs text-gray-500">{body}</p>
+      </button>
     </li>
   );
 
@@ -62,15 +93,18 @@ export function ProcessGuide() {
         </button>
       }
     >
+      <p className="mb-3 text-sm text-gray-700">{t('guide.intro')}</p>
       <ol className="flex flex-col gap-2 sm:flex-row">
-        {step('①', t('guide.step1Title'), t('guide.step1Body'))}
-        {step('②', t('guide.step2Title'), t('guide.step2Body'))}
-        {step('③', t('guide.step3Title'), t('guide.step3Body'))}
-        {step('④', t('guide.step4Title'), t('guide.step4Body'))}
+        {step(1, t('guide.step1Title'), t('guide.step1Body'), KNOWLEDGE_SECTION.SOURCES)}
+        {step(2, t('guide.step2Title'), t('guide.step2Body'), KNOWLEDGE_SECTION.SOURCES)}
+        {step(3, t('guide.step3Title'), t('guide.step3Body'), KNOWLEDGE_SECTION.BOARD)}
+        {step(4, t('guide.step4Title'), t('guide.step4Body'), KNOWLEDGE_SECTION.DOCUMENTS)}
       </ol>
+      <p className="mt-1 text-xs text-gray-400">{t('guide.jumpHint')}</p>
       <ul className="mt-3 space-y-1 text-xs text-gray-500">
         <li>· {t('guide.noteSource')}</li>
         <li>· {t('guide.noteCategory')}</li>
+        {optionalGuides && <li>· {t('guide.noteOptionalGuides')}</li>}
       </ul>
     </Card>
   );

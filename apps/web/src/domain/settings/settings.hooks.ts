@@ -232,6 +232,32 @@ export function useUpdateStorefront() {
   });
 }
 
+/**
+ * Knowledge-page options (PLN-260910). Read by /knowledge (every visitor) to
+ * decide whether the usage-guides section renders; written from Settings > Basic.
+ */
+export function useKnowledgeSettings() {
+  const tenantKey = useTenantKey();
+  return useQuery({
+    queryKey: ['knowledge-settings', tenantKey],
+    queryFn: () => settingsService.knowledgeSettings(),
+  });
+}
+
+export function useUpdateKnowledgeSettings() {
+  const qc = useQueryClient();
+  const tenantKey = useTenantKey();
+  const { t } = useTranslation('settings');
+  return useMutation({
+    mutationFn: (enabled: boolean) => settingsService.updateKnowledgeSettings(enabled),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['knowledge-settings', tenantKey] });
+      toast.success(t('knowledgeOptions.saved'));
+    },
+    onError: (err: Error) => toast.error(err.message),
+  });
+}
+
 export function useNotificationChannels() {
   const tenantKey = useTenantKey();
   return useQuery({

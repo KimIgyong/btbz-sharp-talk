@@ -1130,6 +1130,7 @@ CREATE TABLE `tenants` (
   `embed_origins` json DEFAULT NULL,
   `embed_secret` varbinary(512) DEFAULT NULL,
   `workflow_mode` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'base',
+  `usage_guides_enabled` tinyint(1) NOT NULL DEFAULT 0,
   `timezone` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),

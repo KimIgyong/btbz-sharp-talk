@@ -1,6 +1,6 @@
 {
   "title": "知识库",
-  "subtitle": "管理来源与文档",
+  "subtitle": "管理来源、看板与知识库文档",
   "sources": "来源",
   "documents": "知识库文档",
   "addSource": "添加来源",
@@ -335,7 +335,7 @@
   "usageTypeTakenHint": "有 {{count}} 件商品匹配，但上面的“{{type}}”把它们认领了。请把此类型上移，或收窄关键词。",
   "statusPendingHint": "关键词检索已在回答中使用；仅等待语义索引。",
   "statusLegend": "“待处理”的文档已可通过关键词检索使用 — 等待索引的只有语义检索。",
-  "sourcesHint": "让外部文档保持同步的通道。未同步之前不会成为知识——只需导入一次的内容，用\"添加知识库文档\"更快。",
+  "sourcesHint": "让外部文档保持最新的通道。同步之前不会成为知识 — 只需导入一次的文档，直接写在看板上更快。",
   "categoryAgentsAll": "全部客服体",
   "categoryAgentsSome": "{{count}}/{{total}} 个客服体",
   "categoryAgentsTitle": "哪些客服体可使用该分类",
@@ -348,16 +348,19 @@
   "guide": {
     "title": "知识是怎么来的",
     "collapse": "收起",
+    "intro": "SharpTalk 的 AI 客服仅依据知识库文档中定义的内容作答。把您已存放在 Notion、Google Drive 或文件中的资产（政策、指南、手册）作为来源导入（同步），在看板上进行初步整理与审核，再采纳为客服实际引用的知识库文档。",
     "step1Title": "来源",
-    "step1Body": "Drive 或 Notion——只是通道，不是知识。",
+    "step1Body": "Drive 或 Notion — 连接已有资产。它只是通道，还不是知识。",
     "step2Title": "同步",
-    "step2Body": "把内容拉进来。未执行之前，来源没有任何贡献。",
-    "step3Title": "使用指南",
-    "step3Body": "按商品类型撰写，会随该类型的每个商品一起被引用。",
+    "step2Body": "点击来源行的[同步]拉取内容。未执行前，来源不产生任何贡献。",
+    "step3Title": "看板",
+    "step3Body": "初步整理与审核。发布后用模拟验证，再采纳。",
     "step4Title": "知识库文档",
     "step4Body": "回答唯一的依据。",
-    "noteSource": "也可以直接撰写知识库文档、同步商品目录或导入 CSV——四条路都汇入同一处。",
-    "noteCategory": "分类既是标签，收窄后也决定哪些客服体可以引用。"
+    "jumpHint": "点击步骤可跳转到对应区块。",
+    "noteSource": "不经过看板的捷径：直接添加知识库文档、同步商品目录或导入商品 CSV — 都会汇入知识库文档。",
+    "noteCategory": "分类既是标签，收窄后也决定哪些客服体可以引用。",
+    "noteOptionalGuides": "可选：本租户已启用按商品类型的使用指南 — 见“来源”下方的区块。"
   },
   "help": {
     "whatItDoes": "功能说明",
@@ -431,9 +434,6 @@
     "E5069": "已有分析正在进行,请等待完成。",
     "E5070": "无法获取字幕(字幕已停用,或不是 YouTube 视频)。"
   },
-  "boardBannerTitle": "Smart Knowledge Board",
-  "boardBannerBody": "知识先在看板上编写与审核。发布文档后，用模拟确认效果，再采纳至 KB。",
-  "boardBannerCta": "打开看板",
   "sourceBadge": {
     "knowledge_store": "直接",
     "board": "看板",
@@ -448,5 +448,12 @@
   "ingestDoneBoard": "已发布 {{saved}} 篇到看板——请审核后采纳至 KB",
   "writeOnBoard": "在看板撰写",
   "directAddHint": "建议:先在看板撰写并审核后再采纳。直接添加仅用于紧急情况。",
-  "ingestViewBoard": "在看板查看"
+  "ingestViewBoard": "在看板查看",
+  "boardCard": {
+    "title": "Smart Knowledge Board",
+    "open": "打开看板",
+    "write": "在看板上撰写",
+    "body": "来自来源的资产和新知识先在看板上撰写并发布，经模拟验证后采纳为知识库文档。",
+    "counts": "待审核 {{pending}} · 已采纳 {{promoted}}"
+  }
 }

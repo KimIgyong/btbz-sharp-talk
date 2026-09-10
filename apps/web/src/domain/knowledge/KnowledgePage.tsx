@@ -24,12 +24,16 @@ import {
   CatalogSyncHelp,
   ProcessGuide,
   ProductCsvHelp,
+  KNOWLEDGE_SECTION,
+  StepNo,
 } from './KnowledgeGuides';
 import { SourceCredentialCard } from './SourceCredentialCard';
 import { UsageTypeEditor } from './UsageTypeEditor';
 import { CategoryManagerCard } from './CategoryManagerCard';
 import { SourceHistoryModal } from './SourceHistoryModal';
 import { GapTasksSection } from './GapTasksSection';
+import { BoardCard } from './BoardCard';
+import { useKnowledgeSettings } from '@/domain/settings/settings.hooks';
 import { ConflictReview } from './ConflictReview';
 import { RevisionHistory } from './RevisionHistory';
 import {
@@ -373,6 +377,10 @@ export function KnowledgePage() {
   const proposalDecision = useProposalDecision();
   const [rejecting, setRejecting] = useState<string | null>(null);
   const [rejectReason, setRejectReason] = useState('');
+  // Usage guides are a shop feature switched on per tenant (PLN-260910 D-4);
+  // while the switch is loading the section stays hidden rather than flashing.
+  const knowledgeSettings = useKnowledgeSettings();
+  const usageGuidesEnabled = knowledgeSettings.data?.usageGuidesEnabled === true;
   const usageGuides = useUsageGuides();
   const saveUsageGuide = useSaveUsageGuide();
   const usageTypes = useUsageTypes();
@@ -708,18 +716,7 @@ export function KnowledgePage() {
     <div>
       <PageHeader title={t('title')} subtitle={t('subtitle')} />
 
-      <ProcessGuide />
-
-      {/* Knowledge starts on the board (PLN-260829 B1-7); adoption arrives in B2. */}
-      <div className="mb-4 flex items-center gap-3 rounded-lg border border-primary-200 bg-primary-50 px-4 py-3">
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium text-primary-800">{t('boardBannerTitle')}</p>
-          <p className="text-xs text-primary-700">{t('boardBannerBody')}</p>
-        </div>
-        <Button size="sm" onClick={() => navigate('/knowledge/board')}>
-          {t('boardBannerCta')}
-        </Button>
-      </div>
+      <ProcessGuide optionalGuides={usageGuidesEnabled} />
 
       {/* Knowledge-gap proposal inbox (P5) — renders nothing when empty. */}
       <GapTasksSection />
@@ -727,7 +724,8 @@ export function KnowledgePage() {
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_400px]">
         <div className="space-y-6">
         <Card
-          title={t('sources')}
+          id={KNOWLEDGE_SECTION.SOURCES}
+          title={<span className="flex items-center gap-2"><StepNo n={1} />{t('sources')}</span>}
           action={<Button onClick={() => setSourceOpen(true)}>{t('addSource')}</Button>}
         >
           {/* What a source is for, said where the button is: an operator kept
@@ -887,7 +885,10 @@ export function KnowledgePage() {
             at all — 31 of 2,275 products carry any — so these ten guides are
             where "how do I apply this?" gets answered. Types with no guide are
             listed on purpose: a gap nobody can see is a gap nobody fills. */}
+        {usageGuidesEnabled && (
+        <>
         <Card
+          id={KNOWLEDGE_SECTION.GUIDES}
           title={t('usageGuides')}
           action={
             <Button
@@ -993,11 +994,19 @@ export function KnowledgePage() {
           type={editingType}
           onClose={() => setTypeEditorOpen(false)}
         />
+        </>
+        )}
 
-        <CategoryManagerCard />
+        <div id={KNOWLEDGE_SECTION.CATEGORIES}>
+          <CategoryManagerCard />
+        </div>
+
+        {/* Step ③ sits between the taxonomy it uses and the documents it produces (REQ-260910 R1). */}
+        <BoardCard group={group} />
 
         <Card
-          title={t('documents')}
+          id={KNOWLEDGE_SECTION.DOCUMENTS}
+          title={<span className="flex items-center gap-2"><StepNo n={4} />{t('documents')}</span>}
           action={
             <div className="flex items-center gap-2">
               <CatalogSyncHelp />

@@ -162,6 +162,13 @@ export class Tenant {
   @Column({ name: 'workflow_mode', type: 'varchar', length: 8, default: 'base' })
   workflowMode: string;
 
+  /**
+   * Whether /knowledge shows the product usage-guides section (PLN-260910 D-1).
+   * OFF hides the section only — guide documents and their RAG citations stay.
+   */
+  @Column({ name: 'usage_guides_enabled', type: 'tinyint', width: 1, default: 0 })
+  usageGuidesEnabled: number;
+
   // IANA timezone (e.g. 'Asia/Seoul', 'America/New_York'). Drives the default
   // widget language when the shopper hasn't picked one (Seoul → ko, US → en).
   @Column({ type: 'varchar', length: 40, nullable: true })

@@ -42,6 +42,7 @@ import { decryptSecret, encryptSecret } from '../../global/util/crypto.util';
 import {
   UpdatePrivacyNoticeRequest,
   UpdateStorefrontRequest,
+  UpdateKnowledgeSettingsRequest,
   UpdateWidgetSettingsRequest,
   UpdateWidgetThemeRequest,
   UpdateShopifySettingsRequest,
@@ -597,6 +598,29 @@ export class TenantService {
       actorId,
       action: 'tenant.storefront_updated',
       target: saved.storefrontUrl ?? 'cleared',
+    });
+    return saved;
+  }
+
+  /**
+   * Knowledge-page options (PLN-260910 D-2). The switch only decides whether the
+   * usage-guides section renders; guide documents and their citations are not
+   * touched, so turning it off is reversible and audited like any setting.
+   */
+  async updateKnowledgeSettings(
+    tenantId: number,
+    actorId: number,
+    dto: UpdateKnowledgeSettingsRequest,
+  ): Promise<Tenant> {
+    const tenant = await this.findById(tenantId);
+    tenant.usageGuidesEnabled = dto.usage_guides_enabled ? 1 : 0;
+    const saved = await this.tenantRepo.save(tenant);
+    await this.audit.write({
+      tenantId,
+      actorType: 'user',
+      actorId,
+      action: 'tenant.knowledge_settings_updated',
+      target: `usage_guides:${dto.usage_guides_enabled ? 'on' : 'off'}`,
     });
     return saved;
   }

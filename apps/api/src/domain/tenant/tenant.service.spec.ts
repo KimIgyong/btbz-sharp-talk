@@ -169,4 +169,26 @@ describe('TenantService.updatePrivacyNotice', () => {
       );
     });
   });
+  describe('updateKnowledgeSettings (PLN-260910)', () => {
+    it('stores the switch as 0/1 and audits the resulting state', async () => {
+      const saved = await svc.updateKnowledgeSettings(1, 7, { usage_guides_enabled: true });
+      expect(saved.usageGuidesEnabled).toBe(1);
+      expect(auditWrite).toHaveBeenCalledWith({
+        tenantId: 1,
+        actorType: 'user',
+        actorId: 7,
+        action: 'tenant.knowledge_settings_updated',
+        target: 'usage_guides:on',
+      });
+    });
+
+    it('turning it off keeps the row and records off', async () => {
+      tenant.usageGuidesEnabled = 1;
+      const saved = await svc.updateKnowledgeSettings(1, 7, { usage_guides_enabled: false });
+      expect(saved.usageGuidesEnabled).toBe(0);
+      expect(auditWrite).toHaveBeenCalledWith(
+        expect.objectContaining({ target: 'usage_guides:off' }),
+      );
+    });
+  });
 });

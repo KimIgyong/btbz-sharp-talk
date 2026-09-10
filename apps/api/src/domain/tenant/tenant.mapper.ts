@@ -18,6 +18,7 @@ import {
   ShopifySettingsResponse,
   TenantResponse,
   StorefrontResponse,
+  KnowledgeSettingsResponse,
   NotificationChannelsResponse,
   WidgetThemeResponse,
   WidgetSettingsResponse,
@@ -66,6 +67,10 @@ export class TenantMapper {
   /** Widget behavior settings; anything but an explicit 'popup' reads as redirect. */
   static toStorefront(t: Tenant): StorefrontResponse {
     return { storefrontUrl: t.storefrontUrl };
+  }
+
+  static toKnowledgeSettings(t: Tenant): KnowledgeSettingsResponse {
+    return { usageGuidesEnabled: Number(t.usageGuidesEnabled) === 1 };
   }
 
   static toWidgetSettings(t: Tenant): WidgetSettingsResponse {

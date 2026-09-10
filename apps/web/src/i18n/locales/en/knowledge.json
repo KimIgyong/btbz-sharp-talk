@@ -1,6 +1,6 @@
 {
   "title": "Knowledge",
-  "subtitle": "Manage sources and documents",
+  "subtitle": "Sources, board and KB-Documents",
   "sources": "Sources",
   "documents": "KB-Documents",
   "addSource": "Add source",
@@ -334,7 +334,7 @@
   "usageTypeTakenHint": "{{count}} products match, but \"{{type}}\" is above this type and takes them. Move this type up, or narrow the keywords.",
   "statusPendingHint": "Already used in answers by keyword search; waiting only for the semantic index.",
   "statusLegend": "“Pending” documents are already searchable by keyword — only semantic search waits for the index.",
-  "sourcesHint": "A pipe that keeps external documents in sync. Nothing becomes knowledge until it is synced — for a one-off, \"Add KB-Document\" is faster.",
+  "sourcesHint": "The pipe that keeps external documents current. Nothing becomes knowledge until you sync — for a document you only need once, writing it on the board is faster.",
   "categoryAgentsAll": "All agents",
   "categoryAgentsSome": "{{count}}/{{total}} agents",
   "categoryAgentsTitle": "Which agents may use this category",
@@ -347,16 +347,19 @@
   "guide": {
     "title": "How knowledge gets here",
     "collapse": "Collapse",
+    "intro": "The SharpTalk AI agent answers only from what is defined in KB-Documents. Assets you already keep in Notion, Google Drive or files — policies, guides, manuals — come in as a Source, are synced, drafted and reviewed on the Board, and are then adopted as the KB-Documents the agent actually cites.",
     "step1Title": "Source",
-    "step1Body": "Drive or Notion — a pipe, not knowledge.",
+    "step1Body": "Drive or Notion — connects the assets you already have. A pipe, not knowledge yet.",
     "step2Title": "Sync",
-    "step2Body": "Pulls the pipe in. Until this runs, the source contributes nothing.",
-    "step3Title": "Usage guides",
-    "step3Body": "Written per product type, cited with every product of that type.",
+    "step2Body": "[Sync] on a source row pulls the pipe in. Until it runs, the source contributes nothing.",
+    "step3Title": "Board",
+    "step3Body": "First draft and review. Publish, check with a simulation, then adopt.",
     "step4Title": "KB-Document",
     "step4Body": "The only thing an answer is ever grounded in.",
-    "noteSource": "You can also write a KB-Document directly, sync the catalogue, or import a CSV — all four end in the same place.",
-    "noteCategory": "A category is both the label and, when you narrow it, which agents may cite it."
+    "jumpHint": "Click a step to jump to its section.",
+    "noteSource": "Shortcuts that skip the board: add a KB-Document directly, sync the catalogue, or import a product CSV — all land in KB-Documents.",
+    "noteCategory": "A category is both the label and, when you narrow it, which agents may cite it.",
+    "noteOptionalGuides": "Optional: product usage guides (per product type) are on for this tenant — see the section below Sources."
   },
   "help": {
     "whatItDoes": "What it does",
@@ -431,9 +434,6 @@
     "E5069": "An analysis is already running — wait for it to finish.",
     "E5070": "No transcript available (captions disabled, or not a YouTube video)."
   },
-  "boardBannerTitle": "Smart Knowledge Board",
-  "boardBannerBody": "Knowledge is written and reviewed on the board first. Publish a document, check it with a simulation, then adopt it into the KB.",
-  "boardBannerCta": "Open board",
   "sourceBadge": {
     "knowledge_store": "direct",
     "board": "board",
@@ -448,5 +448,12 @@
   "ingestDoneBoard": "{{saved}} document(s) published to the board — review and adopt into KB",
   "writeOnBoard": "Write on board",
   "directAddHint": "Recommended: write and review on the board first, then adopt. Direct add is for emergencies.",
-  "ingestViewBoard": "View on board"
+  "ingestViewBoard": "View on board",
+  "boardCard": {
+    "title": "Smart Knowledge Board",
+    "open": "Open board",
+    "write": "Write on board",
+    "body": "Sourced assets and new knowledge are written and published on the board first, checked with a simulation, then adopted as KB-Documents.",
+    "counts": "Waiting for review {{pending}} · adopted {{promoted}}"
+  }
 }
