@@ -1,6 +1,9 @@
 import {
+  ArrayMaxSize,
+  ArrayNotEmpty,
   IsArray,
   IsIn,
+  IsInt,
   IsOptional,
   IsString,
   MaxLength,
@@ -55,4 +58,17 @@ export class CreateBoardCommentRequest {
 export class AddBoardLinkRequest {
   @IsString() @MaxLength(1024) url: string;
   @IsOptional() @IsString() @MaxLength(255) label?: string;
+}
+
+/** KB → board import (PLN-260910-Board-Back-Editor-KB-Import D-4). */
+export class KbImportRequest {
+  @IsArray() @ArrayNotEmpty() @ArrayMaxSize(200) @IsInt({ each: true })
+  document_ids: number[];
+}
+
+export class KbCandidatesQuery {
+  @IsOptional() @IsString() group?: string;
+  @IsOptional() @IsString() search?: string;
+  @IsOptional() @IsString() page?: string;
+  @IsOptional() @IsString() size?: string;
 }

@@ -16,8 +16,8 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { HttpStatus } from '@nestjs/common';
 import type { Response } from 'express';
-import { Principal } from '@sharptalk/types';
-import { RequireMenu } from '../../global/decorator/auth.decorator';
+import { CAPABILITY, Principal } from '@sharptalk/types';
+import { RequireCapability, RequireMenu } from '../../global/decorator/auth.decorator';
 import { Public } from '../../global/decorator/public.decorator';
 import { CurrentUser } from '../../global/decorator/current-user.decorator';
 import { BusinessException } from '../../global/exception/business.exception';
@@ -27,11 +27,14 @@ import { BoardService, BoardActor } from './board.service';
 import { BoardAttachmentService, UploadedBoardFile } from './board-attachment.service';
 import { BoardCommentService } from './board-comment.service';
 import { BoardImportService } from './board-import.service';
+import { BoardKbImportService } from './board-kb-import.service';
 import { BoardMapper } from './board.mapper';
 import {
   AddBoardLinkRequest,
   CreateBoardCommentRequest,
   CreateBoardDocumentRequest,
+  KbCandidatesQuery,
+  KbImportRequest,
   ListBoardDocumentsQuery,
   UpdateBoardDocumentRequest,
 } from './dto/request/board.request';
@@ -51,6 +54,7 @@ export class BoardController {
     private readonly attachments: BoardAttachmentService,
     private readonly comments: BoardCommentService,
     private readonly faqImport: BoardImportService,
+    private readonly kbImport: BoardKbImportService,
   ) {}
 
   /** Narrow to a tenant user, keeping the rank the delete rule needs. */
@@ -86,6 +90,23 @@ export class BoardController {
       { ...file, originalname: decodeUploadName(file.originalname) },
       a,
     );
+  }
+
+  // KB → board (PLN-260910-Board-Back-Editor-KB-Import). Same capability axis
+  // as adoption: this decides what the board manages on the KB's behalf.
+  @Get('import/kb-candidates')
+  @RequireCapability(CAPABILITY.KNOWLEDGE_SOURCE_MANAGE)
+  @ApiOperation({ summary: 'KB documents eligible to be managed on the board (direct/imported only)' })
+  async kbCandidates(@CurrentUser() user: Principal, @Query() query: KbCandidatesQuery) {
+    return this.kbImport.candidates(this.actor(user).tenantId, query);
+  }
+
+  @Post('import/kb')
+  @RequireCapability(CAPABILITY.KNOWLEDGE_SOURCE_MANAGE)
+  @ApiOperation({ summary: 'Bring KB documents onto the board as promoted, linked rows' })
+  async importFromKb(@CurrentUser() user: Principal, @Body() body: KbImportRequest) {
+    const a = this.actor(user);
+    return this.kbImport.import(a.tenantId, body.document_ids, a);
   }
 
   @Get('documents')

@@ -23,7 +23,6 @@
   "clearTagFilter": "タグ解除: #{{tag}}",
   "editor": "文書編集",
   "editorSubtitle": "Markdownで作成し、公開後にKB採用を検討します",
-  "backToList": "一覧へ",
   "saveDraft": "下書き保存",
   "publish": "公開",
   "saved": "保存しました",
@@ -109,5 +108,17 @@
   "faqImportCreated": "作成",
   "faqImportSkipped": "スキップ",
   "faqImportInvalid": "エラー",
-  "faqImportRow": "{{n}}行目"
+  "faqImportRow": "{{n}}行目",
+  "kbImport": "KBから取り込む",
+  "kbImportTitle": "KBドキュメントをボードへ取り込む",
+  "kbImportHint": "直接追加・一括インポート・ナレッジギャップ承認で作成した文書のみ対象です。カタログ・Drive/Notion同期・使い方ガイドの文書は同期が所有するため表示されません。取り込んだ文書は「KB採用済み」として同じKB行に紐づきます — ボードで編集して再採用してください。",
+  "kbImportSearch": "タイトル・カテゴリを検索",
+  "kbImportSelectPage": "このページをすべて選択",
+  "kbImportBoardColumn": "ボード",
+  "kbImportLinked": "ボードにあり ↗",
+  "kbImportEmpty": "取り込める文書がありません",
+  "kbImportSelected": "{{count}}件選択",
+  "kbImportRun": "ボードへ取り込む ({{count}})",
+  "kbImportDone": "ボードへ取り込み {{created}}件 · スキップ（既にボード） {{skipped}}件",
+  "kbImportInvalid": "対象外"
 }

@@ -210,6 +210,37 @@ export class BoardService {
     return doc;
   }
 
+  /**
+   * Board row for a KB document that already exists (PLN-260910 KB import D-4).
+   * Born PROMOTED and pointing at the KB row: the content is live knowledge
+   * already, so "published, awaiting adoption" would be a lie. Editing it on
+   * the board raises the revision-behind flag; re-promote updates that same
+   * KB row (B2 P4-1) — never a duplicate.
+   */
+  async createFromKb(tenantId: number, kb: KbDocument, actor: BoardActor): Promise<BoardDocument> {
+    const board = await this.ensureDefault(tenantId);
+    const doc = await this.docRepo.save(
+      this.docRepo.create({
+        tenantId,
+        boardId: Number(board.id),
+        docGroup: kb.docGroup || DOC_GROUP.COUNSEL,
+        category1: (kb.category?.trim() || 'imported').slice(0, 64),
+        category2: null,
+        title: kb.title.trim().slice(0, 255),
+        teamLabel: null,
+        content: kb.content ?? null,
+        tags: ['kb-import'],
+        links: this.parseWikiLinks(kb.content),
+        status: BOARD_DOC_STATUS.PROMOTED,
+        authorUserId: actor.userId,
+        updatedBy: null,
+        promotedDocumentId: Number(kb.id),
+      }),
+    );
+    await this.snapshot(doc, ['*'], BOARD_REVISION_KIND.CREATE, actor.userId);
+    return doc;
+  }
+
   async update(
     tenantId: number,
     id: number,

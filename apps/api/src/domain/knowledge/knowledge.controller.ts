@@ -32,6 +32,7 @@ import { GdriveCredentialService } from './gdrive-credential.service';
 import { NotionCredentialService } from './notion-credential.service';
 import { UsageTypeService } from './usage-type.service';
 import { KbCategoryService } from './kb-category.service';
+import { BoardReviewService } from './board-review.service';
 import { KnowledgeMapper } from './knowledge.mapper';
 import { BULK_IMPORT_GROUPS, DOC_GROUP } from './entity/kb-document.entity';
 import { BulkExportService } from './bulk-export.service';
@@ -89,6 +90,7 @@ export class KnowledgeController {
     private readonly kbCategories: KbCategoryService,
     private readonly ingest: KnowledgeIngestService,
     private readonly bulkExport: BulkExportService,
+    private readonly boardReview: BoardReviewService,
   ) {}
 
   // ---- Knowledge-gap proposals (P5, 결정 9: human approval only) ----
@@ -379,8 +381,12 @@ export class KnowledgeController {
   @RequireCapability(CAPABILITY.KNOWLEDGE_SOURCE_MANAGE)
   @ApiOperation({ summary: 'Get one RAG document with full content' })
   async getDocument(@CurrentUser() user: Principal, @Param('id', ParseIntPipe) id: number) {
-    const doc = await this.knowledgeService.getDocument(this.tenantUser(user).tenantId, id);
-    return KnowledgeMapper.toDocument(doc);
+    const tenantId = this.tenantUser(user).tenantId;
+    const doc = await this.knowledgeService.getDocument(tenantId, id);
+    // Which board document manages this row (PLN-260910 D-6) — imported rows
+    // keep their own external key, so the BRD- prefix alone cannot say.
+    const boardDocumentId = await this.boardReview.boardDocumentIdFor(tenantId, Number(doc.id));
+    return { ...KnowledgeMapper.toDocument(doc), boardDocumentId };
   }
 
   @Post('documents')

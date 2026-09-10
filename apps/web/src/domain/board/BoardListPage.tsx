@@ -13,6 +13,7 @@ import { Pagination } from '@/components/Pagination';
 import { toast } from '@/store/toast-store';
 import { useBoardCategoryCounts, useBoardDocuments, useBoardMentions, useFaqImport } from './board.hooks';
 import type { BoardDocumentSummary } from './board.service';
+import { KbImportModal } from './KbImportModal';
 
 const GROUPS = ['counsel', 'product', 'operation'] as const;
 
@@ -37,6 +38,7 @@ export function BoardListPage() {
 
   const faqImport = useFaqImport();
   const [faqOpen, setFaqOpen] = useState(false);
+  const [kbOpen, setKbOpen] = useState(false);
   const [faqGroup, setFaqGroup] = useState('counsel');
   const [faqFile, setFaqFile] = useState<File | null>(null);
   const closeFaq = () => {
@@ -169,7 +171,11 @@ export function BoardListPage() {
 
   return (
     <div>
-      <PageHeader title={t('title')} subtitle={t('subtitle')} />
+      <PageHeader
+        title={t('title')}
+        subtitle={t('subtitle')}
+        backTo={{ to: '/knowledge', label: tk('title') }}
+      />
       <Card
         title={t('documents')}
         action={
@@ -204,6 +210,9 @@ export function BoardListPage() {
                 </ul>
               </div>
             )}
+            <Button variant="secondary" onClick={() => setKbOpen(true)}>
+              {t('kbImport')}
+            </Button>
             <Button variant="secondary" onClick={() => setFaqOpen(true)}>
               {t('faqImport')}
             </Button>
@@ -331,6 +340,8 @@ export function BoardListPage() {
           </div>
         </div>
       </Card>
+
+      <KbImportModal open={kbOpen} onClose={() => setKbOpen(false)} />
 
       <Modal
         open={faqOpen}

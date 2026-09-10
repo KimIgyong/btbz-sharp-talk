@@ -23,7 +23,6 @@
   "clearTagFilter": "清除标签筛选: #{{tag}}",
   "editor": "编辑文档",
   "editorSubtitle": "使用 Markdown 编写,发布后再审核是否采纳至 KB",
-  "backToList": "返回列表",
   "saveDraft": "保存草稿",
   "publish": "发布",
   "saved": "已保存",
@@ -109,5 +108,17 @@
   "faqImportCreated": "新建",
   "faqImportSkipped": "跳过",
   "faqImportInvalid": "错误",
-  "faqImportRow": "第{{n}}行"
+  "faqImportRow": "第{{n}}行",
+  "kbImport": "从 KB 导入",
+  "kbImportTitle": "将知识库文档导入看板",
+  "kbImportHint": "仅列出直接添加、批量导入或由知识缺口审批产生的文档。商品目录、Drive/Notion 同步及使用指南文档由同步流程所有，不会显示。导入的文档以“已采纳”状态关联到同一 KB 行 — 在看板上修改后重新采纳即可。",
+  "kbImportSearch": "搜索标题或分类",
+  "kbImportSelectPage": "全选本页",
+  "kbImportBoardColumn": "看板",
+  "kbImportLinked": "已在看板 ↗",
+  "kbImportEmpty": "没有可导入的文档",
+  "kbImportSelected": "已选 {{count}} 项",
+  "kbImportRun": "导入看板 ({{count}})",
+  "kbImportDone": "已导入看板 {{created}} 项 · 跳过（已在看板）{{skipped}} 项",
+  "kbImportInvalid": "不符合条件"
 }

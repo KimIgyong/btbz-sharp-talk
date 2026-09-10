@@ -23,7 +23,6 @@
   "clearTagFilter": "Bỏ lọc thẻ: #{{tag}}",
   "editor": "Soạn tài liệu",
   "editorSubtitle": "Viết bằng Markdown; đăng rồi xét duyệt đưa vào KB",
-  "backToList": "Về danh sách",
   "saveDraft": "Lưu nháp",
   "publish": "Đăng",
   "saved": "Đã lưu",
@@ -109,5 +108,17 @@
   "faqImportCreated": "Đã tạo",
   "faqImportSkipped": "Bỏ qua",
   "faqImportInvalid": "Lỗi",
-  "faqImportRow": "Dòng {{n}}"
+  "faqImportRow": "Dòng {{n}}",
+  "kbImport": "Nhập từ KB",
+  "kbImportTitle": "Đưa tài liệu KB lên bảng",
+  "kbImportHint": "Chỉ liệt kê tài liệu được thêm trực tiếp, nhập hàng loạt hoặc phê duyệt từ khoảng trống tri thức. Tài liệu từ danh mục, đồng bộ Drive/Notion và hướng dẫn sử dụng thuộc về đồng bộ nên không hiển thị. Dòng đã nhập bắt đầu ở trạng thái “Đã chấp nhận” và liên kết với cùng dòng KB — sửa tại đây rồi chấp nhận lại.",
+  "kbImportSearch": "Tìm tiêu đề hoặc danh mục",
+  "kbImportSelectPage": "Chọn tất cả trang này",
+  "kbImportBoardColumn": "Bảng",
+  "kbImportLinked": "Đã có trên bảng ↗",
+  "kbImportEmpty": "Không có tài liệu đủ điều kiện",
+  "kbImportSelected": "Đã chọn {{count}}",
+  "kbImportRun": "Đưa lên bảng ({{count}})",
+  "kbImportDone": "Đã đưa lên bảng: {{created}} · bỏ qua (đã có trên bảng): {{skipped}}",
+  "kbImportInvalid": "không đủ điều kiện"
 }

@@ -443,8 +443,8 @@
     "notion": "Notion",
     "product_catalog": "目录"
   },
-  "boardOriginNote": "该文档采纳自 Smart Knowledge Board。在此直接编辑将与看板原文产生分歧。",
-  "boardOriginOpen": "打开看板原文",
+  "boardOriginNote": "此文档由 Smart Knowledge Board 管理。请在看板上修改并重新采纳；在此直接修改会与看板副本产生分歧。",
+  "boardOriginOpen": "在看板中打开",
   "ingestDoneBoard": "已发布 {{saved}} 篇到看板——请审核后采纳至 KB",
   "writeOnBoard": "在看板撰写",
   "directAddHint": "建议:先在看板撰写并审核后再采纳。直接添加仅用于紧急情况。",

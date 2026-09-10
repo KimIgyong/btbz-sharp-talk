@@ -23,7 +23,6 @@
   "clearTagFilter": "Clear tag filter: #{{tag}}",
   "editor": "Edit document",
   "editorSubtitle": "Write in Markdown; publish, then review for KB adoption",
-  "backToList": "Back to list",
   "saveDraft": "Save draft",
   "publish": "Publish",
   "saved": "Saved",
@@ -109,5 +108,17 @@
   "faqImportCreated": "Created",
   "faqImportSkipped": "Skipped",
   "faqImportInvalid": "Errors",
-  "faqImportRow": "Row {{n}}"
+  "faqImportRow": "Row {{n}}",
+  "kbImport": "Import from KB",
+  "kbImportTitle": "Bring KB-Documents onto the board",
+  "kbImportHint": "Only documents added directly, bulk-imported or approved from knowledge gaps are listed. Catalogue, Drive/Notion sync and usage-guide documents are owned by their sync and stay out. Imported rows start as “Adopted” and link to the same KB row — edit here, then re-adopt.",
+  "kbImportSearch": "Search title or category",
+  "kbImportSelectPage": "Select all on this page",
+  "kbImportBoardColumn": "Board",
+  "kbImportLinked": "On the board ↗",
+  "kbImportEmpty": "No eligible documents",
+  "kbImportSelected": "{{count}} selected",
+  "kbImportRun": "Bring onto board ({{count}})",
+  "kbImportDone": "Brought onto the board: {{created}} · skipped (already on board): {{skipped}}",
+  "kbImportInvalid": "not eligible"
 }

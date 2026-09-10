@@ -65,9 +65,17 @@ export class BoardReviewService {
     await this.categories.ensure(tenantId, category, CATEGORY_ORIGIN.MANUAL, doc.docGroup);
 
     const externalKey = `BRD-${doc.id}`;
-    const existing = await this.kbRepo.findOne({
-      where: { tenantId, docGroup: doc.docGroup, externalKey },
-    });
+    // A row imported from the KB (PLN-260910) is linked by id and may carry
+    // someone else's external key — the link wins, the key is the fallback.
+    const linked =
+      doc.promotedDocumentId != null
+        ? await this.kbRepo.findOne({ where: { id: doc.promotedDocumentId, tenantId } })
+        : null;
+    const existing =
+      linked ??
+      (await this.kbRepo.findOne({
+        where: { tenantId, docGroup: doc.docGroup, externalKey },
+      }));
     let kbDoc: KbDocument;
     if (!existing) {
       kbDoc = await this.kbRepo.save(
@@ -92,6 +100,7 @@ export class BoardReviewService {
       existing.category = category;
       existing.content = doc.content;
       existing.status = 'pending';
+      if (!existing.externalKey) existing.externalKey = externalKey;
       kbDoc = await this.kbRepo.save(existing);
       await this.revisions.record(tenantId, kbDoc, before, REVISION_KIND.UPDATE, actorUserId);
     }
@@ -115,6 +124,15 @@ export class BoardReviewService {
       `board doc ${doc.id} promoted → kb ${kbDoc.id} (tenant ${tenantId}, ${doc.docGroup}/${category})`,
     );
     return { kbDocumentId: String(kbDoc.id), category, embedded, embedFailed: failed };
+  }
+
+  /** The board document managing a KB row, if any (reverse of promoted_document_id). */
+  async boardDocumentIdFor(tenantId: number, kbDocumentId: number): Promise<string | null> {
+    const row = await this.boardRepo.findOne({
+      where: { tenantId, promotedDocumentId: kbDocumentId },
+      select: ['id'],
+    });
+    return row ? String(row.id) : null;
   }
 
   /** Reviewed and deliberately not adopted (P4-2). */

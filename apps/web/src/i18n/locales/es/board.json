@@ -23,7 +23,6 @@
   "clearTagFilter": "Quitar filtro: #{{tag}}",
   "editor": "Editar documento",
   "editorSubtitle": "Escriba en Markdown; publique y revise la adopción al KB",
-  "backToList": "Volver a la lista",
   "saveDraft": "Guardar borrador",
   "publish": "Publicar",
   "saved": "Guardado",
@@ -109,5 +108,17 @@
   "faqImportCreated": "Creadas",
   "faqImportSkipped": "Omitidas",
   "faqImportInvalid": "Errores",
-  "faqImportRow": "Fila {{n}}"
+  "faqImportRow": "Fila {{n}}",
+  "kbImport": "Importar desde KB",
+  "kbImportTitle": "Traer documentos KB al tablero",
+  "kbImportHint": "Solo se listan documentos añadidos directamente, importados en bloque o aprobados desde brechas de conocimiento. Los del catálogo, la sincronización Drive/Notion y las guías de uso pertenecen a su sincronización y quedan fuera. Las filas importadas empiezan como “Adoptadas” y enlazan con la misma fila KB — edite aquí y vuelva a adoptar.",
+  "kbImportSearch": "Buscar título o categoría",
+  "kbImportSelectPage": "Seleccionar toda la página",
+  "kbImportBoardColumn": "Tablero",
+  "kbImportLinked": "En el tablero ↗",
+  "kbImportEmpty": "No hay documentos elegibles",
+  "kbImportSelected": "{{count}} seleccionados",
+  "kbImportRun": "Traer al tablero ({{count}})",
+  "kbImportDone": "Traídos al tablero: {{created}} · omitidos (ya en el tablero): {{skipped}}",
+  "kbImportInvalid": "no elegibles"
 }

@@ -135,6 +135,7 @@ export function BoardDocumentPage() {
       <PageHeader
         title={isNew ? t('newDocument') : detail.data?.title ?? t('title')}
         subtitle={t('editorSubtitle')}
+        backTo={{ to: '/knowledge/board', label: t('title') }}
       />
       <Card
         title={t('editor')}
@@ -199,9 +200,6 @@ export function BoardDocumentPage() {
                 </Button>
               </>
             )}
-            <Button variant="secondary" onClick={() => navigate('/knowledge/board')}>
-              {t('backToList')}
-            </Button>
           </div>
         }
       >
@@ -268,7 +266,9 @@ export function BoardDocumentPage() {
 
         {/* MD source is authoritative (D-5); the wikilink hint keeps [[..]] discoverable. */}
         <div data-color-mode="light" className="mt-2">
-          <MDEditor value={content} onChange={(v) => setContent(v ?? '')} height={420} />
+          {/* Editor-only by default (REQ-260910 R2): the split view halved the
+              writing width; the toolbar still switches to split/preview. */}
+          <MDEditor value={content} onChange={(v) => setContent(v ?? '')} height={420} preview="edit" />
           <p className="mt-1 text-xs text-gray-500">{t('wikilinkHint')}</p>
         </div>
 

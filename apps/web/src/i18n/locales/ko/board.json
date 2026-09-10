@@ -23,7 +23,6 @@
   "clearTagFilter": "태그 필터 해제: #{{tag}}",
   "editor": "문서 편집",
   "editorSubtitle": "마크다운으로 작성하고, 게시 후 KB 채택 여부를 검토합니다",
-  "backToList": "목록으로",
   "saveDraft": "임시 저장",
   "publish": "게시",
   "saved": "저장되었습니다",
@@ -109,5 +108,17 @@
   "faqImportCreated": "생성",
   "faqImportSkipped": "스킵",
   "faqImportInvalid": "오류",
-  "faqImportRow": "{{n}}행"
+  "faqImportRow": "{{n}}행",
+  "kbImport": "KB에서 가져오기",
+  "kbImportTitle": "지식베이스문서를 보드로 가져오기",
+  "kbImportHint": "직접 추가·일괄 임포트·지식 공백 승인으로 만든 문서만 대상입니다. 카탈로그·Drive/Notion 동기화·사용법 가이드 문서는 동기화가 소유하므로 목록에 없습니다. 가져온 문서는 'KB 채택됨' 상태로 같은 KB 행에 연결됩니다 — 보드에서 수정한 뒤 재채택하세요.",
+  "kbImportSearch": "제목·카테고리 검색",
+  "kbImportSelectPage": "이 페이지 전체 선택",
+  "kbImportBoardColumn": "보드",
+  "kbImportLinked": "보드에 있음 ↗",
+  "kbImportEmpty": "가져올 수 있는 문서가 없습니다",
+  "kbImportSelected": "{{count}}건 선택",
+  "kbImportRun": "보드로 가져오기 ({{count}})",
+  "kbImportDone": "보드로 가져옴 {{created}}건 · 건너뜀(이미 보드) {{skipped}}건",
+  "kbImportInvalid": "대상 아님"
 }
