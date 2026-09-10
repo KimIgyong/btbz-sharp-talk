@@ -126,7 +126,7 @@ export function KbImportModal({ open, onClose }: { open: boolean; onClose: () =>
               setPage(1);
             }
           }}
-          className="ml-auto h-8 w-56"
+          className="ml-auto h-8 w-44"
         />
         <Select
           value={String(size)}
@@ -135,7 +135,7 @@ export function KbImportModal({ open, onClose }: { open: boolean; onClose: () =>
             setSize(Number(e.target.value));
             setPage(1);
           }}
-          className="h-8 w-28"
+          className="h-8 w-auto"
         >
           {PAGE_SIZES.map((n) => (
             <option key={n} value={n}>
@@ -145,7 +145,8 @@ export function KbImportModal({ open, onClose }: { open: boolean; onClose: () =>
         </Select>
       </div>
 
-      <div className="max-h-96 overflow-y-auto rounded-md border border-gray-200">
+      {/* Wide titles must scroll inside the box, not clip the trailing columns. */}
+      <div className="max-h-96 overflow-auto rounded-md border border-gray-200">
         <table className="w-full text-sm">
           <thead className="sticky top-0 bg-gray-50 text-xs text-gray-500">
             <tr>
@@ -176,8 +177,8 @@ export function KbImportModal({ open, onClose }: { open: boolean; onClose: () =>
                   <td className="max-w-xs truncate px-2 py-1.5">{r.title}</td>
                   <td className="px-2 py-1.5">{r.category ?? '—'}</td>
                   <td className="px-2 py-1.5">{sourceLabel(r)}</td>
-                  <td className="px-2 py-1.5 text-xs">{new Date(r.updatedAt).toLocaleDateString()}</td>
-                  <td className="px-2 py-1.5 text-xs">
+                  <td className="whitespace-nowrap px-2 py-1.5 text-xs">{new Date(r.updatedAt).toLocaleDateString()}</td>
+                  <td className="whitespace-nowrap px-2 py-1.5 text-xs">
                     {linked && (
                       <button
                         type="button"
