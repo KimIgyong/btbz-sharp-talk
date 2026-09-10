@@ -33,7 +33,7 @@
 |---|---|
 | SQL | 없음 |
 | staging | main `5b0f915`(#498) 배포 완료 2026-09-10: API 컨테이너 신규 healthy, `successfully started`, `/health` ok, `GET /board/import/kb-candidates` 미인증 **401**. ivyusa 후보 실측 counsel 233 · product 144 · operation 0 (카탈로그 1,8xx건 제외됨) |
-| staging (#499) | 머지 후 재배포 — 아래 갱신 |
+| staging (#499) | main `2dcfda3` 재배포 완료 2026-09-10: API 컨테이너 신규 healthy, `successfully started`, `/health` ok, 후보 401/인증 조회 정상 |
 | production | 미배포 |
 
 ## 5. 잔여·후속
