@@ -302,7 +302,7 @@
     "snippet": "설치 스니펫",
     "snippetCopied": "스니펫을 복사했습니다.",
     "snippetCopyFailed": "복사에 실패했습니다 — 직접 선택해 복사해 주세요.",
-    "snippetHint": "이 에이전트가 응대할 페이지에 붙여넣으세요. 이미 설치된 페이지라면 IVY_WIDGET_CONFIG에 agent 줄만 추가하면 됩니다.",
+    "snippetHint": "이 에이전트가 응대할 페이지에 붙여넣으세요. 이미 설치된 페이지라면 SHARPTALK_WIDGET_CONFIG에 agent 줄만 추가하면 됩니다.",
     "shared": "모든 에이전트 공통",
     "studioAgent": "에이전트: {{name}}",
     "displayName": "위젯 표시명",

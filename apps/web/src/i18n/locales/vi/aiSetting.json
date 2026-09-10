@@ -302,7 +302,7 @@
     "snippet": "Đoạn mã cài đặt",
     "snippetCopied": "Đã sao chép.",
     "snippetCopyFailed": "Không sao chép được — hãy chọn và sao chép thủ công.",
-    "snippetHint": "Dán vào trang mà nhân viên này phụ trách. Đã cài rồi? Chỉ cần thêm dòng agent vào IVY_WIDGET_CONFIG.",
+    "snippetHint": "Dán vào trang mà nhân viên này phụ trách. Đã cài rồi? Chỉ cần thêm dòng agent vào SHARPTALK_WIDGET_CONFIG.",
     "shared": "chung cho mọi nhân viên",
     "studioAgent": "Nhân viên: {{name}}",
     "displayName": "Tên hiển thị trên widget",
