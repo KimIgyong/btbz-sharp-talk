@@ -128,29 +128,42 @@ export function KbImportModal({ open, onClose }: { open: boolean; onClose: () =>
           }}
           className="ml-auto h-8 w-44"
         />
-        <Select
-          value={String(size)}
-          aria-label={t('kbImportPageSizeLabel')}
-          onChange={(e) => {
-            setSize(Number(e.target.value));
-            setPage(1);
-          }}
-          className="h-8 w-auto"
-        >
-          {PAGE_SIZES.map((n) => (
-            <option key={n} value={n}>
-              {t('kbImportPageSize', { n })}
-            </option>
-          ))}
-        </Select>
+        {/* Field base styles are full-width; the wrapper is what sizes it. */}
+        <div className="w-28 shrink-0">
+          <Select
+            value={String(size)}
+            aria-label={t('kbImportPageSizeLabel')}
+            onChange={(e) => {
+              setSize(Number(e.target.value));
+              setPage(1);
+            }}
+            className="h-8"
+          >
+            {PAGE_SIZES.map((n) => (
+              <option key={n} value={n}>
+                {t('kbImportPageSize', { n })}
+              </option>
+            ))}
+          </Select>
+        </div>
       </div>
 
       {/* Wide titles must scroll inside the box, not clip the trailing columns. */}
       <div className="max-h-96 overflow-auto rounded-md border border-gray-200">
-        <table className="w-full text-sm">
+        {/* Fixed layout: the title column absorbs the width and truncates, so
+            the trailing columns never fall off the edge of a narrow modal. */}
+        <table className="w-full table-fixed text-sm">
+          <colgroup>
+            <col className="w-8" />
+            <col />
+            <col className="w-28" />
+            <col className="w-24" />
+            <col className="w-20" />
+            <col className="w-24" />
+          </colgroup>
           <thead className="sticky top-0 bg-gray-50 text-xs text-gray-500">
             <tr>
-              <th className="w-8 px-2 py-2">
+              <th className="px-2 py-2">
                 <input type="checkbox" checked={allOnPage} onChange={togglePage} aria-label={t('kbImportSelectPage')} />
               </th>
               <th className="px-2 py-2 text-left">{t('title_column')}</th>
@@ -174,9 +187,9 @@ export function KbImportModal({ open, onClose }: { open: boolean; onClose: () =>
                       aria-label={r.title}
                     />
                   </td>
-                  <td className="max-w-xs truncate px-2 py-1.5">{r.title}</td>
-                  <td className="px-2 py-1.5">{r.category ?? '—'}</td>
-                  <td className="px-2 py-1.5">{sourceLabel(r)}</td>
+                  <td className="truncate px-2 py-1.5" title={r.title}>{r.title}</td>
+                  <td className="truncate px-2 py-1.5">{r.category ?? '—'}</td>
+                  <td className="truncate px-2 py-1.5">{sourceLabel(r)}</td>
                   <td className="whitespace-nowrap px-2 py-1.5 text-xs">{new Date(r.updatedAt).toLocaleDateString()}</td>
                   <td className="whitespace-nowrap px-2 py-1.5 text-xs">
                     {linked && (
