@@ -120,5 +120,7 @@
   "kbImportSelected": "{{count}}件選択",
   "kbImportRun": "ボードへ取り込む ({{count}})",
   "kbImportDone": "ボードへ取り込み {{created}}件 · スキップ（既にボード） {{skipped}}件",
-  "kbImportInvalid": "対象外"
+  "kbImportInvalid": "対象外",
+  "kbImportPageSize": "{{n}}件ずつ",
+  "kbImportPageSizeLabel": "1ページの件数"
 }

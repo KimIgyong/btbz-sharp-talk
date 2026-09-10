@@ -120,5 +120,7 @@
   "kbImportSelected": "{{count}} seleccionados",
   "kbImportRun": "Traer al tablero ({{count}})",
   "kbImportDone": "Traídos al tablero: {{created}} · omitidos (ya en el tablero): {{skipped}}",
-  "kbImportInvalid": "no elegibles"
+  "kbImportInvalid": "no elegibles",
+  "kbImportPageSize": "{{n}} por página",
+  "kbImportPageSizeLabel": "Filas por página"
 }

@@ -120,5 +120,7 @@
   "kbImportSelected": "Đã chọn {{count}}",
   "kbImportRun": "Đưa lên bảng ({{count}})",
   "kbImportDone": "Đã đưa lên bảng: {{created}} · bỏ qua (đã có trên bảng): {{skipped}}",
-  "kbImportInvalid": "không đủ điều kiện"
+  "kbImportInvalid": "không đủ điều kiện",
+  "kbImportPageSize": "{{n}} mỗi trang",
+  "kbImportPageSizeLabel": "Số dòng mỗi trang"
 }
