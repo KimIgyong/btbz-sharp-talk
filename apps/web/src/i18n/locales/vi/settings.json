@@ -712,7 +712,8 @@
       "restore": "Đã khôi phục",
       "delete": "Đã xóa",
       "revert": "Đã về widget cơ bản",
-      "import": "Đã nhập “{{name}}”"
+      "import": "Đã nhập “{{name}}”",
+      "restoreRevision": "Đã khôi phục phiên bản"
     },
     "error": {
       "E5086": "Thiết kế này đang được dùng — hãy chuyển sang widget cơ bản hoặc thiết kế khác trước.",
@@ -723,7 +724,11 @@
     "customCss": "CSS tùy chỉnh (tiện ích)",
     "customCssCheck": "Kiểm tra",
     "customCssHint": "Chỉ lớp ổn định: .st-panel .st-header .st-header-title .st-tabs .st-tab .st-message .st-message-user .st-message-bot .st-composer .st-input .st-send .st-launcher .st-quick-reply. Chỉ màu, phông, khoảng cách, viền, bóng; bố cục, ẩn và url() bị loại bỏ.",
-    "customCssKept": "Sẽ giữ {{n}} quy tắc."
+    "customCssKept": "Sẽ giữ {{n}} quy tắc.",
+    "history": "Lịch sử",
+    "historyTitle": "Lịch sử — {{name}}",
+    "historyEmpty": "Chưa có phiên bản trước (mỗi lần sửa sẽ lưu một bản chụp)",
+    "restoreRevision": "Khôi phục phiên bản này"
   },
   "settingsSnapshots": {
     "title": "Ảnh chụp cài đặt",

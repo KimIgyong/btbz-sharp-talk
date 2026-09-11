@@ -1,6 +1,6 @@
 # SharpTalk Quick Setup Manual — From Tenant Creation to the First Conversation
 
-> Version 1.1 · First published 2026-08-24 · **Updated 2026-09-04** · Written against the code
+> Version 1.1 · First published 2026-08-24 · **Updated 2026-09-11** · Written against the code
 > Audience: **Platform administrators** (Chapter 1) · **New tenant administrators** (Chapters 2–8)
 > Online edition: https://shoptalk.amoeba.site/manual (HTML edition plus EN·VI translations)
 > Legend: ✅ implemented / 🟡 in preparation·roadmap. Staging base URL `https://shoptalk.amoeba.site`
@@ -276,6 +276,12 @@ to write one primary language carefully first and fill in the rest later.
 **Widget theme card**: `brand color` (picker/HEX) · `header style` (white/brand color) ·
 `logo` upload · `launcher` position (left/right)·size (sm/md/lg)·icon (chat/question
 mark/headset/logo). The preview on the right updates instantly.
+
+**Custom widgets card** (below the theme card): to go beyond colours — font, text size,
+corners, panel size, launcher icon — press **[Create custom widget]**, name the design and
+press **[Use]**. It goes live immediately with no deployment, and **[Back to basic widget]**
+is always one click away. Upload fonts and icons to the **Design files** card first.
+Details: User Manual Ch. 14.
 
 💡 **Tip**: You only need to pick **one brand color**. Lightness steps and text colors are
 computed automatically against the contrast standard (4.5:1), so "I picked a light color and

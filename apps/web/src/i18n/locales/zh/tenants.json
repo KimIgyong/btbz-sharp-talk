@@ -62,5 +62,6 @@
   "customCssAddon": "自定义看板 CSS 附加功能",
   "customCssEnable": "允许自定义看板 CSS",
   "customCssHint": "允许该租户在看板的稳定类（.st-*）上添加经白名单净化的 CSS（仅颜色、字体、间距，不允许布局、隐藏或外部资源）。关闭后已保存的 CSS 不会下发。",
-  "customCssSaved": "自定义 CSS 附加功能已更新。"
+  "customCssSaved": "自定义 CSS 附加功能已更新。",
+  "assets": "文件"
 }

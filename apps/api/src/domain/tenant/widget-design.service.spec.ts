@@ -51,8 +51,18 @@ describe('WidgetDesignService', () => {
     const audit = { write: jest.fn() };
     const live = { publish: jest.fn() };
     const assets = { get: jest.fn(), readBuffer: jest.fn(), store: jest.fn() };
-    const svc = new WidgetDesignService(repo as never, tenantRepo as never, tenants as never, audit as never, live as never, assets as never);
-    return { svc, rows, tenant, audit, live, assets };
+    const revs: any[] = [];
+    const revRepo = {
+      create: (d: any) => d,
+      save: jest.fn(async (d: any) => { d.id = revs.length + 1; revs.push(d); return d; }),
+      find: jest.fn(async ({ where }: any) => revs.filter((r) => r.designId === where.designId).sort((a, b) => b.revisionNo - a.revisionNo)),
+      findOne: jest.fn(async ({ where, order }: any) => {
+        const list = revs.filter((r) => (where.designId == null || r.designId === where.designId) && (where.id == null || r.id === where.id));
+        return (order ? list.sort((a, b) => b.revisionNo - a.revisionNo)[0] : list[0]) ?? null;
+      }),
+    };
+    const svc = new WidgetDesignService(repo as never, tenantRepo as never, revRepo as never, tenants as never, audit as never, live as never, assets as never);
+    return { svc, rows, tenant, audit, live, assets, revs };
   }
 
   const wire = { font: { preset: 'inter', base_size: 15 }, radius: 'lg', panel: { width: 420, height: 700 } };
@@ -105,6 +115,21 @@ describe('WidgetDesignService', () => {
     expect(h.tenant.widgetTheme?.launcher?.icon).toBe('chat');
     await h.svc.remove(1, Number(row.id), 7);
     expect(h.rows).toHaveLength(0);
+  });
+
+  it('update snapshots the previous state (max+1) and a snapshot can be restored, re-syncing the live copy', async () => {
+    const h = build();
+    const row = await h.svc.create(1, { name: 'A', design: wire } as never, 7);
+    await h.svc.apply(1, Number(row.id), 7);
+    await h.svc.update(1, Number(row.id), { design: { ...wire, radius: 'sm' } } as never, 7);
+    await h.svc.update(1, Number(row.id), { design: { ...wire, radius: 'md' } } as never, 7);
+    await h.svc.update(1, Number(row.id), { name: 'A2' } as never, 7); // name-only: no revision
+    const list = await h.svc.revisions(1, Number(row.id));
+    expect(list.map((r) => [r.revisionNo, r.designJson.radius])).toEqual([[2, 'sm'], [1, 'lg']]);
+    await h.svc.restoreRevision(1, Number(row.id), list[1].id, 7);
+    expect(h.rows[0].designJson.radius).toBe('lg');
+    expect(h.tenant.widgetTheme?.design?.radius).toBe('lg');
+    expect((await h.svc.revisions(1, Number(row.id)))[0].revisionNo).toBe(3); // restore itself is undoable
   });
 
   it('rejects a duplicate name, and duplicate() picks a free copy name', async () => {

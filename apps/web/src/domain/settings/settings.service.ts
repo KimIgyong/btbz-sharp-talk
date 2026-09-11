@@ -159,6 +159,16 @@ export interface WidgetDesignItem {
   updatedAt: string;
 }
 
+export interface WidgetDesignRevision {
+  id: string;
+  revisionNo: number;
+  name: string;
+  note: string | null;
+  design: WidgetDesign;
+  actorUserId: string | null;
+  createdAt: string;
+}
+
 export interface WidgetDesignList {
   activeId: string | null;
   items: WidgetDesignItem[];
@@ -274,6 +284,9 @@ export const settingsService = {
   archiveWidgetDesign: (id: string) => apiPost<WidgetDesignItem>(`/widget-designs/${id}/archive`, {}),
   restoreWidgetDesign: (id: string) => apiPost<WidgetDesignItem>(`/widget-designs/${id}/restore`, {}),
   deleteWidgetDesign: (id: string) => apiDelete<{ deleted: true }>(`/widget-designs/${id}`),
+  widgetDesignRevisions: (id: string) => apiGet<WidgetDesignRevision[]>(`/widget-designs/${id}/revisions`),
+  restoreWidgetDesignRevision: (id: string, revisionId: string) =>
+    apiPost<WidgetDesignItem>(`/widget-designs/${id}/revisions/${revisionId}/restore`, {}),
   widgetDesignPreviewToken: (id: string) =>
     apiPost<{ token: string; expiresAt: number }>(`/widget-designs/${id}/preview-token`, {}),
   exportWidgetDesign: (id: string) => apiGetBlob(`/widget-designs/${id}/export`),

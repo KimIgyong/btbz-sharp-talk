@@ -62,5 +62,6 @@
   "customCssAddon": "Tiện ích CSS widget tùy chỉnh",
   "customCssEnable": "Cho phép CSS widget tùy chỉnh",
   "customCssHint": "Cho phép đơn vị này thêm CSS đã lọc theo danh sách cho phép trên các lớp ổn định .st-* của widget (màu, phông, khoảng cách — không bố cục, ẩn hay tài nguyên ngoài). Tắt = CSS đã lưu không được gửi đi.",
-  "customCssSaved": "Đã cập nhật tiện ích CSS tùy chỉnh."
+  "customCssSaved": "Đã cập nhật tiện ích CSS tùy chỉnh.",
+  "assets": "Tệp"
 }

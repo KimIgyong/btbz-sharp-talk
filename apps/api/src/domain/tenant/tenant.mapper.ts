@@ -32,7 +32,7 @@ import { defaultOrigins } from '../embed/embed-origin.util';
 // preview, the API and the widget cannot disagree about the unthemed palette.
 
 export class TenantMapper {
-  static toTenant(t: Tenant, userCount?: number): TenantResponse {
+  static toTenant(t: Tenant, userCount?: number, assetBytes?: number): TenantResponse {
     return {
       id: t.id,
       uuid: t.uuid,
@@ -44,13 +44,20 @@ export class TenantMapper {
       workflowMode: t.workflowMode,
       customCssEnabled: Number(t.customCssEnabled) === 1,
       ...(userCount !== undefined ? { userCount } : {}),
+      ...(assetBytes !== undefined ? { assetBytes } : {}),
       createdAt: t.createdAt,
       updatedAt: t.updatedAt,
     };
   }
 
-  static toTenantList(tenants: Tenant[], counts?: Map<number, number>): TenantResponse[] {
-    return tenants.map((t) => this.toTenant(t, counts?.get(Number(t.id)) ?? (counts ? 0 : undefined)));
+  static toTenantList(tenants: Tenant[], counts?: Map<number, number>, usage?: Map<number, number>): TenantResponse[] {
+    return tenants.map((t) =>
+      this.toTenant(
+        t,
+        counts?.get(Number(t.id)) ?? (counts ? 0 : undefined),
+        usage ? usage.get(Number(t.id)) ?? 0 : undefined,
+      ),
+    );
   }
 
   /** Unauthenticated login-page view — never add fields beyond display-safe ones. */

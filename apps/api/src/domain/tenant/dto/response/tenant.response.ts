@@ -13,6 +13,8 @@ export interface TenantResponse {
   /** Issue-workflow add-on entitlement: base/bridge/native (REQ-260825). */
   workflowMode: string;
   userCount?: number;
+  /** Bytes in the tenant asset store (design + settings) — admin list (PLN-260910 D-11). */
+  assetBytes?: number;
   createdAt: Date;
   updatedAt: Date;
 }

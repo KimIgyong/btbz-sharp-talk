@@ -712,7 +712,8 @@
       "restore": "復元しました",
       "delete": "削除しました",
       "revert": "基本ウィジェットに戻しました",
-      "import": "「{{name}}」を取り込みました"
+      "import": "「{{name}}」を取り込みました",
+      "restoreRevision": "以前のバージョンに復元しました"
     },
     "error": {
       "E5086": "使用中のデザインです — 先に基本ウィジェットか別のデザインに切り替えてください。",
@@ -723,7 +724,11 @@
     "customCss": "カスタムCSS（アドオン）",
     "customCssCheck": "チェック",
     "customCssHint": "安定クラスのみ: .st-panel .st-header .st-header-title .st-tabs .st-tab .st-message .st-message-user .st-message-bot .st-composer .st-input .st-send .st-launcher .st-quick-reply。色・フォント・余白・枠線・影のみ許可。配置・非表示・url() は除去されます。",
-    "customCssKept": "{{n}} 件のルールが保持されます。"
+    "customCssKept": "{{n}} 件のルールが保持されます。",
+    "history": "履歴",
+    "historyTitle": "変更履歴 — {{name}}",
+    "historyEmpty": "以前のバージョンはまだありません（編集のたびにスナップショットを保存）",
+    "restoreRevision": "このバージョンに復元"
   },
   "settingsSnapshots": {
     "title": "設定スナップショット",

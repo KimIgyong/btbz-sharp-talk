@@ -1,6 +1,6 @@
 # Sổ tay thiết lập nhanh SharpTalk — Từ khi mở tenant đến phiên tư vấn đầu tiên
 
-> Phiên bản 1.1 · Bản đầu 2026-08-24 · **Cập nhật 2026-09-04** · Biên soạn dựa trên mã nguồn
+> Phiên bản 1.1 · Bản đầu 2026-08-24 · **Cập nhật 2026-09-11** · Biên soạn dựa trên mã nguồn
 > Đối tượng: **Quản trị viên nền tảng** (chương 1) · **Quản trị viên tenant mới** (chương 2~8)
 > Bản trực tuyến: https://shoptalk.amoeba.site/manual (có bản HTML và bản dịch EN·VI)
 > Ký hiệu: ✅ đã triển khai / 🟡 đang chuẩn bị·lộ trình. URL staging chuẩn `https://shoptalk.amoeba.site`
@@ -273,6 +273,11 @@ viết kỹ trước cho một ngôn ngữ chủ lực, phần còn lại điề
 **Thẻ Chủ đề widget**: `màu thương hiệu` (bộ chọn/HEX) · `kiểu phần đầu` (trắng/màu thương hiệu) ·
 tải lên `logo` · `launcher` vị trí (trái/phải)·kích thước (sm/md/lg)·biểu tượng
 (chat/dấu hỏi/tai nghe/logo). Có thể xem ngay ở phần xem trước bên phải.
+
+**Thẻ Widget tùy chỉnh** (dưới thẻ chủ đề): muốn đổi cả phông chữ, cỡ chữ, bo góc, kích thước
+bảng, biểu tượng nút mở thì bấm **[Tạo widget tùy chỉnh]**, đặt tên thiết kế rồi bấm **[Dùng]**.
+Có hiệu lực ngay, không cần triển khai, và luôn có thể **[Về widget cơ bản]**. Tải phông và
+biểu tượng lên thẻ **Tệp thiết kế** trước. Chi tiết: Sổ tay người dùng chương 14.
 
 💡 **Mẹo**: chỉ cần chọn **một màu thương hiệu duy nhất**. Các bậc sáng và màu chữ được
 tính tự động theo chuẩn tương phản (4.5:1), nên không có chuyện "chọn màu sáng xong chữ

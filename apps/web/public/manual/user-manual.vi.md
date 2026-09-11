@@ -1,6 +1,6 @@
 # Widget trò chuyện·hỗ trợ khách hàng SharpTalk — Sổ tay người dùng (tổng hợp)
 
-> Phiên bản 2.1.0 · Bản đầu 2026-07-01 · Sửa đổi toàn diện 2026-08-24 · **Cập nhật 2026-09-04** (dựa trên mã nguồn)
+> Phiên bản 2.1.0 · Bản đầu 2026-07-01 · Sửa đổi toàn diện 2026-08-24 · **Cập nhật 2026-09-11** (dựa trên mã nguồn)
 > Đối tượng: người vận hành tenant · nhân viên tư vấn · quản trị viên nền tảng
 > Quy ước ký hiệu: **✅ đã triển khai / 🟡 đang chuẩn bị·lộ trình**. Ghi trung thực theo mã nguồn thực tế.
 >
@@ -402,12 +402,12 @@ Tab cũng là đơn vị cấp menu — tab mà quản trị viên nền tảng 
 
 | Tab | Nội dung |
 |---|---|
-| Cài đặt cơ bản | **Công cụ AI** (đăng ký công cụ riêng của tenant — ưu tiên hơn công cụ nền tảng; kiểm tra kết nối·đặt mặc định; gọi bằng khóa của bạn thì tính phí vào tài khoản của bạn) · **Mức dùng AI** (số lần gọi/token theo kỳ và trục, cảnh báo rơi về stub — không ước tính tiền) · Cửa hàng (storefront) · **Kết nối nhân viên tư vấn** (người phụ trách·giờ làm việc·giờ nghỉ·email/nội dung ngoài giờ·SLA·chuyển tiếp bắt buộc theo chính sách) |
-| Cài đặt widget | Chủ đề · bố cục tab · hành vi (tên hiển thị·lời chào — **6 tab ngôn ngữ**, kèm nội dung mặc định) · Nhúng/SDK · hướng dẫn cài lên cửa hàng |
+| Cài đặt cơ bản | **Công cụ AI** (đăng ký công cụ riêng của tenant — ưu tiên hơn công cụ nền tảng; kiểm tra kết nối·đặt mặc định; gọi bằng khóa của bạn thì tính phí vào tài khoản của bạn) · **Mức dùng AI** (số lần gọi/token theo kỳ và trục, cảnh báo rơi về stub — không ước tính tiền) · Cửa hàng (storefront) · **Kết nối nhân viên tư vấn** (người phụ trách·giờ làm việc·giờ nghỉ·email/nội dung ngoài giờ·SLA·chuyển tiếp bắt buộc theo chính sách) · **Tùy chọn tri thức** (có hiển thị thẻ "hướng dẫn sử dụng" trên trang Kiến thức hay không — dành cho tenant kiểu cửa hàng, mặc định tắt) |
+| Cài đặt widget | Chủ đề widget (màu thương hiệu·header·logo·vị trí nút mở) · **Widget tùy chỉnh** (tạo nhiều thiết kế có tên — phông chữ, cỡ chữ, bo góc, kích thước bảng, biểu tượng nút mở — lưu tại đây và áp dụng một cái bằng **[Dùng]**: có hiệu lực ngay, không cần triển khai; **[Về widget cơ bản]**, liên kết xem trước, nhân bản, **xuất/nhập gói** JSON, **Lịch sử** (mỗi lần lưu giữ lại trạng thái trước để khôi phục), lưu trữ·xóa. Ô CSS đã lọc chỉ hiện với tenant được quản trị viên nền tảng bật tiện ích) · **Tệp thiết kế** (phông woff2/ttf/otf·biểu tượng·hình ảnh·tài liệu thiết kế tải lên thư mục riêng của tenant — giữ nguyên qua các lần triển khai, hiển thị dung lượng theo khu vực) · bố cục tab · hành vi (tên hiển thị·lời chào — **6 tab ngôn ngữ**, kèm nội dung mặc định) · Nhúng/SDK · hướng dẫn cài lên cửa hàng |
 | Tích hợp nền tảng | Các ô Shopify · Cafe24 · WooCommerce · Odoo · Haravan + nút **[Hướng dẫn tích hợp]** góc phải trên (tìm từng thông tin xác thực ở đâu) |
 | Marketing & Helpdesk | Klaviyo · Yotpo · Gorgias |
 | Kênh nhắn tin | Telegram · Viber · trung tâm AmoebaTalk · btbz messenger relay · Gmail (Zalo·LINE·WhatsApp sắp hỗ trợ) |
-| Cài đặt khác | Kênh thông báo · quyền truy cập menu (master) · tiêu chí báo cáo hành trình (master, §4.5) · thông tin xác thực đã lưu |
+| Cài đặt khác | Kênh thông báo · quyền truy cập menu (master) · tiêu chí báo cáo hành trình (master, §4.5) · thông tin xác thực đã lưu · **Ảnh chụp cài đặt** (12 trường cài đặt — chủ đề widget·nội dung·tab·thông báo v.v. — cùng thư viện widget tùy chỉnh lưu thành một tệp JSON; so sánh rồi khôi phục, tải về, xóa; không bao giờ chứa thông tin xác thực hay bí mật) |
 | Thông báo quyền riêng tư | URL chính sách · phiên bản thông báo đồng ý (§15) |
 
 - **Đã lưu ≠ đã kết nối**: lưu thông tin xác thực thì trạng thái là "chưa kiểm tra". Chỉ
@@ -450,6 +450,9 @@ hướng dẫn cài đặt widget
   menu mặc định; đổi gói vẫn giữ các ghi đè theo từng menu) + **add-on quy trình issue**
   (`base` không dùng / `bridge` nối helpdesk ngoài / `native` bật bảng issue·kanban).
   Trong danh sách, chế độ khác base hiển thị huy hiệu "Issues: {chế độ}" ở cột gói.
+  Chỉ tenant được bật ô **Cho phép CSS widget tùy chỉnh** mới thêm được CSS đã lọc vào widget
+  tùy chỉnh (chỉ các lớp ổn định `.st-*` và thuộc tính màu/phông/khoảng cách). Cột **Tệp**
+  trong danh sách tenant là dung lượng thư mục của tenant (tệp thiết kế·ảnh chụp).
 
 Chi tiết quy trình mở tenant: [Sổ tay thiết lập nhanh chương 1](quick-setup.vi.md).
 

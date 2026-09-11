@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { normalizeDesign, normalizeWidgetTheme, stripCustomCss, WidgetTheme } from '@sharptalk/types';
 import { Tenant } from './entity/tenant.entity';
 import { WIDGET_DESIGN_STATUS, WidgetDesignRow } from './entity/widget-design.entity';
+import { WidgetDesignRevision } from './entity/widget-design-revision.entity';
 import { TenantService } from './tenant.service';
 import { AuditService } from '../audit/audit.service';
 import { BusinessException } from '../../global/exception/business.exception';
@@ -29,6 +30,7 @@ export class WidgetDesignService {
   constructor(
     @InjectRepository(WidgetDesignRow) private readonly repo: Repository<WidgetDesignRow>,
     @InjectRepository(Tenant) private readonly tenantRepo: Repository<Tenant>,
+    @InjectRepository(WidgetDesignRevision) private readonly revRepo: Repository<WidgetDesignRevision>,
     private readonly tenants: TenantService,
     private readonly audit: AuditService,
     private readonly live: WidgetLiveService,
@@ -85,6 +87,10 @@ export class WidgetDesignService {
 
   async update(tenantId: number, id: number, dto: UpdateWidgetDesignRequest, actorId: number): Promise<WidgetDesignRow> {
     const row = await this.get(tenantId, id);
+    // History: the design as it was before this edit (follow-up "변경 이력").
+    // Only a design change earns a revision — restore puts back the design,
+    // not the name, so a name-only revision would be one restore cannot use.
+    if (dto.design !== undefined) await this.snapshot(row, actorId);
     if (dto.name !== undefined) {
       const name = dto.name.trim();
       await this.assertNameFree(tenantId, name, Number(row.id));
@@ -170,6 +176,44 @@ export class WidgetDesignService {
     await this.assertNotActive(tenantId, row);
     await this.repo.delete({ id: Number(row.id), tenantId });
     await this.write(tenantId, actorId, 'tenant.widget_design_deleted', row);
+  }
+
+  // ---- history (follow-up) --------------------------------------------------
+
+  async revisions(tenantId: number, id: number): Promise<WidgetDesignRevision[]> {
+    await this.get(tenantId, id);
+    return this.revRepo.find({ where: { tenantId, designId: id }, order: { revisionNo: 'DESC' }, take: 50 });
+  }
+
+  /** Copy a snapshot back over the design (the current state is snapshotted first, so restore is itself undoable). */
+  async restoreRevision(tenantId: number, id: number, revisionId: number, actorId: number): Promise<WidgetDesignRow> {
+    const row = await this.get(tenantId, id);
+    const rev = await this.revRepo.findOne({ where: { id: revisionId, tenantId, designId: id } });
+    if (!rev) throw new BusinessException(ERROR_CODE.RESOURCE_NOT_FOUND, HttpStatus.NOT_FOUND);
+    await this.snapshot(row, actorId);
+    row.designJson = rev.designJson;
+    row.note = rev.note;
+    row.updatedBy = actorId;
+    const saved = await this.repo.save(row);
+    const tenant = await this.tenants.findById(tenantId);
+    if (Number(tenant.activeWidgetDesignId) === Number(saved.id)) await this.writeLive(tenant, saved.designJson);
+    await this.write(tenantId, actorId, 'tenant.widget_design_restored', saved);
+    return saved;
+  }
+
+  private async snapshot(row: WidgetDesignRow, actorId: number): Promise<void> {
+    const last = await this.revRepo.findOne({ where: { designId: Number(row.id) }, order: { revisionNo: 'DESC' } });
+    await this.revRepo.save(
+      this.revRepo.create({
+        tenantId: row.tenantId,
+        designId: Number(row.id),
+        revisionNo: (last?.revisionNo ?? 0) + 1,
+        name: row.name,
+        designJson: row.designJson,
+        note: row.note,
+        actorUserId: actorId,
+      }),
+    );
   }
 
   // ---- preview (D-15) ------------------------------------------------------

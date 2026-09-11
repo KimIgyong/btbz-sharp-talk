@@ -712,7 +712,8 @@
       "restore": "Restaurado",
       "delete": "Eliminado",
       "revert": "De vuelta al widget básico",
-      "import": "“{{name}}” importado"
+      "import": "“{{name}}” importado",
+      "restoreRevision": "Versión restaurada"
     },
     "error": {
       "E5086": "Este diseño está en uso — cambie primero al widget básico u otro diseño.",
@@ -723,7 +724,11 @@
     "customCss": "CSS personalizado (complemento)",
     "customCssCheck": "Comprobar",
     "customCssHint": "Solo clases estables: .st-panel .st-header .st-header-title .st-tabs .st-tab .st-message .st-message-user .st-message-bot .st-composer .st-input .st-send .st-launcher .st-quick-reply. Solo colores, fuentes, espaciado, bordes y sombras; disposición, ocultación y url() se eliminan.",
-    "customCssKept": "Se conservarán {{n}} regla(s)."
+    "customCssKept": "Se conservarán {{n}} regla(s).",
+    "history": "Historial",
+    "historyTitle": "Historial — {{name}}",
+    "historyEmpty": "Aún no hay versiones anteriores (cada edición guarda una instantánea)",
+    "restoreRevision": "Restaurar esta versión"
   },
   "settingsSnapshots": {
     "title": "Instantáneas de configuración",

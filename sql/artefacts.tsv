@@ -34,6 +34,7 @@
 260910-tenant-usage-guides-flag.sql	column	tenants	usage_guides_enabled
 260911-tenant-assets.sql	table	tenant_assets	-
 260911-tenant-custom-css-flag.sql	column	tenants	custom_css_enabled
+260911-widget-design-revisions.sql	table	widget_design_revisions	-
 260911-widget-designs.sql	table	widget_designs	-
 260911-widget-designs.sql	column	tenants	active_widget_design_id
 migration_agent_coaching.sql	table	agent_coaching_threads	-
