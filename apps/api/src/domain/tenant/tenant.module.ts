@@ -15,6 +15,7 @@ import { WidgetBrandingController } from './widget-branding.controller';
 import { IntegrationModule } from '../integration/integration.module';
 import { AuditModule } from '../audit/audit.module';
 import { EmbedModule } from '../embed/embed.module';
+import { TenantAssetModule } from '../tenant-asset/tenant-asset.module';
 
 @Module({
   imports: [
@@ -30,6 +31,8 @@ import { EmbedModule } from '../embed/embed.module';
     AuditModule,
     // For the secret-rotation route; EmbedModule owns the secret's lifecycle.
     EmbedModule,
+    // Design-profile asset references are verified against the tenant's files (P2).
+    TenantAssetModule,
   ],
   controllers: [TenantController, WidgetBrandingController],
   providers: [TenantService, EcommerceIntegrationService, WebhookSecretService, WidgetLogoService],

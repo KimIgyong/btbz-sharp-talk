@@ -83,7 +83,9 @@ export function WidgetPanel() {
         // FIX-260828).
         ...(isAppMode()
           ? []
-          : ['sm:inset-auto sm:bottom-24 sm:right-5 sm:top-auto sm:h-[600px] sm:w-[404px] sm:rounded-xl']),
+          // Size and corners come from the design tokens (ivy-panel-desktop in
+          // index.css) so a tenant's panel size reaches the panel and the loader alike.
+          : ['sm:inset-auto sm:bottom-24 sm:right-5 sm:top-auto ivy-panel-desktop']),
       ].join(' ')}
       role="dialog"
       aria-modal="true"

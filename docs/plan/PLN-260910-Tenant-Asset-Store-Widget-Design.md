@@ -48,6 +48,18 @@
 
 예상 규모: P0 0.5일 · P1 2일 · P2 2~3일 · P3 2일 · P4 1.5일 · P5 2일(선택). 각 단계 착수 시 세부 PLN 보강·승인, TCR/RPT 동반.
 
+## 2.1 P2 세부 (착수 시 보강, 2026-09-11)
+
+| # | 항목 | 내용 |
+|---|---|---|
+| P2-1 | 계약 | `WidgetTheme.design?: { font{preset: pretendard\|noto-sans-kr\|inter\|system\|custom, asset?{uuid,version}, baseSize 13~16}, radius sm\|md\|lg, panel{width 360~480, height 480~720}, launcherIcon?{uuid,version} }` + `LAUNCHER_ICON.custom`. 정규화는 범위 밖 값을 기본값으로 낙하, 파일 없는 custom은 pretendard/chat으로 낙하 |
+| P2-2 | 토큰 | `--ivy-font-family`, `--ivy-root-size`(=16×baseSize/14 → rem 글자·간격 동시 스케일), `--ivy-radius`(패널 모서리), `--ivy-panel-w/h`(데스크톱 패널). 위젯 `index.css`가 폴백값으로 종전 값을 유지 |
+| P2-3 | 폰트 소스 | custom → `@font-face 'IvyTenantFont'`(공개 자산 URL, `font-display: swap`) 동적 삽입; noto-sans-kr/inter → Google Fonts `<link>`; system → 시스템 스택. 재적용 시 태그 중복 없음 |
+| P2-4 | 로더 계약 | `ivy:launcher` 메시지에 `frame{w,h}`(패널+40/+80) 동봉 → 로더가 `OPEN` 계산·shop별 캐시. 로더도 400~520 / 560~800으로 클램프 |
+| P2-5 | API | `PATCH /tenants/widget-theme` `design`(snake) — 절대 없음=유지, null=삭제, 객체=교체. 자산 uuid는 테넌트 소유·kind(font/icon) 검증(`TenantAssetService`, 옵셔널 주입) |
+| P2-6 | 콘솔 | 위젯 테마 카드에 폰트(프리셋/업로드)·기본 크기·모서리·패널 폭/높이·런처 "업로드한 아이콘" 추가, 미리보기에 폰트·크기·모서리·아이콘 반영 |
+| P2-7 | 범위 밖 | 말풍선 모서리(패널 모서리만), 탭 아이콘, 에디터 모드 기억 |
+
 ## 3. 백엔드 작업 (P1 기준, P2/P3는 단계 착수 시 상세화)
 
 | # | 파일 | 작업 |

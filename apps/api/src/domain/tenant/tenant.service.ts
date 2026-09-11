@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpStatus, Injectable, Logger, Optional } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { Tenant, TenantWidgetCopy } from './entity/tenant.entity';
@@ -48,6 +48,7 @@ import {
   UpdateShopifySettingsRequest,
 } from './dto/request/tenant.request';
 import { AuditService } from '../audit/audit.service';
+import { TenantAssetService } from '../tenant-asset/tenant-asset.service';
 import { LogoUpload, WidgetLogoService } from './widget-logo.service';
 import { parseOrigin } from '../embed/embed-origin.util';
 import { DEFAULT_BRAND } from '@sharptalk/types';
@@ -83,6 +84,8 @@ export class TenantService {
     private readonly integrationService: IntegrationService,
     private readonly audit: AuditService,
     private readonly widgetLogo: WidgetLogoService,
+    // Optional: unit specs build the service positionally without it (P2).
+    @Optional() private readonly assets?: TenantAssetService,
   ) {}
 
   async list(
@@ -541,6 +544,15 @@ export class TenantService {
     // it. Carrying the stored value forward is what stops "change the brand
     // colour" from silently deleting the tenant's logo — the neighbouring-field
     // wipe this repo has been bitten by before (PLN-260818 lesson).
+    // Design profile (P2): absent = keep, null = clear. Asset references are
+    // resolved against the tenant's own files so a uuid from another tenant (or
+    // a deleted one) cannot become a broken font or icon on the storefront.
+    const design =
+      dto.design === undefined
+        ? tenant.widgetTheme?.design ?? null
+        : dto.design === null
+          ? null
+          : await this.resolveDesign(tenantId, dto.design);
     const theme = normalizeWidgetTheme({
       brand: dto.brand,
       // Every optional field carries the stored value forward. header_style is
@@ -550,6 +562,7 @@ export class TenantService {
       headerStyle: dto.header_style ?? tenant.widgetTheme?.headerStyle,
       logo: tenant.widgetTheme?.logo ?? null,
       launcher: dto.launcher ?? tenant.widgetTheme?.launcher ?? null,
+      design,
     });
     if (!theme) {
       this.logger.warn(`widget theme rejected: unusable brand colour (tenant ${tenantId})`);
@@ -623,6 +636,37 @@ export class TenantService {
       target: `usage_guides:${dto.usage_guides_enabled ? 'on' : 'off'}`,
     });
     return saved;
+  }
+
+  /** Snake-case design payload → theme JSON, with asset uuids verified (kind + tenant). */
+  private async resolveDesign(
+    tenantId: number,
+    d: NonNullable<UpdateWidgetThemeRequest['design']>,
+  ): Promise<Record<string, unknown>> {
+    const ref = async (uuid: string | null | undefined, kind: string) => {
+      if (!uuid) return null;
+      if (!this.assets) {
+        throw new BusinessException(ERROR_CODE.VALIDATION_FAILED, HttpStatus.BAD_REQUEST);
+      }
+      const row = await this.assets.get(tenantId, uuid); // 404 when not this tenant's
+      if (row.kind !== kind) {
+        this.logger.warn(`widget design rejected: asset ${uuid} is ${row.kind}, expected ${kind} (tenant ${tenantId})`);
+        throw new BusinessException(ERROR_CODE.VALIDATION_FAILED, HttpStatus.BAD_REQUEST);
+      }
+      return { uuid: row.uuid, version: row.version };
+    };
+    return {
+      font: d.font
+        ? {
+            preset: d.font.preset,
+            asset: d.font.preset === 'custom' ? await ref(d.font.asset_uuid, 'font') : null,
+            baseSize: d.font.base_size,
+          }
+        : null,
+      radius: d.radius ?? null,
+      panel: d.panel ?? null,
+      launcherIcon: await ref(d.launcher_icon_uuid, 'icon'),
+    };
   }
 
   private safeUrlHost(url: string | null): string | null {

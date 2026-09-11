@@ -29,6 +29,8 @@ export const LAUNCHER_ICON = {
   QUESTION: 'question',
   HEADSET: 'headset',
   LOGO: 'logo',
+  /** An uploaded icon asset (design.launcherIcon) — PLN-260910 P2. */
+  CUSTOM: 'custom',
 } as const;
 export type LauncherIcon = (typeof LAUNCHER_ICON)[keyof typeof LAUNCHER_ICON];
 
@@ -69,6 +71,70 @@ export interface WidgetLauncher {
   icon: LauncherIcon;
 }
 
+// ---- Design profile (PLN-260910 P2) ------------------------------------------
+
+export const FONT_PRESET = {
+  PRETENDARD: 'pretendard',
+  NOTO_SANS_KR: 'noto-sans-kr',
+  INTER: 'inter',
+  SYSTEM: 'system',
+  /** A font file the tenant uploaded (design asset, kind=font). */
+  CUSTOM: 'custom',
+} as const;
+export type FontPreset = (typeof FONT_PRESET)[keyof typeof FONT_PRESET];
+
+export const WIDGET_RADIUS = { SM: 'sm', MD: 'md', LG: 'lg' } as const;
+export type WidgetRadius = (typeof WIDGET_RADIUS)[keyof typeof WIDGET_RADIUS];
+
+/** A tenant design asset the widget fetches publicly; `version` is the cache key. */
+export interface WidgetAssetRef {
+  uuid: string;
+  version: number;
+}
+
+export interface WidgetFont {
+  preset: FontPreset;
+  /** Required when preset is 'custom'; ignored otherwise. */
+  asset?: WidgetAssetRef | null;
+  /** Base text size in px. The widget scales rem-based text and spacing from it. */
+  baseSize: number;
+}
+
+export interface WidgetPanelSize {
+  width: number;
+  height: number;
+}
+
+export interface WidgetDesign {
+  font?: WidgetFont | null;
+  radius?: WidgetRadius | null;
+  panel?: WidgetPanelSize | null;
+  /** Drawn when launcher.icon is 'custom'. */
+  launcherIcon?: WidgetAssetRef | null;
+}
+
+export const DESIGN_LIMITS = {
+  baseSize: { min: 13, max: 16, default: 14 },
+  panel: { width: { min: 360, max: 480, default: 404 }, height: { min: 480, max: 720, default: 600 } },
+} as const;
+
+/** Frame the loader reserves around the open panel: 20px gutters + the launcher row. */
+export const PANEL_FRAME_PAD = { w: 40, h: 80 } as const;
+
+export const RADIUS_PX: Record<WidgetRadius, number> = { sm: 8, md: 12, lg: 16 };
+
+/** Font stacks per preset. 'custom' is prefixed with the uploaded face at runtime. */
+export const FONT_STACKS: Record<Exclude<FontPreset, 'custom'>, string> = {
+  pretendard:
+    "'Pretendard', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', 'PingFang SC', 'Noto Sans SC', 'Segoe UI', Roboto, sans-serif",
+  'noto-sans-kr': "'Noto Sans KR', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+  inter: "'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+  system: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+};
+
+/** The face name the widget registers for an uploaded font. */
+export const CUSTOM_FONT_FAMILY = 'IvyTenantFont';
+
 export interface WidgetTheme {
   /** Brand colour as `#RRGGBB`; occupies the 500 slot of the generated ramp. */
   brand: string;
@@ -78,6 +144,8 @@ export interface WidgetTheme {
   logo?: WidgetLogo | null;
   /** Absent = the built-in geometry. */
   launcher?: WidgetLauncher | null;
+  /** Absent = the built-in font, size, corners and panel (PLN-260910 P2). */
+  design?: WidgetDesign | null;
 }
 
 /** Ramp stop → the palette's own lightness, in HSL percent. */
@@ -263,7 +331,82 @@ export function buildThemeVariables(theme: WidgetTheme | null | undefined): Reco
     // contrast floor, so dimming would push the icons under it.
     vars['--ivy-header-dim'] = '1';
   }
+  // Design profile (P2). Each token is only written when configured, so an
+  // unthemed part keeps the stylesheet's own default — same stance as the ramp.
+  const design = theme?.design;
+  if (design?.font) {
+    vars['--ivy-font-family'] =
+      design.font.preset === FONT_PRESET.CUSTOM
+        ? `'${CUSTOM_FONT_FAMILY}', ${FONT_STACKS.pretendard}`
+        : FONT_STACKS[design.font.preset];
+    // Root font size: rem-based text AND spacing scale together, like a zoom,
+    // which keeps line heights and bubbles proportional at every size.
+    vars['--ivy-root-size'] = `${((16 * design.font.baseSize) / DESIGN_LIMITS.baseSize.default).toFixed(2)}px`;
+  }
+  if (design?.radius) vars['--ivy-radius'] = `${RADIUS_PX[design.radius]}px`;
+  if (design?.panel) {
+    vars['--ivy-panel-w'] = `${design.panel.width}px`;
+    vars['--ivy-panel-h'] = `${design.panel.height}px`;
+  }
   return vars;
+}
+
+/** Open-panel frame the loader must reserve (widget and loader agree through this). */
+export function panelFrame(theme: WidgetTheme | null | undefined): { w: number; h: number } {
+  const panel = theme?.design?.panel ?? {
+    width: DESIGN_LIMITS.panel.width.default,
+    height: DESIGN_LIMITS.panel.height.default,
+  };
+  return { w: panel.width + PANEL_FRAME_PAD.w, h: panel.height + PANEL_FRAME_PAD.h };
+}
+
+const clampInt = (v: unknown, min: number, max: number, dflt: number): number => {
+  const n = Math.round(Number(v));
+  if (!Number.isFinite(n)) return dflt;
+  return Math.min(max, Math.max(min, n));
+};
+
+export function normalizeAssetRef(input: unknown): WidgetAssetRef | null {
+  if (!input || typeof input !== 'object') return null;
+  const raw = input as Partial<WidgetAssetRef>;
+  if (typeof raw.uuid !== 'string' || !/^[0-9a-f-]{36}$/i.test(raw.uuid)) return null;
+  const version = Number(raw.version);
+  return { uuid: raw.uuid.toLowerCase(), version: Number.isFinite(version) && version > 0 ? Math.round(version) : 1 };
+}
+
+/**
+ * Design profile, or null when nothing usable was configured. Out-of-range
+ * values fall to the defaults rather than rejecting the save — like the
+ * launcher, a bad number must not cost the tenant their colour (PLN D-5).
+ */
+export function normalizeDesign(input: unknown): WidgetDesign | null {
+  if (!input || typeof input !== 'object') return null;
+  const raw = input as Partial<WidgetDesign>;
+  const out: WidgetDesign = {};
+  if (raw.font && typeof raw.font === 'object') {
+    const f = raw.font as Partial<WidgetFont>;
+    const presets = Object.values(FONT_PRESET) as string[];
+    let preset = presets.includes(f.preset as string) ? (f.preset as FontPreset) : FONT_PRESET.PRETENDARD;
+    const asset = normalizeAssetRef(f.asset);
+    // A custom preset without a file has nothing to draw with.
+    if (preset === FONT_PRESET.CUSTOM && !asset) preset = FONT_PRESET.PRETENDARD;
+    out.font = {
+      preset,
+      ...(preset === FONT_PRESET.CUSTOM && asset ? { asset } : {}),
+      baseSize: clampInt(f.baseSize, DESIGN_LIMITS.baseSize.min, DESIGN_LIMITS.baseSize.max, DESIGN_LIMITS.baseSize.default),
+    };
+  }
+  if ((Object.values(WIDGET_RADIUS) as string[]).includes(raw.radius as string)) out.radius = raw.radius as WidgetRadius;
+  if (raw.panel && typeof raw.panel === 'object') {
+    const p = raw.panel as Partial<WidgetPanelSize>;
+    out.panel = {
+      width: clampInt(p.width, DESIGN_LIMITS.panel.width.min, DESIGN_LIMITS.panel.width.max, DESIGN_LIMITS.panel.width.default),
+      height: clampInt(p.height, DESIGN_LIMITS.panel.height.min, DESIGN_LIMITS.panel.height.max, DESIGN_LIMITS.panel.height.default),
+    };
+  }
+  const icon = normalizeAssetRef(raw.launcherIcon);
+  if (icon) out.launcherIcon = icon;
+  return Object.keys(out).length ? out : null;
 }
 
 /**
@@ -293,6 +436,12 @@ export function normalizeWidgetTheme(input: unknown): WidgetTheme | null {
   if (logo) theme.logo = logo;
   const launcher = normalizeLauncher(raw.launcher);
   if (launcher) theme.launcher = launcher;
+  const design = normalizeDesign(raw.design);
+  if (design) theme.design = design;
+  // A custom launcher icon needs its file; without one, draw the default.
+  if (theme.launcher?.icon === LAUNCHER_ICON.CUSTOM && !design?.launcherIcon) {
+    theme.launcher = { ...theme.launcher, icon: LAUNCHER_DEFAULTS.icon };
+  }
   return theme;
 }
 

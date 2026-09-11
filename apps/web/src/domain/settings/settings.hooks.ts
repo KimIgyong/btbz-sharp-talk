@@ -9,7 +9,7 @@ import type {
 } from '@sharptalk/types';
 import type { SaveTenantEngineBody, UsageGroupBy } from './settings.service';
 import { settingsService } from './settings.service';
-import type { SaveShopifyBody, UpdateCredentialBody, WidgetCopyDraft } from './settings.service';
+import type { SaveShopifyBody, UpdateCredentialBody, WidgetCopyDraft, WidgetDesignDraft } from './settings.service';
 import { toast } from '@/store/toast-store';
 import { useTenantKey } from '@/lib/use-tenant-key';
 
@@ -338,8 +338,12 @@ export function useSaveWidgetTheme() {
   const qc = useQueryClient();
   const tenantKey = useTenantKey();
   return useMutation({
-    mutationFn: (v: { brand: string; headerStyle: WidgetHeaderStyle; launcher?: WidgetLauncher }) =>
-      settingsService.saveWidgetTheme(v.brand, v.headerStyle, v.launcher),
+    mutationFn: (v: {
+      brand: string;
+      headerStyle: WidgetHeaderStyle;
+      launcher?: WidgetLauncher;
+      design?: WidgetDesignDraft | null;
+    }) => settingsService.saveWidgetTheme(v.brand, v.headerStyle, v.launcher, v.design),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['widget-theme', tenantKey] });
       toast.success(t('widgetTheme.saved'));

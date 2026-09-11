@@ -25,7 +25,11 @@ import {
   WIDGET_TAB_ORDER,
 } from '../../../../../packages/types/src/common/enum.types';
 import {
+  DESIGN_LIMITS,
+  FONT_PRESET,
+  FONT_STACKS,
   LAUNCHER_METRICS,
+  RADIUS_PX,
   buildThemeVariables,
   resolveLauncher,
 } from '../../../../../packages/types/src/common/widget-theme';
@@ -41,6 +45,7 @@ import {
   useDeleteWidgetLogo,
   useSaveWidgetSettings,
   useStorefront,
+  useTenantAssets,
   useUpdateStorefront,
   useWidgetSettings,
 } from './settings.hooks';
@@ -853,10 +858,45 @@ export function WidgetThemeCard() {
   const pickedLauncher = launcherPicked ?? storedLauncher;
   // Deleting the logo removes the "your logo" option, but the stored value can
   // still say `logo`. Show what the widget will actually draw in that case.
+  // --- design profile (PLN-260910 P2) ---
+  const fontAssets = useTenantAssets('font');
+  const iconAssets = useTenantAssets('icon');
+  const storedDesign = data?.theme?.design ?? null;
+  const storedDraft = {
+    fontPreset: (storedDesign?.font?.preset ?? FONT_PRESET.PRETENDARD) as string,
+    fontAssetUuid: storedDesign?.font?.asset?.uuid ?? null,
+    baseSize: storedDesign?.font?.baseSize ?? DESIGN_LIMITS.baseSize.default,
+    radius: (storedDesign?.radius ?? 'md') as string,
+    panelWidth: storedDesign?.panel?.width ?? DESIGN_LIMITS.panel.width.default,
+    panelHeight: storedDesign?.panel?.height ?? DESIGN_LIMITS.panel.height.default,
+    launcherIconUuid: storedDesign?.launcherIcon?.uuid ?? null,
+  };
+  const [designPicked, setDesignPicked] = useState<Partial<typeof storedDraft> | null>(null);
+  const design = { ...storedDraft, ...(designPicked ?? {}) };
+  const setDesign = (patch: Partial<typeof storedDraft>) => setDesignPicked({ ...(designPicked ?? {}), ...patch });
+  const designDirty = (Object.keys(storedDraft) as (keyof typeof storedDraft)[]).some(
+    (k) => design[k] !== storedDraft[k],
+  );
+  // A custom launcher icon needs a file to draw; without one, show what the widget shows.
+  const iconFile = design.launcherIconUuid
+    ? (iconAssets.data?.items ?? []).find((a) => a.uuid === design.launcherIconUuid) ?? null
+    : null;
   const launcher =
     pickedLauncher.icon === 'logo' && !logo
       ? { ...pickedLauncher, icon: 'chat' as const }
-      : pickedLauncher;
+      : pickedLauncher.icon === 'custom' && !iconFile
+        ? { ...pickedLauncher, icon: 'chat' as const }
+        : pickedLauncher;
+  const fontFile = design.fontPreset === FONT_PRESET.CUSTOM && design.fontAssetUuid
+    ? (fontAssets.data?.items ?? []).find((a) => a.uuid === design.fontAssetUuid) ?? null
+    : null;
+  const previewFont =
+    design.fontPreset === FONT_PRESET.CUSTOM
+      ? fontFile
+        ? `'IvyPreviewFont', ${FONT_STACKS.pretendard}`
+        : FONT_STACKS.pretendard
+      : FONT_STACKS[design.fontPreset as keyof typeof FONT_STACKS] ?? FONT_STACKS.pretendard;
+  const previewScale = design.baseSize / DESIGN_LIMITS.baseSize.default;
   // Same URL the widget uses, so the preview shows the real file rather than a
   // local object URL that would look right even when serving is broken.
   // Without a shop domain the URL would resolve to a 404 and show a broken
@@ -871,7 +911,8 @@ export function WidgetThemeCard() {
       headerStyle !== storedHeader ||
       launcher.position !== storedLauncher.position ||
       launcher.size !== storedLauncher.size ||
-      launcher.icon !== storedLauncher.icon);
+      launcher.icon !== storedLauncher.icon ||
+      designDirty);
 
   // Same computation the widget runs, so this preview cannot promise a colour
   // the widget would not paint.
@@ -1008,19 +1049,156 @@ export function WidgetThemeCard() {
               <option value="headset">{t('widgetTheme.iconHeadset')}</option>
               {/* Only offered once there is a logo to show. */}
               {logo && <option value="logo">{t('widgetTheme.iconLogo')}</option>}
+              {/* Only offered once an icon file exists (design files card). */}
+              {(iconAssets.data?.items.length ?? 0) > 0 && (
+                <option value="custom">{t('widgetTheme.iconCustom')}</option>
+              )}
             </Select>
           </FormRow>
+          {launcher.icon === 'custom' && (
+            <FormRow label={t('widgetTheme.iconFile')}>
+              <Select
+                aria-label={t('widgetTheme.iconFile')}
+                value={design.launcherIconUuid ?? ''}
+                onChange={(e) => setDesign({ launcherIconUuid: e.target.value || null })}
+              >
+                <option value="">—</option>
+                {(iconAssets.data?.items ?? []).map((a) => (
+                  <option key={a.uuid} value={a.uuid}>
+                    {a.label || a.filename}
+                  </option>
+                ))}
+              </Select>
+            </FormRow>
+          )}
           <p className="mb-4 text-xs text-gray-400">{t('widgetTheme.launcherHint')}</p>
+
+          {/* --- design profile: font · size · corners · panel (PLN-260910 P2) --- */}
+          <FormRow label={t('widgetTheme.font')}>
+            <div className="flex flex-wrap gap-2">
+              <Select
+                aria-label={t('widgetTheme.font')}
+                value={design.fontPreset}
+                disabled={isLoading}
+                onChange={(e) => setDesign({ fontPreset: e.target.value })}
+                className="w-48"
+              >
+                <option value="pretendard">Pretendard</option>
+                <option value="noto-sans-kr">Noto Sans KR</option>
+                <option value="inter">Inter</option>
+                <option value="system">{t('widgetTheme.fontSystem')}</option>
+                {(fontAssets.data?.items.length ?? 0) > 0 && (
+                  <option value="custom">{t('widgetTheme.fontCustom')}</option>
+                )}
+              </Select>
+              {design.fontPreset === 'custom' && (
+                <Select
+                  aria-label={t('widgetTheme.fontFile')}
+                  value={design.fontAssetUuid ?? ''}
+                  onChange={(e) => setDesign({ fontAssetUuid: e.target.value || null })}
+                  className="w-48"
+                >
+                  <option value="">—</option>
+                  {(fontAssets.data?.items ?? []).map((a) => (
+                    <option key={a.uuid} value={a.uuid}>
+                      {a.label || a.filename}
+                    </option>
+                  ))}
+                </Select>
+              )}
+              <Select
+                aria-label={t('widgetTheme.fontSize')}
+                value={String(design.baseSize)}
+                onChange={(e) => setDesign({ baseSize: Number(e.target.value) })}
+                className="w-24"
+              >
+                {[13, 14, 15, 16].map((n) => (
+                  <option key={n} value={n}>
+                    {n}px
+                  </option>
+                ))}
+              </Select>
+            </div>
+          </FormRow>
+          <p className="mb-4 text-xs text-gray-400">{t('widgetTheme.fontHint')}</p>
+
+          <FormRow label={t('widgetTheme.radius')}>
+            <Select
+              aria-label={t('widgetTheme.radius')}
+              value={design.radius}
+              onChange={(e) => setDesign({ radius: e.target.value })}
+              className="w-48"
+            >
+              <option value="sm">{t('widgetTheme.radiusSm')}</option>
+              <option value="md">{t('widgetTheme.radiusMd')}</option>
+              <option value="lg">{t('widgetTheme.radiusLg')}</option>
+            </Select>
+          </FormRow>
+
+          <FormRow label={t('widgetTheme.panel')}>
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <input
+                type="number"
+                aria-label={t('widgetTheme.panelWidth')}
+                min={DESIGN_LIMITS.panel.width.min}
+                max={DESIGN_LIMITS.panel.width.max}
+                step={4}
+                value={design.panelWidth}
+                onChange={(e) => setDesign({ panelWidth: Number(e.target.value) })}
+                className="w-24 rounded-lg border border-gray-200 px-2 py-1.5"
+              />
+              ×
+              <input
+                type="number"
+                aria-label={t('widgetTheme.panelHeight')}
+                min={DESIGN_LIMITS.panel.height.min}
+                max={DESIGN_LIMITS.panel.height.max}
+                step={4}
+                value={design.panelHeight}
+                onChange={(e) => setDesign({ panelHeight: Number(e.target.value) })}
+                className="w-24 rounded-lg border border-gray-200 px-2 py-1.5"
+              />
+              px
+            </div>
+          </FormRow>
+          <p className="mb-4 text-xs text-gray-400">
+            {t('widgetTheme.panelHint', {
+              wmin: DESIGN_LIMITS.panel.width.min,
+              wmax: DESIGN_LIMITS.panel.width.max,
+              hmin: DESIGN_LIMITS.panel.height.min,
+              hmax: DESIGN_LIMITS.panel.height.max,
+            })}
+          </p>
 
           <Button
             onClick={() =>
               save.mutate(
-                { brand, headerStyle, launcher },
+                {
+                  brand,
+                  headerStyle,
+                  launcher,
+                  ...(designDirty
+                    ? {
+                        design: {
+                          ...design,
+                          panelWidth: Math.min(
+                            DESIGN_LIMITS.panel.width.max,
+                            Math.max(DESIGN_LIMITS.panel.width.min, design.panelWidth),
+                          ),
+                          panelHeight: Math.min(
+                            DESIGN_LIMITS.panel.height.max,
+                            Math.max(DESIGN_LIMITS.panel.height.min, design.panelHeight),
+                          ),
+                        },
+                      }
+                    : {}),
+                },
                 {
                   onSuccess: () => {
                     setBrandPicked(null);
                     setHeaderPicked(null);
                     setLauncherPicked(null);
+                    setDesignPicked(null);
                   },
                 },
               )
@@ -1034,7 +1212,17 @@ export function WidgetThemeCard() {
         {/* Live preview */}
         <div className="w-[260px]">
           <div className="mb-2 text-xs font-medium text-gray-500">{t('widgetTheme.preview')}</div>
-          <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+          {fontFile && (
+            <style>{`@font-face{font-family:'IvyPreviewFont';src:url("${apiBaseUrl()}${fontFile.url.slice('/api/v1'.length)}");font-display:swap;}`}</style>
+          )}
+          <div
+            className="overflow-hidden border border-gray-200 shadow-sm"
+            style={{
+              fontFamily: previewFont,
+              fontSize: `${previewScale}em`,
+              borderRadius: RADIUS_PX[design.radius as keyof typeof RADIUS_PX] ?? 12,
+            }}
+          >
             <div
               className="flex items-center justify-between px-3 py-2.5 text-sm font-bold"
               style={{
@@ -1085,7 +1273,9 @@ export function WidgetThemeCard() {
                 height: LAUNCHER_METRICS[launcher.size].button * 0.75,
               }}
             >
-              {launcher.icon === 'logo' && logoSrc ? (
+              {launcher.icon === 'custom' && iconFile ? (
+                <img src={`${apiBaseUrl()}${iconFile.url.slice('/api/v1'.length)}`} alt="" className="h-3/5 w-3/5 object-contain" />
+              ) : launcher.icon === 'logo' && logoSrc ? (
                 <img src={logoSrc} alt="" className="h-full w-full rounded-full object-cover" />
               ) : launcher.icon === 'question' ? (
                 <CircleHelp className="h-5 w-5" />

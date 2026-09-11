@@ -1,4 +1,9 @@
-import { buildThemeVariables } from '../../../../packages/types/src/common/widget-theme';
+import {
+  buildThemeVariables,
+  CUSTOM_FONT_FAMILY,
+  FONT_PRESET,
+} from '../../../../packages/types/src/common/widget-theme';
+import { assetUrl } from './branding';
 import type { WidgetTheme } from './types';
 
 /**
@@ -23,6 +28,53 @@ export function applyTheme(theme: WidgetTheme | null): void {
   // built-in palette into a second place to keep in sync.
   for (const name of THEMED_PROPERTIES) root.style.removeProperty(name);
   for (const [name, value] of Object.entries(vars)) root.style.setProperty(name, value);
+  applyFontSources(theme);
+}
+
+const FONT_FACE_ID = 'ivy-font-face';
+const FONT_LINK_ID = 'ivy-font-link';
+/** Presets that are not bundled with the widget load their CSS from Google Fonts. */
+const PRESET_LINKS: Record<string, string> = {
+  [FONT_PRESET.NOTO_SANS_KR]: 'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap',
+  [FONT_PRESET.INTER]: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+};
+
+/**
+ * Make the configured font available: an uploaded file becomes an @font-face
+ * (swap, so text renders in the fallback until it lands), a hosted preset
+ * becomes a stylesheet link. Both are idempotent — re-applying the same theme
+ * must not stack duplicate tags.
+ */
+function applyFontSources(theme: WidgetTheme | null): void {
+  const font = theme?.design?.font ?? null;
+  const face = document.getElementById(FONT_FACE_ID);
+  const link = document.getElementById(FONT_LINK_ID) as HTMLLinkElement | null;
+  const wantFace =
+    font?.preset === FONT_PRESET.CUSTOM && font.asset
+      ? `@font-face{font-family:'${CUSTOM_FONT_FAMILY}';src:url("${assetUrl(font.asset)}");font-display:swap;}`
+      : null;
+  if (wantFace) {
+    if (face?.textContent !== wantFace) {
+      const el = face ?? document.createElement('style');
+      el.id = FONT_FACE_ID;
+      el.textContent = wantFace;
+      if (!face) document.head.appendChild(el);
+    }
+  } else {
+    face?.remove();
+  }
+  const wantLink = font ? PRESET_LINKS[font.preset] ?? null : null;
+  if (wantLink) {
+    if (link?.href !== wantLink) {
+      const el = link ?? document.createElement('link');
+      el.id = FONT_LINK_ID;
+      el.rel = 'stylesheet';
+      el.href = wantLink;
+      if (!link) document.head.appendChild(el);
+    }
+  } else {
+    link?.remove();
+  }
 }
 
 /** Every property applyTheme may set — listed so clearing is exhaustive. */
@@ -32,6 +84,12 @@ const THEMED_PROPERTIES = [
   '--ivy-header-bg',
   '--ivy-header-fg',
   '--ivy-header-dim',
+  // Design profile (P2)
+  '--ivy-font-family',
+  '--ivy-root-size',
+  '--ivy-radius',
+  '--ivy-panel-w',
+  '--ivy-panel-h',
 ];
 
 /**

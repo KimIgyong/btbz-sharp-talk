@@ -132,6 +132,17 @@ export interface NotificationChannels {
 }
 
 /** Widget brand theme. One colour; the ramp is derived, never stored. */
+/** Console-side draft of the design profile (PLN-260910 P2); snake-cased on the wire. */
+export interface WidgetDesignDraft {
+  fontPreset: string;
+  fontAssetUuid?: string | null;
+  baseSize: number;
+  radius: string;
+  panelWidth: number;
+  panelHeight: number;
+  launcherIconUuid?: string | null;
+}
+
 export interface WidgetThemeSettings {
   /** The stored theme, or null when the tenant has never set one. */
   theme: WidgetTheme | null;
@@ -164,11 +175,25 @@ export const settingsService = {
     brand: string,
     headerStyle: WidgetHeaderStyle,
     launcher?: WidgetLauncher,
+    design?: WidgetDesignDraft | null,
   ) =>
     apiPatch<WidgetThemeSettings>('/tenants/widget-theme', {
       brand,
       header_style: headerStyle,
       ...(launcher ? { launcher } : {}),
+      // undefined = keep what is stored; null = clear; object = replace (P2).
+      ...(design !== undefined
+        ? {
+            design: design
+              ? {
+                  font: { preset: design.fontPreset, asset_uuid: design.fontAssetUuid ?? null, base_size: design.baseSize },
+                  radius: design.radius,
+                  panel: { width: design.panelWidth, height: design.panelHeight },
+                  launcher_icon_uuid: design.launcherIconUuid ?? null,
+                }
+              : null,
+          }
+        : {}),
     }),
   // The logo has its own routes: it is a file, and folding it into the theme
   // PATCH would make every colour change a multipart upload.

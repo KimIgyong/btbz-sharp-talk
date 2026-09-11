@@ -191,4 +191,53 @@ describe('TenantService.updatePrivacyNotice', () => {
       );
     });
   });
+  describe('updateWidgetTheme design profile (PLN-260910 P2)', () => {
+    const withAssets = (rows: Record<string, { uuid: string; kind: string; version: number }>) =>
+      new TenantService(
+        { findOne: jest.fn(async () => tenant), save: jest.fn(async (t: Tenant) => t) } as never,
+        {} as never,
+        {} as never,
+        { count: jest.fn(async () => 1) } as never,
+        { count: jest.fn(async () => 1) } as never,
+        { count: jest.fn(async () => 1) } as never,
+        {} as never,
+        { write: auditWrite } as never,
+        undefined as never,
+        {
+          get: jest.fn(async (_t: number, uuid: string) => {
+            const row = rows[uuid];
+            if (!row) throw new Error('not found');
+            return row;
+          }),
+        } as never,
+      );
+
+    it('stores verified asset refs (uuid + version) and clamps sizes', async () => {
+      const font = '94c2949c-3ce5-47be-acb3-3c4cfa7c58b3';
+      const svc2 = withAssets({ [font]: { uuid: font, kind: 'font', version: 2 } });
+      const saved = await svc2.updateWidgetTheme(1, 7, {
+        brand: '#2B7FFF',
+        design: { font: { preset: 'custom', asset_uuid: font, base_size: 99 }, radius: 'lg', panel: { width: 100, height: 700 } },
+      } as never);
+      expect(saved.widgetTheme?.design).toEqual({
+        font: { preset: 'custom', asset: { uuid: font, version: 2 }, baseSize: 16 },
+        radius: 'lg',
+        panel: { width: 360, height: 700 },
+      });
+    });
+
+    it('refuses an asset of the wrong kind and keeps the stored design when the payload omits it', async () => {
+      const icon = '9ff568e2-a4a0-4e98-83c0-6c3b3df60edd';
+      const svc2 = withAssets({ [icon]: { uuid: icon, kind: 'icon', version: 1 } });
+      await expect(
+        svc2.updateWidgetTheme(1, 7, {
+          brand: '#2B7FFF',
+          design: { font: { preset: 'custom', asset_uuid: icon, base_size: 14 } },
+        } as never),
+      ).rejects.toMatchObject({ errorCode: 'E5003' });
+      tenant.widgetTheme = { brand: '#2B7FFF', headerStyle: 'white', design: { radius: 'sm' } } as never;
+      const saved = await svc2.updateWidgetTheme(1, 7, { brand: '#112233' } as never);
+      expect(saved.widgetTheme?.design).toEqual({ radius: 'sm' });
+    });
+  });
 });
