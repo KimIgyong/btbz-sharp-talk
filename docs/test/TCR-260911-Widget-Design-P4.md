@@ -44,8 +44,8 @@
 ## 5. 스테이징 (배포 후)
 | ID | 검사 | 결과 |
 |---|---|---|
-| S-1 | nginx가 uploads 볼륨 ro 마운트, `GET /widget-design/live/{shop}.json` → 200 json, `Cache-Control: no-cache`, 없는 shop 404 | 배포 후 |
-| S-2 | 위젯 페이지에서 정적 파일 fetch 발생·적용(캐시 제거 후 첫 페인트) | 배포 후 |
+| S-1 | nginx가 uploads 볼륨 ro 마운트, `GET /widget-design/live/{shop}.json` → 200 json, `Cache-Control: no-cache`, 없는 shop 404 | PASS(마운트 RW=false, 200/no-cache/CORS, 404) |
+| S-2 | 위젯 페이지에서 정적 파일 fetch 발생·적용 | PASS(스테이징 위젯 `?shop=` 로드 시 `/widget-design/live/…json` 리소스 요청 1건·200, 테마 캐시 갱신) |
 
 ## 6. 엣지
 | 케이스 | 처리 |
