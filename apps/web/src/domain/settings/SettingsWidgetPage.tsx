@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { WidgetThemeCard, WidgetTabsCard, WidgetBehaviorCard, InstallGuideCard } from './SettingsPage';
 import { EmbedCard } from './EmbedCard';
+import { DesignAssetsCard } from './DesignAssetsCard';
 
 /** Tenant settings — widget (PLN-260824 B). Composition only; every card moved here unchanged. */
 export function SettingsWidgetPage() {
@@ -11,6 +12,8 @@ export function SettingsWidgetPage() {
       {/* The tab already names the section; this says what it is for. */}
       <p className="text-sm text-gray-500">{t('groups.widget.subtitle')}</p>
       <WidgetThemeCard />
+      {/* The tenant's own design files — what the design profile (P2) points at (PLN-260910). */}
+      <DesignAssetsCard />
       <WidgetTabsCard />
       <WidgetBehaviorCard />
       {/* Where the widget may be embedded, and how a host proves its visitor

@@ -619,5 +619,41 @@
     "usageGuides": "Use product usage guides",
     "usageGuidesHint": "Manage how-to-use knowledge per product type. Useful for shops: when on, a “Usage guides” section appears on the Knowledge page. Turning it off hides the section only — written guides and their citations stay.",
     "saved": "Knowledge options saved"
+  },
+  "designAssets": {
+    "title": "Design files",
+    "hint": "Fonts, icons, images and reference documents kept in this tenant's own folder. They survive deployments and are what a custom widget design will point at. svg, css and js are not accepted.",
+    "add": "Add files",
+    "empty": "No files of this kind yet",
+    "uploaded": "File uploaded",
+    "deleted": "File deleted",
+    "deleteConfirm": "Delete “{{name}}”?",
+    "public": "public",
+    "private": "private",
+    "copyUrl": "Copy URL",
+    "urlCopied": "URL copied",
+    "urlCopyFailed": "Could not copy the URL",
+    "download": "Download",
+    "quotaHint": "Used / quota for design files",
+    "fontLicense": "You are responsible for the web-embedding licence of any font you upload.",
+    "kind": {
+      "font": "Fonts",
+      "icon": "Icons",
+      "image": "Images",
+      "doc": "Design docs"
+    },
+    "rule": {
+      "font": "woff2 · ttf · otf, up to 2 MB",
+      "icon": "png · webp, up to 256 KB and 512×512",
+      "image": "png · jpg · webp, up to 2 MB and 2000 px",
+      "doc": "pdf · png · jpg, up to 10 MB (reference only)"
+    },
+    "error": {
+      "E5081": "Unsupported file for this kind — the content is checked, not the file name.",
+      "E5082": "The file exceeds the size limit for its kind.",
+      "E5083": "The image exceeds the pixel limit for its kind.",
+      "E5084": "Design-file quota is full — delete something first.",
+      "E5085": "Unknown asset kind."
+    }
   }
 }

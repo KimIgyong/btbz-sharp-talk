@@ -19,6 +19,15 @@ fi
 # git pull --ff-only
 
 echo "==> Building and starting production stack..."
+# UPLOAD_DIR must match the uploads volume mount (FIX-260911) — otherwise files
+# land in container storage and vanish at the next deploy, without any error.
+upload_dir="$(grep -E '^UPLOAD_DIR=' "$ENV_FILE" | tail -1 | cut -d= -f2- || true)"
+if [[ "$upload_dir" != "/data/uploads" ]]; then
+  echo "ERROR: UPLOAD_DIR is '${upload_dir:-unset}', but the compose file mounts the" >&2
+  echo "       uploads volume at /data/uploads. Set UPLOAD_DIR=/data/uploads in $ENV_FILE." >&2
+  exit 1
+fi
+
 docker compose -f "$COMPOSE_FILE" --env-file "$ENV_FILE" up -d --build
 
 echo "==> Status:"

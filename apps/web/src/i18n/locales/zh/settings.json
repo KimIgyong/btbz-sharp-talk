@@ -619,5 +619,41 @@
     "usageGuides": "使用商品使用指南",
     "usageGuidesHint": "按商品类型管理使用方法知识。适用于商城租户：启用后，知识页面会出现“使用指南”区块。关闭仅隐藏该区块 — 已写好的指南及其引用仍然保留。",
     "saved": "知识选项已保存"
+  },
+  "designAssets": {
+    "title": "设计文件",
+    "hint": "保存在本租户专属文件夹中的字体、图标、图片和参考文档。不受部署影响，是自定义看板设计所引用的对象。不接受 svg、css、js。",
+    "add": "添加文件",
+    "empty": "暂无此类文件",
+    "uploaded": "文件已上传",
+    "deleted": "文件已删除",
+    "deleteConfirm": "删除“{{name}}”？",
+    "public": "公开",
+    "private": "私有",
+    "copyUrl": "复制 URL",
+    "urlCopied": "已复制 URL",
+    "urlCopyFailed": "无法复制 URL",
+    "download": "下载",
+    "quotaHint": "设计文件已用 / 配额",
+    "fontLicense": "上传字体的网页嵌入授权由租户自行负责。",
+    "kind": {
+      "font": "字体",
+      "icon": "图标",
+      "image": "图片",
+      "doc": "设计文档"
+    },
+    "rule": {
+      "font": "woff2 · ttf · otf，最大 2 MB",
+      "icon": "png · webp，最大 256 KB 且 512×512",
+      "image": "png · jpg · webp，最大 2 MB 且 2000 px",
+      "doc": "pdf · png · jpg，最大 10 MB（仅供参考）"
+    },
+    "error": {
+      "E5081": "文件与该类型不符 — 检查的是内容而非文件名。",
+      "E5082": "文件超过该类型的大小上限。",
+      "E5083": "图片超过该类型的像素上限。",
+      "E5084": "设计文件配额已满 — 请先删除。",
+      "E5085": "未知的文件类型。"
+    }
   }
 }

@@ -236,6 +236,47 @@ export function useUpdateStorefront() {
  * Knowledge-page options (PLN-260910). Read by /knowledge (every visitor) to
  * decide whether the usage-guides section renders; written from Settings > Basic.
  */
+// ---- Tenant asset store (PLN-260910 P1) ----
+export function useTenantAssets(kind?: string) {
+  const tenantKey = useTenantKey();
+  return useQuery({
+    queryKey: ['tenant-assets', tenantKey, 'design', kind ?? ''],
+    queryFn: () => settingsService.assets('design', kind),
+  });
+}
+
+export function useUploadTenantAsset() {
+  const { t } = useTranslation('settings');
+  const qc = useQueryClient();
+  const tenantKey = useTenantKey();
+  return useMutation({
+    mutationFn: (v: { file: File; kind: string; label?: string }) =>
+      settingsService.uploadAsset(v.file, v.kind, v.label),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['tenant-assets', tenantKey] });
+      toast.success(t('designAssets.uploaded'));
+    },
+    onError: (e: Error & { code?: string }) => {
+      const known = e.code && ['E5081', 'E5082', 'E5083', 'E5084', 'E5085'].includes(e.code);
+      toast.error(known ? t(`designAssets.error.${e.code}`) : e.message, { sticky: true });
+    },
+  });
+}
+
+export function useDeleteTenantAsset() {
+  const { t } = useTranslation('settings');
+  const qc = useQueryClient();
+  const tenantKey = useTenantKey();
+  return useMutation({
+    mutationFn: (uuid: string) => settingsService.deleteAsset(uuid),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['tenant-assets', tenantKey] });
+      toast.success(t('designAssets.deleted'));
+    },
+    onError: (e: Error) => toast.error(e.message, { sticky: true }),
+  });
+}
+
 export function useKnowledgeSettings() {
   const tenantKey = useTenantKey();
   return useQuery({

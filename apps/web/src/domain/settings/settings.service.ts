@@ -77,6 +77,30 @@ export interface KnowledgeSettings {
   usageGuidesEnabled: boolean;
 }
 
+/** Tenant asset store (PLN-260910 P1). */
+export interface TenantAsset {
+  id: string;
+  uuid: string;
+  area: string;
+  kind: 'font' | 'icon' | 'image' | 'doc' | string;
+  filename: string;
+  label: string | null;
+  mime: string;
+  ext: string;
+  size: number;
+  width: number | null;
+  height: number | null;
+  version: number;
+  public: boolean;
+  url: string;
+  createdAt: string;
+}
+
+export interface TenantAssetList {
+  items: TenantAsset[];
+  usage: { area: string; used: number; quota: number };
+}
+
 export interface Storefront {
   storefrontUrl: string | null;
 }
@@ -158,6 +182,17 @@ export const settingsService = {
     apiPatch<NotificationChannels>('/tenants/notification-channels', { channels }),
   updateStorefront: (storefrontUrl: string) =>
     apiPatch<Storefront>('/tenants/storefront', { storefront_url: storefrontUrl }),
+  assets: (area = 'design', kind?: string) =>
+    apiGet<TenantAssetList>('/tenant-assets', { area, ...(kind ? { kind } : {}) }),
+  uploadAsset: (file: File, kind: string, label?: string) => {
+    const form = new FormData();
+    form.append('file', file);
+    form.append('area', 'design');
+    form.append('kind', kind);
+    if (label) form.append('label', label);
+    return apiUpload<TenantAsset>('/tenant-assets', form);
+  },
+  deleteAsset: (uuid: string) => apiDelete<{ deleted: true }>(`/tenant-assets/${uuid}`),
   knowledgeSettings: () => apiGet<KnowledgeSettings>('/tenants/knowledge-settings'),
   updateKnowledgeSettings: (usageGuidesEnabled: boolean) =>
     apiPatch<KnowledgeSettings>('/tenants/knowledge-settings', {

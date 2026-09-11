@@ -57,6 +57,14 @@ curl -s -o /dev/null -w '%{http_code}' https://shoptalk.amoeba.site/api/v1/<new-
 ssh <staging> "docker logs sharptalk_api_staging --since=5m 2>&1 | grep -iE \"doesn't exist|Unknown column\""
 ```
 
+## 5.1 Uploads volume (FIX-260911) — files vanish silently without it
+Any PR touching `UPLOAD_DIR` users (attachments, widget logo, board files, tenant assets) or a compose file:
+```bash
+grep -n "/data/uploads" docker/staging/docker-compose.staging.yml docker/self-hosted/docker-compose.self-hosted.yml docker/production/docker-compose.production.yml
+ssh <env> "docker inspect <api_container> --format '{{json .Mounts}}'"   # must show /data/uploads
+```
+All three stacks carry the same mount; a fix in one is not a fix in the others.
+
 ## 6. Related
 - Schema PRs need a `## Migration` body section — `reference/btbz-dev-kit/03-git-collaboration-standard.md` §3.3
 - Runbook source: `reference/btbz-dev-kit/04-deployment-operations.md` §3–4

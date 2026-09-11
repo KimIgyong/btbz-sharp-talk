@@ -239,6 +239,16 @@ export const ERROR_CODE = {
   BOARD_ATTACHMENT_LIMIT: { code: 'E5072', message: 'Too many attachments in one upload (maximum 10)' },
   BOARD_LINK_INVALID: { code: 'E5073', message: 'The link must be an http(s) URL' },
 
+  // E5081-E5085 — Tenant asset store (PLN-260910 P1).
+  TENANT_ASSET_UNSUPPORTED: {
+    code: 'E5081',
+    message: 'Unsupported file for this kind (font: woff2/ttf/otf · icon/image: png/jpg/webp · doc: pdf/png/jpg)',
+  },
+  TENANT_ASSET_TOO_LARGE: { code: 'E5082', message: 'File exceeds the size limit for its kind' },
+  TENANT_ASSET_DIMENSIONS: { code: 'E5083', message: 'Image exceeds the pixel limit for its kind' },
+  TENANT_ASSET_QUOTA: { code: 'E5084', message: 'Tenant asset quota exceeded' },
+  TENANT_ASSET_KIND_INVALID: { code: 'E5085', message: 'Unknown asset area or kind' },
+
   // E9xxx — system
   INTERNAL_ERROR: { code: 'E9001', message: 'Internal server error' },
   EXTERNAL_SERVICE_ERROR: { code: 'E9002', message: 'External service error' },
