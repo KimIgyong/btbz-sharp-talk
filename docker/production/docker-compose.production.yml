@@ -21,6 +21,12 @@ services:
         condition: service_started
     expose:
       - '3000'
+    volumes:
+      # Chat attachments, the widget logo and tenant assets (FIX-260911). The
+      # image is rebuilt on every deploy, so anything written outside this
+      # volume is gone by the next one — silently. UPLOAD_DIR in .env.production
+      # must be /data/uploads; deploy-production.sh refuses otherwise.
+      - sharptalk_uploads_production:/data/uploads
     healthcheck:
       test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/api/v1/health']
       interval: 15s
@@ -102,3 +108,4 @@ volumes:
   sharptalk_redis_production_data:
   sharptalk_rabbitmq_production_data:
   sharptalk_qdrant_production_data:
+  sharptalk_uploads_production:

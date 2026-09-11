@@ -619,5 +619,41 @@
     "usageGuides": "Dùng hướng dẫn sử dụng sản phẩm",
     "usageGuidesHint": "Quản lý tri thức cách dùng theo loại sản phẩm. Hữu ích cho cửa hàng: khi bật, phần “Hướng dẫn sử dụng” xuất hiện trên trang Tri thức. Tắt chỉ ẩn phần này — hướng dẫn đã viết và trích dẫn vẫn giữ nguyên.",
     "saved": "Đã lưu tùy chọn tri thức"
+  },
+  "designAssets": {
+    "title": "Tệp thiết kế",
+    "hint": "Phông chữ, biểu tượng, hình ảnh và tài liệu tham khảo được lưu trong thư mục riêng của đơn vị này. Chúng tồn tại qua các lần triển khai và là thứ mà thiết kế widget tùy chỉnh sẽ tham chiếu. Không nhận svg, css, js.",
+    "add": "Thêm tệp",
+    "empty": "Chưa có tệp loại này",
+    "uploaded": "Đã tải tệp lên",
+    "deleted": "Đã xóa tệp",
+    "deleteConfirm": "Xóa “{{name}}”?",
+    "public": "công khai",
+    "private": "riêng tư",
+    "copyUrl": "Sao chép URL",
+    "urlCopied": "Đã sao chép URL",
+    "urlCopyFailed": "Không sao chép được URL",
+    "download": "Tải xuống",
+    "quotaHint": "Đã dùng / hạn mức tệp thiết kế",
+    "fontLicense": "Bạn chịu trách nhiệm về giấy phép nhúng web của phông chữ tải lên.",
+    "kind": {
+      "font": "Phông chữ",
+      "icon": "Biểu tượng",
+      "image": "Hình ảnh",
+      "doc": "Tài liệu thiết kế"
+    },
+    "rule": {
+      "font": "woff2 · ttf · otf, tối đa 2 MB",
+      "icon": "png · webp, tối đa 256 KB và 512×512",
+      "image": "png · jpg · webp, tối đa 2 MB và 2000 px",
+      "doc": "pdf · png · jpg, tối đa 10 MB (chỉ tham khảo)"
+    },
+    "error": {
+      "E5081": "Tệp không phù hợp với loại này — hệ thống kiểm tra nội dung, không phải tên tệp.",
+      "E5082": "Tệp vượt giới hạn dung lượng của loại.",
+      "E5083": "Hình ảnh vượt giới hạn điểm ảnh của loại.",
+      "E5084": "Hạn mức tệp thiết kế đã đầy — hãy xóa bớt trước.",
+      "E5085": "Loại tệp không xác định."
+    }
   }
 }

@@ -619,5 +619,41 @@
     "usageGuides": "Usar guías de uso de productos",
     "usageGuidesHint": "Gestione el conocimiento de uso por tipo de producto. Útil para tiendas: al activarlo aparece la sección “Guías de uso” en la página Conocimiento. Desactivarlo solo oculta la sección — las guías escritas y sus citas se conservan.",
     "saved": "Opciones de conocimiento guardadas"
+  },
+  "designAssets": {
+    "title": "Archivos de diseño",
+    "hint": "Fuentes, iconos, imágenes y documentos de referencia guardados en la carpeta propia de este inquilino. Sobreviven a los despliegues y son lo que referenciará un diseño de widget personalizado. No se aceptan svg, css ni js.",
+    "add": "Añadir archivos",
+    "empty": "Aún no hay archivos de este tipo",
+    "uploaded": "Archivo subido",
+    "deleted": "Archivo eliminado",
+    "deleteConfirm": "¿Eliminar “{{name}}”?",
+    "public": "público",
+    "private": "privado",
+    "copyUrl": "Copiar URL",
+    "urlCopied": "URL copiada",
+    "urlCopyFailed": "No se pudo copiar la URL",
+    "download": "Descargar",
+    "quotaHint": "Usado / cuota de archivos de diseño",
+    "fontLicense": "La licencia de uso web de las fuentes que suba es responsabilidad del inquilino.",
+    "kind": {
+      "font": "Fuentes",
+      "icon": "Iconos",
+      "image": "Imágenes",
+      "doc": "Docs de diseño"
+    },
+    "rule": {
+      "font": "woff2 · ttf · otf, hasta 2 MB",
+      "icon": "png · webp, hasta 256 KB y 512×512",
+      "image": "png · jpg · webp, hasta 2 MB y 2000 px",
+      "doc": "pdf · png · jpg, hasta 10 MB (solo referencia)"
+    },
+    "error": {
+      "E5081": "Archivo no admitido para este tipo — se comprueba el contenido, no el nombre.",
+      "E5082": "El archivo supera el límite de tamaño de su tipo.",
+      "E5083": "La imagen supera el límite de píxeles de su tipo.",
+      "E5084": "La cuota de archivos de diseño está llena — elimine algo primero.",
+      "E5085": "Tipo de archivo desconocido."
+    }
   }
 }

@@ -22,6 +22,7 @@ import { AttachmentModule } from './domain/attachment/attachment.module';
 import { IssueModule } from './domain/issue/issue.module';
 import { ModerationModule } from './domain/moderation/moderation.module';
 import { TenantModule } from './domain/tenant/tenant.module';
+import { TenantAssetModule } from './domain/tenant-asset/tenant-asset.module';
 import { MenuAccessModule } from './domain/menu-access/menu-access.module';
 import { UserModule } from './domain/user/user.module';
 import { OrderModule } from './domain/order/order.module';
@@ -85,6 +86,7 @@ import { ShopifyProxyModule } from './domain/shopify-proxy/shopify-proxy.module'
     IssueModule,
     ModerationModule,
     TenantModule,
+    TenantAssetModule,
     MenuAccessModule,
     UserModule,
     CustomerModule,
