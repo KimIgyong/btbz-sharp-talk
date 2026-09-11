@@ -175,6 +175,8 @@ export class WidgetDesignService {
     const row = await this.get(tenantId, id);
     await this.assertNotActive(tenantId, row);
     await this.repo.delete({ id: Number(row.id), tenantId });
+    // History belongs to the design row; no FK, so cascade by hand (staging smoke left orphans).
+    await this.revRepo.delete({ designId: Number(row.id), tenantId });
     await this.write(tenantId, actorId, 'tenant.widget_design_deleted', row);
   }
 
