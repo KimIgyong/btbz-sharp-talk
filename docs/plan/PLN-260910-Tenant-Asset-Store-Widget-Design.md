@@ -1,7 +1,7 @@
 # PLN-260910 — 테넌트 자산 저장소 + 위젯 디자인 프로필 (최적안)
 
 - 근거: `docs/analysis/REQ-260910-Tenant-Asset-Store-Widget-Design.md`
-- 상태: **제안 — 승인 전(구현 미착수)**. 승인 시 단계(P1→P3)별 PR.
+- 상태: **P0·P1 승인·완료(PR #505, RPT-260911)**. P2 이후는 단계별 승인 후 PR.
 
 ## 0. 대안 비교와 선택
 
@@ -55,7 +55,7 @@
 | B-1 | `sql/2609xx-tenant-assets.sql` + `docker/init-sql/01-schema.sql` + manifest | D-2 테이블 (P3에서 `widget_design_versions` 추가) |
 | B-2 | `domain/tenant-asset/entity/tenant-asset.entity.ts` | 엔티티(nullable 컬럼 `type` 명시) |
 | B-3 | `domain/tenant-asset/tenant-asset.service.ts` | 저장 루트 `tenants/{id}/{area}`, kind별 검증(sharp·매직바이트), 상한 집계, soft delete+참조 카운트 unlink |
-| B-4 | `domain/tenant-asset/tenant-asset.controller.ts` | `GET/POST /tenants/assets?area=`, `DELETE /tenants/assets/:uuid`, 공개 `GET /tenants/widget-branding/asset/:uuid` |
+| B-4 | `domain/tenant-asset/tenant-asset.controller.ts` | `GET/POST /tenant-assets?area=`, `DELETE /tenant-assets/:uuid`(`/tenants/:uuid` 라우트 포획 회피 — RPT-260911), 공개 `GET /public/widget/asset/:uuid` |
 | B-5 | `global/constant/error-code.constant.ts` | E5081~E5085(형식·크기·픽셀·상한·kind) |
 | B-6 | `tenant.module.ts`/`app.module.ts` | 모듈 등록 |
 | B-7 | spec | 검증 6케이스·상한·immutable 헤더·참조 카운트 |
