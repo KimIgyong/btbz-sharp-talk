@@ -55,6 +55,7 @@ describe('WidgetDesignService', () => {
     const revRepo = {
       create: (d: any) => d,
       save: jest.fn(async (d: any) => { d.id = revs.length + 1; revs.push(d); return d; }),
+      delete: jest.fn(async ({ designId }: any) => { for (let i = revs.length - 1; i >= 0; i--) if (revs[i].designId === designId) revs.splice(i, 1); }),
       find: jest.fn(async ({ where }: any) => revs.filter((r) => r.designId === where.designId).sort((a, b) => b.revisionNo - a.revisionNo)),
       findOne: jest.fn(async ({ where, order }: any) => {
         const list = revs.filter((r) => (where.designId == null || r.designId === where.designId) && (where.id == null || r.id === where.id));
@@ -113,8 +114,10 @@ describe('WidgetDesignService', () => {
     expect(h.tenant.activeWidgetDesignId).toBeNull();
     expect(h.tenant.widgetTheme?.design).toBeUndefined();
     expect(h.tenant.widgetTheme?.launcher?.icon).toBe('chat');
+    await h.svc.update(1, Number(row.id), { design: { ...wire, radius: 'sm' } } as never, 7); // leaves a revision
     await h.svc.remove(1, Number(row.id), 7);
     expect(h.rows).toHaveLength(0);
+    expect(h.revs).toHaveLength(0); // history goes with the design
   });
 
   it('update snapshots the previous state (max+1) and a snapshot can be restored, re-syncing the live copy', async () => {
