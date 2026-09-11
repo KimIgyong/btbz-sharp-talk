@@ -6,6 +6,7 @@ import {
   parseHex,
   readableForeground,
   RAMP_STOPS,
+  panelFrame,
 } from './widget-theme';
 
 /**
@@ -175,5 +176,48 @@ describe('normalizeWidgetTheme', () => {
     expect(normalizeWidgetTheme({ brand: '#000', headerStyle: 'rainbow' as never })!.headerStyle).toBe(
       'white',
     );
+  });
+});
+
+describe('design profile (PLN-260910 P2)', () => {
+  it('clamps sizes to the allowed ranges and falls back for a custom font without a file', () => {
+    const theme = normalizeWidgetTheme({
+      brand: '#2B7FFF',
+      design: {
+        font: { preset: 'custom', baseSize: 40 },
+        radius: 'xl',
+        panel: { width: 9999, height: 10 },
+        launcherIcon: { uuid: 'not-a-uuid' },
+      },
+      launcher: { icon: 'custom' },
+    });
+    expect(theme?.design).toEqual({
+      font: { preset: 'pretendard', baseSize: 16 },
+      panel: { width: 480, height: 480 },
+    });
+    // No icon file → the launcher cannot stay 'custom'.
+    expect(theme?.launcher?.icon).toBe('chat');
+  });
+
+  it('keeps a valid custom font and writes the tokens the widget reads', () => {
+    const uuid = '94c2949c-3ce5-47be-acb3-3c4cfa7c58b3';
+    const theme = normalizeWidgetTheme({
+      brand: '#2B7FFF',
+      design: { font: { preset: 'custom', asset: { uuid, version: 3 }, baseSize: 15 }, radius: 'lg', panel: { width: 420, height: 700 } },
+    });
+    expect(theme?.design?.font).toEqual({ preset: 'custom', asset: { uuid, version: 3 }, baseSize: 15 });
+    const vars = buildThemeVariables(theme);
+    expect(vars['--ivy-font-family']).toMatch(/^'IvyTenantFont', 'Pretendard'/);
+    expect(vars['--ivy-root-size']).toBe('17.14px');
+    expect(vars['--ivy-radius']).toBe('16px');
+    expect(vars['--ivy-panel-w']).toBe('420px');
+    expect(panelFrame(theme)).toEqual({ w: 460, h: 780 });
+  });
+
+  it('writes no design tokens and the default frame when nothing is configured', () => {
+    const theme = normalizeWidgetTheme({ brand: '#2B7FFF' });
+    const vars = buildThemeVariables(theme);
+    expect(Object.keys(vars).some((k) => k.startsWith('--ivy-font') || k.startsWith('--ivy-panel'))).toBe(false);
+    expect(panelFrame(theme)).toEqual({ w: 444, h: 680 });
   });
 });

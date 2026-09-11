@@ -230,6 +230,18 @@ export class UpdateWidgetThemeRequest {
    * forward when this is absent.
    */
   @IsOptional() @IsObject() launcher?: { position?: string; size?: string; icon?: string };
+
+  /**
+   * Design profile (PLN-260910 P2): font, base size, corners, panel size and an
+   * uploaded launcher icon. Optional and carried forward when absent, like the
+   * launcher. Asset uuids are checked against the tenant's own design files.
+   */
+  @IsOptional() @IsObject() design?: {
+    font?: { preset?: string; asset_uuid?: string | null; base_size?: number } | null;
+    radius?: string | null;
+    panel?: { width?: number; height?: number } | null;
+    launcher_icon_uuid?: string | null;
+  } | null;
 }
 
 /** PLN-260819 S1 — replace the embed allowlist wholesale (empty = back to default). */

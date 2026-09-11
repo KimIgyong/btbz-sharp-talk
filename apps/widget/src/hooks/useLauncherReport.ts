@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useWidgetStore } from '../store/widgetStore';
 import { launcherFrameSize, resolveLauncher } from '../lib/launcher';
+import { panelFrame } from '../../../../packages/types/src/common/widget-theme';
 import { hostKind, isAppMode, postToHost } from '../lib/host-bridge';
 
 /**
@@ -24,6 +25,9 @@ export function useLauncherReport(): void {
       type: 'ivy:launcher',
       position: launcher.position,
       size: launcherFrameSize(theme),
+      // Open-panel frame (P2): the panel size is a tenant setting now, so the
+      // loader can no longer hard-code 444×680.
+      frame: panelFrame(theme),
     });
   }, [theme]);
 }

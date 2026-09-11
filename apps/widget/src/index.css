@@ -8,11 +8,29 @@ body,
   height: 100%;
 }
 
+/* Design profile (PLN-260910 P2): a tenant may set the font, the root size
+   (rem text and spacing scale together, like a zoom), the panel corners and
+   the desktop panel size. Unset = these exact built-in values. */
+html {
+  font-size: var(--ivy-root-size, 16px);
+}
+
 body {
   margin: 0;
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Hiragino Sans',
-    'Noto Sans JP', 'PingFang SC', 'Noto Sans SC', 'Segoe UI', Roboto, sans-serif;
+  font-family: var(
+    --ivy-font-family,
+    'Pretendard', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP',
+    'PingFang SC', 'Noto Sans SC', 'Segoe UI', Roboto, sans-serif
+  );
   -webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 640px) {
+  .ivy-panel-desktop {
+    width: var(--ivy-panel-w, 404px);
+    height: var(--ivy-panel-h, 600px);
+    border-radius: var(--ivy-radius, 12px);
+  }
 }
 
 /* thin scrollbar for chat/lists */

@@ -13,7 +13,7 @@ import { useAnalytics } from '../../lib/analytics';
 import { WidgetPanel } from './WidgetPanel';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
 import { LAUNCHER_CLASSES, resolveLauncher } from '../../lib/launcher';
-import { logoUrl } from '../../lib/branding';
+import { assetUrl, logoUrl } from '../../lib/branding';
 import { isAppMode } from '../../lib/host-bridge';
 
 export function Widget() {
@@ -38,6 +38,7 @@ export function Widget() {
   const launcher = resolveLauncher(theme);
   const sizeClasses = LAUNCHER_CLASSES[launcher.size] ?? LAUNCHER_CLASSES.md;
   const brandMark = theme?.logo ? logoUrl(theme.logo) : null;
+  const customIcon = theme?.design?.launcherIcon ? assetUrl(theme.design.launcherIcon) : null;
   // A host app opens the widget from its own button and owns the whole screen,
   // so there is no floating launcher and nothing to open into.
   const appMode = isAppMode();
@@ -142,7 +143,10 @@ export function Widget() {
             launcher.position === 'left' ? 'left-5' : 'right-5'
           } ${sizeClasses.button}`}
         >
-          {launcher.icon === 'logo' && brandMark ? (
+          {launcher.icon === 'custom' && customIcon ? (
+            // An uploaded icon draws as-is (no brand mask): the tenant chose its colours.
+            <img src={customIcon} alt="" className={`${sizeClasses.icon} object-contain`} />
+          ) : launcher.icon === 'logo' && brandMark ? (
             // Cropped to a circle: an uploaded logo is rarely square, and letting
             // it letterbox inside the button looks like a rendering bug.
             <img src={brandMark} alt="" className={`${sizeClasses.button} rounded-full object-cover`} />

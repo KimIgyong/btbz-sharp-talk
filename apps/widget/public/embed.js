@@ -255,6 +255,7 @@
   function applyLauncher(next) {
     if (!next) return;
     launcher = next;
+    applyFrame(next.frame);
     var px = Math.max(64, Math.min(160, Number(next.size) || 96)) + 'px';
     CLOSED = { w: px, h: px };
     if (next.position === 'left') {
@@ -279,6 +280,16 @@
   // the panel is 404px at `right: 20px`, so anything under 424px clips it.
   // (PLN-260817 SI-6 — it was 420px against a 380px panel, with 20px to spare.)
   var OPEN = { w: 'min(444px, 100vw)', h: 'min(680px, 100vh)' };
+  // Open-panel frame from the widget (PLN-260910 P2): the panel size is a tenant
+  // setting, reported with the launcher and cached the same way. Bounded here
+  // too — the loader never trusts a number it did not clamp.
+  function applyFrame(f) {
+    if (!f) return;
+    var w = Math.max(400, Math.min(520, Number(f.w) || 444));
+    var h = Math.max(560, Math.min(800, Number(f.h) || 680));
+    OPEN = { w: 'min(' + w + 'px, 100vw)', h: 'min(' + h + 'px, 100vh)' };
+  }
+  if (launcher && launcher.frame) applyFrame(launcher.frame);
 
   // One-shot reopen flag: set when redirect-mode sign-in navigates the tab away,
   // consumed on the return visit so the widget reopens where the shopper left
@@ -665,7 +676,7 @@
       frame.style.width = d.open ? OPEN.w : CLOSED.w;
       frame.style.height = d.open ? OPEN.h : CLOSED.h;
     } else if (d.type === 'ivy:launcher') {
-      applyLauncher({ position: d.position, size: d.size });
+      applyLauncher({ position: d.position, size: d.size, frame: d.frame });
     } else if (d.type === 'ivy:ready') {
       widgetReady = true;
       maybeSendIdentity();
