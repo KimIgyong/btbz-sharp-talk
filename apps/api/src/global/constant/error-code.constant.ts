@@ -249,6 +249,10 @@ export const ERROR_CODE = {
   TENANT_ASSET_QUOTA: { code: 'E5084', message: 'Tenant asset quota exceeded' },
   TENANT_ASSET_KIND_INVALID: { code: 'E5085', message: 'Unknown asset area or kind' },
 
+  // E5086-E5087 — Custom widget library (PLN-260910 P3).
+  WIDGET_DESIGN_ACTIVE: { code: 'E5086', message: 'This design is in use — switch to the basic widget or another design first' },
+  WIDGET_DESIGN_NAME_TAKEN: { code: 'E5087', message: 'A design with this name already exists' },
+
   // E9xxx — system
   INTERNAL_ERROR: { code: 'E9001', message: 'Internal server error' },
   EXTERNAL_SERVICE_ERROR: { code: 'E9002', message: 'External service error' },

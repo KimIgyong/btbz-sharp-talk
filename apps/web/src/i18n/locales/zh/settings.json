@@ -671,5 +671,51 @@
       "E5084": "设计文件配额已满 — 请先删除。",
       "E5085": "未知的文件类型。"
     }
+  },
+  "widgetDesigns": {
+    "title": "自定义看板",
+    "create": "创建自定义看板",
+    "current": "当前：",
+    "basicInUse": "基础看板（上方主题卡片）",
+    "customInUse": "正在使用自定义“{{name}}”",
+    "revert": "恢复基础看板",
+    "revertConfirm": "将店铺看板恢复为基础看板？",
+    "showArchived": "显示已归档",
+    "hint": "创建带名称的设计（字体、字号、圆角、面板尺寸、图标）并保存在此。用“使用”选择一个 — 立即生效，无需部署。未使用任何设计时，顾客看到基础看板。",
+    "inUse": "使用中",
+    "archived": "已归档",
+    "use": "使用",
+    "preview": "预览",
+    "duplicate": "复制",
+    "archive": "归档",
+    "restore": "恢复",
+    "deleteConfirm": "删除“{{name}}”？",
+    "empty": "暂无自定义看板",
+    "editTitle": "编辑自定义看板",
+    "createTitle": "创建自定义看板",
+    "name": "名称",
+    "note": "备注",
+    "save": "保存到库",
+    "saveAndUse": "保存并使用",
+    "iconDefault": "主题卡片的启动图标",
+    "editLiveConfirm": "该设计正在使用 — 保存会立即改变店铺显示。继续？（提示：先复制再编辑更安全。）",
+    "editorPreviewHint": "静态预览。已保存设计的“预览”会打开真实看板。",
+    "previewTitle": "真实看板预览",
+    "previewHint": "使用 10 分钟预览令牌加载，不影响顾客。",
+    "previewNoShop": "请先设置店铺域名。",
+    "done": {
+      "create": "已保存自定义看板",
+      "update": "已更新自定义看板",
+      "apply": "已启用自定义看板",
+      "duplicate": "已复制",
+      "archive": "已归档",
+      "restore": "已恢复",
+      "delete": "已删除",
+      "revert": "已恢复基础看板"
+    },
+    "error": {
+      "E5086": "该设计正在使用 — 请先切换到基础看板或其他设计。",
+      "E5087": "已存在同名设计。"
+    }
   }
 }

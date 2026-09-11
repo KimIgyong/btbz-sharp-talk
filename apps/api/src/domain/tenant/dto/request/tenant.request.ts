@@ -244,6 +244,19 @@ export class UpdateWidgetThemeRequest {
   } | null;
 }
 
+/** Custom widget library (PLN-260910 P3). `design` has the same shape as widget-theme.design. */
+export class CreateWidgetDesignRequest {
+  @IsString() @Length(1, 64) name: string;
+  @IsOptional() @IsString() @MaxLength(255) note?: string | null;
+  @IsObject() design: NonNullable<UpdateWidgetThemeRequest['design']>;
+}
+
+export class UpdateWidgetDesignRequest {
+  @IsOptional() @IsString() @Length(1, 64) name?: string;
+  @IsOptional() @IsString() @MaxLength(255) note?: string | null;
+  @IsOptional() @IsObject() design?: NonNullable<UpdateWidgetThemeRequest['design']>;
+}
+
 /** PLN-260819 S1 — replace the embed allowlist wholesale (empty = back to default). */
 export class UpdateEmbedOriginsRequest {
   @IsArray()

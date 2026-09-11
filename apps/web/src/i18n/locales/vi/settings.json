@@ -671,5 +671,51 @@
       "E5084": "Hạn mức tệp thiết kế đã đầy — hãy xóa bớt trước.",
       "E5085": "Loại tệp không xác định."
     }
+  },
+  "widgetDesigns": {
+    "title": "Widget tùy chỉnh",
+    "create": "Tạo widget tùy chỉnh",
+    "current": "Hiện tại:",
+    "basicInUse": "Widget cơ bản (thẻ chủ đề phía trên)",
+    "customInUse": "Đang dùng “{{name}}”",
+    "revert": "Về widget cơ bản",
+    "revertConfirm": "Đưa widget trên cửa hàng về widget cơ bản?",
+    "showArchived": "Hiện mục đã lưu trữ",
+    "hint": "Tạo các thiết kế có tên (phông, cỡ chữ, bo góc, kích thước bảng, biểu tượng) và lưu tại đây. Chọn một thiết kế bằng “Dùng” — áp dụng ngay, không cần triển khai. Không dùng thiết kế nào thì khách thấy widget cơ bản.",
+    "inUse": "Đang dùng",
+    "archived": "Đã lưu trữ",
+    "use": "Dùng",
+    "preview": "Xem trước",
+    "duplicate": "Nhân bản",
+    "archive": "Lưu trữ",
+    "restore": "Khôi phục",
+    "deleteConfirm": "Xóa “{{name}}”?",
+    "empty": "Chưa có widget tùy chỉnh",
+    "editTitle": "Sửa widget tùy chỉnh",
+    "createTitle": "Tạo widget tùy chỉnh",
+    "name": "Tên",
+    "note": "Ghi chú",
+    "save": "Lưu vào thư viện",
+    "saveAndUse": "Lưu và dùng",
+    "iconDefault": "Biểu tượng từ thẻ chủ đề",
+    "editLiveConfirm": "Thiết kế này đang được dùng — lưu sẽ thay đổi cửa hàng ngay. Tiếp tục? (Mẹo: nhân bản trước để sửa an toàn.)",
+    "editorPreviewHint": "Xem trước tĩnh. “Xem trước” trên thiết kế đã lưu sẽ mở widget thật.",
+    "previewTitle": "Xem trước widget thật",
+    "previewHint": "Tải bằng mã xem trước 10 phút. Khách hàng không bị ảnh hưởng.",
+    "previewNoShop": "Hãy đặt tên miền cửa hàng trước.",
+    "done": {
+      "create": "Đã lưu widget tùy chỉnh",
+      "update": "Đã cập nhật widget tùy chỉnh",
+      "apply": "Đã áp dụng widget tùy chỉnh",
+      "duplicate": "Đã nhân bản",
+      "archive": "Đã lưu trữ",
+      "restore": "Đã khôi phục",
+      "delete": "Đã xóa",
+      "revert": "Đã về widget cơ bản"
+    },
+    "error": {
+      "E5086": "Thiết kế này đang được dùng — hãy chuyển sang widget cơ bản hoặc thiết kế khác trước.",
+      "E5087": "Đã có thiết kế cùng tên."
+    }
   }
 }

@@ -671,5 +671,51 @@
       "E5084": "Design-file quota is full — delete something first.",
       "E5085": "Unknown asset kind."
     }
+  },
+  "widgetDesigns": {
+    "title": "Custom widgets",
+    "create": "Create custom widget",
+    "current": "Current:",
+    "basicInUse": "Basic widget (theme card above)",
+    "customInUse": "Custom “{{name}}” in use",
+    "revert": "Back to basic widget",
+    "revertConfirm": "Switch the storefront back to the basic widget?",
+    "showArchived": "Show archived",
+    "hint": "Build named designs (font, size, corners, panel size, launcher icon) and keep them here. Pick one with “Use” — it goes live immediately, no deployment. With none in use, shoppers see the basic widget.",
+    "inUse": "In use",
+    "archived": "Archived",
+    "use": "Use",
+    "preview": "Preview",
+    "duplicate": "Duplicate",
+    "archive": "Archive",
+    "restore": "Restore",
+    "deleteConfirm": "Delete “{{name}}”?",
+    "empty": "No custom widgets yet",
+    "editTitle": "Edit custom widget",
+    "createTitle": "Create custom widget",
+    "name": "Name",
+    "note": "Note",
+    "save": "Save to library",
+    "saveAndUse": "Save and use",
+    "iconDefault": "Theme card launcher icon",
+    "editLiveConfirm": "This design is in use — saving changes the storefront immediately. Continue? (Tip: duplicate first to edit safely.)",
+    "editorPreviewHint": "Static preview. “Preview” on a saved design opens the real widget.",
+    "previewTitle": "Real widget preview",
+    "previewHint": "Loaded with a 10-minute preview token. Shoppers are not affected.",
+    "previewNoShop": "Set the shop domain first (Storefront settings).",
+    "done": {
+      "create": "Custom widget saved",
+      "update": "Custom widget updated",
+      "apply": "Custom widget is now in use",
+      "duplicate": "Copied",
+      "archive": "Archived",
+      "restore": "Restored",
+      "delete": "Deleted",
+      "revert": "Back to the basic widget"
+    },
+    "error": {
+      "E5086": "This design is in use — switch to the basic widget or another design first.",
+      "E5087": "A design with this name already exists."
+    }
   }
 }

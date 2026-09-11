@@ -6,6 +6,7 @@ import type {
   WidgetTab,
   WidgetTabPosition,
   WidgetTheme,
+  WidgetDesign,
 } from '@sharptalk/types';
 
 export interface CredentialStatus {
@@ -143,6 +144,34 @@ export interface WidgetDesignDraft {
   launcherIconUuid?: string | null;
 }
 
+/** Custom widget library (PLN-260910 P3). */
+export interface WidgetDesignItem {
+  id: string;
+  name: string;
+  design: WidgetDesign;
+  status: 'ready' | 'archived' | string;
+  note: string | null;
+  active: boolean;
+  appliedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface WidgetDesignList {
+  activeId: string | null;
+  items: WidgetDesignItem[];
+}
+
+/** Draft → the snake-cased `design` payload both the theme PATCH and the library accept. */
+export function designToWire(design: WidgetDesignDraft) {
+  return {
+    font: { preset: design.fontPreset, asset_uuid: design.fontAssetUuid ?? null, base_size: design.baseSize },
+    radius: design.radius,
+    panel: { width: design.panelWidth, height: design.panelHeight },
+    launcher_icon_uuid: design.launcherIconUuid ?? null,
+  };
+}
+
 export interface WidgetThemeSettings {
   /** The stored theme, or null when the tenant has never set one. */
   theme: WidgetTheme | null;
@@ -218,6 +247,23 @@ export const settingsService = {
     return apiUpload<TenantAsset>('/tenant-assets', form);
   },
   deleteAsset: (uuid: string) => apiDelete<{ deleted: true }>(`/tenant-assets/${uuid}`),
+  widgetDesigns: () => apiGet<WidgetDesignList>('/widget-designs'),
+  createWidgetDesign: (name: string, design: WidgetDesignDraft, note?: string) =>
+    apiPost<WidgetDesignItem>('/widget-designs', { name, note: note ?? null, design: designToWire(design) }),
+  updateWidgetDesign: (id: string, body: { name?: string; note?: string | null; design?: WidgetDesignDraft }) =>
+    apiPatch<WidgetDesignItem>(`/widget-designs/${id}`, {
+      ...(body.name !== undefined ? { name: body.name } : {}),
+      ...(body.note !== undefined ? { note: body.note } : {}),
+      ...(body.design ? { design: designToWire(body.design) } : {}),
+    }),
+  applyWidgetDesign: (id: string) => apiPost<WidgetDesignItem>(`/widget-designs/${id}/apply`, {}),
+  revertWidgetDesign: () => apiPost<{ activeId: null }>('/widget-designs/revert', {}),
+  duplicateWidgetDesign: (id: string) => apiPost<WidgetDesignItem>(`/widget-designs/${id}/duplicate`, {}),
+  archiveWidgetDesign: (id: string) => apiPost<WidgetDesignItem>(`/widget-designs/${id}/archive`, {}),
+  restoreWidgetDesign: (id: string) => apiPost<WidgetDesignItem>(`/widget-designs/${id}/restore`, {}),
+  deleteWidgetDesign: (id: string) => apiDelete<{ deleted: true }>(`/widget-designs/${id}`),
+  widgetDesignPreviewToken: (id: string) =>
+    apiPost<{ token: string; expiresAt: number }>(`/widget-designs/${id}/preview-token`, {}),
   knowledgeSettings: () => apiGet<KnowledgeSettings>('/tenants/knowledge-settings'),
   updateKnowledgeSettings: (usageGuidesEnabled: boolean) =>
     apiPatch<KnowledgeSettings>('/tenants/knowledge-settings', {

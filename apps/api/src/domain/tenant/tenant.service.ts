@@ -639,7 +639,7 @@ export class TenantService {
   }
 
   /** Snake-case design payload → theme JSON, with asset uuids verified (kind + tenant). */
-  private async resolveDesign(
+  async resolveDesign(
     tenantId: number,
     d: NonNullable<UpdateWidgetThemeRequest['design']>,
   ): Promise<Record<string, unknown>> {

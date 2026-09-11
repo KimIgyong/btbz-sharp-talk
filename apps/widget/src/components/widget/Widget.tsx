@@ -143,7 +143,7 @@ export function Widget() {
             launcher.position === 'left' ? 'left-5' : 'right-5'
           } ${sizeClasses.button}`}
         >
-          {launcher.icon === 'custom' && customIcon ? (
+          {customIcon ? (
             // An uploaded icon draws as-is (no brand mask): the tenant chose its colours.
             <img src={customIcon} alt="" className={`${sizeClasses.icon} object-contain`} />
           ) : launcher.icon === 'logo' && brandMark ? (

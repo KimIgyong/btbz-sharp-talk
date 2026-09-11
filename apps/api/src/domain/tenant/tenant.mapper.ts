@@ -1,4 +1,5 @@
 import { Tenant } from './entity/tenant.entity';
+import { WidgetDesignRow } from './entity/widget-design.entity';
 import { IntegrationCredential } from './entity/integration-credential.entity';
 import { IntegrationStatusEntity } from '../integration/entity/integration-status.entity';
 import {
@@ -67,6 +68,20 @@ export class TenantMapper {
   /** Widget behavior settings; anything but an explicit 'popup' reads as redirect. */
   static toStorefront(t: Tenant): StorefrontResponse {
     return { storefrontUrl: t.storefrontUrl };
+  }
+
+  static toWidgetDesign(d: WidgetDesignRow, activeId: number | null) {
+    return {
+      id: String(d.id),
+      name: d.name,
+      design: d.designJson,
+      status: d.status,
+      note: d.note ?? null,
+      active: activeId != null && Number(activeId) === Number(d.id),
+      appliedAt: d.appliedAt ?? null,
+      createdAt: d.createdAt,
+      updatedAt: d.updatedAt,
+    };
   }
 
   static toKnowledgeSettings(t: Tenant): KnowledgeSettingsResponse {
