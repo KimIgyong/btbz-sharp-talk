@@ -49,8 +49,10 @@ describe('WidgetDesignService', () => {
       })),
     };
     const audit = { write: jest.fn() };
-    const svc = new WidgetDesignService(repo as never, tenantRepo as never, tenants as never, audit as never);
-    return { svc, rows, tenant, audit };
+    const live = { publish: jest.fn() };
+    const assets = { get: jest.fn(), readBuffer: jest.fn(), store: jest.fn() };
+    const svc = new WidgetDesignService(repo as never, tenantRepo as never, tenants as never, audit as never, live as never, assets as never);
+    return { svc, rows, tenant, audit, live, assets };
   }
 
   const wire = { font: { preset: 'inter', base_size: 15 }, radius: 'lg', panel: { width: 420, height: 700 } };
@@ -67,6 +69,27 @@ describe('WidgetDesignService', () => {
     expect(h.tenant.widgetTheme?.design).toEqual(design);
     expect(h.tenant.widgetTheme?.brand).toBe('#2B7FFF');
     expect(h.audit.write).toHaveBeenLastCalledWith(expect.objectContaining({ action: 'tenant.widget_design_applied' }));
+    // The static live file follows every live write (P4 D-14).
+    expect(h.live.publish).toHaveBeenCalledWith(h.tenant);
+  });
+
+  it('export embeds the assets as base64 and import re-creates them through the validating store', async () => {
+    const h = build();
+    const font = '94c2949c-3ce5-47be-acb3-3c4cfa7c58b3';
+    h.assets.get.mockResolvedValue({ uuid: font, kind: 'font', filename: 'Brand.woff2', label: 'Brand', mime: 'font/woff2' });
+    h.assets.readBuffer.mockResolvedValue(Buffer.from('wOF2....'));
+    h.assets.store.mockResolvedValue({ uuid: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee', version: 1 });
+    const row = await h.svc.create(1, { name: 'A', design: wire } as never, 7);
+    row.designJson = { ...row.designJson, font: { preset: 'custom', asset: { uuid: font, version: 1 }, baseSize: 15 } };
+    const pkg = await h.svc.exportPackage(1, Number(row.id));
+    expect(pkg.format).toBe('sharptalk-widget-design/1');
+    expect((pkg.assets as any[])[0]).toMatchObject({ role: 'font', kind: 'font', base64: Buffer.from('wOF2....').toString('base64') });
+
+    const imported = await h.svc.importPackage(1, Buffer.from(JSON.stringify(pkg)), 7);
+    expect(h.assets.store).toHaveBeenCalledWith(1, expect.objectContaining({ area: 'design', kind: 'font' }), expect.objectContaining({ originalname: 'Brand.woff2' }), { userId: 7 });
+    expect(imported.name).toBe('A (2)'); // name taken → suffixed
+    expect(imported.designJson.font).toEqual({ preset: 'custom', asset: { uuid: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee', version: 1 }, baseSize: 15 });
+    await expect(h.svc.importPackage(1, Buffer.from('{"format":"x"}'), 7)).rejects.toMatchObject({ errorCode: 'E5003' });
   });
 
   it('refuses to archive or delete the live design, and revert clears pointer + live copy', async () => {

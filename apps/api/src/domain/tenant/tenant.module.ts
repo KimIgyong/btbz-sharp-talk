@@ -12,6 +12,9 @@ import { WebhookSecretService } from './webhook-secret.service';
 import { WidgetLogoService } from './widget-logo.service';
 import { WidgetDesignService } from './widget-design.service';
 import { WidgetDesignController } from './widget-design.controller';
+import { WidgetLiveService } from './widget-live.service';
+import { SettingsSnapshotService } from './settings-snapshot.service';
+import { SettingsSnapshotController } from './settings-snapshot.controller';
 import { WidgetDesignRow } from './entity/widget-design.entity';
 import { TenantController } from './tenant.controller';
 import { WidgetBrandingController } from './widget-branding.controller';
@@ -38,13 +41,15 @@ import { TenantAssetModule } from '../tenant-asset/tenant-asset.module';
     // Design-profile asset references are verified against the tenant's files (P2).
     TenantAssetModule,
   ],
-  controllers: [TenantController, WidgetBrandingController, WidgetDesignController],
+  controllers: [TenantController, WidgetBrandingController, WidgetDesignController, SettingsSnapshotController],
   providers: [
     TenantService,
     EcommerceIntegrationService,
     WebhookSecretService,
     WidgetLogoService,
     WidgetDesignService,
+    WidgetLiveService,
+    SettingsSnapshotService,
   ],
   exports: [TenantService, WebhookSecretService, WidgetLogoService],
 })

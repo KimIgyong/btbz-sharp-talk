@@ -10,6 +10,9 @@ import { BusinessException } from '../../global/exception/business.exception';
 import { ERROR_CODE } from '../../global/constant/error-code.constant';
 import { signFileUrl, verifyFileUrl } from '../../global/util/crypto.util';
 import { CreateWidgetDesignRequest, UpdateWidgetDesignRequest } from './dto/request/tenant.request';
+import { WidgetLiveService } from './widget-live.service';
+import { TenantAssetService } from '../tenant-asset/tenant-asset.service';
+import { WIDGET_DESIGN_STATUS as STATUS } from './entity/widget-design.entity';
 
 const PREVIEW_TTL_SEC = 10 * 60;
 
@@ -28,6 +31,8 @@ export class WidgetDesignService {
     @InjectRepository(Tenant) private readonly tenantRepo: Repository<Tenant>,
     private readonly tenants: TenantService,
     private readonly audit: AuditService,
+    private readonly live: WidgetLiveService,
+    private readonly assets: TenantAssetService,
   ) {}
 
   async list(tenantId: number): Promise<{ items: WidgetDesignRow[]; activeId: number | null }> {
@@ -193,6 +198,87 @@ export class WidgetDesignService {
     return normalizeWidgetTheme({ ...(tenant.widgetTheme ?? { brand: '#2B7FFF' }), design: row.designJson });
   }
 
+  // ---- package export / import (D-13, JSON instead of zip — no archive dependency) --
+
+  static readonly PACKAGE_FORMAT = 'sharptalk-widget-design/1';
+
+  async exportPackage(tenantId: number, id: number): Promise<Record<string, unknown>> {
+    const row = await this.get(tenantId, id);
+    const assets: Array<Record<string, unknown>> = [];
+    const embed = async (role: string, ref: { uuid: string } | null | undefined) => {
+      if (!ref) return;
+      try {
+        const a = await this.assets.get(tenantId, ref.uuid);
+        const buf = await this.assets.readBuffer(a);
+        assets.push({ role, kind: a.kind, filename: a.filename, label: a.label, mime: a.mime, base64: buf.toString('base64') });
+      } catch (e) {
+        this.logger.warn(`package export: asset ${ref.uuid} skipped — ${(e as Error).message}`);
+      }
+    };
+    await embed('font', row.designJson.font?.asset);
+    await embed('launcherIcon', row.designJson.launcherIcon);
+    return {
+      format: WidgetDesignService.PACKAGE_FORMAT,
+      exportedAt: new Date().toISOString(),
+      name: row.name,
+      note: row.note,
+      design: row.designJson,
+      assets,
+    };
+  }
+
+  /** Re-create the assets (content-validated like any upload), then the design as a new library row. */
+  async importPackage(tenantId: number, buffer: Buffer, actorId: number): Promise<WidgetDesignRow> {
+    let pkg: any;
+    try {
+      pkg = JSON.parse(buffer.toString('utf8'));
+    } catch {
+      throw new BusinessException(ERROR_CODE.VALIDATION_FAILED, HttpStatus.BAD_REQUEST);
+    }
+    if (pkg?.format !== WidgetDesignService.PACKAGE_FORMAT || typeof pkg.name !== 'string' || !pkg.design) {
+      throw new BusinessException(ERROR_CODE.VALIDATION_FAILED, HttpStatus.BAD_REQUEST);
+    }
+    const byRole = new Map<string, { uuid: string; version: number }>();
+    for (const a of Array.isArray(pkg.assets) ? pkg.assets : []) {
+      if (!a?.role || !a?.kind || typeof a.base64 !== 'string') continue;
+      const stored = await this.assets.store(
+        tenantId,
+        { area: 'design', kind: String(a.kind), label: a.label ?? undefined },
+        { originalname: String(a.filename ?? `${a.role}.bin`), mimetype: String(a.mime ?? ''), size: 0, buffer: Buffer.from(a.base64, 'base64') },
+        { userId: actorId },
+      );
+      byRole.set(String(a.role), { uuid: stored.uuid, version: stored.version });
+    }
+    const d = pkg.design;
+    const design = normalizeDesign({
+      font: d.font
+        ? { preset: d.font.preset, asset: d.font.preset === 'custom' ? byRole.get('font') ?? null : null, baseSize: d.font.baseSize }
+        : null,
+      radius: d.radius ?? null,
+      panel: d.panel ?? null,
+      launcherIcon: byRole.get('launcherIcon') ?? null,
+    });
+    if (!design) throw new BusinessException(ERROR_CODE.VALIDATION_FAILED, HttpStatus.BAD_REQUEST);
+    let name = String(pkg.name).slice(0, 64);
+    for (let n = 2; await this.repo.findOne({ where: { tenantId, name } }); n += 1) {
+      name = `${String(pkg.name).slice(0, 56)} (${n})`;
+    }
+    const row = await this.repo.save(
+      this.repo.create({
+        tenantId,
+        name,
+        designJson: design,
+        status: STATUS.READY,
+        note: typeof pkg.note === 'string' ? pkg.note.slice(0, 255) : null,
+        createdBy: actorId,
+        updatedBy: null,
+        appliedAt: null,
+      }),
+    );
+    await this.write(tenantId, actorId, 'tenant.widget_design_imported', row);
+    return row;
+  }
+
   // ---- internals ----------------------------------------------------------
 
   private async assertNotActive(tenantId: number, row: WidgetDesignRow): Promise<void> {
@@ -212,6 +298,7 @@ export class WidgetDesignService {
         ? normalizeWidgetTheme({ brand: '#2B7FFF', headerStyle: 'white', design })
         : null;
     await this.tenantRepo.save(tenant);
+    await this.live.publish(tenant);
   }
 
   private async write(tenantId: number, actorId: number, action: string, row: WidgetDesignRow): Promise<void> {

@@ -1,4 +1,4 @@
-import { apiDelete, apiGet, apiPatch, apiPost, apiPut, apiUpload } from '@/lib/api-client';
+import { apiDelete, apiGet, apiGetBlob, apiPatch, apiPost, apiPut, apiUpload } from '@/lib/api-client';
 import type {
   WidgetHeaderStyle,
   WidgetLauncher,
@@ -172,6 +172,12 @@ export function designToWire(design: WidgetDesignDraft) {
   };
 }
 
+export interface SnapshotDiff {
+  createdAt: string;
+  fields: Array<{ field: string; current: unknown; snapshot: unknown; changed: boolean }>;
+  designs: Array<{ name: string; action: 'create' | 'update'; active: boolean }>;
+}
+
 export interface WidgetThemeSettings {
   /** The stored theme, or null when the tenant has never set one. */
   theme: WidgetTheme | null;
@@ -264,6 +270,18 @@ export const settingsService = {
   deleteWidgetDesign: (id: string) => apiDelete<{ deleted: true }>(`/widget-designs/${id}`),
   widgetDesignPreviewToken: (id: string) =>
     apiPost<{ token: string; expiresAt: number }>(`/widget-designs/${id}/preview-token`, {}),
+  exportWidgetDesign: (id: string) => apiGetBlob(`/widget-designs/${id}/export`),
+  importWidgetDesign: (file: File) => {
+    const form = new FormData();
+    form.append('file', file);
+    return apiUpload<WidgetDesignItem>('/widget-designs/import', form);
+  },
+  // ---- Settings snapshots (PLN-260910 P4 D-8) ----
+  settingsSnapshots: () => apiGet<TenantAsset[]>('/settings-snapshots'),
+  createSettingsSnapshot: (label?: string) => apiPost<TenantAsset>('/settings-snapshots', { label }),
+  settingsSnapshotDiff: (uuid: string) => apiGet<SnapshotDiff>(`/settings-snapshots/${uuid}/diff`),
+  restoreSettingsSnapshot: (uuid: string) => apiPost<{ restored: true }>(`/settings-snapshots/${uuid}/restore`, {}),
+  deleteSettingsSnapshot: (uuid: string) => apiDelete<{ deleted: true }>(`/settings-snapshots/${uuid}`),
   knowledgeSettings: () => apiGet<KnowledgeSettings>('/tenants/knowledge-settings'),
   updateKnowledgeSettings: (usageGuidesEnabled: boolean) =>
     apiPatch<KnowledgeSettings>('/tenants/knowledge-settings', {

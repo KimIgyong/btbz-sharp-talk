@@ -127,6 +127,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      # Static live widget design files (PLN-260910 P4 D-14), read-only.
+      - sharptalk_uploads_staging:/data/uploads:ro
     depends_on:
       - api
       - web

@@ -71,6 +71,16 @@
 | P3-5 | 런처 아이콘 | `design.launcherIcon`이 있으면 launcher enum과 무관하게 이미지 — 복귀 시 enum 아이콘으로 자연 복원 |
 | P3-6 | 보류 | D-13 패키지 zip 내보내기/가져오기 — zip 라이브러리 미도입, P4로 이월 |
 
+## 2.3 P4 세부 (착수 시 보강, 2026-09-11)
+
+| # | 항목 | 내용 |
+|---|---|---|
+| P4-1 | 정적 라이브 파일(D-14) | 라이브 테마가 바뀌는 모든 쓰기(테마 카드 저장·로고 업로드/삭제·디자인 apply/revert/라이브 편집·스냅샷 복원) 뒤 API가 `UPLOAD_DIR/widget-live/{shop}.json`(정규화 결과+updatedAt)을 write-then-rename. nginx가 uploads 볼륨을 **읽기 전용**으로 마운트해 `/widget-design/live/{shop}.json`을 no-cache로 서빙(3스택 동일). 위젯은 캐시 페인트 직후 같은 오리진에서 이 파일을 no-store로 읽어 적용·캐시 갱신(실패 무시). 키는 호스트명 문자만 허용(경로 탈출 차단) |
+| P4-2 | 설정 스냅샷(D-8) | 화이트리스트 12필드(widgetTheme·widgetCopy·widgetTabs·widgetTabPosition·widgetLoginMode·notificationChannels·embedOrigins·usageGuidesEnabled·timezone·storefrontUrl·privacyPolicyUrl·consentNoticeVersion) + 커스텀 위젯 라이브러리(이름·상태·디자인·활성)를 `tenants/{id}/settings/settings-{stamp}.json`로 저장(`tenant_assets` kind=settings_snapshot, 서명 URL 다운로드). `GET :uuid/diff` 필드별 변경 표시 → `POST :uuid/restore`(필드 되쓰기 + 디자인 이름 upsert + 활성 복원 + 라이브 파일 + 감사). 자격증명·시크릿은 구조적으로 제외 |
+| P4-3 | 디자인 패키지(D-13) | **zip 대신 JSON**(`sharptalk-widget-design/1`): 디자인 + 폰트/아이콘 파일 base64 동봉. `GET /widget-designs/:id/export`(attachment) / `POST /widget-designs/import`(multipart JSON ≤12MB) — 자산은 업로드와 같은 내용 검증을 거쳐 재생성, 이름 충돌 시 `(n)` 접미. 아카이브 라이브러리 미도입(적정기술) |
+| P4-4 | 콘솔 | 설정 > 기타 "설정 스냅샷" 카드(라벨·저장·목록·다운로드·복원 diff 모달·삭제), 커스텀 위젯 카드에 [패키지 가져오기]·행 [내보내기] |
+| P4-5 | 범위 밖 | 어드민 용량 컬럼(D-11) — 요금제 축 후속 |
+
 ## 3. 백엔드 작업 (P1 기준, P2/P3는 단계 착수 시 상세화)
 
 | # | 파일 | 작업 |

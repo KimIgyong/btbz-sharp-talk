@@ -711,11 +711,38 @@
       "archive": "Archivado",
       "restore": "Restaurado",
       "delete": "Eliminado",
-      "revert": "De vuelta al widget básico"
+      "revert": "De vuelta al widget básico",
+      "import": "“{{name}}” importado"
     },
     "error": {
       "E5086": "Este diseño está en uso — cambie primero al widget básico u otro diseño.",
       "E5087": "Ya existe un diseño con este nombre."
+    },
+    "export": "Exportar",
+    "import": "Importar paquete"
+  },
+  "settingsSnapshots": {
+    "title": "Instantáneas de configuración",
+    "create": "Guardar instantánea",
+    "labelPlaceholder": "Etiqueta (p. ej. antes del lanzamiento)",
+    "hint": "Guarda el tema del widget, textos, pestañas, modo de inicio de sesión, canales de notificación, orígenes de incrustación, opciones de conocimiento, zona horaria, tienda, aviso de privacidad y la biblioteca de widgets personalizados como un JSON en la carpeta de este inquilino. Sobrevive a los despliegues y puede restaurarse aquí o llevarse a otro entorno.",
+    "download": "Descargar",
+    "restore": "Restaurar…",
+    "deleteConfirm": "¿Eliminar esta instantánea?",
+    "empty": "Aún no hay instantáneas",
+    "noSecrets": "Las credenciales de integración y el secreto de incrustación nunca se incluyen.",
+    "diffTitle": "Restaurar “{{name}}”",
+    "diffHint": "Instantánea tomada el {{at}}. Las filas resaltadas cambiarán. La restauración queda auditada.",
+    "field": "Campo",
+    "current": "Actual",
+    "snapshot": "Instantánea",
+    "changed": "cambia",
+    "apply": "Restaurar",
+    "designsLine": "Widgets personalizados: {{create}} por crear, {{update}} por actualizar · en uso tras restaurar: {{active}}",
+    "done": {
+      "create": "Instantánea guardada",
+      "restore": "Configuración restaurada",
+      "delete": "Instantánea eliminada"
     }
   }
 }

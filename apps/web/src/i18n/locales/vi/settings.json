@@ -711,11 +711,38 @@
       "archive": "Đã lưu trữ",
       "restore": "Đã khôi phục",
       "delete": "Đã xóa",
-      "revert": "Đã về widget cơ bản"
+      "revert": "Đã về widget cơ bản",
+      "import": "Đã nhập “{{name}}”"
     },
     "error": {
       "E5086": "Thiết kế này đang được dùng — hãy chuyển sang widget cơ bản hoặc thiết kế khác trước.",
       "E5087": "Đã có thiết kế cùng tên."
+    },
+    "export": "Xuất",
+    "import": "Nhập gói"
+  },
+  "settingsSnapshots": {
+    "title": "Ảnh chụp cài đặt",
+    "create": "Lưu ảnh chụp",
+    "labelPlaceholder": "Nhãn (vd: trước khi ra mắt)",
+    "hint": "Lưu chủ đề widget, văn bản, tab, chế độ đăng nhập, kênh thông báo, nguồn nhúng, tùy chọn tri thức, múi giờ, cửa hàng, thông báo quyền riêng tư và thư viện widget tùy chỉnh thành một tệp JSON trong thư mục của đơn vị. Tồn tại qua các lần triển khai, có thể khôi phục tại đây hoặc chuyển sang môi trường khác.",
+    "download": "Tải xuống",
+    "restore": "Khôi phục…",
+    "deleteConfirm": "Xóa ảnh chụp này?",
+    "empty": "Chưa có ảnh chụp",
+    "noSecrets": "Thông tin xác thực tích hợp và khóa nhúng không bao giờ được đưa vào.",
+    "diffTitle": "Khôi phục “{{name}}”",
+    "diffHint": "Ảnh chụp lúc {{at}}. Các dòng được tô sẽ thay đổi. Việc khôi phục được ghi nhật ký.",
+    "field": "Trường",
+    "current": "Hiện tại",
+    "snapshot": "Ảnh chụp",
+    "changed": "thay đổi",
+    "apply": "Khôi phục",
+    "designsLine": "Widget tùy chỉnh: tạo {{create}} · cập nhật {{update}} · dùng sau khôi phục: {{active}}",
+    "done": {
+      "create": "Đã lưu ảnh chụp",
+      "restore": "Đã khôi phục cài đặt",
+      "delete": "Đã xóa ảnh chụp"
     }
   }
 }

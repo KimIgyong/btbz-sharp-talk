@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { NotificationChannelsCard } from './SettingsPage';
 import { MenuAccessSection } from './MenuAccessSection';
 import { IntegrationCredentialsCard } from './IntegrationCredentialsCard';
+import { SettingsSnapshotsCard } from './SettingsSnapshotsCard';
 import { JourneyCriteriaCard } from '../journey/JourneyCriteriaCard';
 import { useAuthStore } from '@/store/auth-store';
 
@@ -23,6 +24,8 @@ export function SettingsEtcPage() {
           access is: the API gates it on TENANT_SETTINGS_MANAGE. */}
       {isMaster && <JourneyCriteriaCard />}
       <IntegrationCredentialsCard />
+      {/* Settings backup/restore in the tenant's own folder (PLN-260910 P4). Master/director gate is on the API. */}
+      <SettingsSnapshotsCard />
     </div>
   );
 }

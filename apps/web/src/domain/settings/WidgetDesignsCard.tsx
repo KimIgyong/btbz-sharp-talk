@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card } from '@/components/Card';
 import { Button } from '@/components/Button';
 import { Badge } from '@/components/Badge';
 import { Modal } from '@/components/Modal';
 import { FormRow, Input, Select } from '@/components/Field';
-import { apiBaseUrl } from '@/lib/api-client';
+import { apiBaseUrl, saveBlob } from '@/lib/api-client';
 import { toast } from '@/store/toast-store';
 import {
   DESIGN_LIMITS,
@@ -63,6 +63,29 @@ export function WidgetDesignsCard() {
   const [showArchived, setShowArchived] = useState(false);
   const [editing, setEditing] = useState<{ id: string | null; name: string; note: string; draft: WidgetDesignDraft } | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const importInput = useRef<HTMLInputElement>(null);
+  const [importing, setImporting] = useState(false);
+
+  const exportPackage = async (d: WidgetDesignItem) => {
+    try {
+      const { blob, filename } = await settingsService.exportWidgetDesign(d.id);
+      saveBlob(blob, filename || `${d.name}.sharptalk-widget.json`);
+    } catch (e) {
+      toast.error((e as Error).message);
+    }
+  };
+  const importPackage = async (file: File) => {
+    setImporting(true);
+    try {
+      const row = await settingsService.importWidgetDesign(file);
+      toast.success(t('widgetDesigns.done.import', { name: row.name }));
+      designs.refetch();
+    } catch (e) {
+      toast.error((e as Error).message, { sticky: true });
+    } finally {
+      setImporting(false);
+    }
+  };
 
   const items = (designs.data?.items ?? []).filter((d) => showArchived || d.status !== 'archived');
   const active = designs.data?.items.find((d) => d.active) ?? null;
@@ -134,6 +157,20 @@ export function WidgetDesignsCard() {
       title={t('widgetDesigns.title')}
       action={
         <div className="flex items-center gap-2">
+          <input
+            ref={importInput}
+            type="file"
+            accept=".json,application/json"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) void importPackage(f);
+              e.target.value = '';
+            }}
+          />
+          <Button variant="ghost" size="sm" disabled={importing} onClick={() => importInput.current?.click()}>
+            {importing ? tc('loading') : t('widgetDesigns.import')}
+          </Button>
           <Button variant="secondary" size="sm" onClick={() => openEditor()}>
             {t('widgetDesigns.create')}
           </Button>
@@ -195,6 +232,9 @@ export function WidgetDesignsCard() {
             )}
             <Button variant="ghost" size="sm" disabled={act.isPending} onClick={() => act.mutate({ kind: 'duplicate', id: d.id })}>
               {t('widgetDesigns.duplicate')}
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => void exportPackage(d)}>
+              {t('widgetDesigns.export')}
             </Button>
             {d.status === 'archived' ? (
               <Button variant="ghost" size="sm" disabled={act.isPending} onClick={() => act.mutate({ kind: 'restore', id: d.id })}>

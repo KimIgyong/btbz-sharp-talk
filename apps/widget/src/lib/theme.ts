@@ -117,6 +117,32 @@ export function applyCachedTheme(shop: string | undefined): WidgetTheme | null {
   return null;
 }
 
+/**
+ * Static live design (PLN-260910 P4 D-14): nginx serves the tenant's live theme
+ * from the uploads volume at /widget-design/live/{shop}.json, so the first
+ * paint on a fresh browser does not wait for the API. Same origin as the
+ * widget, no credentials, no-store. Any failure (dev server, old stack) is
+ * silent — session/ensure still delivers the theme a moment later.
+ */
+export function fetchStaticLiveTheme(shop: string | undefined): void {
+  if (!shop || !/^[a-z0-9][a-z0-9.-]{0,200}$/i.test(shop)) return;
+  try {
+    fetch(`/widget-design/live/${encodeURIComponent(shop.toLowerCase())}.json`, { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((body) => {
+        const theme = (body?.theme ?? null) as WidgetTheme | null;
+        if (!body || !('theme' in body)) return;
+        applyTheme(theme);
+        cacheTheme(shop, theme);
+      })
+      .catch(() => {
+        /* no static file on this stack — nothing to paint early */
+      });
+  } catch {
+    /* fetch unavailable */
+  }
+}
+
 /** Remember the served theme so the next visit paints it immediately. */
 export function cacheTheme(shop: string | undefined, theme: WidgetTheme | null): void {
   try {

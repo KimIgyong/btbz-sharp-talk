@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './i18n/i18n';
 import App from './App';
 import './index.css';
-import { applyCachedTheme } from './lib/theme';
+import { applyCachedTheme, fetchStaticLiveTheme } from './lib/theme';
 import { getShopDomain } from './hooks/useSession';
 import { useWidgetStore } from './store/widgetStore';
 
@@ -13,6 +13,8 @@ import { useWidgetStore } from './store/widgetStore';
 // flash on every visit. The cache makes that a first-visit-only cost
 // (PLN-260818 §2.5).
 const cachedTheme = applyCachedTheme(getShopDomain());
+// Then the static live file (P4 D-14) — refreshes the cache without the API.
+fetchStaticLiveTheme(getShopDomain());
 // Seed the store too: the logo and the launcher are markup, not CSS variables,
 // and they belong to first paint just as much as the colour does.
 if (cachedTheme) useWidgetStore.getState().setWidgetTheme(cachedTheme);

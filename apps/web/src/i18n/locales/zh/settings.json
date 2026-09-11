@@ -711,11 +711,38 @@
       "archive": "已归档",
       "restore": "已恢复",
       "delete": "已删除",
-      "revert": "已恢复基础看板"
+      "revert": "已恢复基础看板",
+      "import": "已导入“{{name}}”"
     },
     "error": {
       "E5086": "该设计正在使用 — 请先切换到基础看板或其他设计。",
       "E5087": "已存在同名设计。"
+    },
+    "export": "导出",
+    "import": "导入包"
+  },
+  "settingsSnapshots": {
+    "title": "设置快照",
+    "create": "保存快照",
+    "labelPlaceholder": "标签（如：上线前）",
+    "hint": "将看板主题、文案、标签页、登录方式、通知渠道、嵌入来源、知识选项、时区、店铺、隐私声明和自定义看板库保存为一个 JSON 文件到本租户文件夹。不受部署影响，可在此恢复或迁移到其他环境。",
+    "download": "下载",
+    "restore": "恢复…",
+    "deleteConfirm": "删除此快照？",
+    "empty": "暂无快照",
+    "noSecrets": "集成凭据和嵌入密钥不会包含在内。",
+    "diffTitle": "恢复“{{name}}”",
+    "diffHint": "快照保存于 {{at}}。高亮行将被更改。恢复操作会记录审计。",
+    "field": "字段",
+    "current": "当前",
+    "snapshot": "快照",
+    "changed": "变更",
+    "apply": "恢复",
+    "designsLine": "自定义看板：新建 {{create}} · 更新 {{update}} · 恢复后使用：{{active}}",
+    "done": {
+      "create": "已保存快照",
+      "restore": "已恢复设置",
+      "delete": "已删除快照"
     }
   }
 }

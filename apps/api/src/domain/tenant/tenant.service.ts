@@ -49,6 +49,7 @@ import {
 } from './dto/request/tenant.request';
 import { AuditService } from '../audit/audit.service';
 import { TenantAssetService } from '../tenant-asset/tenant-asset.service';
+import { WidgetLiveService } from './widget-live.service';
 import { LogoUpload, WidgetLogoService } from './widget-logo.service';
 import { parseOrigin } from '../embed/embed-origin.util';
 import { DEFAULT_BRAND } from '@sharptalk/types';
@@ -86,6 +87,7 @@ export class TenantService {
     private readonly widgetLogo: WidgetLogoService,
     // Optional: unit specs build the service positionally without it (P2).
     @Optional() private readonly assets?: TenantAssetService,
+    @Optional() private readonly live?: WidgetLiveService,
   ) {}
 
   async list(
@@ -374,6 +376,7 @@ export class TenantService {
     const base = tenant.widgetTheme ?? { brand: DEFAULT_BRAND, headerStyle: 'white' };
     tenant.widgetTheme = normalizeWidgetTheme({ ...base, logo });
     const saved = await this.tenantRepo.save(tenant);
+    await this.live?.publish(saved);
     await this.widgetLogo.remove(tenantId, previous);
     await this.audit.write({
       tenantId,
@@ -392,6 +395,7 @@ export class TenantService {
     if (!previous) return tenant;
     tenant.widgetTheme = normalizeWidgetTheme({ ...tenant.widgetTheme, logo: null });
     const saved = await this.tenantRepo.save(tenant);
+    await this.live?.publish(saved);
     await this.widgetLogo.remove(tenantId, previous);
     await this.audit.write({
       tenantId,
@@ -570,6 +574,7 @@ export class TenantService {
     }
     tenant.widgetTheme = theme;
     const saved = await this.tenantRepo.save(tenant);
+    await this.live?.publish(saved);
     await this.audit.write({
       tenantId,
       actorType: 'user',
