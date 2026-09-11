@@ -124,6 +124,34 @@ export class WidgetDesignController {
     return TenantMapper.toWidgetDesign(await this.designs.setStatus(a.tenantId, id, WIDGET_DESIGN_STATUS.READY, a.userId), null);
   }
 
+  @Get(':id/revisions')
+  @ApiOperation({ summary: 'Change history of a design (newest first, before-edit snapshots)' })
+  async revisions(@CurrentUser() user: Principal, @Param('id', ParseIntPipe) id: number) {
+    const rows = await this.designs.revisions(this.actor(user).tenantId, id);
+    return rows.map((r) => ({
+      id: String(r.id),
+      revisionNo: r.revisionNo,
+      name: r.name,
+      note: r.note,
+      design: r.designJson,
+      actorUserId: r.actorUserId != null ? String(r.actorUserId) : null,
+      createdAt: r.createdAt,
+    }));
+  }
+
+  @Post(':id/revisions/:revisionId/restore')
+  @ApiOperation({ summary: 'Restore a snapshot over the design (live copy re-synced when in use)' })
+  async restoreRevision(
+    @CurrentUser() user: Principal,
+    @Param('id', ParseIntPipe) id: number,
+    @Param('revisionId', ParseIntPipe) revisionId: number,
+  ) {
+    const a = this.actor(user);
+    const row = await this.designs.restoreRevision(a.tenantId, id, revisionId, a.userId);
+    const { activeId } = await this.designs.list(a.tenantId);
+    return TenantMapper.toWidgetDesign(row, activeId);
+  }
+
   @Post(':id/preview-token')
   @ApiOperation({ summary: 'Short-lived token the console preview iframe passes as ?preview=' })
   async previewToken(@CurrentUser() user: Principal, @Param('id', ParseIntPipe) id: number) {

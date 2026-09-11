@@ -104,7 +104,7 @@ li{margin:4px 0}
 <header class="hero">
   <div class="eyebrow">SharpTalk 사용자설명서 · 통합 참조</div>
   <h1>샵톡 통합 사용자 매뉴얼</h1>
-  <div class="meta"><span>버전 2.1.0 · 전면 개정 2026-08-24 · 현행화 2026-09-04 (코드 기준)</span><span>대상: 테넌트 운영자 · 상담원 · 플랫폼 관리자</span></div>
+  <div class="meta"><span>버전 2.1.0 · 전면 개정 2026-08-24 · 현행화 2026-09-11 (코드 기준)</span><span>대상: 테넌트 운영자 · 상담원 · 플랫폼 관리자</span></div>
   <p class="lead"><strong>화면 전체를 훑는 참조 매뉴얼</strong>입니다. 처음 개설하는 분은
   <a href="quick-setup.ko.html">간단 세팅 매뉴얼</a>(1편)부터, 지식·AI를 다듬는 분은
   <a href="knowledge-ai.ko.html">지식 등록·AI 설정 매뉴얼</a>(2편)을 보세요.
@@ -373,12 +373,12 @@ li{margin:4px 0}
   <p><code>/settings</code>는 <strong>7개 탭</strong>으로 재편(구 단일 "환경설정"). 탭도 제공 메뉴 단위 — 제공되지 않은 탭은 보이지 않습니다.</p>
   <div class="tablewrap"><table>
     <tr><th>탭</th><th>내용</th></tr>
-    <tr><td>기본 설정</td><td><strong>AI 엔진</strong>(테넌트 자체 엔진 — 플랫폼 엔진보다 우선, 연결 테스트·기본값) · <strong>AI 사용량</strong>(호출/토큰 집계, stub 폴백 경고) · 스토어프론트 · <strong>상담원 연결</strong>(담당자·근무시간·휴게·영업외 이메일/문구·SLA·deny-list)</td></tr>
-    <tr><td>위젯 설정</td><td>테마 · 탭 구성 · 동작(인사말 — 6개 언어 탭, 기본 문구 표시) · 임베드/SDK · 설치 가이드</td></tr>
+    <tr><td>기본 설정</td><td><strong>AI 엔진</strong>(테넌트 자체 엔진 — 플랫폼 엔진보다 우선, 연결 테스트·기본값) · <strong>AI 사용량</strong>(호출/토큰 집계, stub 폴백 경고) · 스토어프론트 · <strong>상담원 연결</strong>(담당자·근무시간·휴게·영업외 이메일/문구·SLA·deny-list) · <strong>지식 옵션</strong>(사용 가이드 카드 노출)</td></tr>
+    <tr><td>위젯 설정</td><td>테마 · <strong>커스텀 위젯</strong>(폰트·크기·모서리·패널 크기·런처 아이콘 디자인 라이브러리 — [사용함]으로 즉시 적용, [기본 위젯으로 복귀], 미리보기·복제·JSON 패키지·이력 복원·보관; 정제 CSS는 애드온 허용 시) · <strong>디자인 파일</strong>(폰트·아이콘·이미지 — 테넌트 폴더, 배포 무관) · 탭 구성 · 동작(인사말 — 6개 언어 탭, 기본 문구 표시) · 임베드/SDK · 설치 가이드</td></tr>
     <tr><td>플랫폼 연동</td><td>Shopify·Cafe24·WooCommerce·Odoo·Haravan 타일 + <strong>[연동 가이드]</strong> 버튼</td></tr>
     <tr><td>마케팅·헬프데스크</td><td>Klaviyo · Yotpo · Gorgias</td></tr>
     <tr><td>메신저 채널</td><td>텔레그램·바이버·아메바톡 허브·btbz 릴레이·지메일</td></tr>
-    <tr><td>기타 설정</td><td>알림 채널 · 메뉴 접근권한(master) · 여정분석 작성 기준(master) · 저장된 자격증명</td></tr>
+    <tr><td>기타 설정</td><td>알림 채널 · 메뉴 접근권한(master) · 여정분석 작성 기준(master) · 저장된 자격증명 · <strong>설정 스냅샷</strong>(12개 설정 필드+커스텀 위젯 라이브러리 JSON — 비교·복원·다운로드, 시크릿 미포함)</td></tr>
     <tr><td>개인정보 안내</td><td>처리방침 URL · 동의 안내 버전</td></tr>
   </table></div>
   <ul>
@@ -387,6 +387,8 @@ li{margin:4px 0}
     <li><strong>deny-list</strong> 규칙별 모드 2종: <strong>답변 안 함</strong>(즉시 인계, 기본) / <strong>답변 후 인계</strong>(지식으로 답한 뒤 인계) — 어느 쪽이든 상담원 호출</li>
   </ul>
   <p>→ <a href="quick-setup.ko.html">간단 세팅 매뉴얼 3~4장</a></p>
+  <figure class="shot"><img src="img/settings-custom-widget.ko.jpg" alt="커스텀 위젯 카드 — 디자인 라이브러리·[사용함]·[기본 위젯으로 복귀]·이력, 아래는 디자인 파일 카드" loading="lazy"><figcaption>커스텀 위젯 카드 — 디자인 라이브러리·[사용함]·[기본 위젯으로 복귀]·이력, 아래는 디자인 파일 카드</figcaption></figure>
+  <figure class="shot"><img src="img/settings-snapshots.ko.jpg" alt="설정 스냅샷 카드 — 라벨을 붙여 저장, 복원 전 변경 비교" loading="lazy"><figcaption>설정 스냅샷 카드 — 라벨을 붙여 저장, 복원 전 변경 비교</figcaption></figure>
 </section>
 
 <section id="ch15">
@@ -410,7 +412,7 @@ li{margin:4px 0}
     <tr><td>AI 엔진</td><td><code>/admin/ai-engines</code></td><td>엔진 등록(제공사·모델·API 키)·활성 관리 — 테넌트가 기능별로 선택</td></tr>
     <tr><td>감사 로그</td><td><code>/admin/audit</code></td><td>특권 작업 추적(임시비번 발급·권한 변경·PII 조회 등)</td></tr>
   </table></div>
-  <p><strong>요금제/애드온</strong> 모달: 요금제(starter/growth/enterprise/custom — 플랜별 메뉴 프리셋, 오버라이드는 유지) + <strong>이슈 워크플로우 애드온</strong>(base 미사용 / bridge 외부 헬프데스크 / native 이슈보드·칸반). base 아닌 모드는 "이슈: {모드}" 배지.</p>
+  <p><strong>요금제/애드온</strong> 모달: 요금제(starter/growth/enterprise/custom — 플랜별 메뉴 프리셋, 오버라이드는 유지) + <strong>이슈 워크플로우 애드온</strong>(base 미사용 / bridge 외부 헬프데스크 / native 이슈보드·칸반). base 아닌 모드는 "이슈: {모드}" 배지. <strong>커스텀 위젯 CSS 허용</strong> 체크박스를 켠 테넌트만 커스텀 위젯에 정제 CSS(.st-* 안정 클래스·색/글꼴/여백만)를 넣을 수 있습니다. 목록의 <strong>파일</strong> 열은 테넌트 폴더(디자인 파일·스냅샷) 용량입니다.</p>
   <p>테넌트 개설 절차 상세: <a href="quick-setup.ko.html">간단 세팅 매뉴얼 1장</a>.</p>
   <figure class="shot"><img src="img/admin-temp-password.ko.jpg" alt="어드민 테넌트 사용자 관리 — 임시 비밀번호 1회 표시 모달" loading="lazy"><figcaption>어드민 테넌트 사용자 관리 — 임시 비밀번호 1회 표시 모달</figcaption></figure>
 </section>

@@ -21,6 +21,7 @@ import { TenantService } from './tenant.service';
 import { EcommerceIntegrationService } from './ecommerce-integration.service';
 import { TenantMapper } from './tenant.mapper';
 import { EmbedService } from '../embed/embed.service';
+import { TenantAssetService } from '../tenant-asset/tenant-asset.service';
 import { LogoUpload } from './widget-logo.service';
 
 /** Multer's own ceiling; the service enforces the real 1MB policy with a reason. */
@@ -59,6 +60,7 @@ export class TenantController {
     private readonly tenantService: TenantService,
     private readonly ecommerceIntegrationService: EcommerceIntegrationService,
     private readonly embedService: EmbedService,
+    private readonly assets: TenantAssetService,
   ) {}
 
   @Get()
@@ -67,8 +69,12 @@ export class TenantController {
   async list(@Query() query: ListTenantsQuery) {
     const { page, size } = normalizePage(query.page, query.size);
     const { items, total } = await this.tenantService.list(page, size, query.status);
-    const counts = await this.tenantService.countUsersByTenant(items.map((t) => Number(t.id)));
-    return new Paginated(TenantMapper.toTenantList(items, counts), buildPagination(page, size, total));
+    const ids = items.map((t) => Number(t.id));
+    const [counts, usage] = await Promise.all([
+      this.tenantService.countUsersByTenant(ids),
+      this.assets.usageByTenant(ids),
+    ]);
+    return new Paginated(TenantMapper.toTenantList(items, counts, usage), buildPagination(page, size, total));
   }
 
   @Get('by-slug/:slug')

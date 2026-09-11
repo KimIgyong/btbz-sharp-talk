@@ -157,6 +157,19 @@ export class TenantAssetService {
     return { used: Number(row?.used ?? 0), quota: this.quotaBytes(area) };
   }
 
+  /** Bytes stored per tenant across all areas — the admin list's capacity column (D-11). */
+  async usageByTenant(tenantIds: number[]): Promise<Map<number, number>> {
+    if (!tenantIds.length) return new Map();
+    const rows = await this.repo
+      .createQueryBuilder('a')
+      .select('a.tenant_id', 'tenantId')
+      .addSelect('COALESCE(SUM(a.size), 0)', 'used')
+      .where('a.tenant_id IN (:...ids) AND a.deleted_at IS NULL', { ids: tenantIds })
+      .groupBy('a.tenant_id')
+      .getRawMany<{ tenantId: string; used: string }>();
+    return new Map(rows.map((r) => [Number(r.tenantId), Number(r.used)]));
+  }
+
   async get(tenantId: number, uuid: string): Promise<TenantAsset> {
     const row = await this.repo.findOne({ where: { tenantId, uuid, deletedAt: IsNull() } });
     if (!row) throw new BusinessException(ERROR_CODE.RESOURCE_NOT_FOUND, HttpStatus.NOT_FOUND);

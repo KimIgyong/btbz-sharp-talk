@@ -712,7 +712,8 @@
       "restore": "已恢复",
       "delete": "已删除",
       "revert": "已恢复基础看板",
-      "import": "已导入“{{name}}”"
+      "import": "已导入“{{name}}”",
+      "restoreRevision": "已恢复该版本"
     },
     "error": {
       "E5086": "该设计正在使用 — 请先切换到基础看板或其他设计。",
@@ -723,7 +724,11 @@
     "customCss": "自定义 CSS（附加功能）",
     "customCssCheck": "检查",
     "customCssHint": "仅限稳定类：.st-panel .st-header .st-header-title .st-tabs .st-tab .st-message .st-message-user .st-message-bot .st-composer .st-input .st-send .st-launcher .st-quick-reply。只允许颜色、字体、间距、边框和阴影；布局、隐藏和 url() 会被移除。",
-    "customCssKept": "将保留 {{n}} 条规则。"
+    "customCssKept": "将保留 {{n}} 条规则。",
+    "history": "历史",
+    "historyTitle": "变更历史 — {{name}}",
+    "historyEmpty": "暂无早期版本（每次编辑都会保存快照）",
+    "restoreRevision": "恢复此版本"
   },
   "settingsSnapshots": {
     "title": "设置快照",

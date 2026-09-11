@@ -62,5 +62,6 @@
   "customCssAddon": "커스텀 위젯 CSS 애드온",
   "customCssEnable": "커스텀 위젯 CSS 허용",
   "customCssHint": "이 테넌트가 위젯의 안정 클래스(.st-*)에 허용목록으로 정제된 CSS(색·폰트·간격만, 배치·숨김·외부 자원 불가)를 추가할 수 있게 합니다. 끄면 저장된 CSS는 전달되지 않습니다.",
-  "customCssSaved": "커스텀 CSS 애드온이 변경되었습니다."
+  "customCssSaved": "커스텀 CSS 애드온이 변경되었습니다.",
+  "assets": "파일"
 }

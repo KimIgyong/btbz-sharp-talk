@@ -16,6 +16,7 @@ import { WidgetLiveService } from './widget-live.service';
 import { SettingsSnapshotService } from './settings-snapshot.service';
 import { SettingsSnapshotController } from './settings-snapshot.controller';
 import { WidgetDesignRow } from './entity/widget-design.entity';
+import { WidgetDesignRevision } from './entity/widget-design-revision.entity';
 import { TenantController } from './tenant.controller';
 import { WidgetBrandingController } from './widget-branding.controller';
 import { IntegrationModule } from '../integration/integration.module';
@@ -33,6 +34,7 @@ import { TenantAssetModule } from '../tenant-asset/tenant-asset.module';
       JobLabel,
       UsageType,
       WidgetDesignRow,
+      WidgetDesignRevision,
     ]),
     IntegrationModule,
     AuditModule,

@@ -18,6 +18,7 @@ export interface Tenant {
   /** Issue-workflow add-on entitlement: base/bridge/native (REQ-260825). */
   workflowMode?: string;
   customCssEnabled?: boolean;
+  assetBytes?: number;
   status?: string;
   userCount?: number;
   createdAt?: string;

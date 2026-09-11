@@ -87,6 +87,11 @@ export function TenantsPage() {
     },
     { key: 'status', header: t('status'), render: (r) => <StatusBadge status={r.status} /> },
     { key: 'userCount', header: t('users'), render: (r) => r.userCount ?? '—' },
+    {
+      key: 'assetBytes',
+      header: t('assets'),
+      render: (r) => (r.assetBytes == null ? '—' : r.assetBytes < 1024 * 1024 ? `${Math.round(r.assetBytes / 1024)} KB` : `${(r.assetBytes / 1024 / 1024).toFixed(1)} MB`),
+    },
     { key: 'createdAt', header: t('created'), render: (r) => r.createdAt ?? '—' },
     {
       key: 'action',

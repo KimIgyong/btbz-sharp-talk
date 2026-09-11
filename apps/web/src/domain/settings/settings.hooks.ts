@@ -255,6 +255,7 @@ export function useWidgetDesignAction() {
       | { kind: 'create'; name: string; design: WidgetDesignDraft; note?: string }
       | { kind: 'update'; id: string; name?: string; note?: string | null; design?: WidgetDesignDraft }
       | { kind: 'apply' | 'duplicate' | 'archive' | 'restore' | 'delete'; id: string }
+      | { kind: 'restoreRevision'; id: string; revisionId: string }
       | { kind: 'revert' }) => {
       switch (v.kind) {
         case 'create': return settingsService.createWidgetDesign(v.name, v.design, v.note);
@@ -265,6 +266,7 @@ export function useWidgetDesignAction() {
         case 'restore': return settingsService.restoreWidgetDesign(v.id);
         case 'delete': return settingsService.deleteWidgetDesign(v.id);
         case 'revert': return settingsService.revertWidgetDesign();
+        case 'restoreRevision': return settingsService.restoreWidgetDesignRevision(v.id, v.revisionId);
       }
     },
     onSuccess: (_r, v) => {

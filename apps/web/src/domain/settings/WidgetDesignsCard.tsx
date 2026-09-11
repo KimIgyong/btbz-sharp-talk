@@ -15,7 +15,7 @@ import {
 } from '../../../../../packages/types/src/common/widget-theme';
 import { useTenantAssets, useWidgetDesignAction, useWidgetDesigns, useWidgetTheme } from './settings.hooks';
 import { settingsService } from './settings.service';
-import type { WidgetDesignDraft, WidgetDesignItem } from './settings.service';
+import type { WidgetDesignDraft, WidgetDesignItem, WidgetDesignRevision } from './settings.service';
 
 const WIDGET_URL = (
   (import.meta.env.VITE_WIDGET_URL as string | undefined) || 'https://shoptalk.amoeba.site/widget'
@@ -68,6 +68,14 @@ export function WidgetDesignsCard() {
   const importInput = useRef<HTMLInputElement>(null);
   const cssAllowed = !!theme.data?.customCssEnabled;
   const [cssCheck, setCssCheck] = useState<{ css: string; dropped: string[] } | null>(null);
+  const [history, setHistory] = useState<{ item: WidgetDesignItem; rows: WidgetDesignRevision[] } | null>(null);
+  const openHistory = async (d: WidgetDesignItem) => {
+    try {
+      setHistory({ item: d, rows: await settingsService.widgetDesignRevisions(d.id) });
+    } catch (e) {
+      toast.error((e as Error).message);
+    }
+  };
   const checkCss = async (css: string) => {
     try {
       setCssCheck(await settingsService.sanitizeCustomCss(css));
@@ -247,6 +255,9 @@ export function WidgetDesignsCard() {
             <Button variant="ghost" size="sm" onClick={() => void exportPackage(d)}>
               {t('widgetDesigns.export')}
             </Button>
+            <Button variant="ghost" size="sm" onClick={() => void openHistory(d)}>
+              {t('widgetDesigns.history')}
+            </Button>
             {d.status === 'archived' ? (
               <Button variant="ghost" size="sm" disabled={act.isPending} onClick={() => act.mutate({ kind: 'restore', id: d.id })}>
                 {t('widgetDesigns.restore')}
@@ -410,6 +421,36 @@ export function WidgetDesignsCard() {
               <p className="mt-2 text-[11px] text-gray-400">{t('widgetDesigns.editorPreviewHint')}</p>
             </div>
           </div>
+        )}
+      </Modal>
+
+      {/* ---- change history ---- */}
+      <Modal open={!!history} onClose={() => setHistory(null)} title={t('widgetDesigns.historyTitle', { name: history?.item.name ?? '' })} size="lg"
+        footer={<Button variant="ghost" onClick={() => setHistory(null)}>{tc('close')}</Button>}>
+        {history && (
+          <ul className="max-h-[60vh] divide-y divide-gray-100 overflow-auto text-sm">
+            {history.rows.map((r) => (
+              <li key={r.id} className="flex items-center gap-3 py-2">
+                <span className="w-10 tabular-nums text-xs text-gray-400">#{r.revisionNo}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate">{summary({ ...history.item, design: r.design })}</span>
+                  <span className="block text-xs text-gray-400">{new Date(r.createdAt).toLocaleString()}{r.note ? ` · ${r.note}` : ''}</span>
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  disabled={act.isPending}
+                  onClick={() => {
+                    if (history.item.active && !window.confirm(t('widgetDesigns.editLiveConfirm'))) return;
+                    act.mutate({ kind: 'restoreRevision', id: history.item.id, revisionId: r.id }, { onSuccess: () => setHistory(null) });
+                  }}
+                >
+                  {t('widgetDesigns.restoreRevision')}
+                </Button>
+              </li>
+            ))}
+            {!history.rows.length && <li className="py-6 text-center text-xs text-gray-400">{t('widgetDesigns.historyEmpty')}</li>}
+          </ul>
         )}
       </Modal>
 

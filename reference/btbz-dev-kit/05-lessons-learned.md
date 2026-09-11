@@ -112,6 +112,23 @@ Stalwart MailingList의 recipients 형식이 문서 추정(`members[]` 배열)�
 
 ---
 
+## G. 테넌트 커스텀·정적 자산 (btbz-SharpTalk 2026-09, PLN-260910)
+
+### G-1. 커스텀 CSS는 허용목록 3축이 아니면 열지 않는다
+- 위젯 iframe이 API 오리진과 같고 대화 본문(PII)을 담으면 자유 CSS는 `url()`+속성 선택자 유출·`display:none` 리드레스 벡터.
+- 채택: 선택자(`.st-*` 안정 클래스만)·속성(색/폰트/간격/테두리/그림자만)·값(문자집합+`rgb|hsl|var(--ivy-*)`)의 허용목록, 드롭은 사유와 함께 보고. 파서 의존성 없이 작은 문법만 받는다.
+- **안정 클래스는 계약**: 리팩터 시 클래스명을 유지하거나 매뉴얼·힌트를 함께 갱신.
+
+### G-2. 정적 파일은 "API가 유일한 작성자"일 때만 API 우회 서빙
+- 라이브 테마를 nginx가 볼륨에서 직접 서빙하면 첫 페인트가 API와 분리된다. 단, 파일은 정규화된 결과만, write-then-rename, 실패해도 저장은 성공(가속기).
+- DB를 SQL로 직접 바꾸면 파일이 재발행되지 않는다 — 운영 토글은 반드시 API/콘솔로.
+
+### G-3. 같은 관심사가 스택 3종에 복제되면 한 곳만 고쳐진다
+- uploads 볼륨이 staging/self-hosted에는 있고 production에는 없었다(재배포 시 파일 유실). 볼륨·env 검사처럼 "없으면 조용히 잃는" 항목은 `pre-deploy-check`에 3스택 grep 항목으로 둔다.
+
+### G-4. 하위 리소스 라우트는 `/tenants/:uuid`류 와일드카드 뒤에 두지 말 것
+- `/tenants/assets`가 `GET /tenants/:uuid`(AdminOnly)에 포획되어 E1004. 새 리소스는 별도 프리픽스(`/tenant-assets`, `/widget-designs`).
+
 ## F. 신규 프로젝트에서 우선 차단할 Top 10
 
 1. 유니언 타입 컬럼 `type` 미지정 (부팅 크래시)

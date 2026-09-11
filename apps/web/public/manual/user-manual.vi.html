@@ -104,7 +104,7 @@ li{margin:4px 0}
 <header class="hero">
   <div class="eyebrow">Sổ tay người dùng SharpTalk · tham chiếu tổng hợp</div>
   <h1>Sổ tay người dùng tổng hợp SharpTalk</h1>
-  <div class="meta"><span>Phiên bản 2.1.0 · Sửa đổi toàn diện 2026-08-24 · Cập nhật 2026-09-04 (dựa trên mã nguồn)</span><span>Đối tượng: người vận hành tenant · nhân viên tư vấn · quản trị viên nền tảng</span></div>
+  <div class="meta"><span>Phiên bản 2.1.0 · Sửa đổi toàn diện 2026-08-24 · Cập nhật 2026-09-11 (dựa trên mã nguồn)</span><span>Đối tượng: người vận hành tenant · nhân viên tư vấn · quản trị viên nền tảng</span></div>
   <p class="lead">Đây là <strong>sổ tay tham chiếu lướt qua toàn bộ các màn hình</strong>. Người mở tenant lần đầu bắt đầu từ
   <a href="quick-setup.vi.html">Sổ tay thiết lập nhanh</a> (tập 1), người muốn tinh chỉnh tri thức·AI xem
   <a href="knowledge-ai.vi.html">Sổ tay đăng ký tri thức·cài đặt AI</a> (tập 2).
@@ -374,12 +374,12 @@ li{margin:4px 0}
   <p><code>/settings</code> nay là <strong>7 tab</strong> (trước là một màn "Cài đặt"). Tab cũng là đơn vị cấp menu — tab không được cấp sẽ không hiển thị.</p>
   <div class="tablewrap"><table>
     <tr><th>Tab</th><th>Nội dung</th></tr>
-    <tr><td>Cài đặt cơ bản</td><td><strong>Công cụ AI</strong> (công cụ riêng của tenant — ưu tiên hơn công cụ nền tảng; kiểm tra kết nối·mặc định) · <strong>Mức dùng AI</strong> (gọi/token, cảnh báo rơi về stub) · Storefront · <strong>Kết nối nhân viên tư vấn</strong> (phụ trách·giờ làm·giờ nghỉ·email/nội dung ngoài giờ·SLA·deny-list)</td></tr>
-    <tr><td>Cài đặt widget</td><td>Chủ đề · bố cục tab · hành vi (lời chào — 6 tab ngôn ngữ, kèm nội dung mặc định) · Nhúng/SDK · hướng dẫn cài</td></tr>
+    <tr><td>Cài đặt cơ bản</td><td><strong>Công cụ AI</strong> (công cụ riêng của tenant — ưu tiên hơn công cụ nền tảng; kiểm tra kết nối·mặc định) · <strong>Mức dùng AI</strong> (gọi/token, cảnh báo rơi về stub) · Storefront · <strong>Kết nối nhân viên tư vấn</strong> (phụ trách·giờ làm·giờ nghỉ·email/nội dung ngoài giờ·SLA·deny-list) · <strong>Tùy chọn tri thức</strong> (bật/tắt thẻ hướng dẫn sử dụng)</td></tr>
+    <tr><td>Cài đặt widget</td><td>Chủ đề · <strong>Widget tùy chỉnh</strong> (thư viện thiết kế — phông·cỡ chữ·bo góc·kích thước bảng·biểu tượng nút mở; [Dùng] áp dụng ngay, [Về widget cơ bản], xem trước·nhân bản·gói JSON·khôi phục lịch sử·lưu trữ; CSS đã lọc khi được bật tiện ích) · <strong>Tệp thiết kế</strong> (phông·biểu tượng·hình ảnh — thư mục tenant, không phụ thuộc triển khai) · bố cục tab · hành vi (lời chào — 6 tab ngôn ngữ, kèm nội dung mặc định) · Nhúng/SDK · hướng dẫn cài</td></tr>
     <tr><td>Tích hợp nền tảng</td><td>Shopify·Cafe24·WooCommerce·Odoo·Haravan + nút <strong>[Hướng dẫn tích hợp]</strong></td></tr>
     <tr><td>Marketing &amp; Helpdesk</td><td>Klaviyo · Yotpo · Gorgias</td></tr>
     <tr><td>Kênh nhắn tin</td><td>Telegram·Viber·trung tâm AmoebaTalk·btbz relay·Gmail</td></tr>
-    <tr><td>Cài đặt khác</td><td>Kênh thông báo · quyền menu (master) · tiêu chí báo cáo hành trình (master) · thông tin xác thực đã lưu</td></tr>
+    <tr><td>Cài đặt khác</td><td>Kênh thông báo · quyền menu (master) · tiêu chí báo cáo hành trình (master) · thông tin xác thực đã lưu · <strong>Ảnh chụp cài đặt</strong> (12 trường cài đặt + thư viện widget tùy chỉnh dạng JSON — so sánh·khôi phục·tải về, không chứa bí mật)</td></tr>
     <tr><td>Thông báo quyền riêng tư</td><td>URL chính sách · phiên bản thông báo đồng ý</td></tr>
   </table></div>
   <ul>
@@ -388,6 +388,8 @@ li{margin:4px 0}
     <li>Quy tắc <strong>deny-list</strong> có 2 chế độ: <strong>Không trả lời</strong> (chuyển thẳng, mặc định) / <strong>Trả lời rồi chuyển</strong> (trả lời từ tri thức rồi vẫn chuyển) — kiểu nào nhân viên cũng được gọi</li>
   </ul>
   <p>→ <a href="quick-setup.vi.html">Sổ tay thiết lập nhanh chương 3~4</a></p>
+  <figure class="shot"><img src="img/settings-custom-widget.en.jpg" alt="Thẻ Widget tùy chỉnh — thư viện thiết kế, [Dùng], [Về widget cơ bản], lịch sử; thẻ Tệp thiết kế bên dưới" loading="lazy"><figcaption>Thẻ Widget tùy chỉnh — thư viện thiết kế, [Dùng], [Về widget cơ bản], lịch sử; thẻ Tệp thiết kế bên dưới</figcaption></figure>
+  <figure class="shot"><img src="img/settings-snapshots.en.jpg" alt="Thẻ Ảnh chụp cài đặt — lưu kèm nhãn, so sánh trước khi khôi phục" loading="lazy"><figcaption>Thẻ Ảnh chụp cài đặt — lưu kèm nhãn, so sánh trước khi khôi phục</figcaption></figure>
 </section>
 
 <section id="ch15">
@@ -411,7 +413,7 @@ li{margin:4px 0}
     <tr><td>Công cụ AI</td><td><code>/admin/ai-engines</code></td><td>Đăng ký công cụ (nhà cung cấp·mô hình·khóa API)·quản lý kích hoạt — tenant chọn theo từng chức năng</td></tr>
     <tr><td>Nhật ký kiểm tra</td><td><code>/admin/audit</code></td><td>Truy vết thao tác đặc quyền (cấp mật khẩu tạm·đổi quyền·xem PII v.v.)</td></tr>
   </table></div>
-  <p>Hộp thoại <strong>Gói/Add-on</strong>: gói (starter/growth/enterprise/custom — bộ menu mặc định theo gói; ghi đè theo menu vẫn giữ) + <strong>add-on quy trình issue</strong> (base không dùng / bridge nối helpdesk ngoài / native bật bảng issue·kanban). Chế độ khác base hiển thị huy hiệu "Issues: {chế độ}".</p>
+  <p>Hộp thoại <strong>Gói/Add-on</strong>: gói (starter/growth/enterprise/custom — bộ menu mặc định theo gói; ghi đè theo menu vẫn giữ) + <strong>add-on quy trình issue</strong> (base không dùng / bridge nối helpdesk ngoài / native bật bảng issue·kanban). Chế độ khác base hiển thị huy hiệu "Issues: {chế độ}". Chỉ tenant được bật <strong>Cho phép CSS widget tùy chỉnh</strong> mới thêm được CSS đã lọc vào widget tùy chỉnh (lớp ổn định .st-*, chỉ màu/phông/khoảng cách). Cột <strong>Tệp</strong> là dung lượng thư mục tenant (tệp thiết kế·ảnh chụp).</p>
   <p>Chi tiết quy trình mở tenant: <a href="quick-setup.vi.html">Sổ tay thiết lập nhanh chương 1</a>.</p>
   <figure class="shot"><img src="img/admin-temp-password.en.jpg" alt="Quản lý người dùng tenant trong admin — hộp thoại mật khẩu tạm thời hiển thị 1 lần" loading="lazy"><figcaption>Quản lý người dùng tenant trong admin — hộp thoại mật khẩu tạm thời hiển thị 1 lần</figcaption></figure>
 </section>

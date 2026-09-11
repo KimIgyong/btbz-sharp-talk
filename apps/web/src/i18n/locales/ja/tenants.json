@@ -62,5 +62,6 @@
   "customCssAddon": "カスタムウィジェットCSSアドオン",
   "customCssEnable": "カスタムウィジェットCSSを許可",
   "customCssHint": "このテナントがウィジェットの安定クラス(.st-*)に許可リストで検査済みのCSS（色・フォント・余白のみ。配置・非表示・外部リソースは不可）を追加できるようにします。オフにすると保存済みCSSは配信されません。",
-  "customCssSaved": "カスタムCSSアドオンを更新しました。"
+  "customCssSaved": "カスタムCSSアドオンを更新しました。",
+  "assets": "ファイル"
 }

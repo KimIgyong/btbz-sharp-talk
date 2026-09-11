@@ -104,7 +104,7 @@ li{margin:4px 0}
 <header class="hero">
   <div class="eyebrow">SharpTalk User Manual · Integrated Reference</div>
   <h1>SharpTalk Integrated User Manual</h1>
-  <div class="meta"><span>Version 2.1.0 · Fully revised 2026-08-24 · Updated 2026-09-04 (against the code)</span><span>Audience: tenant operators · agents · platform administrators</span></div>
+  <div class="meta"><span>Version 2.1.0 · Fully revised 2026-08-24 · Updated 2026-09-11 (against the code)</span><span>Audience: tenant operators · agents · platform administrators</span></div>
   <p class="lead"><strong>The reference manual that walks every screen.</strong> If you are setting up for the first time, start with the
   <a href="quick-setup.en.html">Quick Setup Manual</a> (Part 1); if you are refining knowledge and AI, see the
   <a href="knowledge-ai.en.html">Knowledge &amp; AI Setup Manual</a> (Part 2).
@@ -374,12 +374,12 @@ li{margin:4px 0}
   <p><code>/settings</code> is now <strong>7 tabs</strong> (formerly one "Settings" screen). Tabs are menu-provisioning units — an unprovided tab is invisible.</p>
   <div class="tablewrap"><table>
     <tr><th>Tab</th><th>Contents</th></tr>
-    <tr><td>Basic settings</td><td><strong>AI engines</strong> (tenant's own engines — ahead of platform engines; connection test·default) · <strong>AI usage</strong> (calls/tokens, stub-fallback warnings) · Storefront · <strong>Agent handoff</strong> (assignees·business hours·breaks·off-hours email/copy·SLA·deny-list)</td></tr>
-    <tr><td>Widget settings</td><td>Theme · tab layout · behaviour (greetings — 6 language tabs, default copy shown) · Embed/SDK · install guide</td></tr>
+    <tr><td>Basic settings</td><td><strong>AI engines</strong> (tenant's own engines — ahead of platform engines; connection test·default) · <strong>AI usage</strong> (calls/tokens, stub-fallback warnings) · Storefront · <strong>Agent handoff</strong> (assignees·business hours·breaks·off-hours email/copy·SLA·deny-list) · <strong>Knowledge options</strong> (usage-guides card on/off)</td></tr>
+    <tr><td>Widget settings</td><td>Theme · <strong>Custom widgets</strong> (design library — font·size·corners·panel size·launcher icon; [Use] applies instantly, [Back to basic widget], preview·duplicate·JSON package·history restore·archive; sanitized CSS when the add-on is allowed) · <strong>Design files</strong> (fonts·icons·images — tenant folder, deployment-independent) · tab layout · behaviour (greetings — 6 language tabs, default copy shown) · Embed/SDK · install guide</td></tr>
     <tr><td>Platform integrations</td><td>Shopify·Cafe24·WooCommerce·Odoo·Haravan tiles + the <strong>[Integration guide]</strong> button</td></tr>
     <tr><td>Marketing &amp; helpdesk</td><td>Klaviyo · Yotpo · Gorgias</td></tr>
     <tr><td>Messenger channels</td><td>Telegram·Viber·AmoebaTalk hub·btbz relay·Gmail</td></tr>
-    <tr><td>Other settings</td><td>Notification channels · menu access (master) · journey report criteria (master) · stored credentials</td></tr>
+    <tr><td>Other settings</td><td>Notification channels · menu access (master) · journey report criteria (master) · stored credentials · <strong>Settings snapshots</strong> (12 settings fields + custom widget library as JSON — diff·restore·download, no secrets)</td></tr>
     <tr><td>Privacy notice</td><td>Policy URL · consent notice version</td></tr>
   </table></div>
   <ul>
@@ -388,6 +388,8 @@ li{margin:4px 0}
     <li><strong>Deny-list</strong> rules carry 2 modes: <strong>No answer</strong> (straight handoff, default) / <strong>Answer, then hand off</strong> (answer from knowledge, then hand off) — an agent is called either way</li>
   </ul>
   <p>→ <a href="quick-setup.en.html">Quick Setup Manual, Ch. 3–4</a></p>
+  <figure class="shot"><img src="img/settings-custom-widget.en.jpg" alt="Custom widgets card — design library, [Use], [Back to basic widget], history; Design files card below" loading="lazy"><figcaption>Custom widgets card — design library, [Use], [Back to basic widget], history; Design files card below</figcaption></figure>
+  <figure class="shot"><img src="img/settings-snapshots.en.jpg" alt="Settings snapshots card — save with a label, diff before restore" loading="lazy"><figcaption>Settings snapshots card — save with a label, diff before restore</figcaption></figure>
 </section>
 
 <section id="ch15">
@@ -411,7 +413,7 @@ li{margin:4px 0}
     <tr><td>AI engines</td><td><code>/admin/ai-engines</code></td><td>Register engines (provider·model·API key)·manage activation — tenants pick per function</td></tr>
     <tr><td>Audit log</td><td><code>/admin/audit</code></td><td>Tracking privileged actions (temp password issuance·permission changes·PII views, etc.)</td></tr>
   </table></div>
-  <p><strong>Plan/Add-ons</strong> modal: the plan (starter/growth/enterprise/custom — per-plan menu presets; per-menu overrides survive) + the <strong>issue workflow add-on</strong> (base off / bridge external helpdesk / native issue board·kanban). Non-base modes show an "Issues: {mode}" badge.</p>
+  <p><strong>Plan/Add-ons</strong> modal: the plan (starter/growth/enterprise/custom — per-plan menu presets; per-menu overrides survive) + the <strong>issue workflow add-on</strong> (base off / bridge external helpdesk / native issue board·kanban). Non-base modes show an "Issues: {mode}" badge. Only tenants with <strong>Allow custom widget CSS</strong> on can add sanitized CSS to a custom widget (stable .st-* classes, colour/font/spacing only). The <strong>Files</strong> column is the tenant folder's size (design files·snapshots).</p>
   <p>Full tenant-creation procedure: <a href="quick-setup.en.html">Quick Setup Manual, Ch. 1</a>.</p>
   <figure class="shot"><img src="img/admin-temp-password.en.jpg" alt="Admin tenant-user management — the one-time temporary password modal" loading="lazy"><figcaption>Admin tenant-user management — the one-time temporary password modal</figcaption></figure>
 </section>

@@ -1,6 +1,6 @@
 # SharpTalk Chat & Customer Support Widget — User Manual (Integrated)
 
-> Version 2.1.0 · First edition 2026-07-01 · Fully revised 2026-08-24 · **Updated 2026-09-04** (against the code)
+> Version 2.1.0 · First edition 2026-07-01 · Fully revised 2026-08-24 · **Updated 2026-09-11** (against the code)
 > Audience: tenant operators · agents · platform administrators
 > Legend: **✅ implemented / 🟡 in preparation·roadmap**. Marked honestly against the actual code.
 > ⚠ AI-translated draft pending native review. The Korean edition is authoritative.
@@ -411,12 +411,12 @@ is invisible.
 
 | Tab | Contents |
 |---|---|
-| Basic settings | **AI engines** (register the tenant's own engines — used ahead of platform engines; connection test·default selection; calls on your key are billed to your account) · **AI usage** (calls/tokens by period and axis, stub-fallback warnings — no cost estimates) · Storefront · **Agent handoff** (assignees·business hours·breaks·off-hours email/copy·SLA·policy-forced handoff) |
-| Widget settings | Widget theme · tab layout · behaviour (display name·greetings — **6 language tabs**, with the shipped default copy shown) · Embed/SDK · store install guide |
+| Basic settings | **AI engines** (register the tenant's own engines — used ahead of platform engines; connection test·default selection; calls on your key are billed to your account) · **AI usage** (calls/tokens by period and axis, stub-fallback warnings — no cost estimates) · Storefront · **Agent handoff** (assignees·business hours·breaks·off-hours email/copy·SLA·policy-forced handoff) · **Knowledge options** (whether the "usage guides" card is shown on the Knowledge page — for shop-type tenants, off by default) |
+| Widget settings | Widget theme (brand colour·header·logo·launcher position) · **Custom widgets** (build several named designs — font, text size, corners, panel size, launcher icon — keep them here and apply one with **[Use]**: live immediately, no deployment; **[Back to basic widget]**, preview link, duplicate, JSON **package export/import**, **History** (every save keeps the previous state for restore), archive·delete. The sanitized-CSS box appears only for tenants the platform administrator has enabled the add-on for) · **Design files** (fonts woff2/ttf/otf·icons·images·design docs uploaded to this tenant's own folder — survive deployments, usage shown per area) · tab layout · behaviour (display name·greetings — **6 language tabs**, with the shipped default copy shown) · Embed/SDK · store install guide |
 | Platform integrations | Shopify · Cafe24 · WooCommerce · Odoo · Haravan tiles + the **[Integration guide]** button top-right (where to find each credential) |
 | Marketing & helpdesk | Klaviyo · Yotpo · Gorgias |
 | Messenger channels | Telegram · Viber · AmoebaTalk hub · btbz messenger relay · Gmail (Zalo·LINE·WhatsApp planned) |
-| Other settings | Notification channels · menu access (master) · journey report criteria (master, §4.5) · stored integration credentials |
+| Other settings | Notification channels · menu access (master) · journey report criteria (master, §4.5) · stored integration credentials · **Settings snapshots** (12 settings fields — widget theme·copy·tabs·notifications etc. — plus the custom widget library saved as one JSON file; diff then restore, download, delete; credentials and secrets are never included) |
 | Privacy notice | Policy URL · consent notice version (§15) |
 
 - **Saved ≠ connected**: saving credentials sets the status to "untested". Only passing the
@@ -461,6 +461,9 @@ widget settings guide
   workflow add-on** (`base` off / `bridge` external-helpdesk link / `native` issue
   board·kanban on). In the list, a non-base mode shows as an "Issues: {mode}" badge in the
   plan column.
+  Only tenants with the **Allow custom widget CSS** checkbox on can add sanitized CSS to a
+  custom widget (stable `.st-*` classes and colour/font/spacing properties only). The **Files**
+  column in the tenant list is the space used by the tenant's folder (design files·snapshots).
 
 Full tenant-creation procedure: [Quick Setup Manual, Chapter 1](quick-setup.en.md).
 
