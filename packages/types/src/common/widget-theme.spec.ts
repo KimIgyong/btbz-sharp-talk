@@ -7,6 +7,7 @@ import {
   readableForeground,
   RAMP_STOPS,
   panelFrame,
+  stripCustomCss,
 } from './widget-theme';
 
 /**
@@ -219,5 +220,16 @@ describe('design profile (PLN-260910 P2)', () => {
     const vars = buildThemeVariables(theme);
     expect(Object.keys(vars).some((k) => k.startsWith('--ivy-font') || k.startsWith('--ivy-panel'))).toBe(false);
     expect(panelFrame(theme)).toEqual({ w: 444, h: 680 });
+  });
+});
+
+describe('custom CSS delivery (PLN-260910 P5)', () => {
+  it('keeps the sanitized css in the design and strips it for delivery when the add-on is off', () => {
+    const theme = normalizeWidgetTheme({ brand: '#2B7FFF', design: { radius: 'sm', customCss: '  .st-header { color: red; }  ' } });
+    expect(theme?.design?.customCss).toBe('.st-header { color: red; }');
+    expect(stripCustomCss(theme, true)?.design?.customCss).toBe('.st-header { color: red; }');
+    const off = stripCustomCss(theme, false);
+    expect(off?.design).toEqual({ radius: 'sm' });
+    expect(stripCustomCss(normalizeWidgetTheme({ brand: '#2B7FFF', design: { customCss: 'x' } }), false)?.design).toBeNull();
   });
 });

@@ -102,6 +102,20 @@ export function useSetTenantWorkflowMode() {
   });
 }
 
+export function useSetTenantCustomCss() {
+  const qc = useQueryClient();
+  const { t } = useTranslation('tenants');
+  return useMutation({
+    mutationFn: ({ id, enabled }: { id: string; enabled: boolean }) =>
+      adminService.setTenantCustomCss(id, enabled),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: TENANTS_KEY });
+      toast.success(t('customCssSaved'));
+    },
+    onError: (err: Error) => toast.error(err.message),
+  });
+}
+
 export function useSetTenantStatus() {
   const qc = useQueryClient();
   return useMutation({

@@ -241,7 +241,14 @@ export class UpdateWidgetThemeRequest {
     radius?: string | null;
     panel?: { width?: number; height?: number } | null;
     launcher_icon_uuid?: string | null;
+    /** Raw custom CSS; the service sanitizes it and drops it when the add-on is off (P5). */
+    custom_css?: string | null;
   } | null;
+}
+
+/** Platform add-on switch for tenant custom widget CSS (PLN-260910 P5). */
+export class UpdateTenantCustomCssRequest {
+  @IsBoolean() enabled: boolean;
 }
 
 /** Custom widget library (PLN-260910 P3). `design` has the same shape as widget-theme.design. */

@@ -111,7 +111,14 @@ export interface WidgetDesign {
   panel?: WidgetPanelSize | null;
   /** Drawn when launcher.icon is 'custom'. */
   launcherIcon?: WidgetAssetRef | null;
+  /**
+   * Tenant custom CSS (P5) — ALREADY sanitized by the API's allowlist; stored
+   * and delivered only while the platform add-on is on. Never raw input.
+   */
+  customCss?: string | null;
 }
+
+export const CUSTOM_CSS_MAX_CHARS = 32 * 1024;
 
 export const DESIGN_LIMITS = {
   baseSize: { min: 13, max: 16, default: 14 },
@@ -406,7 +413,18 @@ export function normalizeDesign(input: unknown): WidgetDesign | null {
   }
   const icon = normalizeAssetRef(raw.launcherIcon);
   if (icon) out.launcherIcon = icon;
+  if (typeof raw.customCss === 'string' && raw.customCss.trim()) {
+    out.customCss = raw.customCss.trim().slice(0, CUSTOM_CSS_MAX_CHARS);
+  }
   return Object.keys(out).length ? out : null;
+}
+
+/** The theme a shopper may receive: custom CSS only while the add-on is on. */
+export function stripCustomCss(theme: WidgetTheme | null, allowed: boolean): WidgetTheme | null {
+  if (!theme?.design?.customCss || allowed) return theme;
+  const { customCss: _dropped, ...rest } = theme.design;
+  void _dropped;
+  return { ...theme, design: Object.keys(rest).length ? rest : null };
 }
 
 /**

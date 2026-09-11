@@ -74,7 +74,8 @@ export function WidgetPanel() {
     <div
       ref={panelRef}
       className={[
-        'flex flex-col overflow-hidden bg-white shadow-lg focus:outline-none',
+        // st-* classes are the stable hooks tenant custom CSS may target (P5).
+        'st-panel flex flex-col overflow-hidden bg-white shadow-lg focus:outline-none',
         // mobile: full-width bottom sheet; desktop: floating card
         'fixed inset-x-0 bottom-0 top-0 rounded-none',
         // In app mode the host app owns the whole screen, so the panel always
@@ -97,7 +98,7 @@ export function WidgetPanel() {
           fixed brand string. The language switcher and close button are absent
           from the design but kept deliberately (PLN §7 D-2): without the X, a
           shopper on a touch device has no way to dismiss the panel but Esc. */}
-      <header className="flex items-center justify-between bg-header-bg px-4 pb-2 pt-4">
+      <header className="st-header flex items-center justify-between bg-header-bg px-4 pb-2 pt-4">
         {/* Greet the shopper by name once they are known (frame 34, "Hi, Lisa");
             before that the tenant's own name identifies whose widget this is
             (frames 48/49). The two design variants are the two sign-in states,
@@ -113,7 +114,7 @@ export function WidgetPanel() {
             className="max-h-8 max-w-[60%] object-contain"
           />
         ) : (
-        <span className="truncate text-xl font-bold text-header-fg">
+        <span className="st-header-title truncate text-xl font-bold text-header-fg">
           {customerName
             ? t('header.greeting', { name: customerName })
             : displayName || t('notificationCenter')}

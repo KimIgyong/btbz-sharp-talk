@@ -29,6 +29,26 @@ export function applyTheme(theme: WidgetTheme | null): void {
   for (const name of THEMED_PROPERTIES) root.style.removeProperty(name);
   for (const [name, value] of Object.entries(vars)) root.style.setProperty(name, value);
   applyFontSources(theme);
+  applyCustomCss(theme);
+}
+
+const CUSTOM_CSS_ID = 'ivy-custom-css';
+/**
+ * Tenant custom CSS (P5). The API only ever delivers allowlist-sanitized text
+ * (and only while the platform add-on is on), so this is a plain <style>.
+ */
+function applyCustomCss(theme: WidgetTheme | null): void {
+  const css = theme?.design?.customCss ?? '';
+  const el = document.getElementById(CUSTOM_CSS_ID);
+  if (!css) {
+    el?.remove();
+    return;
+  }
+  if (el?.textContent === css) return;
+  const style = el ?? document.createElement('style');
+  style.id = CUSTOM_CSS_ID;
+  style.textContent = css;
+  if (!el) document.head.appendChild(style);
 }
 
 const FONT_FACE_ID = 'ivy-font-face';

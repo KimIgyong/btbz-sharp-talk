@@ -17,6 +17,7 @@ export interface Tenant {
   plan?: string;
   /** Issue-workflow add-on entitlement: base/bridge/native (REQ-260825). */
   workflowMode?: string;
+  customCssEnabled?: boolean;
   status?: string;
   userCount?: number;
   createdAt?: string;
@@ -113,6 +114,8 @@ export const adminService = {
     apiPatch<Tenant>(`/tenants/${uuid}/plan`, { plan }),
   setTenantWorkflowMode: (uuid: string, workflow_mode: string) =>
     apiPatch<Tenant>(`/tenants/${uuid}/workflow-mode`, { workflow_mode }),
+  setTenantCustomCss: (uuid: string, enabled: boolean) =>
+    apiPatch<Tenant>(`/tenants/${uuid}/custom-css`, { enabled }),
   setTenantStatus: (uuid: string, status: string) =>
     apiPatch<Tenant>(`/tenants/${uuid}/status`, { status }),
   // ---- Admin-scoped per-tenant user management (tenant addressed by UUID) ----

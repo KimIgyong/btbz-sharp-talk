@@ -2,6 +2,7 @@ import { WidgetLoginMode, WidgetTab, WidgetTabPosition, WidgetTheme } from '@sha
 
 /** Response DTOs — camelCase. `uuid` is the external tenant identifier. */
 export interface TenantResponse {
+  customCssEnabled?: boolean;
   id: number;
   uuid: string;
   shopDomain: string;
@@ -130,6 +131,7 @@ export interface NotificationChannelsResponse {
 
 /** Widget theme for the console card. `theme` is null when never configured. */
 export interface WidgetThemeResponse {
+  customCssEnabled?: boolean;
   theme: WidgetTheme | null;
   /** The palette shown when nothing is configured, so the console can preview it. */
   defaultBrand: string;

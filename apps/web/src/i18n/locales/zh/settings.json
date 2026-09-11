@@ -719,7 +719,11 @@
       "E5087": "已存在同名设计。"
     },
     "export": "导出",
-    "import": "导入包"
+    "import": "导入包",
+    "customCss": "自定义 CSS（附加功能）",
+    "customCssCheck": "检查",
+    "customCssHint": "仅限稳定类：.st-panel .st-header .st-header-title .st-tabs .st-tab .st-message .st-message-user .st-message-bot .st-composer .st-input .st-send .st-launcher .st-quick-reply。只允许颜色、字体、间距、边框和阴影；布局、隐藏和 url() 会被移除。",
+    "customCssKept": "将保留 {{n}} 条规则。"
   },
   "settingsSnapshots": {
     "title": "设置快照",

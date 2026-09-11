@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { promises as fs } from 'fs';
 import { join, resolve } from 'path';
-import { normalizeWidgetTheme } from '@sharptalk/types';
+import { normalizeWidgetTheme, stripCustomCss } from '@sharptalk/types';
 import { Tenant } from './entity/tenant.entity';
 
 /**
@@ -36,7 +36,7 @@ export class WidgetLiveService {
     try {
       await fs.mkdir(this.dir(), { recursive: true });
       const body = JSON.stringify({
-        theme: normalizeWidgetTheme(tenant.widgetTheme),
+        theme: stripCustomCss(normalizeWidgetTheme(tenant.widgetTheme), Number(tenant.customCssEnabled) === 1),
         updatedAt: new Date().toISOString(),
       });
       // Write-then-rename so a reader never sees a half-written file.

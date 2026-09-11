@@ -173,6 +173,14 @@ export class Tenant {
   @Column({ name: 'active_widget_design_id', type: 'bigint', nullable: true, transformer: bigintTransformer })
   activeWidgetDesignId: number | null;
 
+  /**
+   * Platform add-on (PLN-260910 P5): custom widget CSS is stored and delivered
+   * only while this is on. It is a platform-admin switch, not a tenant one —
+   * the capability carries risk the tenant cannot judge for the platform.
+   */
+  @Column({ name: 'custom_css_enabled', type: 'tinyint', width: 1, default: 0 })
+  customCssEnabled: number;
+
   // IANA timezone (e.g. 'Asia/Seoul', 'America/New_York'). Drives the default
   // widget language when the shopper hasn't picked one (Seoul → ko, US → en).
   @Column({ type: 'varchar', length: 40, nullable: true })

@@ -18,7 +18,7 @@ export function TopTabs() {
   if (defs.length < 2) return null;
 
   return (
-    <nav role="tablist" className="flex border-b border-gray-100 bg-white">
+    <nav role="tablist" className="st-tabs flex border-b border-gray-100 bg-white">
       {defs.map((def, i) => {
         const active = activeTab === def.key;
         const count = countFor(def.key);
@@ -34,9 +34,9 @@ export function TopTabs() {
             tabIndex={active ? 0 : -1}
             onKeyDown={(e) => onKeyDown(e, i)}
             onClick={() => select(def.key)}
-            className={`relative flex flex-1 items-center justify-center gap-1.5 px-1 py-3.5 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500 ${
+            className={`st-tab ${`relative flex flex-1 items-center justify-center gap-1.5 px-1 py-3.5 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500 ${
               active ? 'font-bold text-gray-900' : 'font-medium text-gray-500 hover:text-gray-700'
-            }`}
+            }`}`}
           >
             {/* Three translated labels share the panel width, so a long one
                 truncates rather than wrapping the bar to two rows. */}

@@ -81,6 +81,17 @@
 | P4-4 | 콘솔 | 설정 > 기타 "설정 스냅샷" 카드(라벨·저장·목록·다운로드·복원 diff 모달·삭제), 커스텀 위젯 카드에 [패키지 가져오기]·행 [내보내기] |
 | P4-5 | 범위 밖 | 어드민 용량 컬럼(D-11) — 요금제 축 후속 |
 
+## 2.4 P5 세부 (착수 시 보강, 2026-09-11) — 정제 CSS 옵션(C′)
+
+| # | 항목 | 내용 |
+|---|---|---|
+| P5-1 | 게이트 | `tenants.custom_css_enabled`(기본 0) — **플랫폼 어드민** [요금제·애드온] 모달 스위치(`PATCH /tenants/:uuid/custom-css`, 감사). 테넌트가 스스로 켤 수 없음(위험 판단은 플랫폼 몫) |
+| P5-2 | 정제기 | `sanitizeWidgetCss`(의존성 없음): 선택자는 `.st-*` 클래스(+후손/자식 결합·hover/focus 등 의사클래스)만, 속성은 색·배경색·테두리·모서리·폰트·글자·여백·gap·그림자·outline·폭/높이 허용목록, 값은 제한 문자집합 + `rgb/rgba/hsl/hsla/var(--ivy-*)`만. `display/visibility/opacity/position/transform/content/pointer-events/z-index`·`url()`·`@import`·중첩 블록·`body` 등은 **드롭+사유 보고**. 32KB 상한 |
+| P5-3 | 저장·전달 | 디자인 저장 시 정제 결과만 `design.customCss`로 저장(애드온 OFF면 무시+warn). 전달(세션·정적 라이브 파일·미리보기)은 `stripCustomCss`로 애드온 OFF 시 제거 → 끄는 즉시 중단 |
+| P5-4 | 위젯 | 안정 클래스 `st-panel st-header st-tabs st-tab st-message st-message-user st-message-bot st-composer st-input st-send st-launcher st-quick-reply`; 테마 적용 시 `<style id="ivy-custom-css">` 삽입/제거 |
+| P5-5 | 콘솔 | 커스텀 위젯 편집기에 CSS 텍스트영역(애드온 ON일 때만) + [검사](`POST /tenants/widget-theme/sanitize-css` 드라이런: 유지 규칙 수·드롭 사유) + 안정 클래스 안내 |
+| P5-6 | 남은 위험 | 대비 저하(색 변경은 허용) — 접근성은 테넌트 책임 고지; 안정 클래스 계약은 위젯 리팩터 시 유지 의무(dev-kit 기록) |
+
 ## 3. 백엔드 작업 (P1 기준, P2/P3는 단계 착수 시 상세화)
 
 | # | 파일 | 작업 |

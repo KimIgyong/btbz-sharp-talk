@@ -18,7 +18,7 @@ import {
   WidgetTabPosition,
   WidgetTheme,
   normalizeWidgetTabs,
-  normalizeWidgetTheme,
+  normalizeWidgetTheme, stripCustomCss,
 } from '@sharptalk/types';
 import { generateToken } from '@sharptalk/common';
 import { Session } from './entity/session.entity';
@@ -478,7 +478,7 @@ export class SessionService {
           : WIDGET_TAB_POSITION.TOP,
       // Null passes through as null: the widget's CSS already holds the built-in
       // palette, so "no theme" needs no payload and paints no variables.
-      widgetTheme: normalizeWidgetTheme(tenant?.widgetTheme),
+      widgetTheme: stripCustomCss(normalizeWidgetTheme(tenant?.widgetTheme), Number(tenant?.customCssEnabled) === 1),
       widgetCopy: {
         // Resolved here so the widget never needs the tenant entity: agent
         // display name ?? configured name ?? tenant name.

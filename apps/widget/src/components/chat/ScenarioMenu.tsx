@@ -27,7 +27,7 @@ function MenuChip({
       onClick={onClick}
       className={
         variant === 'primary'
-          ? 'rounded-full bg-primary-100 px-4 py-2.5 text-center text-sm font-medium text-primary-700 transition-colors hover:bg-primary-200'
+          ? 'st-quick-reply rounded-full bg-primary-100 px-4 py-2.5 text-center text-sm font-medium text-primary-700 transition-colors hover:bg-primary-200'
           : 'rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:border-gray-300 hover:bg-gray-50'
       }
     >

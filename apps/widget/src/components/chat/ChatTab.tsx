@@ -607,7 +607,7 @@ export function ChatTab() {
       {/* Input */}
       <form
         onSubmit={submitInput}
-        className="flex items-center gap-2 border-t border-gray-100 px-3 py-3"
+        className="st-composer flex items-center gap-2 border-t border-gray-100 px-3 py-3"
       >
         <input
           ref={fileInputRef}
@@ -634,13 +634,13 @@ export function ChatTab() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={t('chat.inputPlaceholder')}
-          className="flex-1 rounded-full border border-gray-200 px-4 py-2.5 text-sm focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:bg-gray-50"
+          className="st-input flex-1 rounded-full border border-gray-200 px-4 py-2.5 text-sm focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:bg-gray-50"
         />
         <button
           type="submit"
           disabled={sending || uploads.busy || (!input.trim() && !uploads.ready.length)}
           aria-label={t('chat.send')}
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary-500 text-on-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:opacity-40"
+          className="st-send flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary-500 text-on-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:opacity-40"
         >
           <Send className="h-[18px] w-[18px]" />
         </button>

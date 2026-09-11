@@ -29,6 +29,7 @@ const EMPTY: WidgetDesignDraft = {
   panelWidth: DESIGN_LIMITS.panel.width.default,
   panelHeight: DESIGN_LIMITS.panel.height.default,
   launcherIconUuid: null,
+  customCss: '',
 };
 
 function toDraft(d: WidgetDesignItem['design']): WidgetDesignDraft {
@@ -40,6 +41,7 @@ function toDraft(d: WidgetDesignItem['design']): WidgetDesignDraft {
     panelWidth: d.panel?.width ?? EMPTY.panelWidth,
     panelHeight: d.panel?.height ?? EMPTY.panelHeight,
     launcherIconUuid: d.launcherIcon?.uuid ?? null,
+    customCss: d.customCss ?? '',
   };
 }
 
@@ -64,6 +66,15 @@ export function WidgetDesignsCard() {
   const [editing, setEditing] = useState<{ id: string | null; name: string; note: string; draft: WidgetDesignDraft } | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const importInput = useRef<HTMLInputElement>(null);
+  const cssAllowed = !!theme.data?.customCssEnabled;
+  const [cssCheck, setCssCheck] = useState<{ css: string; dropped: string[] } | null>(null);
+  const checkCss = async (css: string) => {
+    try {
+      setCssCheck(await settingsService.sanitizeCustomCss(css));
+    } catch (e) {
+      toast.error((e as Error).message);
+    }
+  };
   const [importing, setImporting] = useState(false);
 
   const exportPackage = async (d: WidgetDesignItem) => {
@@ -339,6 +350,37 @@ export function WidgetDesignsCard() {
                   ))}
                 </Select>
               </FormRow>
+              {cssAllowed && (
+                <FormRow label={t('widgetDesigns.customCss')}>
+                  <textarea
+                    value={ed.draft.customCss ?? ''}
+                    rows={6}
+                    spellCheck={false}
+                    placeholder={'.st-header { background-color: #111; color: #fff }\n.st-message-user { border-radius: 20px }'}
+                    onChange={(e) => {
+                      setCssCheck(null);
+                      setEditing({ ...ed, draft: { ...ed.draft, customCss: e.target.value } });
+                    }}
+                    className="w-full rounded-lg border border-gray-200 px-2 py-1.5 font-mono text-xs"
+                  />
+                  <div className="mt-1 flex items-center gap-2">
+                    <Button variant="ghost" size="sm" onClick={() => void checkCss(ed.draft.customCss ?? '')}>
+                      {t('widgetDesigns.customCssCheck')}
+                    </Button>
+                    <span className="text-[11px] text-gray-400">{t('widgetDesigns.customCssHint')}</span>
+                  </div>
+                  {cssCheck && (
+                    <div className="mt-1 rounded-md bg-gray-50 p-2 text-[11px]">
+                      <div className="text-gray-600">{t('widgetDesigns.customCssKept', { n: cssCheck.css ? cssCheck.css.split('\n').length : 0 })}</div>
+                      {cssCheck.dropped.length > 0 && (
+                        <ul className="mt-1 list-disc pl-4 text-amber-700">
+                          {cssCheck.dropped.slice(0, 10).map((d, i) => <li key={i}>{d}</li>)}
+                        </ul>
+                      )}
+                    </div>
+                  )}
+                </FormRow>
+              )}
               <FormRow label={t('widgetDesigns.note')}>
                 <Input value={ed.note} maxLength={255} onChange={(e) => setEditing({ ...ed, note: e.target.value })} />
               </FormRow>
