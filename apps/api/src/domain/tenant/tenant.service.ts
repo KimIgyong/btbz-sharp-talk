@@ -43,6 +43,7 @@ import {
   UpdatePrivacyNoticeRequest,
   UpdateStorefrontRequest,
   UpdateKnowledgeSettingsRequest,
+  UpdateTenantCustomCssRequest,
   UpdateWidgetSettingsRequest,
   UpdateWidgetThemeRequest,
   UpdateShopifySettingsRequest,
@@ -50,6 +51,7 @@ import {
 import { AuditService } from '../audit/audit.service';
 import { TenantAssetService } from '../tenant-asset/tenant-asset.service';
 import { WidgetLiveService } from './widget-live.service';
+import { sanitizeWidgetCss } from '../../global/util/css-sanitizer.util';
 import { LogoUpload, WidgetLogoService } from './widget-logo.service';
 import { parseOrigin } from '../embed/embed-origin.util';
 import { DEFAULT_BRAND } from '@sharptalk/types';
@@ -660,6 +662,19 @@ export class TenantService {
       }
       return { uuid: row.uuid, version: row.version };
     };
+    // Custom CSS (P5): allowlist-sanitized here, and only kept while the
+    // platform add-on is on — a tenant cannot store what it may not deliver.
+    let customCss: string | null = null;
+    if (typeof d.custom_css === 'string' && d.custom_css.trim()) {
+      const tenant = await this.findById(tenantId);
+      if (Number(tenant.customCssEnabled) === 1) {
+        const { css, dropped } = sanitizeWidgetCss(d.custom_css);
+        if (dropped.length) this.logger.warn(`custom css: ${dropped.length} item(s) dropped (tenant ${tenantId})`);
+        customCss = css || null;
+      } else {
+        this.logger.warn(`custom css ignored: add-on off (tenant ${tenantId})`);
+      }
+    }
     return {
       font: d.font
         ? {
@@ -671,7 +686,29 @@ export class TenantService {
       radius: d.radius ?? null,
       panel: d.panel ?? null,
       launcherIcon: await ref(d.launcher_icon_uuid, 'icon'),
+      customCss,
     };
+  }
+
+  /** What a design save would keep of this CSS — for the console to show before saving (P5). */
+  sanitizeCustomCss(input: string): { css: string; dropped: string[] } {
+    return sanitizeWidgetCss(input);
+  }
+
+  /** Platform add-on switch (P5). Turning it off stops delivery immediately (stripped at read). */
+  async updateCustomCssEnabled(id: number, enabled: boolean, actorId: number): Promise<Tenant> {
+    const tenant = await this.findById(id);
+    tenant.customCssEnabled = enabled ? 1 : 0;
+    const saved = await this.tenantRepo.save(tenant);
+    await this.live?.publish(saved);
+    await this.audit.write({
+      tenantId: id,
+      actorType: 'admin',
+      actorId,
+      action: 'tenant.custom_css_changed',
+      target: `tenant:${id} ${enabled ? 'on' : 'off'}`,
+    });
+    return saved;
   }
 
   private safeUrlHost(url: string | null): string | null {

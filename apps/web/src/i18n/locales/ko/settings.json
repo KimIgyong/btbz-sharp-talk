@@ -719,7 +719,11 @@
       "E5087": "같은 이름의 디자인이 이미 있습니다."
     },
     "export": "내보내기",
-    "import": "패키지 가져오기"
+    "import": "패키지 가져오기",
+    "customCss": "커스텀 CSS (애드온)",
+    "customCssCheck": "검사",
+    "customCssHint": "안정 클래스만: .st-panel .st-header .st-header-title .st-tabs .st-tab .st-message .st-message-user .st-message-bot .st-composer .st-input .st-send .st-launcher .st-quick-reply. 색·폰트·간격·테두리·그림자만 허용되며 배치·숨김·url()은 제거됩니다.",
+    "customCssKept": "{{n}}개 규칙이 유지됩니다."
   },
   "settingsSnapshots": {
     "title": "설정 스냅샷",

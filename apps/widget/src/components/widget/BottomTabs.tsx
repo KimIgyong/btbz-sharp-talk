@@ -22,7 +22,7 @@ export function BottomTabs() {
       // The home indicator on a full-screen mobile sheet sits under this bar,
       // so the safe-area inset is padding, not margin — the bar's own
       // background must extend beneath it.
-      className="flex border-t border-gray-100 bg-white pb-[env(safe-area-inset-bottom)]"
+      className="st-tabs flex border-t border-gray-100 bg-white pb-[env(safe-area-inset-bottom)]"
     >
       {defs.map((def, i) => {
         const active = activeTab === def.key;
@@ -39,9 +39,9 @@ export function BottomTabs() {
             tabIndex={active ? 0 : -1}
             onKeyDown={(e) => onKeyDown(e, i)}
             onClick={() => select(def.key)}
-            className={`flex flex-1 flex-col items-center gap-1 px-1 pb-2 pt-2.5 text-[11px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500 ${
+            className={`st-tab ${`flex flex-1 flex-col items-center gap-1 px-1 pb-2 pt-2.5 text-[11px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500 ${
               active ? 'font-bold text-primary-600' : 'font-medium text-gray-400 hover:text-gray-600'
-            }`}
+            }`}`}
           >
             <span className="relative">
               <Icon className="h-5 w-5" />

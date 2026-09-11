@@ -58,5 +58,9 @@
     "base": "off (chat list only)",
     "bridge": "external helpdesk hand-off",
     "native": "issue board & kanban enabled"
-  }
+  },
+  "customCssAddon": "Custom widget CSS add-on",
+  "customCssEnable": "Allow custom widget CSS",
+  "customCssHint": "Lets this tenant add allowlist-sanitized CSS on the widget's stable .st-* classes (colours, fonts, spacing — never layout, hiding or external resources). Off = stored CSS is not delivered.",
+  "customCssSaved": "Custom CSS add-on updated."
 }

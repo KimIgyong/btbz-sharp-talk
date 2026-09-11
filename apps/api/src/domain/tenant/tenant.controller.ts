@@ -33,6 +33,7 @@ import {
   UpdateShopifySettingsRequest,
   UpdateStorefrontRequest,
   UpdateKnowledgeSettingsRequest,
+  UpdateTenantCustomCssRequest,
   UpdateNotificationChannelsRequest,
   UpdateWidgetThemeRequest,
   UpdateEmbedOriginsRequest,
@@ -132,6 +133,15 @@ export class TenantController {
     }
     const tenant = await this.tenantService.updateStorefront(user.tenantId, user.userId, body);
     return TenantMapper.toStorefront(tenant);
+  }
+
+  // Declared before ':uuid'. Dry-run of the CSS sanitizer so the console can show
+  // what a save will keep and why the rest is dropped (P5) — no state change.
+  @Post('widget-theme/sanitize-css')
+  @RequireRank(USER_RANK.MASTER, USER_RANK.DIRECTOR)
+  @ApiOperation({ summary: 'Sanitize custom widget CSS without saving (returns kept css + dropped reasons)' })
+  sanitizeCss(@Body() body: { css?: string }) {
+    return this.tenantService.sanitizeCustomCss(String(body?.css ?? '').slice(0, 64 * 1024));
   }
 
   // Declared before ':uuid' so 'knowledge-settings' is not captured as a UUID.
@@ -365,6 +375,19 @@ export class TenantController {
       body.workflow_mode,
       this.adminActorId(admin),
     );
+    return TenantMapper.toTenant(tenant);
+  }
+
+  @Patch(':uuid/custom-css')
+  @AdminOnly()
+  @ApiOperation({ summary: 'Platform add-on: allow this tenant to ship sanitized custom widget CSS (PLN-260910 P5)' })
+  async updateCustomCss(
+    @CurrentUser() admin: Principal,
+    @Param('uuid') uuid: string,
+    @Body() body: UpdateTenantCustomCssRequest,
+  ) {
+    const target = await this.tenantService.getByUuid(uuid);
+    const tenant = await this.tenantService.updateCustomCssEnabled(Number(target.id), body.enabled, this.adminActorId(admin));
     return TenantMapper.toTenant(tenant);
   }
 

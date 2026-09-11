@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Modal } from '@/components/Modal';
 import { Button } from '@/components/Button';
 import { FormRow, Select } from '@/components/Field';
-import { useSetTenantPlan, useSetTenantWorkflowMode } from './admin.hooks';
+import { useSetTenantCustomCss, useSetTenantPlan, useSetTenantWorkflowMode } from './admin.hooks';
 import type { Tenant } from './admin.service';
 
 // Local mirrors of TENANT_PLAN / WORKFLOW_MODE (@sharptalk/types values cannot be
@@ -32,26 +32,31 @@ export function TenantPlanModal({
   const { t: tc } = useTranslation('common');
   const setPlan = useSetTenantPlan();
   const setMode = useSetTenantWorkflowMode();
+  const setCss = useSetTenantCustomCss();
 
   const [plan, setPlanValue] = useState(tenant.plan ?? 'custom');
   const [mode, setModeValue] = useState(tenant.workflowMode ?? 'base');
+  const [css, setCssValue] = useState(!!tenant.customCssEnabled);
 
   // Re-arm the form each time the modal opens for a (possibly different) tenant.
   useEffect(() => {
     if (!open) return;
     setPlanValue(tenant.plan ?? 'custom');
     setModeValue(tenant.workflowMode ?? 'base');
+    setCssValue(!!tenant.customCssEnabled);
   }, [open, tenant]);
 
   const planDirty = plan !== (tenant.plan ?? 'custom');
   const modeDirty = mode !== (tenant.workflowMode ?? 'base');
-  const saving = setPlan.isPending || setMode.isPending;
+  const cssDirty = css !== !!tenant.customCssEnabled;
+  const saving = setPlan.isPending || setMode.isPending || setCss.isPending;
 
   const save = async () => {
     // Independent PATCHes (D1): a failure in one leaves the other's toast/state
     // honest instead of pretending a combined save half-happened silently.
     if (planDirty) await setPlan.mutateAsync({ id: tenant.uuid, plan });
     if (modeDirty) await setMode.mutateAsync({ id: tenant.uuid, mode });
+    if (cssDirty) await setCss.mutateAsync({ id: tenant.uuid, enabled: css });
     onClose();
   };
 
@@ -65,7 +70,7 @@ export function TenantPlanModal({
           <Button variant="secondary" onClick={onClose}>
             {tc('cancel')}
           </Button>
-          <Button onClick={save} disabled={saving || (!planDirty && !modeDirty)}>
+          <Button onClick={save} disabled={saving || (!planDirty && !modeDirty && !cssDirty)}>
             {saving ? tc('saving') : tc('save')}
           </Button>
         </>
@@ -104,6 +109,23 @@ export function TenantPlanModal({
             </label>
           ))}
         </div>
+      </FormRow>
+
+      {/* Custom widget CSS add-on (PLN-260910 P5): server-sanitized allowlist CSS
+          on stable .st-* classes. A platform switch, not a tenant one. */}
+      <FormRow label={t('customCssAddon')}>
+        <label className="flex items-start gap-2 text-sm text-gray-700">
+          <input
+            type="checkbox"
+            checked={css}
+            onChange={(e) => setCssValue(e.target.checked)}
+            className="mt-0.5 h-4 w-4 rounded border-gray-300"
+          />
+          <span>
+            <span className="font-medium">{t('customCssEnable')}</span>
+            <span className="mt-0.5 block text-xs text-gray-500">{t('customCssHint')}</span>
+          </span>
+        </label>
       </FormRow>
     </Modal>
   );

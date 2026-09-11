@@ -240,4 +240,30 @@ describe('TenantService.updatePrivacyNotice', () => {
       expect(saved.widgetTheme?.design).toEqual({ radius: 'sm' });
     });
   });
+  describe('custom css (PLN-260910 P5)', () => {
+    const font = '94c2949c-3ce5-47be-acb3-3c4cfa7c58b3';
+    const mk = (enabled: boolean) => {
+      (tenant as any).customCssEnabled = enabled ? 1 : 0;
+      return new TenantService(
+        { findOne: jest.fn(async () => tenant), save: jest.fn(async (t: Tenant) => t) } as never,
+        {} as never, {} as never,
+        { count: jest.fn(async () => 1) } as never, { count: jest.fn(async () => 1) } as never, { count: jest.fn(async () => 1) } as never,
+        {} as never, { write: auditWrite } as never, undefined as never,
+        { get: jest.fn(async () => ({ uuid: font, kind: 'font', version: 1 })) } as never,
+      );
+    };
+    it('sanitizes and stores custom css only while the add-on is on', async () => {
+      const css = '.st-header { color: red } .st-send { display: none; color: blue }';
+      const on = await mk(true).updateWidgetTheme(1, 7, { brand: '#2B7FFF', design: { custom_css: css } } as never);
+      expect(on.widgetTheme?.design?.customCss).toBe('.st-header { color: red; }\n.st-send { color: blue; }');
+      const off = await mk(false).updateWidgetTheme(1, 7, { brand: '#2B7FFF', design: { custom_css: css } } as never);
+      expect(off.widgetTheme?.design ?? null).toBeNull();
+    });
+    it('admin switch flips the flag and audits', async () => {
+      const svc2 = mk(false);
+      const saved = await svc2.updateCustomCssEnabled(1, true, 99);
+      expect(saved.customCssEnabled).toBe(1);
+      expect(auditWrite).toHaveBeenLastCalledWith(expect.objectContaining({ action: 'tenant.custom_css_changed', actorType: 'admin', target: 'tenant:1 on' }));
+    });
+  });
 });

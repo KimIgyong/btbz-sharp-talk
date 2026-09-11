@@ -42,6 +42,7 @@ export class TenantMapper {
       status: t.status,
       plan: t.plan,
       workflowMode: t.workflowMode,
+      customCssEnabled: Number(t.customCssEnabled) === 1,
       ...(userCount !== undefined ? { userCount } : {}),
       createdAt: t.createdAt,
       updatedAt: t.updatedAt,
@@ -121,6 +122,8 @@ export class TenantMapper {
     return {
       theme: normalizeWidgetTheme(t.widgetTheme),
       defaultBrand: DEFAULT_BRAND,
+      // Whether the design editor may offer custom CSS (platform add-on, P5).
+      customCssEnabled: Number(t.customCssEnabled) === 1,
       // The console builds the public logo URL from this; it is the same key the
       // widget sends, so both fetch the identical asset.
       shopDomain: t.shopDomain ?? null,

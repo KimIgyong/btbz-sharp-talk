@@ -139,7 +139,7 @@ export function Widget() {
           onClick={togglePanel}
           aria-label={t('a11y.openSupport')}
           aria-expanded={false}
-          className={`fixed bottom-5 z-10 flex items-center justify-center rounded-full bg-primary-500 text-on-primary shadow-lg transition-transform hover:scale-105 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-95 ${
+          className={`st-launcher fixed bottom-5 z-10 flex items-center justify-center rounded-full bg-primary-500 text-on-primary shadow-lg transition-transform hover:scale-105 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-95 ${
             launcher.position === 'left' ? 'left-5' : 'right-5'
           } ${sizeClasses.button}`}
         >

@@ -142,6 +142,8 @@ export interface WidgetDesignDraft {
   panelWidth: number;
   panelHeight: number;
   launcherIconUuid?: string | null;
+  /** Raw custom CSS as typed; the API sanitizes and may drop parts (P5). */
+  customCss?: string | null;
 }
 
 /** Custom widget library (PLN-260910 P3). */
@@ -169,6 +171,7 @@ export function designToWire(design: WidgetDesignDraft) {
     radius: design.radius,
     panel: { width: design.panelWidth, height: design.panelHeight },
     launcher_icon_uuid: design.launcherIconUuid ?? null,
+    custom_css: design.customCss ?? null,
   };
 }
 
@@ -184,6 +187,8 @@ export interface WidgetThemeSettings {
   defaultBrand: string;
   /** Needed to build the public logo URL; same key the widget uses. */
   shopDomain: string | null;
+  /** Platform add-on: may the design editor offer custom CSS (P5). */
+  customCssEnabled?: boolean;
 }
 
 /** Embed allowlist + whether a signing secret exists (PLN-260819). */
@@ -253,6 +258,7 @@ export const settingsService = {
     return apiUpload<TenantAsset>('/tenant-assets', form);
   },
   deleteAsset: (uuid: string) => apiDelete<{ deleted: true }>(`/tenant-assets/${uuid}`),
+  sanitizeCustomCss: (css: string) => apiPost<{ css: string; dropped: string[] }>('/tenants/widget-theme/sanitize-css', { css }),
   widgetDesigns: () => apiGet<WidgetDesignList>('/widget-designs'),
   createWidgetDesign: (name: string, design: WidgetDesignDraft, note?: string) =>
     apiPost<WidgetDesignItem>('/widget-designs', { name, note: note ?? null, design: designToWire(design) }),

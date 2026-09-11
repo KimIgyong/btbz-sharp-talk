@@ -719,7 +719,11 @@
       "E5087": "Ya existe un diseño con este nombre."
     },
     "export": "Exportar",
-    "import": "Importar paquete"
+    "import": "Importar paquete",
+    "customCss": "CSS personalizado (complemento)",
+    "customCssCheck": "Comprobar",
+    "customCssHint": "Solo clases estables: .st-panel .st-header .st-header-title .st-tabs .st-tab .st-message .st-message-user .st-message-bot .st-composer .st-input .st-send .st-launcher .st-quick-reply. Solo colores, fuentes, espaciado, bordes y sombras; disposición, ocultación y url() se eliminan.",
+    "customCssKept": "Se conservarán {{n}} regla(s)."
   },
   "settingsSnapshots": {
     "title": "Instantáneas de configuración",

@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { normalizeDesign, normalizeWidgetTheme, WidgetTheme } from '@sharptalk/types';
+import { normalizeDesign, normalizeWidgetTheme, stripCustomCss, WidgetTheme } from '@sharptalk/types';
 import { Tenant } from './entity/tenant.entity';
 import { WIDGET_DESIGN_STATUS, WidgetDesignRow } from './entity/widget-design.entity';
 import { TenantService } from './tenant.service';
@@ -195,7 +195,10 @@ export class WidgetDesignService {
       this.repo.findOne({ where: { id: designId, tenantId } }),
     ]);
     if (!tenant || !row) return null;
-    return normalizeWidgetTheme({ ...(tenant.widgetTheme ?? { brand: '#2B7FFF' }), design: row.designJson });
+    return stripCustomCss(
+      normalizeWidgetTheme({ ...(tenant.widgetTheme ?? { brand: '#2B7FFF' }), design: row.designJson }),
+      Number(tenant.customCssEnabled) === 1,
+    );
   }
 
   // ---- package export / import (D-13, JSON instead of zip — no archive dependency) --

@@ -58,5 +58,9 @@
     "base": "desactivado (solo lista de chats)",
     "bridge": "derivación a helpdesk externo",
     "native": "tablero de incidencias y kanban activos"
-  }
+  },
+  "customCssAddon": "Complemento CSS personalizado",
+  "customCssEnable": "Permitir CSS personalizado del widget",
+  "customCssHint": "Permite a este inquilino añadir CSS saneado por lista blanca sobre las clases estables .st-* del widget (colores, fuentes, espaciado — nunca disposición, ocultación ni recursos externos). Apagado = el CSS guardado no se entrega.",
+  "customCssSaved": "Complemento de CSS personalizado actualizado."
 }

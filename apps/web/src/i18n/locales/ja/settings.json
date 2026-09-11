@@ -719,7 +719,11 @@
       "E5087": "同じ名前のデザインが既にあります。"
     },
     "export": "エクスポート",
-    "import": "パッケージを取り込む"
+    "import": "パッケージを取り込む",
+    "customCss": "カスタムCSS（アドオン）",
+    "customCssCheck": "チェック",
+    "customCssHint": "安定クラスのみ: .st-panel .st-header .st-header-title .st-tabs .st-tab .st-message .st-message-user .st-message-bot .st-composer .st-input .st-send .st-launcher .st-quick-reply。色・フォント・余白・枠線・影のみ許可。配置・非表示・url() は除去されます。",
+    "customCssKept": "{{n}} 件のルールが保持されます。"
   },
   "settingsSnapshots": {
     "title": "設定スナップショット",
