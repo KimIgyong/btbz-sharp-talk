@@ -711,11 +711,38 @@
       "archive": "Archived",
       "restore": "Restored",
       "delete": "Deleted",
-      "revert": "Back to the basic widget"
+      "revert": "Back to the basic widget",
+      "import": "Imported “{{name}}”"
     },
     "error": {
       "E5086": "This design is in use — switch to the basic widget or another design first.",
       "E5087": "A design with this name already exists."
+    },
+    "export": "Export",
+    "import": "Import package"
+  },
+  "settingsSnapshots": {
+    "title": "Settings snapshots",
+    "create": "Take snapshot",
+    "labelPlaceholder": "Label (e.g. before launch)",
+    "hint": "Saves the widget theme, copy, tabs, sign-in mode, notification channels, embed origins, knowledge options, timezone, storefront, privacy notice and the custom-widget library as one JSON file in this tenant's folder. It survives deployments and can be restored here or moved to another environment.",
+    "download": "Download",
+    "restore": "Restore…",
+    "deleteConfirm": "Delete this snapshot?",
+    "empty": "No snapshots yet",
+    "noSecrets": "Integration credentials and the embed secret are never included.",
+    "diffTitle": "Restore “{{name}}”",
+    "diffHint": "Snapshot taken {{at}}. Highlighted rows will change. Restoring is audited.",
+    "field": "Field",
+    "current": "Current",
+    "snapshot": "Snapshot",
+    "changed": "changes",
+    "apply": "Restore",
+    "designsLine": "Custom widgets: {{create}} to create, {{update}} to update · in use after restore: {{active}}",
+    "done": {
+      "create": "Snapshot saved",
+      "restore": "Settings restored",
+      "delete": "Snapshot deleted"
     }
   }
 }

@@ -1,4 +1,19 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Res,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import type { Response } from 'express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Principal, USER_RANK } from '@sharptalk/types';
 import { RequireRank } from '../../global/decorator/auth.decorator';
@@ -38,6 +53,29 @@ export class WidgetDesignController {
     const a = this.actor(user);
     const row = await this.designs.create(a.tenantId, body, a.userId);
     return TenantMapper.toWidgetDesign(row, null);
+  }
+
+  /** Package as JSON (D-13): design + embedded font/icon files, importable elsewhere. */
+  @Get(':id/export')
+  @ApiOperation({ summary: 'Export a design as a JSON package (design + embedded assets)' })
+  async exportPackage(@CurrentUser() user: Principal, @Param('id', ParseIntPipe) id: number, @Res() res: Response) {
+    const a = this.actor(user);
+    const pkg = await this.designs.exportPackage(a.tenantId, id);
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename*=UTF-8''${encodeURIComponent(String(pkg.name))}.sharptalk-widget.json`,
+    );
+    res.send(JSON.stringify(pkg));
+  }
+
+  @Post('import')
+  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 12 * 1024 * 1024 } }))
+  @ApiOperation({ summary: 'Import a JSON package as a new library design (assets re-validated)' })
+  async importPackage(@CurrentUser() user: Principal, @UploadedFile() file?: { buffer: Buffer }) {
+    const a = this.actor(user);
+    if (!file?.buffer) throw new BusinessException(ERROR_CODE.VALIDATION_FAILED, HttpStatus.BAD_REQUEST);
+    return TenantMapper.toWidgetDesign(await this.designs.importPackage(a.tenantId, file.buffer, a.userId), null);
   }
 
   @Post('revert')

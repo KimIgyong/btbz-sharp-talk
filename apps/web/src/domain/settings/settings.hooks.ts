@@ -280,6 +280,46 @@ export function useWidgetDesignAction() {
   });
 }
 
+// ---- Settings snapshots (PLN-260910 P4) ----
+export function useSettingsSnapshots() {
+  const tenantKey = useTenantKey();
+  return useQuery({
+    queryKey: ['settings-snapshots', tenantKey],
+    queryFn: () => settingsService.settingsSnapshots(),
+  });
+}
+
+export function useSettingsSnapshotAction() {
+  const { t } = useTranslation('settings');
+  const qc = useQueryClient();
+  const tenantKey = useTenantKey();
+  return useMutation({
+    mutationFn: async (v: { kind: 'create'; label?: string } | { kind: 'restore' | 'delete'; uuid: string }) => {
+      switch (v.kind) {
+        case 'create': return settingsService.createSettingsSnapshot(v.label);
+        case 'restore': return settingsService.restoreSettingsSnapshot(v.uuid);
+        case 'delete': return settingsService.deleteSettingsSnapshot(v.uuid);
+      }
+    },
+    onSuccess: (_r, v) => {
+      qc.invalidateQueries({ queryKey: ['settings-snapshots', tenantKey] });
+      if (v.kind === 'restore') {
+        // A restore rewrites the theme, tabs, copy, channels and the design library.
+        qc.invalidateQueries({ queryKey: ['widget-theme', tenantKey] });
+        qc.invalidateQueries({ queryKey: ['widget-designs', tenantKey] });
+        qc.invalidateQueries({ queryKey: ['widget-settings', tenantKey] });
+        qc.invalidateQueries({ queryKey: ['notification-channels', tenantKey] });
+        qc.invalidateQueries({ queryKey: ['knowledge-settings', tenantKey] });
+        qc.invalidateQueries({ queryKey: ['storefront', tenantKey] });
+      }
+      toast.success(t(`settingsSnapshots.done.${v.kind}`));
+    },
+    onError: (e: Error & { code?: string }) => {
+      toast.error(e.code === 'E5084' ? t('designAssets.error.E5084') : e.message, { sticky: true });
+    },
+  });
+}
+
 // ---- Tenant asset store (PLN-260910 P1) ----
 export function useTenantAssets(kind?: string) {
   const tenantKey = useTenantKey();

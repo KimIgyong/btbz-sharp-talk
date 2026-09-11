@@ -259,6 +259,61 @@ export class TenantAssetService {
     return row;
   }
 
+  /**
+   * A file the server produced (settings snapshot): no content sniffing —
+   * the bytes are ours — but the same folder convention, quota and audit.
+   */
+  async storeGenerated(
+    tenantId: number,
+    input: { area: string; kind: string; filename: string; mime: string; ext: string; label?: string },
+    buffer: Buffer,
+    actor: AssetActor,
+  ): Promise<TenantAsset> {
+    const { used, quota } = await this.usage(tenantId, input.area);
+    if (used + buffer.length > quota) {
+      throw new BusinessException(ERROR_CODE.TENANT_ASSET_QUOTA, HttpStatus.BAD_REQUEST);
+    }
+    const uuid = randomUUID();
+    const rel = TenantAssetService.relativeDir(tenantId, input.area);
+    const storagePath = join(rel, `${uuid}.${input.ext}`);
+    await fs.mkdir(this.resolveInRoot(rel), { recursive: true });
+    await fs.writeFile(this.resolveInRoot(storagePath), buffer);
+    const row = await this.repo.save(
+      this.repo.create({
+        uuid,
+        tenantId,
+        area: input.area,
+        kind: input.kind,
+        filename: input.filename.slice(0, 255),
+        mime: input.mime,
+        ext: input.ext,
+        size: buffer.length,
+        sha256: createHash('sha256').update(buffer).digest('hex'),
+        width: null,
+        height: null,
+        storagePath,
+        version: 1,
+        label: input.label?.trim().slice(0, 128) || null,
+        createdBy: actor.userId,
+        deletedAt: null,
+      }),
+    );
+    await this.audit.write({
+      tenantId,
+      actorType: 'user',
+      actorId: actor.userId,
+      action: 'tenant.asset_uploaded',
+      target: `${input.area}/${input.kind}:${uuid}`,
+      metadata: { filename: row.filename, size: row.size, mime: row.mime },
+    });
+    return row;
+  }
+
+  /** Whole file for server-side use (snapshot restore, package export). */
+  async readBuffer(row: TenantAsset): Promise<Buffer> {
+    return fs.readFile(this.resolveInRoot(row.storagePath));
+  }
+
   // ---- delete -------------------------------------------------------------
 
   /** Soft-delete the row, then unlink the file — nothing else references P1 assets. */

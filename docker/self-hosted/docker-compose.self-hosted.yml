@@ -129,6 +129,8 @@ services:
       # Per-deployment widget runtime config (PLN-260819 S3): one widget build
       # serves every deployment, and this file tells it which API to call.
       - ./widget-config.js:/usr/share/nginx/widget-config.js:ro
+      # Static live widget design files (PLN-260910 P4 D-14), read-only.
+      - sharptalk_uploads:/data/uploads:ro
     depends_on:
       - api
       - web
