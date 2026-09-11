@@ -169,6 +169,10 @@ export class Tenant {
   @Column({ name: 'usage_guides_enabled', type: 'tinyint', width: 1, default: 0 })
   usageGuidesEnabled: number;
 
+  /** Live custom widget (widget_designs.id); NULL = the basic widget (PLN-260910 P3). */
+  @Column({ name: 'active_widget_design_id', type: 'bigint', nullable: true, transformer: bigintTransformer })
+  activeWidgetDesignId: number | null;
+
   // IANA timezone (e.g. 'Asia/Seoul', 'America/New_York'). Drives the default
   // widget language when the shopper hasn't picked one (Seoul → ko, US → en).
   @Column({ type: 'varchar', length: 40, nullable: true })

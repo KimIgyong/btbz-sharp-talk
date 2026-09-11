@@ -10,6 +10,9 @@ import { TenantService } from './tenant.service';
 import { EcommerceIntegrationService } from './ecommerce-integration.service';
 import { WebhookSecretService } from './webhook-secret.service';
 import { WidgetLogoService } from './widget-logo.service';
+import { WidgetDesignService } from './widget-design.service';
+import { WidgetDesignController } from './widget-design.controller';
+import { WidgetDesignRow } from './entity/widget-design.entity';
 import { TenantController } from './tenant.controller';
 import { WidgetBrandingController } from './widget-branding.controller';
 import { IntegrationModule } from '../integration/integration.module';
@@ -26,6 +29,7 @@ import { TenantAssetModule } from '../tenant-asset/tenant-asset.module';
       ContentFilterRule,
       JobLabel,
       UsageType,
+      WidgetDesignRow,
     ]),
     IntegrationModule,
     AuditModule,
@@ -34,8 +38,14 @@ import { TenantAssetModule } from '../tenant-asset/tenant-asset.module';
     // Design-profile asset references are verified against the tenant's files (P2).
     TenantAssetModule,
   ],
-  controllers: [TenantController, WidgetBrandingController],
-  providers: [TenantService, EcommerceIntegrationService, WebhookSecretService, WidgetLogoService],
+  controllers: [TenantController, WidgetBrandingController, WidgetDesignController],
+  providers: [
+    TenantService,
+    EcommerceIntegrationService,
+    WebhookSecretService,
+    WidgetLogoService,
+    WidgetDesignService,
+  ],
   exports: [TenantService, WebhookSecretService, WidgetLogoService],
 })
 export class TenantModule {}

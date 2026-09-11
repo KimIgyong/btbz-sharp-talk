@@ -671,5 +671,51 @@
       "E5084": "La cuota de archivos de diseño está llena — elimine algo primero.",
       "E5085": "Tipo de archivo desconocido."
     }
+  },
+  "widgetDesigns": {
+    "title": "Widgets personalizados",
+    "create": "Crear widget personalizado",
+    "current": "Actual:",
+    "basicInUse": "Widget básico (tarjeta de tema arriba)",
+    "customInUse": "Personalizado “{{name}}” en uso",
+    "revert": "Volver al widget básico",
+    "revertConfirm": "¿Volver a mostrar el widget básico en la tienda?",
+    "showArchived": "Mostrar archivados",
+    "hint": "Cree diseños con nombre (fuente, tamaño, esquinas, tamaño del panel, icono) y guárdelos aquí. Elija uno con “Usar” — se publica al instante, sin despliegue. Sin ninguno en uso, los clientes ven el widget básico.",
+    "inUse": "En uso",
+    "archived": "Archivado",
+    "use": "Usar",
+    "preview": "Vista previa",
+    "duplicate": "Duplicar",
+    "archive": "Archivar",
+    "restore": "Restaurar",
+    "deleteConfirm": "¿Eliminar “{{name}}”?",
+    "empty": "Aún no hay widgets personalizados",
+    "editTitle": "Editar widget personalizado",
+    "createTitle": "Crear widget personalizado",
+    "name": "Nombre",
+    "note": "Nota",
+    "save": "Guardar en la biblioteca",
+    "saveAndUse": "Guardar y usar",
+    "iconDefault": "Icono del lanzador de la tarjeta de tema",
+    "editLiveConfirm": "Este diseño está en uso — al guardar cambia la tienda de inmediato. ¿Continuar? (Consejo: duplique primero.)",
+    "editorPreviewHint": "Vista previa estática. “Vista previa” en un diseño guardado abre el widget real.",
+    "previewTitle": "Vista previa del widget real",
+    "previewHint": "Cargado con un token de 10 minutos. Los clientes no se ven afectados.",
+    "previewNoShop": "Configure primero el dominio de la tienda.",
+    "done": {
+      "create": "Widget personalizado guardado",
+      "update": "Widget personalizado actualizado",
+      "apply": "Widget personalizado en uso",
+      "duplicate": "Copiado",
+      "archive": "Archivado",
+      "restore": "Restaurado",
+      "delete": "Eliminado",
+      "revert": "De vuelta al widget básico"
+    },
+    "error": {
+      "E5086": "Este diseño está en uso — cambie primero al widget básico u otro diseño.",
+      "E5087": "Ya existe un diseño con este nombre."
+    }
   }
 }

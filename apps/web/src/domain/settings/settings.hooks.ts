@@ -236,6 +236,50 @@ export function useUpdateStorefront() {
  * Knowledge-page options (PLN-260910). Read by /knowledge (every visitor) to
  * decide whether the usage-guides section renders; written from Settings > Basic.
  */
+// ---- Custom widget library (PLN-260910 P3) ----
+export function useWidgetDesigns() {
+  const tenantKey = useTenantKey();
+  return useQuery({
+    queryKey: ['widget-designs', tenantKey],
+    queryFn: () => settingsService.widgetDesigns(),
+  });
+}
+
+/** One mutation hook for every library action; the toast key names the action. */
+export function useWidgetDesignAction() {
+  const { t } = useTranslation('settings');
+  const qc = useQueryClient();
+  const tenantKey = useTenantKey();
+  return useMutation({
+    mutationFn: async (v:
+      | { kind: 'create'; name: string; design: WidgetDesignDraft; note?: string }
+      | { kind: 'update'; id: string; name?: string; note?: string | null; design?: WidgetDesignDraft }
+      | { kind: 'apply' | 'duplicate' | 'archive' | 'restore' | 'delete'; id: string }
+      | { kind: 'revert' }) => {
+      switch (v.kind) {
+        case 'create': return settingsService.createWidgetDesign(v.name, v.design, v.note);
+        case 'update': return settingsService.updateWidgetDesign(v.id, { name: v.name, note: v.note, design: v.design });
+        case 'apply': return settingsService.applyWidgetDesign(v.id);
+        case 'duplicate': return settingsService.duplicateWidgetDesign(v.id);
+        case 'archive': return settingsService.archiveWidgetDesign(v.id);
+        case 'restore': return settingsService.restoreWidgetDesign(v.id);
+        case 'delete': return settingsService.deleteWidgetDesign(v.id);
+        case 'revert': return settingsService.revertWidgetDesign();
+      }
+    },
+    onSuccess: (_r, v) => {
+      qc.invalidateQueries({ queryKey: ['widget-designs', tenantKey] });
+      // apply/revert/update change the live theme copy the theme card reads.
+      qc.invalidateQueries({ queryKey: ['widget-theme', tenantKey] });
+      toast.success(t(`widgetDesigns.done.${v.kind}`));
+    },
+    onError: (e: Error & { code?: string }) => {
+      const known = e.code && ['E5086', 'E5087'].includes(e.code);
+      toast.error(known ? t(`widgetDesigns.error.${e.code}`) : e.message, { sticky: true });
+    },
+  });
+}
+
 // ---- Tenant asset store (PLN-260910 P1) ----
 export function useTenantAssets(kind?: string) {
   const tenantKey = useTenantKey();

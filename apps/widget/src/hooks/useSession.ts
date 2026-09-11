@@ -3,6 +3,7 @@ import { useWidgetStore, type ConsentInfo } from '../store/widgetStore';
 import { ensureSession, setConsent } from '../services/sessionService';
 import { getStoredSessionToken } from '../lib/api-client';
 import { applyTheme, cacheTheme } from '../lib/theme';
+import { apiOrigin } from '../lib/api-client';
 import { clearStoredConsent, getStoredConsentRecord, setStoredConsent } from '../lib/consent';
 import type { SessionResponse } from '../lib/types';
 import i18n, {
@@ -222,6 +223,23 @@ export function useEnsureSession() {
         applyTheme(res.widgetTheme ?? null);
         setWidgetTheme(res.widgetTheme ?? null);
         cacheTheme(getShopDomain(), res.widgetTheme ?? null);
+        // Console preview (PLN-260910 P3 D-15): a signed ?preview= token paints
+        // an unapplied design over the live one — never cached, never for shoppers.
+        const previewToken = new URLSearchParams(window.location.search).get('preview');
+        if (previewToken) {
+          fetch(`${apiOrigin()}/public/widget/preview-theme?token=${encodeURIComponent(previewToken)}`)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((body) => {
+              const theme = body?.data?.theme ?? null;
+              if (theme && !cancelled) {
+                applyTheme(theme);
+                setWidgetTheme(theme);
+              }
+            })
+            .catch(() => {
+              /* an expired token simply shows the live widget */
+            });
+        }
         if (res.widgetCopy) setWidgetCopy(res.widgetCopy);
         // The app-proxy handshake (useEmbedIdentity) may have adopted a
         // customer-bound token while this anonymous ensure was in flight. Don't

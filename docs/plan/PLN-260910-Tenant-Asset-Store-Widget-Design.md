@@ -60,6 +60,17 @@
 | P2-6 | 콘솔 | 위젯 테마 카드에 폰트(프리셋/업로드)·기본 크기·모서리·패널 폭/높이·런처 "업로드한 아이콘" 추가, 미리보기에 폰트·크기·모서리·아이콘 반영 |
 | P2-7 | 범위 밖 | 말풍선 모서리(패널 모서리만), 탭 아이콘, 에디터 모드 기억 |
 
+## 2.2 P3 세부 (착수 시 보강, 2026-09-11)
+
+| # | 항목 | 내용 |
+|---|---|---|
+| P3-1 | 데이터 | `widget_designs`(tenant_id, name uniq, design_json, status ready/archived, note, applied_at …) + `tenants.active_widget_design_id`(NULL=기본 위젯). 라이브 = 포인터 + `widget_theme.design` 사본(세션/위젯/정적 파일 계약 무변경) |
+| P3-2 | 기본 위젯 | 위젯 테마 카드 = 색·헤더·로고·런처만(P2에서 카드에 넣었던 폰트·크기·모서리·패널·아이콘 항목은 커스텀 위젯 편집기로 이동). 복귀 = 포인터 null + design 제거 → 브랜드색·로고·런처 enum 유지 |
+| P3-3 | API | `/widget-designs` GET·POST·PATCH :id·POST :id/apply·POST revert·POST :id/duplicate·:id/archive·:id/restore·:id/preview-token·DELETE :id (master/director, 감사). 라이브 디자인 archive/delete = **E5086**, 이름 중복 = **E5087**. 공개 `GET /public/widget/preview-theme?token=` |
+| P3-4 | 미리보기 | 토큰 = `tenant.design.exp.HMAC`(10분, `signFileUrl` 재사용). 위젯이 `?preview=` 를 보면 세션 테마 위에 덮어 그림(캐시 안 함). 콘솔 [미리보기]는 실제 위젯 iframe |
+| P3-5 | 런처 아이콘 | `design.launcherIcon`이 있으면 launcher enum과 무관하게 이미지 — 복귀 시 enum 아이콘으로 자연 복원 |
+| P3-6 | 보류 | D-13 패키지 zip 내보내기/가져오기 — zip 라이브러리 미도입, P4로 이월 |
+
 ## 3. 백엔드 작업 (P1 기준, P2/P3는 단계 착수 시 상세화)
 
 | # | 파일 | 작업 |

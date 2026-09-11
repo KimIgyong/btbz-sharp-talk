@@ -1131,6 +1131,7 @@ CREATE TABLE `tenants` (
   `embed_secret` varbinary(512) DEFAULT NULL,
   `workflow_mode` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'base',
   `usage_guides_enabled` tinyint(1) NOT NULL DEFAULT 0,
+  `active_widget_design_id` bigint DEFAULT NULL,
   `timezone` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -1256,4 +1257,22 @@ CREATE TABLE IF NOT EXISTS `tenant_assets` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_tenant_assets_uuid` (`uuid`),
   KEY `idx_tenant_assets_tenant_area` (`tenant_id`, `area`, `deleted_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- widget_designs — custom widget library (PLN-260910 P3)
+CREATE TABLE IF NOT EXISTS `widget_designs` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `tenant_id` BIGINT NOT NULL,
+  `name` VARCHAR(64) NOT NULL,
+  `design_json` JSON NOT NULL,
+  `status` VARCHAR(16) NOT NULL DEFAULT 'ready',
+  `note` VARCHAR(255) NULL,
+  `created_by` BIGINT NOT NULL,
+  `updated_by` BIGINT NULL,
+  `applied_at` DATETIME(6) NULL,
+  `created_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updated_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_widget_designs_tenant_name` (`tenant_id`, `name`),
+  KEY `idx_widget_designs_tenant` (`tenant_id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
