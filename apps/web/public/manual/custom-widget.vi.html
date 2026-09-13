@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sổ tay tạo widget tùy chỉnh SharpTalk</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --accent:#2B7FFF; --accent-deep:#1D5FD6; --accent-tint:#EAF2FF;
+  --ink:#1B2430; --muted:#5C6675; --line:#E3E8F0;
+  --bg:#FAFBFD; --card:#FFFFFF; --soft:#F1F5FB;
+  --tip-bg:#EAF2FF; --tip-edge:#2B7FFF;
+  --warn-bg:#FFF7E6; --warn-edge:#D97706; --warn-ink:#8A4B04;
+  --code-bg:#EEF2F8; --mono-ink:#31435E;
+}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --accent:#5C9BFF; --accent-deep:#82B4FF; --accent-tint:#16243C;
+    --ink:#E6EBF3; --muted:#93A0B4; --line:#28313F;
+    --bg:#0F141B; --card:#161C25; --soft:#1B222D;
+    --tip-bg:#152238; --tip-edge:#5C9BFF;
+    --warn-bg:#2A2010; --warn-edge:#E8A23D; --warn-ink:#EFC584;
+    --code-bg:#1E2632; --mono-ink:#B9C7DC;
+  }
+}
+:root[data-theme="dark"]{
+  --accent:#5C9BFF; --accent-deep:#82B4FF; --accent-tint:#16243C;
+  --ink:#E6EBF3; --muted:#93A0B4; --line:#28313F;
+  --bg:#0F141B; --card:#161C25; --soft:#1B222D;
+  --tip-bg:#152238; --tip-edge:#5C9BFF;
+  --warn-bg:#2A2010; --warn-edge:#E8A23D; --warn-ink:#EFC584;
+  --code-bg:#1E2632; --mono-ink:#B9C7DC;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Segoe UI",sans-serif;
+  font-size:16px;line-height:1.75}
+.shell{max-width:1120px;margin:0 auto;padding:0 24px 96px;
+  display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px}
+@media(max-width:860px){.shell{display:block}}
+header.hero{grid-column:1/-1;padding:56px 0 8px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+h1{font-family:"Gothic A1",sans-serif;font-weight:800;font-size:clamp(28px,4.5vw,40px);
+  line-height:1.25;margin:10px 0 12px;text-wrap:balance}
+.meta{color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;gap:6px 18px}
+.lead{max-width:68ch;color:var(--muted);margin-top:14px}
+nav.toc{position:sticky;top:24px;align-self:start;font-size:13.5px;padding-top:24px}
+@media(max-width:860px){nav.toc{position:static;border:1px solid var(--line);border-radius:10px;
+  background:var(--card);padding:14px 16px;margin:20px 0}}
+nav.toc .toc-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+nav.toc a{display:flex;gap:8px;color:var(--muted);text-decoration:none;padding:4px 0;line-height:1.4}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--accent)}
+nav.toc a .n{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:12px;min-width:18px;padding-top:1px}
+main{min-width:0;max-width:74ch}
+section{padding-top:40px}
+.ch{display:flex;align-items:baseline;gap:12px;border-top:2px solid var(--ink);padding-top:14px}
+.ch .num{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;color:var(--accent)}
+h2{font-family:"Gothic A1",sans-serif;font-weight:800;font-size:24px;margin:0;line-height:1.35;text-wrap:balance}
+.actor{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 12px;
+  background:var(--accent-tint);color:var(--accent-deep);margin-top:10px}
+h3{font-family:"Gothic A1",sans-serif;font-weight:700;font-size:17.5px;margin:30px 0 8px}
+p{margin:10px 0;max-width:68ch}
+a{color:var(--accent-deep)}
+strong{font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:14px 0}
+th{font-size:12.5px;letter-spacing:.04em;color:var(--muted);text-align:left;font-weight:700;
+  border-bottom:2px solid var(--line);padding:7px 12px 7px 0}
+td{border-bottom:1px solid var(--line);padding:8px 12px 8px 0;vertical-align:top}
+.tablewrap{overflow-x:auto}
+.terms{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 18px 14px;margin:16px 0}
+.terms .t-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin:12px 0 2px}
+.terms td:first-child{font-weight:700;white-space:nowrap;padding-right:18px}
+.callout{border-left:3px solid var(--tip-edge);background:var(--tip-bg);border-radius:0 10px 10px 0;
+  padding:12px 18px;margin:16px 0;font-size:14.5px}
+.callout .c-label{font-weight:700;color:var(--accent-deep)}
+.callout.warn{border-left-color:var(--warn-edge);background:var(--warn-bg);color:var(--warn-ink)}
+.callout.warn .c-label{color:var(--warn-ink)}
+.callout p{margin:6px 0}
+.callout ul{margin:6px 0}
+code,kbd{font-family:"IBM Plex Mono",monospace;font-size:.86em;background:var(--code-bg);
+  color:var(--mono-ink);border-radius:5px;padding:1px 6px}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+  overflow-x:auto;font-size:13px;line-height:1.6}
+pre code{background:none;padding:0;color:var(--mono-ink)}
+ol.steps{padding-left:0;margin:14px 0;list-style:none;counter-reset:st}
+ol.steps>li{counter-increment:st;position:relative;padding:0 0 14px 40px}
+ol.steps>li::before{content:counter(st);position:absolute;left:0;top:1px;width:24px;height:24px;
+  border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace}
+ul{margin:10px 0;padding-left:22px}
+li{margin:4px 0}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:30px;position:relative}
+.check li::before{content:"";position:absolute;left:2px;top:6px;width:14px;height:14px;
+  border:2px solid var(--accent);border-radius:4px}
+.faq dt{font-weight:700;margin-top:18px}
+.faq dd{margin:4px 0 0;color:var(--muted)}
+.next{margin-top:56px;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:20px 24px}
+.pagenav{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;padding-top:18px;color:var(--muted)}
+.pagenav a{color:var(--muted);text-decoration:none}
+.pagenav a:hover,.pagenav a:focus-visible{color:var(--accent)}
+.pagenav .cur{color:var(--accent-deep);font-weight:700}
+figure.shot{margin:18px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+figure.shot img{display:block;width:100%}
+figure.shot figcaption{padding:8px 16px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<div class="shell">
+<nav class="pagenav" aria-label="Điều hướng sổ tay"><a href="./">← Danh sách sổ tay</a><span>·</span><a href="custom-widget.ko.html">한국어</a><a href="custom-widget.en.html">English</a><span class="cur">Tiếng Việt</span><span>·</span><a href="custom-widget.vi.md">Bản MD</a></nav>
+<header class="hero">
+  <div class="eyebrow">Tài liệu SharpTalk · Widget tùy chỉnh</div>
+  <h1>Sổ tay tạo widget tùy chỉnh SharpTalk</h1>
+  <div class="meta"><span>Phiên bản 1.0 · Bản đầu 2026-09-13 · Biên soạn dựa trên mã nguồn</span><span>Đối tượng: người vận hành tenant (master/director — tệp thiết kế, widget tùy chỉnh và ảnh chụp cài đặt chỉ dành cho hai cấp này) · Chương 6 dành cho quản trị viên nền tảng</span></div>
+  <p class="lead">Mỗi chương theo thứ tự <strong>thuật ngữ → các bước → 💡 mẹo</strong>. Mọi màn hình đều nằm ở tab <strong>Cài đặt gian hàng &gt; Cài đặt widget</strong> (riêng chương 6: bảng quản trị nền tảng).</p>
+</header>
+
+<nav class="toc" aria-label="Mục lục">
+  <div class="toc-label">Mục lục</div>
+  <a href="#ch0"><span class="n">0</span>Widget cơ bản và widget tùy chỉnh</a>
+  <a href="#ch1"><span class="n">1</span>Chuẩn bị</a>
+  <a href="#ch2"><span class="n">2</span>Tạo</a>
+  <a href="#ch3"><span class="n">3</span>Kiểm tra &amp; áp dụng</a>
+  <a href="#ch4"><span class="n">4</span>Vận hành</a>
+  <a href="#ch5"><span class="n">5</span>Mở rộng</a>
+  <a href="#ch6"><span class="n">6</span>Quản trị nền tảng</a>
+  <a href="#ch7"><span class="n">7</span>Danh sách kiểm tra vận hành</a>
+  <a href="#ch8"><span class="n">8</span>FAQ / xử lý sự cố</a>
+</nav>
+
+<main>
+
+<section id="ch0">
+  <div class="ch"><span class="num">00</span><h2>Widget cơ bản và widget tùy chỉnh</h2></div>
+  <p>Diện mạo của widget chat trên cửa hàng được quyết định bởi <strong>hai lớp</strong>.</p>
+  <pre><code>Thẻ Chủ đề widget (widget cơ bản)             ── luôn áp dụng
+  màu thương hiệu · kiểu header · logo · vị trí/kích thước/biểu tượng nút mở
+        │
+        ▼  widget tùy chỉnh đang [Dùng] sẽ phủ lên trên
+Widget tùy chỉnh (thư viện thiết kế)          ── chỉ áp dụng khi đang dùng
+  phông · cỡ chữ · bo góc · kích thước bảng · tệp biểu tượng · (tiện ích) CSS đã lọc</code></pre>
+  <div class="tablewrap"><table>
+    <tr><th>Thuật ngữ</th><th>Ý nghĩa</th></tr>
+    <tr><td>Widget cơ bản</td><td>Widget vẽ từ thẻ Chủ đề widget mà thôi. Khi không có widget tùy chỉnh nào đang dùng, khách hàng thấy widget này</td></tr>
+    <tr><td>Widget tùy chỉnh</td><td>Một <strong>bộ thiết kế</strong> có tên được lưu lại (phông, cỡ chữ, bo góc, bảng, biểu tượng, CSS). Có thể giữ nhiều bộ và chỉ bật đúng một bộ bằng [Dùng]</td></tr>
+    <tr><td>Thư viện</td><td>Danh sách trong thẻ Widget tùy chỉnh, gồm trạng thái Đang dùng / Đã lưu trữ và các nút thao tác (Xem trước · Sửa · Nhân bản · Xuất · Lịch sử · Lưu trữ · Xóa)</td></tr>
+    <tr><td>Tệp thiết kế</td><td>Phông, biểu tượng, hình ảnh và tài liệu thiết kế mà widget tùy chỉnh tham chiếu. Lưu trong thư mục riêng của tenant, không bị ảnh hưởng khi triển khai</td></tr>
+    <tr><td>Dùng</td><td>Nút áp dụng một thiết kế trong thư viện cho widget của khách. Có hiệu lực <strong>ngay lập tức, không cần triển khai</strong></td></tr>
+  </table></div>
+  <p><strong>Khi nào cần widget tùy chỉnh</strong></p>
+  <ul>
+    <li>Muốn dùng phông thương hiệu trong widget (thẻ chủ đề chỉ đổi màu)</li>
+    <li>Chuẩn bị sẵn diện mạo khác cho từng mùa hay chiến dịch rồi đổi đúng ngày</li>
+    <li>Muốn bảng trên máy tính lớn hơn/nhỏ hơn, góc bo tròn hơn</li>
+    <li>Muốn dùng hình riêng cho nút mở widget</li>
+  </ul>
+  <p>Nếu chỉ cần đổi màu, logo và vị trí nút mở thì <strong>thẻ Chủ đề widget</strong> là đủ.</p>
+  <div class="callout"><span class="c-label">💡 Mẹo</span>
+    <p>Widget tùy chỉnh <strong>phủ lên</strong> thẻ chủ đề chứ không thay thế. Muốn đổi màu thương hiệu, hãy sửa thẻ chủ đề chứ không phải widget tùy chỉnh — thiết kế đang dùng sẽ nhận ngay thay đổi đó.</p></div>
+</section>
+
+<section id="ch1">
+  <div class="ch"><span class="num">01</span><h2>Chuẩn bị — tệp thiết kế</h2></div>
+  <p>Để dùng <strong>phông tải lên</strong> hoặc <strong>tệp biểu tượng</strong> trong widget tùy chỉnh, hãy tải lên thẻ Tệp thiết kế trước. Nếu chỉ dùng phông có sẵn và biểu tượng nút mở của thẻ chủ đề, có thể bỏ qua chương này.</p>
+  <figure class="shot"><img src="img/cw-design-files.en.jpg" alt="Thẻ Tệp thiết kế — tab loại, thanh dung lượng, Thêm tệp" loading="lazy"><figcaption>Thẻ Tệp thiết kế — tab loại, thanh dung lượng, Thêm tệp</figcaption></figure>
+  <h3>1.1 Quy cách theo loại</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Loại</th><th>Định dạng</th><th>Giới hạn</th><th>Hiển thị</th><th>Dùng cho</th></tr>
+    <tr><td>Phông</td><td>woff2 · ttf · otf</td><td>2MB</td><td>công khai (widget tải trực tiếp)</td><td>mục "Phông tải lên" trong trình soạn</td></tr>
+    <tr><td>Biểu tượng</td><td>png · webp</td><td>256KB · 512×512px</td><td>công khai</td><td>mục "Tệp biểu tượng" trong trình soạn (nút mở)</td></tr>
+    <tr><td>Hình ảnh</td><td>png · jpg · webp</td><td>2MB · 2000px</td><td>công khai</td><td>chia sẻ bản thiết kế, Sao chép URL (widget không tự dùng)</td></tr>
+    <tr><td>Tài liệu thiết kế</td><td>pdf · png · jpg</td><td>10MB</td><td>riêng tư (URL có chữ ký)</td><td>lưu bản phác thảo, cẩm nang thương hiệu</td></tr>
+  </table></div>
+  <ul>
+    <li>Toàn bộ khu vực thiết kế giới hạn <strong>50MB</strong> (thanh dung lượng ở góc trên phải thẻ). Khi đầy, việc thêm tệp bị từ chối (E5084).</li>
+    <li><strong>Không nhận svg, css, js.</strong> Tệp được kiểm tra theo nội dung nên đổi phần mở rộng cũng không qua được (E5081).</li>
+    <li>Biểu tượng và hình ảnh được mã hóa lại trên máy chủ. Vượt giới hạn pixel sẽ bị từ chối (E5083).</li>
+  </ul>
+  <h3>1.2 Các bước tải lên</h3>
+  <ol class="steps">
+    <li>Cài đặt &gt; Cài đặt widget &gt; thẻ <strong>Tệp thiết kế</strong>: chọn tab loại (Phông / Biểu tượng / Hình ảnh / Tài liệu thiết kế).</li>
+    <li><strong>[Thêm tệp]</strong> → chọn tệp. Danh sách hiển thị tên tệp làm nhãn.</li>
+    <li>Có dòng mới là xong. Muốn thay tệp: tải tệp mới, chọn nó trong trình soạn rồi xóa tệp cũ (tải cùng tên sẽ tạo dòng mới chứ không ghi đè).</li>
+    <li>Tệp công khai có <strong>[Sao chép URL]</strong> (để dùng cùng phông ở nơi khác trên trang). Tài liệu thiết kế chỉ có [Tải về].</li>
+  </ol>
+  <div class="callout warn"><span class="c-label">⚠️ Bản quyền phông</span>
+    <p>việc phân phối phông đã tải lên tới trình duyệt khách hàng là trách nhiệm của tenant. Chỉ tải lên phông được phép nhúng web.</p></div>
+  <div class="callout"><span class="c-label">💡 Mẹo</span>
+    <p><strong>woff2</strong> nhỏ và nhanh nhất. ttf/otf cũng được nhưng dễ chạm trần 2MB và làm chậm lần tải đầu. Với phông CJK, nên dùng woff2 đã cắt gọn (subset).</p></div>
+</section>
+
+<section id="ch2">
+  <div class="ch"><span class="num">02</span><h2>Tạo — trình soạn widget tùy chỉnh</h2></div>
+  <figure class="shot"><img src="img/cw-editor.en.jpg" alt="Tạo widget tùy chỉnh — các trường và xem trước nhanh" loading="lazy"><figcaption>Tạo widget tùy chỉnh — các trường và xem trước nhanh</figcaption></figure>
+  <p>Cài đặt &gt; Cài đặt widget &gt; thẻ <strong>Widget tùy chỉnh</strong> → <strong>[Tạo widget tùy chỉnh]</strong>.</p>
+  <h3>2.1 Các trường</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Trường</th><th>Giá trị</th><th>Ghi chú</th></tr>
+    <tr><td>Tên</td><td>tối đa 64 ký tự, duy nhất trong tenant</td><td>Hiển thị trong thư viện. Tên trùng bị từ chối (E5087)</td></tr>
+    <tr><td>Phông</td><td>Pretendard (mặc định) · Noto Sans KR · Inter · Phông hệ thống · Phông tải lên</td><td>Noto Sans KR và Inter tải từ Google Fonts. Chọn "Phông tải lên" sẽ hiện ô chọn <strong>Tệp phông</strong> (chương 1)</td></tr>
+    <tr><td>Cỡ cơ bản</td><td>13–16px (mặc định 14)</td><td>Phóng to/thu nhỏ chữ <strong>và khoảng cách cùng lúc</strong>, như zoom toàn bộ widget</td></tr>
+    <tr><td>Bo góc</td><td>Nhỏ 8px · Vừa 12px · Lớn 16px</td><td>Bo góc bảng; bong bóng và nút theo tỉ lệ</td></tr>
+    <tr><td>Kích thước bảng</td><td>rộng 360–480 · cao 480–720 (mặc định 404×600)</td><td><strong>Chỉ máy tính.</strong> Di động và chế độ ứng dụng lấp đầy màn hình</td></tr>
+    <tr><td>Tệp biểu tượng</td><td>biểu tượng nút mở của thẻ chủ đề (mặc định) · biểu tượng tải lên</td><td>Hình trên nút mở tròn. Biểu tượng tải lên sẽ thay cho lựa chọn ở thẻ chủ đề</td></tr>
+    <tr><td>CSS tùy chỉnh (tiện ích)</td><td>CSS đã lọc</td><td>Chỉ hiện với tenant được quản trị viên nền tảng bật tiện ích (chương 5)</td></tr>
+    <tr><td>Ghi chú</td><td>văn bản tự do</td><td>Ghi chú vận hành như "Xuân 2026, phụ trách ○○". Khách hàng không thấy</td></tr>
+  </table></div>
+  <p><strong>Xem trước nhanh</strong> bên phải chỉ mô phỏng phông, cỡ chữ và bo góc. Hãy kiểm tra widget thật bằng <strong>[Xem trước]</strong> sau khi lưu (chương 3).</p>
+  <h3>2.2 Hai cách lưu</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Nút</th><th>Kết quả</th></tr>
+    <tr><td><strong>[Lưu vào thư viện]</strong></td><td>Chỉ lưu thiết kế. Widget của khách không đổi. Dùng khi muốn xem trước trước</td></tr>
+    <tr><td><strong>[Lưu và dùng]</strong></td><td>Lưu và áp dụng ngay cho khách. Thiết kế đang dùng trước đó tự động tắt</td></tr>
+  </table></div>
+  <div class="callout"><span class="c-label">💡 Mẹo</span>
+    <p>Với thiết kế đầu tiên, nên đi theo <strong>[Lưu vào thư viện] → [Xem trước] → [Dùng]</strong>. Xem trước nhanh trong trình soạn không phản ánh màu thương hiệu, logo hay bố cục tab, nên chỉ widget thật mới cho thấy tổng thể.</p></div>
+  <div class="callout"><span class="c-label">💡 Mẹo</span>
+    <p>Tăng cỡ cơ bản lên 16px sẽ làm bảng có vẻ chật. Hãy mở rộng bảng cùng lúc (ví dụ 15px + 440×640).</p></div>
+</section>
+
+<section id="ch3">
+  <div class="ch"><span class="num">03</span><h2>Kiểm tra &amp; áp dụng — Xem trước → Dùng</h2></div>
+  <figure class="shot"><img src="img/cw-library.en.jpg" alt="Thư viện widget tùy chỉnh — trạng thái hiện tại và thao tác theo dòng" loading="lazy"><figcaption>Thư viện widget tùy chỉnh — trạng thái hiện tại và thao tác theo dòng</figcaption></figure>
+  <h3>3.1 Xem trước widget thật</h3>
+  <p><strong>[Xem trước]</strong> trên một dòng mở <strong>widget thật</strong> với thiết kế đó trên trang cửa hàng mẫu.</p>
+  <ul>
+    <li>Tải bằng <strong>mã xem trước 10 phút</strong>. Khách hàng không bị ảnh hưởng; hết hạn thì bấm [Xem trước] lại.</li>
+    <li>Xem trước cần <strong>tên miền cửa hàng</strong> (Cài đặt &gt; Cài đặt cơ bản &gt; Storefront). Chưa có thì hiện thông báo thay thế.</li>
+    <li>Gửi tin nhắn trong xem trước sẽ tạo phiên demo thật — chỉ nên dùng để kiểm tra nội dung.</li>
+  </ul>
+  <figure class="shot"><img src="img/cw-preview.en.jpg" alt="Hộp thoại xem trước widget thật" loading="lazy"><figcaption>Hộp thoại xem trước widget thật</figcaption></figure>
+  <h3>3.2 Dùng · Về widget cơ bản</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Thao tác</th><th>Kết quả</th></tr>
+    <tr><td><strong>[Dùng]</strong> trên dòng</td><td>Thiết kế đó có hiệu lực. Dòng "Hiện tại:" ở đầu thẻ ghi <strong>Tùy chỉnh "tên" đang dùng</strong> và dòng có huy hiệu <strong>Đang dùng</strong></td></tr>
+    <tr><td><strong>[Về widget cơ bản]</strong></td><td>Tắt thiết kế tùy chỉnh. Khách thấy widget cơ bản vẽ từ thẻ chủ đề. Thiết kế vẫn nằm trong thư viện</td></tr>
+  </table></div>
+  <p>Áp dụng <strong>ngay lập tức, không cần triển khai</strong>. Máy chủ ghi lại "tệp trực tiếp" của tenant và widget của khách đọc tệp đó ở lần tải kế tiếp.</p>
+  <ul>
+    <li>Khách mở trang mới: thấy thiết kế mới ngay</li>
+    <li>Khách đang mở widget: thấy thiết kế mới sau khi tải lại trang</li>
+    <li>Widget vẽ chủ đề trong bộ nhớ đệm trước rồi mới cập nhật từ tệp trực tiếp, nên diện mạo cũ có thể lóe lên rất ngắn</li>
+  </ul>
+  <h3>3.3 Sửa thiết kế đang dùng</h3>
+  <p>[Sửa] thiết kế có huy hiệu <strong>Đang dùng</strong> sẽ cảnh báo khi lưu: <em>"Thiết kế này đang dùng — lưu sẽ áp dụng ngay cho khách."</em></p>
+  <div class="callout warn"><span class="c-label">⚠️ Khuyến nghị</span>
+    <p>không sửa trực tiếp thiết kế đang dùng. Hãy <strong>[Nhân bản] → sửa bản sao → [Xem trước] → [Dùng]</strong>. Nếu có sai sót, thiết kế cũ vẫn còn trong thư viện và chỉ cần một cú bấm để quay lại. Nếu buộc phải vá tại chỗ, hãy làm, và dùng <strong>[Lịch sử]</strong> để khôi phục phiên bản trước nếu cần (§4.1).</p></div>
+</section>
+
+<section id="ch4">
+  <div class="ch"><span class="num">04</span><h2>Vận hành — hoàn tác &amp; chuyển giao</h2></div>
+  <p>Có ba cách "hoàn tác" thiết kế, mỗi cách một phạm vi.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Công cụ</th><th>Phạm vi</th><th>Đơn vị hoàn tác</th><th>Chuyển sang tenant/môi trường khác</th></tr>
+    <tr><td><strong>Lịch sử</strong> (4.1)</td><td>một thiết kế</td><td>một lần lưu (phiên bản)</td><td>không</td></tr>
+    <tr><td><strong>Gói</strong> (4.3)</td><td>một thiết kế + phông/biểu tượng đính kèm</td><td>một tệp</td><td><strong>có</strong> (xuất JSON → nhập)</td></tr>
+    <tr><td><strong>Ảnh chụp cài đặt</strong> (4.4)</td><td>12 trường cài đặt (chủ đề, nội dung, tab…) + toàn bộ thư viện widget tùy chỉnh</td><td>một ảnh chụp</td><td>chỉ tải về; khôi phục trong cùng tenant</td></tr>
+  </table></div>
+  <h3>4.1 Lịch sử</h3>
+  <figure class="shot"><img src="img/cw-history.en.jpg" alt="Hộp thoại lịch sử — các phiên bản và khôi phục" loading="lazy"><figcaption>Hộp thoại lịch sử — các phiên bản và khôi phục</figcaption></figure>
+  <ul>
+    <li>Mỗi lần lưu giữ lại <strong>trạng thái ngay trước khi lưu</strong> thành một phiên bản (#1, #2 …). Lưu chỉ đổi tên hoặc ghi chú không tạo phiên bản.</li>
+    <li><strong>[Lịch sử]</strong> trên dòng → <strong>[Khôi phục phiên bản này]</strong>. Khôi phục cũng ghi trạng thái hiện tại thành phiên bản, nên có thể hoàn tác cả việc khôi phục.</li>
+    <li>Khôi phục thiết kế đang dùng sẽ áp dụng ngay cho khách (cảnh báo như §3.3).</li>
+    <li>Danh sách hiển thị 50 phiên bản mới nhất. Xóa thiết kế sẽ xóa cả lịch sử.</li>
+  </ul>
+  <h3>4.2 Nhân bản · Lưu trữ · Xóa</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Thao tác</th><th>Quy tắc</th></tr>
+    <tr><td>Nhân bản</td><td>Tạo bản sao tên "(copy)", "(copy 2)". Điểm khởi đầu cho các biến thể theo mùa</td></tr>
+    <tr><td>Lưu trữ</td><td>Ẩn khỏi danh sách. <strong>Thiết kế đang dùng không thể lưu trữ</strong> (E5086) — hãy [Dùng] thiết kế khác hoặc [Về widget cơ bản] trước. Bật <strong>Hiện đã lưu trữ</strong> ở góc trên phải thẻ để thấy và [Khôi phục]</td></tr>
+    <tr><td>Xóa</td><td>Không thể hoàn tác. Bị từ chối khi đang dùng (E5086). Lịch sử cũng bị xóa</td></tr>
+  </table></div>
+  <h3>4.3 Xuất · nhập gói</h3>
+  <ul>
+    <li><strong>[Xuất]</strong> trên dòng tải về tệp JSON <code>sharptalk-widget-design</code>. <strong>Phông và biểu tượng tải lên mà thiết kế tham chiếu được đính kèm</strong>, nên một tệp là đủ.</li>
+    <li><strong>[Nhập gói]</strong> ở góc trên phải thẻ → chọn tệp JSON (tối đa 12MB). Phông và biểu tượng đính kèm được kiểm tra nội dung như khi tải lên và đăng ký lại vào tệp thiết kế; tên trùng được thêm "(2)". Thiết kế nhập vào <strong>chỉ nằm trong thư viện</strong> — hãy tự bấm [Dùng].</li>
+    <li>Dùng khi: chuyển thiết kế sang tenant khác (người vận hành nhiều thương hiệu) hay môi trường khác, trao đổi tệp với nhà thiết kế bên ngoài.</li>
+  </ul>
+  <h3>4.4 Ảnh chụp cài đặt (Cài đặt &gt; Cài đặt khác)</h3>
+  <figure class="shot"><img src="img/cw-snapshot-diff.en.jpg" alt="Khôi phục ảnh chụp cài đặt — hiện tại so với ảnh chụp" loading="lazy"><figcaption>Khôi phục ảnh chụp cài đặt — hiện tại so với ảnh chụp</figcaption></figure>
+  <ul>
+    <li>Cài đặt &gt; <strong>Cài đặt khác</strong> &gt; thẻ <strong>Ảnh chụp cài đặt</strong> → nhập nhãn (ví dụ "trước khi triển khai") → <strong>[Lưu ảnh chụp]</strong>.</li>
+    <li>Nội dung lưu: chủ đề widget, nội dung, tab, vị trí tab, cách đăng nhập, kênh thông báo, origin nhúng, tùy chọn tri thức, múi giờ, storefront, thông báo quyền riêng tư + <strong>toàn bộ thư viện widget tùy chỉnh</strong> (tên, trạng thái, thiết kế, bộ đang dùng). Thông tin xác thực tích hợp và bí mật nhúng <strong>không bao giờ được lưu</strong>.</li>
+    <li><strong>[Khôi phục…]</strong> hiển thị giá trị hiện tại và giá trị trong ảnh chụp cạnh nhau, tô đậm các dòng sẽ đổi. Dòng cuối "Widget tùy chỉnh: tạo n · cập nhật n · đang dùng sau khôi phục: tên" cho biết trước điều xảy ra với thư viện. [Khôi phục] được ghi vào nhật ký kiểm tra.</li>
+    <li>Chụp một ảnh trước mọi thay đổi lớn (đổi mùa, sửa hàng loạt nội dung) là bảo hiểm rẻ nhất.</li>
+  </ul>
+  <div class="callout"><span class="c-label">💡 Mẹo</span>
+    <p>Lịch sử = "thiết kế này, lúc vừa nãy"; gói = "thiết kế này, ở nơi khác"; ảnh chụp = "toàn bộ cài đặt widget, về lúc đó". Xác định cần cái nào trước thì sẽ không lạc.</p></div>
+</section>
+
+<section id="ch5">
+  <div class="ch"><span class="num">05</span><h2>Mở rộng — CSS đã lọc (tiện ích)</h2></div>
+  <p>Ô <strong>CSS tùy chỉnh (tiện ích)</strong> ở cuối trình soạn <strong>chỉ xuất hiện khi quản trị viên nền tảng đã bật "Cho phép CSS widget tùy chỉnh" cho tenant này</strong> (chương 6). Không thấy ô này, hãy đề nghị quản trị viên bật tiện ích.</p>
+  <figure class="shot"><img src="img/cw-css.en.jpg" alt="Ô CSS và kết quả kiểm tra" loading="lazy"><figcaption>Ô CSS và kết quả kiểm tra</figcaption></figure>
+  <h3>5.1 Có thể đổi gì</h3>
+  <p>Widget cung cấp 13 <strong>lớp ổn định</strong> — các điểm móc có tên không bao giờ đổi. Trên đó chỉ được đặt <strong>màu, phông, khoảng cách, viền và bóng</strong>.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Lớp</th><th>Điểm móc</th></tr>
+    <tr><td><code>.st-panel</code></td><td>toàn bộ bảng</td></tr>
+    <tr><td><code>.st-header</code> / <code>.st-header-title</code></td><td>header / chữ tiêu đề header</td></tr>
+    <tr><td><code>.st-tabs</code> / <code>.st-tab</code></td><td>thanh tab / một tab</td></tr>
+    <tr><td><code>.st-message</code> / <code>.st-message-user</code> / <code>.st-message-bot</code></td><td>mọi bong bóng / khách / AI hoặc nhân viên</td></tr>
+    <tr><td><code>.st-composer</code> / <code>.st-input</code> / <code>.st-send</code></td><td>vùng soạn / ô nhập / nút gửi</td></tr>
+    <tr><td><code>.st-launcher</code></td><td>nút mở widget</td></tr>
+    <tr><td><code>.st-quick-reply</code></td><td>nút trả lời nhanh (kịch bản)</td></tr>
+  </table></div>
+  <p><strong>Được phép</strong></p>
+  <ul>
+    <li>Bộ chọn: các lớp <code>.st-*</code> và tổ hợp của chúng (<code>.st-panel .st-tab</code>, <code>.st-a &gt; .st-b</code>), có thể kết thúc bằng <code>:hover</code> <code>:focus</code> <code>:active</code> <code>:first-child</code> <code>:last-child</code> <code>:disabled</code></li>
+    <li>Thuộc tính: <code>color</code> <code>background(-color)</code> <code>border*</code> <code>border-radius*</code> <code>font-family/size/weight/style</code> <code>line-height</code> <code>letter-spacing</code> <code>text-*</code> <code>padding*</code> <code>margin*</code> <code>gap</code> <code>box-shadow</code> <code>outline*</code> <code>width/height</code> (kể cả min/max)</li>
+    <li>Giá trị: giá trị màu, <code>rgb()/rgba()/hsl()/hsla()</code>, biến widget <code>var(--ivy-…)</code>, số, đơn vị, từ khóa</li>
+    <li>Giới hạn 32KB</li>
+  </ul>
+  <p><strong>Bị loại (tự động lọc khi lưu, có nêu lý do)</strong></p>
+  <ul>
+    <li>Vị trí, ẩn, xếp lớp: <code>display</code> <code>visibility</code> <code>opacity</code> <code>position</code> <code>transform</code> <code>z-index</code> <code>content</code></li>
+    <li>Tài nguyên ngoài: <code>url()</code> <code>@import</code> <code>@font-face</code> <code>@media</code> và mọi quy tắc <code>@</code> khác</li>
+    <li>Bộ chọn ngoài <code>.st-</code> (<code>body</code>, <code>#id</code>, bộ chọn thuộc tính), khối lồng nhau, quy tắc trong chú thích</li>
+  </ul>
+  <h3>5.2 Các bước và [Kiểm tra]</h3>
+  <ol class="steps">
+    <li>Nhập quy tắc vào ô <strong>CSS tùy chỉnh (tiện ích)</strong> trong trình soạn.</li>
+    <li><strong>[Kiểm tra]</strong> → "n quy tắc sẽ được giữ" kèm <strong>lý do của từng mục bị loại</strong>. Chỉnh cho đến khi không còn báo gì.</li>
+    <li>Khi lưu chỉ <strong>các quy tắc đã qua kiểm tra</strong> được lưu (bản đã lọc, không phải bản gốc).</li>
+    <li>Kiểm tra trên widget thật bằng [Xem trước] → [Dùng].</li>
+  </ol>
+  <p>Ví dụ</p>
+  <pre><code>.st-header { background-color: #111; color: #fff; }
+.st-header-title { letter-spacing: 0.02em; }
+.st-send { background-color: var(--ivy-primary-700); border-radius: 999px; }
+.st-message-bot { border: 1px solid #e5e7eb; box-shadow: 0 1px 2px rgba(0,0,0,.06); }</code></pre>
+  <div class="callout warn"><span class="c-label">⚠️</span>
+    <p>Màu chữ tiêu đề header không đổi qua <code>.st-header { color }</code> (tiêu đề có màu riêng). Hãy đặt trên <strong><code>.st-header-title</code></strong>.</p></div>
+  <div class="callout"><span class="c-label">💡 Mẹo</span>
+    <p>Cặp màu tương phản thấp (chữ nhạt trên nền nhạt) không bị kiểm tra bắt. Khác với màu thương hiệu ở thẻ chủ đề, CSS không được tự hiệu chỉnh theo tỉ lệ tương phản 4.5:1 — hãy tự kiểm tra.</p></div>
+</section>
+
+<section id="ch6">
+  <div class="ch"><span class="num">06</span><h2>Quản trị nền tảng — tiện ích &amp; dung lượng</h2></div>
+  <figure class="shot"><img src="img/cw-admin-addon.en.jpg" alt="Hộp thoại Gói / Add-on — Cho phép CSS widget tùy chỉnh" loading="lazy"><figcaption>Hộp thoại Gói / Add-on — Cho phép CSS widget tùy chỉnh</figcaption></figure>
+  <ul>
+    <li>Bảng quản trị &gt; Gian hàng &gt; <strong>[Gói/Add-on]</strong> trên dòng → tích <strong>Cho phép CSS widget tùy chỉnh</strong> → [Lưu]. Thay đổi được ghi nhật ký.</li>
+    <li>Khi tắt: ô CSS biến mất khỏi trình soạn của tenant và <strong>CSS đã lưu không còn được gửi tới khách</strong> (phần còn lại của thiết kế — phông, cỡ chữ… — vẫn giữ). Bật lại thì CSS đã lưu sống lại nguyên vẹn.</li>
+    <li>Cột <strong>Tệp</strong> trong danh sách tenant là dung lượng thư mục của tenant (tệp thiết kế và ảnh chụp cài đặt). Dùng để tìm tenant sắp chạm trần 50MB.</li>
+  </ul>
+</section>
+
+<section id="ch7">
+  <div class="ch"><span class="num">07</span><h2>Danh sách kiểm tra vận hành</h2></div>
+  <p><strong>Đổi thiết kế theo mùa (thứ tự khuyến nghị)</strong></p>
+  <ul class="check">
+    <li>Cài đặt &gt; Cài đặt khác: <strong>lưu ảnh chụp</strong> ("trước mùa ○○")</li>
+    <li>Tải phông và biểu tượng cần dùng lên <strong>Tệp thiết kế</strong> (quy cách §1.1)</li>
+    <li><strong>[Nhân bản]</strong> thiết kế đang dùng → sửa bản sao → <strong>[Lưu vào thư viện]</strong></li>
+    <li><strong>[Xem trước]</strong> trên máy tính; kiểm tra thêm trang thật trên di động</li>
+    <li><strong>[Dùng]</strong> → tải lại cửa hàng và xác nhận</li>
+    <li>Hết mùa: <strong>[Dùng]</strong> thiết kế trước hoặc <strong>[Về widget cơ bản]</strong>, rồi <strong>[Lưu trữ]</strong> thiết kế đã xong</li>
+  </ul>
+  <p><strong>Chọn cách hoàn tác</strong></p>
+  <ul>
+    <li>Vừa lưu xong thấy sai → <strong>[Lịch sử]</strong> → khôi phục phiên bản trước</li>
+    <li>Cùng thiết kế cho tenant/môi trường khác → <strong>[Xuất]</strong> → <strong>[Nhập gói]</strong></li>
+    <li>Nội dung, tab, chủ đề đều về như cũ → Cài đặt &gt; Cài đặt khác <strong>[Khôi phục…]</strong></li>
+  </ul>
+</section>
+
+<section id="ch8">
+  <div class="ch"><span class="num">08</span><h2>FAQ / xử lý sự cố</h2></div>
+  <dl class="faq">
+    <dt>Q. Đã bấm [Dùng] nhưng widget trên trang vẫn như cũ.</dt>
+    <dd>Tải lại trang. Widget vẽ chủ đề trong bộ nhớ đệm trước rồi mới cập nhật từ tệp trực tiếp. Nếu vẫn vậy, kiểm tra dòng "Hiện tại:" ở đầu thư viện có đúng thiết kế đó không, và tên miền cài widget có trùng tên miền cửa hàng trong Cài đặt &gt; Cài đặt cơ bản không.</dd>
+    <dt>Q. Phông tải lên không hiện trong widget.</dt>
+    <dd>Trong trình soạn, đảm bảo Phông là "Phông tải lên" và tệp đã được chọn ở <strong>Tệp phông</strong>. Nếu tệp được tải lên dạng "riêng tư" (Tài liệu thiết kế), widget không lấy được — hãy tải lại ở loại <strong>Phông</strong>.</dd>
+    <dt>Q. [Xem trước] báo "Hãy đặt tên miền cửa hàng trước".</dt>
+    <dd>Lưu tên miền cửa hàng ở Cài đặt &gt; Cài đặt cơ bản &gt; Storefront rồi thử lại. Xem trước mô phỏng phiên widget của tên miền đó.</dd>
+    <dt>Q. Trình soạn không có ô CSS tùy chỉnh.</dt>
+    <dd>Ô này chỉ hiện sau khi quản trị viên nền tảng bật "Cho phép CSS widget tùy chỉnh" cho tenant (chương 6). Thiết kế lưu trước đó không có CSS, hãy sửa sau khi bật.</dd>
+    <dt>Q. Thêm tệp bị từ chối với "Tệp không đúng loại".</dt>
+    <dd>Hệ thống kiểm tra <strong>nội dung</strong>, không phải phần mở rộng. svg đổi tên thành png, hay ttf lưu thành .woff2 đều bị bắt. Hãy chuyển sang đúng định dạng rồi tải lại.</dd>
+    <dt>Q. Kích thước bảng không đổi trên di động.</dt>
+    <dd>Đúng như thiết kế. Chiều rộng và cao của bảng chỉ áp dụng <strong>trên máy tính</strong>; di động và chế độ ứng dụng lấp đầy màn hình. Phông, bo góc và biểu tượng vẫn áp dụng trên di động.</dd>
+    <dt>Q. Lưu trữ bị từ chối với "Thiết kế này đang dùng".</dt>
+    <dd>[Dùng] thiết kế khác hoặc [Về widget cơ bản] trước, rồi mới lưu trữ. Thiết kế đang dùng không thể lưu trữ hay xóa.</dd>
+    <dt>Q. Lịch sử không có lần đổi tên vừa rồi.</dt>
+    <dd>Lịch sử chỉ ghi các lần lưu làm đổi <strong>thiết kế</strong> (phông, cỡ chữ, bo góc, bảng, biểu tượng, CSS). Đổi tên và ghi chú không tạo phiên bản và không được khôi phục.</dd>
+  </dl>
+</section>
+
+<div class="next">
+  <strong>Xem thêm →</strong> <a href="user-manual.vi.html">Sổ tay tổng hợp</a> chương 14 (cài đặt tenant) · chương 16 (quản trị nền tảng), <a href="quick-setup.vi.html">Sổ tay cài đặt nhanh</a> chương 5 (cài widget · chủ đề).
+</div>
+
+</main>
+</div>
+
+</body>
+</html>
