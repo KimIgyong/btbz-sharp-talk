@@ -110,6 +110,7 @@ Copy the `.example` to the real filename on the server and fill in secrets — t
 | `JWT_ACCESS_TTL` / `JWT_REFRESH_TTL` | 3600 / 604800 | same | same | same |
 | `CRED_ENC_KEY` | dev key | **secret** | **secret** | AES-256-GCM 32-byte base64 (POL-018) |
 | `AI_DEFAULT_PROVIDER` | stub | stub | anthropic | gateway default adapter |
+| `AI_PROCESSING_REGION` | US | US | US | region named in the widget AI disclosure (US/EU/VN/KR/JP/SG) — REQ-260913 G7 |
 | `ANTHROPIC_API_KEY` | — | optional | **required** | real provider key |
 | `ANTHROPIC_MODEL` | claude-opus-4-8 | claude-opus-4-8 | claude-opus-4-8 | |
 | `OPENAI_API_KEY` | — | optional | optional | fallback route; per-engine key in the console wins |
@@ -127,6 +128,7 @@ Copy the `.example` to the real filename on the server and fill in secrets — t
 | `ATTACHMENT_MAX_PER_MESSAGE` | 5 | 5 | 5 | 메시지당 첨부 개수 |
 | `SEED_ON_BOOT` | — | true→false after 1st boot | true→false after 1st boot | idempotent bootstrap seed at startup |
 | `SEED_DEMO_DATA` | — | true | **false** | demo orders/customers |
+| `SEED_KB_PROFILE` | us-cosmetics | us-cosmetics | us-cosmetics | baseline KB on first boot: `us-cosmetics` / `none` — REQ-260913 G11 |
 | `SEED_PASSWORD` | — | override recommended | **strong required** | bootstrap account password |
 
 ### 4.2 Escalation alerts (optional — empty disables a channel)

@@ -32,9 +32,17 @@ export const ko: Translation = {
     unreadCount_other: '읽지 않음 {{count}}건',
   },
 
+  regions: {
+    US: '미국',
+    EU: '유럽연합',
+    VN: '베트남',
+    KR: '대한민국',
+    JP: '일본',
+    SG: '싱가포르',
+  },
   chat: {
     aiDisclosure:
-      '이 채팅은 AI 기반으로 운영됩니다. 보내신 메시지는 응답 생성을 위해 미국에 있는 외부 AI 서비스 제공업체에서 처리됩니다.',
+      '이 채팅은 AI 기반으로 운영됩니다. 보내신 메시지는 응답 생성을 위해 {{region}}에 있는 외부 AI 서비스 제공업체에서 처리됩니다.',
     citations: '지식참조',
     inputPlaceholder: '메시지를 입력하세요…',
     send: '보내기',

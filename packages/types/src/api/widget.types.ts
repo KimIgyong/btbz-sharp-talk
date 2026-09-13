@@ -58,6 +58,12 @@ export interface SessionResponse {
   /** How the widget's "Sign in" opens the storefront login (tenant console setting). */
   widgetLoginMode: WidgetLoginMode;
   /**
+   * Region code where AI inference runs for this deployment (env
+   * AI_PROCESSING_REGION, default 'US'). The widget's AI disclosure names it
+   * (REQ-260913-VN-Prerequisite-Gaps G7).
+   */
+  aiProcessingRegion: string;
+  /**
    * Tabs this tenant shows, in display order (PLN-260817-Widget-Tab-Config).
    * Always non-empty and already normalized — the widget renders it as given
    * rather than re-deciding what a valid bar looks like.

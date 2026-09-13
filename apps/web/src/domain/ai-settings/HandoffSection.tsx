@@ -9,17 +9,20 @@ import { useAiConfig, useUpdateAiConfig } from './ai-settings.hooks';
 import { LanguageTabs } from './LanguageTabs';
 import { DENY_MODE } from './ai-settings.service';
 import type { DenyMode, HandoffConfig, ScenarioLang } from './ai-settings.service';
+// Source-path import: a value import of the package entry point breaks the browser build (CJS).
+import { LANGUAGE_TIMEZONES } from '../../../../../packages/types/src/common/language';
 
 const DAYS = [0, 1, 2, 3, 4, 5, 6];
-/** A short, safe list — the server accepts any IANA zone. */
-const TIMEZONES = [
-  'America/New_York',
-  'America/Chicago',
-  'America/Denver',
-  'America/Los_Angeles',
-  'Asia/Seoul',
-  'UTC',
-];
+/**
+ * Picker zones = every language's registry zone (Seoul, New York, Ho Chi Minh,
+ * Tokyo, Shanghai, Madrid …) + the remaining US zones + UTC. The server accepts
+ * any IANA zone; a stored value outside this list is kept as the first option
+ * so saving never silently rewrites it (REQ-260913-VN-Prerequisite-Gaps G3).
+ */
+const TIMEZONES = Array.from(
+  new Set([...LANGUAGE_TIMEZONES.map((z) => z.zone), 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'UTC']),
+).sort();
+const TZ_LABEL = new Map(LANGUAGE_TIMEZONES.map((z) => [z.zone, z.label]));
 
 /**
  * Escalation routing (PLN-AiSetting W3): who gets paged, when agents are on
@@ -189,9 +192,9 @@ export function HandoffSection() {
                   <div className="min-w-[200px]">
                     <Label>{t('handoff.timezone')}</Label>
                     <Select value={timezone} onChange={(e) => setTimezone(e.target.value)}>
-                      {TIMEZONES.map((tz) => (
+                      {(TIMEZONES.includes(timezone) ? TIMEZONES : [timezone, ...TIMEZONES]).map((tz) => (
                         <option key={tz} value={tz}>
-                          {tz}
+                          {TZ_LABEL.has(tz) ? `${tz} — ${TZ_LABEL.get(tz)}` : tz}
                         </option>
                       ))}
                     </Select>

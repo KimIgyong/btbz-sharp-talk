@@ -129,6 +129,7 @@ describe('SessionService consent (PLN-Privacy-Control-Gap Stage 1-2)', () => {
       await expect(svc.privacyNotice(1)).resolves.toEqual({
         privacyPolicyUrl: 'https://shop.example/privacy',
         consentNoticeVersion: 'v9',
+        aiProcessingRegion: 'US',
         widgetLoginMode: 'redirect',
         widgetTabs: [...WIDGET_TABS_DEFAULT],
         widgetTabPosition: 'top',
@@ -259,7 +260,9 @@ describe('SessionService.findOrCreateForCustomer', () => {
     };
     const svc = new SessionService(
       sessionRepo as never,
-      {} as never, // tenantRepo — unused on this path
+      // tenantRepo — createForCustomer reads timezone/default language (G1/G2); null keeps
+      // the legacy locale-only resolution these cases assert.
+      { findOne: jest.fn().mockResolvedValue(null) } as never,
       {} as never, // customerRepo
       { publish: jest.fn().mockResolvedValue(undefined) } as never,
       { available: () => false, del: jest.fn() } as never,
@@ -412,5 +415,38 @@ describe('SessionService.resolveAiAgentId (PLN-260820)', () => {
     await expect(svc.resolveAiAgentId(1, 'retired')).resolves.toBeNull();
     await expect(svc.resolveAiAgentId(2, 'hotel-partner')).resolves.toBeNull();
     await expect(svc.resolveAiAgentId(1, undefined)).resolves.toBeNull();
+  });
+});
+
+/** REQ-260913-VN-Prerequisite-Gaps G1/G2 — explicit tenant default language. */
+describe('SessionService default language (G1/G2)', () => {
+  function build(tenant: Record<string, unknown>) {
+    const sessionRepo = {
+      findOne: jest.fn().mockResolvedValue(null),
+      create: jest.fn((x: Partial<Session>) => ({ ...x }) as Session),
+      save: jest.fn((x: Session) => Promise.resolve({ id: 99, ...x })),
+    };
+    return new SessionService(
+      sessionRepo as never,
+      { findOne: jest.fn().mockResolvedValue(tenant) } as never,
+      {} as never,
+      { publish: jest.fn().mockResolvedValue(undefined) } as never,
+      { available: () => false, del: jest.fn() } as never,
+    );
+  }
+
+  it('tenant default outranks the timezone for an English browser', async () => {
+    const svc = build({ id: 2, timezone: 'Asia/Seoul', defaultLanguage: 'vi' });
+    expect((await svc.findOrCreateForCustomer(2, 4, 'en-US')).language).toBe('VI');
+  });
+
+  it('an explicit non-English shopper language still wins over the tenant default', async () => {
+    const svc = build({ id: 2, timezone: 'Asia/Seoul', defaultLanguage: 'vi' });
+    expect((await svc.findOrCreateForCustomer(2, 4, 'ko-KR')).language).toBe('KO');
+  });
+
+  it('no default → timezone as before; neither → EN', async () => {
+    expect((await build({ id: 2, timezone: 'Asia/Ho_Chi_Minh', defaultLanguage: null }).findOrCreateForCustomer(2, 4, 'en')).language).toBe('VI');
+    expect((await build({ id: 2, timezone: null, defaultLanguage: null }).findOrCreateForCustomer(2, 4, 'en')).language).toBe('EN');
   });
 });

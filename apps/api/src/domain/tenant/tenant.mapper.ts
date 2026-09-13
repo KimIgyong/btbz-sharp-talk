@@ -109,6 +109,7 @@ export class TenantMapper {
           ? WIDGET_TAB_POSITION.BOTTOM
           : WIDGET_TAB_POSITION.TOP,
       timezone: t.timezone ?? null,
+      defaultLanguage: t.defaultLanguage ?? null,
       displayName: t.widgetCopy?.displayName ?? null,
       firstVisit: t.widgetCopy?.firstVisit ?? {},
       loginGreeting: t.widgetCopy?.loginGreeting ?? {},

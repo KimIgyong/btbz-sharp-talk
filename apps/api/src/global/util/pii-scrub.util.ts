@@ -70,6 +70,12 @@ const PHONE_US_SEP_RE = /\b(\d{3})([.-])(\d{3})\2(\d{4})\b/g;
 /** KR mobile: 010-1234-5678, 010 1234 5678, 01012345678, 011/016..019. */
 const PHONE_KR_RE = /\b01[016789][ .-]?\d{3,4}[ .-]?\d{4}\b/g;
 
+/** VN mobile: 0[3|5|7|8|9]x xxx xxxx — 10 digits, optional single space/dot/dash groups. */
+const PHONE_VN_MOBILE_RE = /\b0[35789]\d[ .-]?\d{3}[ .-]?\d{4}\b/g;
+
+/** VN landline: 02x xxxx xxxx (Hà Nội 024, TP.HCM 028 …) — 11 digits. */
+const PHONE_VN_LANDLINE_RE = /\b02\d[ .-]?\d{4}[ .-]?\d{4}\b/g;
+
 /** Generic separated digit run (dash/dot only), gated to 9–15 digits. */
 const PHONE_GENERIC_RE = /\b\d{1,4}(?:[.-]\d{2,4}){2,5}\b/g;
 
@@ -154,6 +160,8 @@ export function scrubPii(text: string): PiiScrubResult {
   out = out.replace(PHONE_US_PAREN_RE, () => bump('phone'));
   out = out.replace(PHONE_US_SEP_RE, () => bump('phone'));
   out = out.replace(PHONE_KR_RE, () => bump('phone'));
+  out = out.replace(PHONE_VN_LANDLINE_RE, () => bump('phone'));
+  out = out.replace(PHONE_VN_MOBILE_RE, () => bump('phone'));
   out = out.replace(PHONE_GENERIC_RE, (m) => {
     if (DATE_LEAD_RE.test(m)) return m;
     const n = countDigits(m);

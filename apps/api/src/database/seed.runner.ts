@@ -57,6 +57,8 @@ export interface SeedOptions {
   password?: string;
   /** Seed demo customer/orders/notifications (default true; set false for clean prod). */
   includeDemoData?: boolean;
+  /** Baseline KB to seed: 'us-cosmetics' (default, current behaviour) or 'none' (REQ-260913 G11). */
+  kbProfile?: 'us-cosmetics' | 'none';
 }
 
 /**
@@ -68,6 +70,8 @@ export async function runSeed(ds: DataSource, opts: SeedOptions = {}): Promise<v
   const logger = new Logger('Seed');
   const password = opts.password ?? process.env.SEED_PASSWORD ?? 'amb2026!@';
   const includeDemoData = opts.includeDemoData ?? process.env.SEED_DEMO_DATA !== 'false';
+  const kbProfile = opts.kbProfile ?? (process.env.SEED_KB_PROFILE === 'none' ? 'none' : 'us-cosmetics');
+  if (kbProfile === 'none') logger.log('SEED_KB_PROFILE=none — baseline KB documents skipped');
   const hash = await bcrypt.hash(password, BCRYPT_ROUNDS);
 
   const tenantRepo = ds.getRepository(Tenant);
@@ -168,7 +172,7 @@ export async function runSeed(ds: DataSource, opts: SeedOptions = {}): Promise<v
   // Existing rows keep their source id; the value is harmless while the source
   // stays designated, and an irreversible UPDATE to tidy a fact is not worth it.
   const kbRepo = ds.getRepository(KbDocument);
-  if ((await kbRepo.count({ where: { tenantId: tenant.id } })) === 0) {
+  if (kbProfile !== 'none' && (await kbRepo.count({ where: { tenantId: tenant.id } })) === 0) {
     const docs = [
       ['policy', 'Shipping & Delivery', 'Orders ship within 1-2 business days. Standard delivery is 3-5 business days in the US. You can track your order from the Orders panel once it ships.'],
       ['policy', 'Returns & Exchanges', 'Items can be returned within 7 days of receipt if unopened and unused. Opened or out-of-window items require a support agent. (POL-005)'],
@@ -198,7 +202,7 @@ export async function runSeed(ds: DataSource, opts: SeedOptions = {}): Promise<v
     ['faq', 'CS Policy — Damaged, Defective, or Wrong Items', 'If an item arrives damaged, defective, or different from what was ordered, contact support within 7 days of delivery with the order number and a photo of the item and packaging. We arrange a free replacement or a full refund including shipping. Please keep the item and packaging until the claim is resolved. Claims for parcels delivered to a parcel-forwarding address may not be eligible.'],
     ['policy', 'CS Policy — US Compliance Notes', 'Agent reference. California Civil Code 1723: a return policy stricter than a 7-day full refund/equal exchange must be conspicuously disclosed before purchase (online: a clear policy page link); if not disclosed, customers may return within 7 days. Exemptions include perishables, final-sale items, and goods unsellable for health reasons. FTC Mail/Internet Order Rule: if we cannot ship within the promised time (30 days if none stated), we must notify the customer and offer cancellation with a prompt full refund.'],
   ];
-  for (const [category, title, content] of csPolicyDocs) {
+  for (const [category, title, content] of kbProfile === 'none' ? [] : csPolicyDocs) {
     if (!(await kbRepo.findOne({ where: { tenantId: tenant.id, title } }))) {
       const doc = await kbRepo.save(kbRepo.create({ tenantId: tenant.id, source: 'knowledge_store', category, title, content, active: 1, status: 'embedded' }));
       doc.embeddingRef = `emb_${doc.id}`;

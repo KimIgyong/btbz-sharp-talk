@@ -87,6 +87,8 @@ export interface WidgetSettingsResponse {
   tabs: WidgetTab[];
   tabPosition: WidgetTabPosition;
   timezone: string | null;
+  /** Explicit default widget language (code) or null = follow the timezone. */
+  defaultLanguage: string | null;
   /** Stored (raw) widget copy — null/missing = widget default; console shows the tenant name as placeholder. */
   displayName: string | null;
   firstVisit: Record<string, string>;

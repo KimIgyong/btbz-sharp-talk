@@ -23,6 +23,7 @@ import {
   WidgetLoginMode,
   WidgetTab,
   WidgetTabPosition,
+  LANGUAGE_CODES,
 } from '@sharptalk/types';
 import { TENANT_SLUG_PATTERN } from '../../../../global/constant/reserved-slug.constant';
 
@@ -182,6 +183,10 @@ export class UpdateWidgetSettingsRequest {
   @IsString()
   @Matches(/^$|^[A-Za-z]+\/[A-Za-z_+-]+$/)
   timezone?: string | null;
+  // Explicit default widget language; '' or null = follow the timezone.
+  @IsOptional()
+  @IsIn([...LANGUAGE_CODES, ''])
+  default_language?: string | null;
 
   // Widget copy (PLN-260808-Widget-Greetings). PATCH semantics per field:
   // undefined = keep, ''/null = clear back to the widget default. Flat per-language
