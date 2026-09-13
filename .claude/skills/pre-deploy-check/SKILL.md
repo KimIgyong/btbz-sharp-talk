@@ -69,3 +69,19 @@ All three stacks carry the same mount; a fix in one is not a fix in the others.
 - Schema PRs need a `## Migration` body section — `reference/btbz-dev-kit/03-git-collaboration-standard.md` §3.3
 - Runbook source: `reference/btbz-dev-kit/04-deployment-operations.md` §3–4
 - Memory: `staging-server.md`, `deployment-strategy.md`, `btbz-dev-kit.md`
+
+## 6. First-boot schema gate (init-sql) — before ANY fresh-database deploy
+
+A production or new-country host builds its schema from `docker/init-sql/01-schema.sql`
+alone. Prove it is complete before provisioning (FIX-260913: it was 13 migrations behind):
+
+```bash
+docker run -d --name schemacheck -e MYSQL_ROOT_PASSWORD=x -e MYSQL_DATABASE=db_sharptalk \
+  -v "$PWD/docker/init-sql:/docker-entrypoint-initdb.d:ro" mysql:8.0
+until docker exec schemacheck mysqladmin ping -uroot -px --silent; do sleep 3; done; sleep 10
+MYSQL_CONTAINER=schemacheck MYSQL_ROOT_PASSWORD=x bash scripts/check-migrations.sh   # must print OK
+docker rm -f schemacheck
+```
+
+If it reports outstanding files, regenerate init-sql from the live staging DB (recipe in the
+file header) rather than appending by hand.
