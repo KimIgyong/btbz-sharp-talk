@@ -10,4 +10,5 @@
 | `tenant-snapshot.example.json` | 테넌트 설정 12항목의 예시(수동 입력 대조용). 실제 스냅샷은 원본 환경에서 다운로드 |
 
 가이드: `docs/guide/GUIDE-260913-SharpTalk-Basic-Setup.md` → `GUIDE-260913-Locale-Customization.md` → 국가 가이드.
+프로덕션(KR)은 `SharpTalk-KR-Production/`(PLN-260913-Production-Provisioning-Deploy) — 호스트 부트스트랩은 `scripts/provision-host.sh`.
 새 국가를 추가하려면 디렉터리를 복사하고 별칭·도메인·프로필 값을 바꾼 뒤 국가 가이드를 씁니다.

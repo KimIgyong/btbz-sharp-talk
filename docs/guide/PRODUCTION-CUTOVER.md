@@ -16,10 +16,10 @@
 
 | 항목 | 상태 |
 |---|---|
-| 호스트 | 미프로비저닝 |
-| `docker/production/.env.production` | **없음** (예시 파일만 존재) |
+| 호스트 | 미프로비저닝 — **2026-09-13 결정(PLN-260913-Production-Provisioning-Deploy)**: 신규 호스트(8vCPU/16GB/200GB, Ubuntu 24.04), 도메인 `sharptalk.amoeba.site`, **self-hosted 스택**(`docker/self-hosted`, 검사·백업 도구 완비)으로 배포. 호스트 준비는 `sudo bash scripts/provision-host.sh --domain … --email …`, 프로필은 `deploy/profiles/SharpTalk-KR-Production/` |
+| `docker/production/.env.production` | **없음** — self-hosted 스택을 쓰므로 실제 env는 서버의 `docker/self-hosted/.env.self-hosted`(프로필 example에서 복사) |
 | `production` 브랜치 | **없음** |
-| 배포 스크립트·compose·nginx | ✅ 준비됨 |
+| 배포 스크립트·compose·nginx | ✅ 준비됨 (`docker/production`은 템플릿으로 유지; 실배포는 self-hosted) |
 | 스테이징 | ✅ 가동 중, 최신 `main` 검증 완료 |
 
 ---
@@ -60,8 +60,8 @@
 ## 2. 컷오버 순서
 
 ```
-① 스키마 재생성(B1)         → 커밋
-② 호스트·DNS·TLS 준비(B2)
+① 스키마 재생성(B1)         → 커밋 (2026-09-13 재검증: FIX-260913, init-sql만으로 check-migrations OK)
+② 호스트·DNS·TLS 준비(B2)   → scripts/provision-host.sh (Docker·UFW·UTC·호스트 nginx·certbot)
 ③ .env.production 작성       → 서버에만 보관(절대 커밋 금지)
 ④ production 브랜치 생성      → 검증된 main 커밋을 승격
 ⑤ 첫 배포 + 첫 부팅 시드

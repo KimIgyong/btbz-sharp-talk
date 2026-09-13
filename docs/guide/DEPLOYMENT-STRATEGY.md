@@ -17,7 +17,7 @@
 | | **Development** | **Staging** | **Production** |
 |---|---|---|---|
 | Purpose | local dev/test | integration, demo, UAT | live customers |
-| Status | local | **🟢 LIVE** `shoptalk.amoeba.site` | 🔴 not deployed (templates ready) |
+| Status | local | **🟢 LIVE** `shoptalk.amoeba.site` | 🟡 provisioning (PLN-260913): new host, `sharptalk.amoeba.site`, self-hosted stack |
 | Branch | `feature/*` | `main` | `production` (planned) |
 | Schema | `synchronize` + `db:seed` | `synchronize` + `SEED_ON_BOOT` | init-sql migrations (`synchronize=false`) |
 | Demo data | yes | yes (`SEED_DEMO_DATA=true`) | **no** (`SEED_DEMO_DATA=false`) |
