@@ -31,7 +31,7 @@
 | G11 시드 KB | 첫 부팅에 미국 화장품 KB·시나리오가 들어옴 → §6에서 삭제로 우회 |
 | G10 사고 통지 매트릭스 | `INCIDENT-RESPONSE.md`에 PDPD 행 추가(문서) |
 
-이 항목들은 **별도 요구사항(REQ)**으로 구현합니다. 스테이징은 갭을 안고 열 수 있지만, 프로덕션 승격 전에는 G1/G2·G6·G7이 끝나야 합니다.
+**2026-09-13 구현 완료(REQ/PLN-260913-VN-Prerequisite-Gaps)** — 위 6건은 Basic에 반영됐습니다. 프로필에서 켜는 값: `SEED_KB_PROFILE=none`, `AI_PROCESSING_REGION`(실제 처리 지역), 테넌트 설정 > 기본에서 기본 언어 `vi`. G7 고지 문구의 **법적 표현 확정**은 여전히 현지 법무 몫입니다.
 
 ---
 
@@ -61,6 +61,8 @@
 | `HARAVAN_SYNC_INTERVAL_MIN` | 0(수동) → 사용 시 60 | |
 | `NOTION_MAX_REQUESTS_PER_PAGE` / `_PAGES_PER_SYNC` | 30 / 200 | 큰 페이지 `truncated` 시 상향 |
 | `SMTP_*`, `ALERT_EMAIL_FROM` | 베트남 발신 도메인 | 폴백 `noreply@ivyusa.local` 금지 |
+| `AI_PROCESSING_REGION` | 실제 추론 지역(현행 `US`) | 위젯 AI 고지에 지역명으로 표시(G7) |
+| `SEED_KB_PROFILE` | `none` | 첫 부팅에 미국 화장품 KB를 넣지 않음(G11) |
 | `VITE_GA4_MEASUREMENT_ID` | 비움 | 동의 모드 있어도 PDPD 검토 전 미사용 |
 | `MFA_ENFORCE_FROM` | 스테이징 비움 | 프로덕션에서 계정 발급 후 |
 | `SEED_ON_BOOT`/`SEED_DEMO_DATA` | 첫 부팅 true/**false** | 데모 주문(USD) 불필요 |
@@ -86,14 +88,14 @@ Basic §4·§7 그대로. 프로필 특이점:
 
 | 항목 | 방법 |
 |---|---|
-| 설정 12항목 | 한국 스테이징에서 스냅샷 다운로드 → 대조하며 수동 입력. **타임존 `Asia/Ho_Chi_Minh`** 먼저(기본 언어 유도) |
+| 설정 13항목 | 한국 스테이징에서 스냅샷 다운로드 → 대조하며 수동 입력. **타임존 `Asia/Ho_Chi_Minh`** + **기본 언어 `Tiếng Việt`**(설정 > 기본, G1/G2) 먼저 |
 | 위젯 문구 | vi·en 탭 필수(`reference/go2joy-*` 문구), ko는 비워도 됨 |
 | 커스텀 위젯 | 있으면 패키지 가져오기. 모바일 앱 모드는 패널 크기 무시(화면 채움) |
 | KB | 카테고리 = 영상 번호 명시표(`reference/hoteladminvideoguidevien.md` 변환 기준, 메모리 `go2joy-video-guide-kb`), 일괄 다운로드 → 일괄등록(라운드트립), Notion 소스 재연결(`GUIDE-260828-Go2Joy-Notion-Connection.md`) → 동기화 → 재색인 확인. **시드 KB(미국 화장품 12건)와 시나리오 문구 삭제/수정** |
 | 자격증명 | Notion 통합 토큰·Haravan 토큰 재입력 → [연결 테스트]. **연결 테스트 통과 ≠ 가져오기 정상** — 동기화 1회 실행해 건수 확인 |
 | 메신저 | AmoebaTalk 허브 자격증명 재입력, 채널 동의 모드 `notice`(첫 접촉 시 고지) |
 | 임베드 | 오리진(앱 WebView 오리진·웹 사이트), 시크릿 재발급 → Kotlin SDK `ShopTalkConfig(widgetUrl, shop, locale, agent)` 갱신 |
-| 핸드오프 | 담당자·업무시간(ICT — G3 해결 전에는 UTC로 환산 입력)·영업외 문구 vi/en |
+| 핸드오프 | 담당자·업무시간(타임존 `Asia/Ho_Chi_Minh` 선택 가능, G3)·영업외 문구 vi/en |
 | 개인정보 | 처리방침 URL(베트남어), 동의 버전(예 `2026-09-vn`), 버전 변경 시 전 고객 재동의 |
 | AI 설정 | 페르소나 vi/en 병기 원칙, 응답 규칙(약속 금지), 모더레이션 규칙 현지화 |
 

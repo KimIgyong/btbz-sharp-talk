@@ -81,6 +81,12 @@ describe('scrubPii — phone numbers (positives)', () => {
     ['01012345678', 'KR mobile compact'],
     ['017-123-4567', 'KR legacy prefix'],
     ['02-1234-5678', 'generic separated run (Seoul landline)'],
+    ['0901234567', 'VN mobile compact'],
+    ['090 123 4567', 'VN mobile spaced'],
+    ['090-123-4567', 'VN mobile dashed'],
+    ['0356789012', 'VN mobile 03x'],
+    ['028 3822 1234', 'VN landline HCMC spaced'],
+    ['+84 90 123 4567', 'intl VN'],
   ])('masks %s (%s)', (phone) => {
     const r = scrubPii(`call ${phone} ok`);
     expect(r.text).toBe('call [PHONE] ok');
@@ -98,6 +104,8 @@ describe('scrubPii — phone false-positive guards', () => {
     ['zip 94103-1234 please', 'zip+4'],
     ['qty 12345678', 'plain integer < 9 digits'],
     ['SKU-12345678 restock', 'SKU code'],
+    ['ref 1234567890 ok', '10-digit run not starting with VN prefix'],
+    ['code 0123456789', 'leading 01 but not KR/VN shape'],
     ['tracking 9400111899223100001234', 'unseparated run > 19 digits'],
     ['https://shop.example.com/products/123456789', 'URL id (unseparated)'],
     ['415 555 0100', 'space-only US without parens (documented false negative)'],

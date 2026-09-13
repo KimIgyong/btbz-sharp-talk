@@ -40,6 +40,7 @@ describe('SessionMapper.toResponse', () => {
       consentAt: null,
       widgetLoginMode: 'redirect',
       widgetCopy: { displayName: 'Shop', firstVisit: {}, loginGreeting: {} },
+      aiProcessingRegion: 'US',
     });
   });
 

@@ -186,6 +186,12 @@ export class Tenant {
   @Column({ type: 'varchar', length: 40, nullable: true })
   timezone: string | null;
 
+  // Explicit default widget language (language code, e.g. 'vi'). NULL = derive
+  // from `timezone` as before. Outranks the timezone, never an explicit
+  // non-English shopper choice (REQ-260913-VN-Prerequisite-Gaps G1/G2).
+  @Column({ name: 'default_language', type: 'varchar', length: 5, nullable: true })
+  defaultLanguage: string | null;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 

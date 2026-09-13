@@ -32,9 +32,17 @@ export const zh: Translation = {
     unreadCount_other: '{{count}} 条未读',
   },
 
+  regions: {
+    US: '美国',
+    EU: '欧盟',
+    VN: '越南',
+    KR: '韩国',
+    JP: '日本',
+    SG: '新加坡',
+  },
   chat: {
     aiDisclosure:
-      '本聊天由 AI 提供支持。您发送的消息将由美国的第三方 AI 服务提供商处理以生成回复。',
+      '本聊天由 AI 提供支持。您发送的消息将由{{region}}的第三方 AI 服务提供商处理以生成回复。',
     citations: '参考资料',
     inputPlaceholder: '输入消息…',
     send: '发送',

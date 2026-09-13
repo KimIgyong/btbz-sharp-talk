@@ -112,6 +112,8 @@ export interface WidgetSettings {
   tabs: WidgetTab[];
   tabPosition: WidgetTabPosition;
   timezone: string | null;
+  /** Explicit default widget language (code) or null = follow the timezone. */
+  defaultLanguage: string | null;
   displayName: string | null;
   firstVisit: Record<string, string>;
   loginGreeting: Record<string, string>;
@@ -312,9 +314,11 @@ export const settingsService = {
     copy?: WidgetCopyDraft,
     tabs?: WidgetTab[],
     tabPosition?: WidgetTabPosition,
+    defaultLanguage?: string | null,
   ) =>
     apiPatch<WidgetSettings>('/tenants/widget-settings', {
       login_mode: loginMode,
+      ...(defaultLanguage !== undefined ? { default_language: defaultLanguage } : {}),
       ...(tabs !== undefined ? { tabs } : {}),
       ...(tabPosition !== undefined ? { tab_position: tabPosition } : {}),
       ...(timezone !== undefined ? { timezone } : {}),

@@ -32,9 +32,17 @@ export const ja: Translation = {
     unreadCount_other: '未読{{count}}件',
   },
 
+  regions: {
+    US: '米国',
+    EU: '欧州連合',
+    VN: 'ベトナム',
+    KR: '韓国',
+    JP: '日本',
+    SG: 'シンガポール',
+  },
   chat: {
     aiDisclosure:
-      'このチャットはAIを利用しています。送信されたメッセージは、回答生成のため米国の第三者AIサービス提供者によって処理されます。',
+      'このチャットはAIを利用しています。送信されたメッセージは、回答生成のため{{region}}の第三者AIサービス提供者によって処理されます。',
     citations: '参照した情報',
     inputPlaceholder: 'メッセージを入力…',
     send: '送信',

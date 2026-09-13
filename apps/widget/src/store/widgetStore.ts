@@ -49,6 +49,8 @@ interface WidgetState {
    */
   embedIdentity: 'pending' | 'verified' | 'anonymous';
   language: string;
+  /** Region named in the AI disclosure (from session ensure; default US). */
+  aiProcessingRegion: string;
   /**
    * Privacy consent — gates chat persistence AND GA4 (Consent Mode).
    * Null until session/ensure has reported the server-side state (server is
@@ -99,6 +101,7 @@ interface WidgetState {
   setWidgetTheme: (t: WidgetTheme | null) => void;
   setEmbedIdentity: (v: 'pending' | 'verified' | 'anonymous') => void;
   setLanguage: (l: string) => void;
+  setAiProcessingRegion: (r: string) => void;
   setConsentInfo: (c: ConsentInfo | null) => void;
   /** Record a fresh, server-acknowledged consent choice (clears outdated flag). */
   updateConsentState: (
@@ -134,6 +137,7 @@ export const useWidgetStore = create<WidgetState>()((set, get) => ({
   // session language from the shopper's own preference rather than a hardcoded
   // 'en' (PLN-260813 P4).
   language: initialLanguage(),
+  aiProcessingRegion: 'US',
   consent: null,
   pendingChatMessage: null,
   notificationFilter: 'all',
@@ -158,6 +162,7 @@ export const useWidgetStore = create<WidgetState>()((set, get) => ({
   setWidgetTheme: (t) => set({ widgetTheme: t }),
   setEmbedIdentity: (v) => set({ embedIdentity: v }),
   setLanguage: (l) => set({ language: l }),
+  setAiProcessingRegion: (r) => set({ aiProcessingRegion: r }),
   setConsentInfo: (c) => set({ consent: c }),
   setNotificationFilter: (f) => set({ notificationFilter: f }),
   /**

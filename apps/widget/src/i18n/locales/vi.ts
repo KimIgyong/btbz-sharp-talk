@@ -32,9 +32,17 @@ export const vi: Translation = {
     unreadCount_other: '{{count}} chưa đọc',
   },
 
+  regions: {
+    US: 'Hoa Kỳ',
+    EU: 'Liên minh châu Âu',
+    VN: 'Việt Nam',
+    KR: 'Hàn Quốc',
+    JP: 'Nhật Bản',
+    SG: 'Singapore',
+  },
   chat: {
     aiDisclosure:
-      'Cuộc trò chuyện này có sử dụng AI. Tin nhắn bạn gửi được xử lý bởi nhà cung cấp dịch vụ AI bên thứ ba tại Hoa Kỳ để tạo câu trả lời.',
+      'Cuộc trò chuyện này có sử dụng AI. Tin nhắn bạn gửi được xử lý bởi nhà cung cấp dịch vụ AI bên thứ ba tại {{region}} để tạo câu trả lời.',
     citations: 'Nguồn tham khảo',
     inputPlaceholder: 'Nhập tin nhắn…',
     send: 'Gửi',

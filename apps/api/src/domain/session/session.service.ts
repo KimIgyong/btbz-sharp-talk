@@ -40,6 +40,9 @@ import { ERROR_CODE } from '../../global/constant/error-code.constant';
 export const CONSENT_NOTICE_VERSION = '2026-07';
 
 /** Tenant-facing widget config (privacy notice + behavior) served with /session/ensure. */
+/** Region named in the widget AI disclosure (REQ-260913 G7). Deployment-level, read once. */
+const AI_PROCESSING_REGION = (process.env.AI_PROCESSING_REGION || 'US').trim().toUpperCase();
+
 export interface PrivacyNoticeInfo {
   privacyPolicyUrl: string | null;
   /** Effective notice version: tenant override ?? platform default. */
@@ -54,6 +57,8 @@ export interface PrivacyNoticeInfo {
   widgetTheme: WidgetTheme | null;
   /** Tenant widget copy; displayName already resolved (config ?? tenant name). */
   widgetCopy: WidgetCopy;
+  /** Where AI inference runs for this deployment (AI_PROCESSING_REGION, e.g. 'US'). */
+  aiProcessingRegion?: string;
 }
 
 /** TTL for the token→session Redis cache (PERF-11). */
@@ -130,7 +135,7 @@ export class SessionService {
         tenantId: tenant.id,
         // Pinned once here — the session keeps its agent for its whole life.
         aiAgentId: await this.resolveAiAgentId(tenant.id, agentCode),
-        language: this.resolveLanguage(locale, tenant.timezone),
+        language: this.resolveLanguage(locale, tenant.timezone, tenant.defaultLanguage),
         consentState: CONSENT_STATE.PENDING,
         customerId: null,
         identityLevel: SESSION_IDENTITY.GUEST,
@@ -263,11 +268,12 @@ export class SessionService {
     customerId: number,
     locale?: string,
   ): Promise<Session> {
+    const owner = await this.tenantRepo.findOne({ where: { id: tenantId } });
     const session = await this.sessionRepo.save(
       this.sessionRepo.create({
         sessionToken: generateToken(),
         tenantId,
-        language: this.resolveLanguage(locale),
+        language: this.resolveLanguage(locale, owner?.timezone, owner?.defaultLanguage),
         consentState: CONSENT_STATE.PENDING,
         customerId,
         identityLevel: SESSION_IDENTITY.VERIFIED,
@@ -464,6 +470,7 @@ export class SessionService {
     return {
       privacyPolicyUrl: tenant?.privacyPolicyUrl ?? null,
       consentNoticeVersion: tenant?.consentNoticeVersion ?? CONSENT_NOTICE_VERSION,
+      aiProcessingRegion: AI_PROCESSING_REGION,
       widgetLoginMode:
         tenant?.widgetLoginMode === WIDGET_LOGIN_MODE.POPUP
           ? WIDGET_LOGIN_MODE.POPUP
@@ -551,15 +558,19 @@ export class SessionService {
    */
   async languageForChannel(tenantId: number | null, localeHint?: string | null): Promise<string> {
     const tenant = tenantId != null ? await this.tenantRepo.findOne({ where: { id: tenantId } }) : null;
-    return this.resolveLanguage(localeHint ?? undefined, tenant?.timezone);
+    return this.resolveLanguage(localeHint ?? undefined, tenant?.timezone, tenant?.defaultLanguage);
   }
 
-  private resolveLanguage(locale?: string, timezone?: string | null): string {
+  private resolveLanguage(locale?: string, timezone?: string | null, defaultLanguage?: string | null): string {
     const explicit = sessionLanguageForLocale(locale);
     // English is treated as "no preference expressed": an en-US browser in a
     // Seoul tenant should still get Korean, which is the behaviour tenants
     // configured their timezone for.
     if (explicit && explicit !== SESSION_LANGUAGE.EN) return explicit;
+    // An explicit tenant default outranks the timezone-derived guess
+    // (REQ-260913-VN-Prerequisite-Gaps G1/G2) but never the shopper's own choice.
+    const preset = sessionLanguageForLocale(defaultLanguage ?? undefined);
+    if (preset) return preset;
     return sessionLanguageForTimezone(timezone) ?? SESSION_LANGUAGE.EN;
   }
 }

@@ -429,6 +429,7 @@ export class TenantService {
     }
     if (dto.tab_position !== undefined) tenant.widgetTabPosition = dto.tab_position;
     if (dto.timezone !== undefined) tenant.timezone = dto.timezone?.trim() || null;
+    if (dto.default_language !== undefined) tenant.defaultLanguage = dto.default_language?.trim().toLowerCase() || null;
     tenant.widgetCopy = mergeWidgetCopy(tenant.widgetCopy, dto);
     const saved = await this.tenantRepo.save(tenant);
     await this.audit.write({
@@ -440,6 +441,7 @@ export class TenantService {
         saved.widgetLoginMode,
         `tabs:${(saved.widgetTabs ?? WIDGET_TABS_DEFAULT).join('+')}@${saved.widgetTabPosition}`,
         saved.timezone,
+        saved.defaultLanguage ? `lang:${saved.defaultLanguage}` : null,
       ]
         .filter(Boolean)
         .join(' · '),

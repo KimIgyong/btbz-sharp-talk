@@ -42,6 +42,7 @@ function fill(template: string, key: string, value: string): string {
 
 export function ChatTab() {
   const { t } = useTranslation();
+  const aiRegion = useWidgetStore((s) => s.aiProcessingRegion);
   const sessionToken = useWidgetStore((s) => s.sessionToken);
   const authenticated = useWidgetStore((s) => s.authenticated);
   const customerName = useWidgetStore((s) => s.customerName);
@@ -347,7 +348,7 @@ export function ChatTab() {
       {/* AI disclosure + end-chat control */}
       <div className="flex items-center gap-1.5 border-b border-gray-100 bg-gray-50 px-3 py-1.5 text-[11px] text-gray-500">
         <Sparkles className="h-3 w-3 flex-shrink-0 text-primary-400" />
-        <span className="min-w-0 flex-1">{t('chat.aiDisclosure')}</span>
+        <span className="min-w-0 flex-1">{t('chat.aiDisclosure', { region: t(`regions.${aiRegion}`, { defaultValue: aiRegion }) })}</span>
         {chatLive && (
           <button
             onClick={() => setEndConfirm(true)}

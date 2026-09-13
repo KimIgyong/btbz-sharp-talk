@@ -32,9 +32,17 @@ export const es: Translation = {
     unreadCount_other: '{{count}} sin leer',
   },
 
+  regions: {
+    US: 'Estados Unidos',
+    EU: 'la Unión Europea',
+    VN: 'Vietnam',
+    KR: 'Corea del Sur',
+    JP: 'Japón',
+    SG: 'Singapur',
+  },
   chat: {
     aiDisclosure:
-      'Este chat funciona con IA. Los mensajes que envías son procesados por un proveedor externo de IA en Estados Unidos para generar respuestas.',
+      'Este chat funciona con IA. Los mensajes que envías son procesados por un proveedor externo de IA en {{region}} para generar respuestas.',
     citations: 'Conocimiento consultado',
     inputPlaceholder: 'Escribe un mensaje…',
     send: 'Enviar',

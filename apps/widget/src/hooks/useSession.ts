@@ -152,6 +152,7 @@ export function useEnsureSession() {
   const setAuthenticated = useWidgetStore((s) => s.setAuthenticated);
   const setCustomerName = useWidgetStore((s) => s.setCustomerName);
   const setLanguage = useWidgetStore((s) => s.setLanguage);
+  const setAiProcessingRegion = useWidgetStore((s) => s.setAiProcessingRegion);
   const setLoginMode = useWidgetStore((s) => s.setLoginMode);
   const setTabLayout = useWidgetStore((s) => s.setTabLayout);
   const setWidgetCopy = useWidgetStore((s) => s.setWidgetCopy);
@@ -267,6 +268,8 @@ export function useEnsureSession() {
           void i18n.changeLanguage(code);
           setLanguage(code);
         }
+        // Deployment-level: where inference runs, named in the AI disclosure (G7).
+        setAiProcessingRegion((res.aiProcessingRegion || 'US').toUpperCase());
       })
       .catch(() => {
         /* offline / backend not running — widget still renders */

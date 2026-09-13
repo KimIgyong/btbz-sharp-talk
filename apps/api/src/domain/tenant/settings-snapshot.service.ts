@@ -25,6 +25,7 @@ const FIELDS = [
   'embedOrigins',
   'usageGuidesEnabled',
   'timezone',
+  'defaultLanguage',
   'storefrontUrl',
   'privacyPolicyUrl',
   'consentNoticeVersion',
