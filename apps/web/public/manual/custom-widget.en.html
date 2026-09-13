@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SharpTalk Custom Widget Manual</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --accent:#2B7FFF; --accent-deep:#1D5FD6; --accent-tint:#EAF2FF;
+  --ink:#1B2430; --muted:#5C6675; --line:#E3E8F0;
+  --bg:#FAFBFD; --card:#FFFFFF; --soft:#F1F5FB;
+  --tip-bg:#EAF2FF; --tip-edge:#2B7FFF;
+  --warn-bg:#FFF7E6; --warn-edge:#D97706; --warn-ink:#8A4B04;
+  --code-bg:#EEF2F8; --mono-ink:#31435E;
+}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --accent:#5C9BFF; --accent-deep:#82B4FF; --accent-tint:#16243C;
+    --ink:#E6EBF3; --muted:#93A0B4; --line:#28313F;
+    --bg:#0F141B; --card:#161C25; --soft:#1B222D;
+    --tip-bg:#152238; --tip-edge:#5C9BFF;
+    --warn-bg:#2A2010; --warn-edge:#E8A23D; --warn-ink:#EFC584;
+    --code-bg:#1E2632; --mono-ink:#B9C7DC;
+  }
+}
+:root[data-theme="dark"]{
+  --accent:#5C9BFF; --accent-deep:#82B4FF; --accent-tint:#16243C;
+  --ink:#E6EBF3; --muted:#93A0B4; --line:#28313F;
+  --bg:#0F141B; --card:#161C25; --soft:#1B222D;
+  --tip-bg:#152238; --tip-edge:#5C9BFF;
+  --warn-bg:#2A2010; --warn-edge:#E8A23D; --warn-ink:#EFC584;
+  --code-bg:#1E2632; --mono-ink:#B9C7DC;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Segoe UI",sans-serif;
+  font-size:16px;line-height:1.75}
+.shell{max-width:1120px;margin:0 auto;padding:0 24px 96px;
+  display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px}
+@media(max-width:860px){.shell{display:block}}
+header.hero{grid-column:1/-1;padding:56px 0 8px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+h1{font-family:"Gothic A1",sans-serif;font-weight:800;font-size:clamp(28px,4.5vw,40px);
+  line-height:1.25;margin:10px 0 12px;text-wrap:balance}
+.meta{color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;gap:6px 18px}
+.lead{max-width:68ch;color:var(--muted);margin-top:14px}
+nav.toc{position:sticky;top:24px;align-self:start;font-size:13.5px;padding-top:24px}
+@media(max-width:860px){nav.toc{position:static;border:1px solid var(--line);border-radius:10px;
+  background:var(--card);padding:14px 16px;margin:20px 0}}
+nav.toc .toc-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+nav.toc a{display:flex;gap:8px;color:var(--muted);text-decoration:none;padding:4px 0;line-height:1.4}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--accent)}
+nav.toc a .n{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:12px;min-width:18px;padding-top:1px}
+main{min-width:0;max-width:74ch}
+section{padding-top:40px}
+.ch{display:flex;align-items:baseline;gap:12px;border-top:2px solid var(--ink);padding-top:14px}
+.ch .num{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:500;color:var(--accent)}
+h2{font-family:"Gothic A1",sans-serif;font-weight:800;font-size:24px;margin:0;line-height:1.35;text-wrap:balance}
+.actor{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 12px;
+  background:var(--accent-tint);color:var(--accent-deep);margin-top:10px}
+h3{font-family:"Gothic A1",sans-serif;font-weight:700;font-size:17.5px;margin:30px 0 8px}
+p{margin:10px 0;max-width:68ch}
+a{color:var(--accent-deep)}
+strong{font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:14px 0}
+th{font-size:12.5px;letter-spacing:.04em;color:var(--muted);text-align:left;font-weight:700;
+  border-bottom:2px solid var(--line);padding:7px 12px 7px 0}
+td{border-bottom:1px solid var(--line);padding:8px 12px 8px 0;vertical-align:top}
+.tablewrap{overflow-x:auto}
+.terms{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 18px 14px;margin:16px 0}
+.terms .t-label{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin:12px 0 2px}
+.terms td:first-child{font-weight:700;white-space:nowrap;padding-right:18px}
+.callout{border-left:3px solid var(--tip-edge);background:var(--tip-bg);border-radius:0 10px 10px 0;
+  padding:12px 18px;margin:16px 0;font-size:14.5px}
+.callout .c-label{font-weight:700;color:var(--accent-deep)}
+.callout.warn{border-left-color:var(--warn-edge);background:var(--warn-bg);color:var(--warn-ink)}
+.callout.warn .c-label{color:var(--warn-ink)}
+.callout p{margin:6px 0}
+.callout ul{margin:6px 0}
+code,kbd{font-family:"IBM Plex Mono",monospace;font-size:.86em;background:var(--code-bg);
+  color:var(--mono-ink);border-radius:5px;padding:1px 6px}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+  overflow-x:auto;font-size:13px;line-height:1.6}
+pre code{background:none;padding:0;color:var(--mono-ink)}
+ol.steps{padding-left:0;margin:14px 0;list-style:none;counter-reset:st}
+ol.steps>li{counter-increment:st;position:relative;padding:0 0 14px 40px}
+ol.steps>li::before{content:counter(st);position:absolute;left:0;top:1px;width:24px;height:24px;
+  border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace}
+ul{margin:10px 0;padding-left:22px}
+li{margin:4px 0}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:30px;position:relative}
+.check li::before{content:"";position:absolute;left:2px;top:6px;width:14px;height:14px;
+  border:2px solid var(--accent);border-radius:4px}
+.faq dt{font-weight:700;margin-top:18px}
+.faq dd{margin:4px 0 0;color:var(--muted)}
+.next{margin-top:56px;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:20px 24px}
+.pagenav{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;padding-top:18px;color:var(--muted)}
+.pagenav a{color:var(--muted);text-decoration:none}
+.pagenav a:hover,.pagenav a:focus-visible{color:var(--accent)}
+.pagenav .cur{color:var(--accent-deep);font-weight:700}
+figure.shot{margin:18px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+figure.shot img{display:block;width:100%}
+figure.shot figcaption{padding:8px 16px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<div class="shell">
+<nav class="pagenav" aria-label="Manual navigation"><a href="./">← All manuals</a><span>·</span><a href="custom-widget.ko.html">한국어</a><span class="cur">English</span><a href="custom-widget.vi.html">Tiếng Việt</a><span>·</span><a href="custom-widget.en.md">Raw MD</a></nav>
+<header class="hero">
+  <div class="eyebrow">SharpTalk User Guides · Custom widgets</div>
+  <h1>SharpTalk Custom Widget Manual</h1>
+  <div class="meta"><span>Version 1.0 · First edition 2026-09-13 · Written against the code</span><span>Audience: tenant operators (master/director — design files, custom widgets and settings snapshots are limited to these two ranks) · Ch. 6 is for platform administrators</span></div>
+  <p class="lead">Each chapter runs <strong>glossary → procedure → 💡 tips</strong>. Every screen is on the <strong>Tenant Settings &gt; Widget settings</strong> tab (Ch. 6 only: platform admin console).</p>
+</header>
+
+<nav class="toc" aria-label="Contents">
+  <div class="toc-label">Contents</div>
+  <a href="#ch0"><span class="n">0</span>Basic widget vs custom widget</a>
+  <a href="#ch1"><span class="n">1</span>Prepare</a>
+  <a href="#ch2"><span class="n">2</span>Build</a>
+  <a href="#ch3"><span class="n">3</span>Check &amp; apply</a>
+  <a href="#ch4"><span class="n">4</span>Operate</a>
+  <a href="#ch5"><span class="n">5</span>Extend</a>
+  <a href="#ch6"><span class="n">6</span>Platform admin</a>
+  <a href="#ch7"><span class="n">7</span>Operations checklist</a>
+  <a href="#ch8"><span class="n">8</span>FAQ / troubleshooting</a>
+</nav>
+
+<main>
+
+<section id="ch0">
+  <div class="ch"><span class="num">00</span><h2>Basic widget vs custom widget</h2></div>
+  <p>The look of the chat widget on your storefront is decided in <strong>two layers</strong>.</p>
+  <pre><code>Widget theme card (basic widget)            ── always applied
+  brand colour · header style · logo · launcher position/size/icon
+        │
+        ▼  a custom widget that is [Use]d is layered on top
+Custom widget (design library)              ── applied only while in use
+  font · text size · corners · panel size · icon file · (add-on) sanitized CSS</code></pre>
+  <div class="tablewrap"><table>
+    <tr><th>Term</th><th>Meaning</th></tr>
+    <tr><td>Basic widget</td><td>The widget drawn from the widget theme card alone. When no custom widget is in use, this is what shoppers see</td></tr>
+    <tr><td>Custom widget</td><td>A named, saved <strong>design set</strong> (font, size, corners, panel, icon, CSS). Keep several and switch exactly one on with [Use]</td></tr>
+    <tr><td>Library</td><td>The list in the Custom widgets card, with In use / Archived states and the row actions (Preview · Edit · Duplicate · Export · History · Archive · Delete)</td></tr>
+    <tr><td>Design files</td><td>Fonts, icons, images and design docs a custom widget points at. Kept in this tenant's own folder, untouched by deployments</td></tr>
+    <tr><td>Use</td><td>The button that puts one library design in front of shoppers. It goes live <strong>immediately, with no deployment</strong></td></tr>
+  </table></div>
+  <p><strong>When you need a custom widget</strong></p>
+  <ul>
+    <li>You want your brand font in the widget too (the theme card only changes colours)</li>
+    <li>You prepare a different look per season or campaign and swap it in on the day</li>
+    <li>You want a bigger or smaller desktop panel, or rounder corners</li>
+    <li>You want your own artwork on the launcher button</li>
+  </ul>
+  <p>If colours, logo and launcher position are all you need, the <strong>widget theme card</strong> alone is enough.</p>
+  <div class="callout"><span class="c-label">💡 Tip</span>
+    <p>A custom widget <strong>overlays</strong> the theme card, it does not replace it. To change the brand colour, edit the theme card, not the custom widget — whichever design is in use picks it up immediately.</p></div>
+</section>
+
+<section id="ch1">
+  <div class="ch"><span class="num">01</span><h2>Prepare — design files</h2></div>
+  <p>To use an <strong>uploaded font</strong> or an <strong>icon file</strong> in a custom widget, upload it to the Design files card first. If preset fonts and the theme card's launcher icon are enough, skip this chapter.</p>
+  <figure class="shot"><img src="img/cw-design-files.en.jpg" alt="Design files card — kind tabs, usage bar, Add files" loading="lazy"><figcaption>Design files card — kind tabs, usage bar, Add files</figcaption></figure>
+  <h3>1.1 Rules per kind</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Kind</th><th>Formats</th><th>Limits</th><th>Visibility</th><th>Used by</th></tr>
+    <tr><td>Fonts</td><td>woff2 · ttf · otf</td><td>2MB</td><td>public (the widget downloads it directly)</td><td>the editor's "Uploaded font"</td></tr>
+    <tr><td>Icons</td><td>png · webp</td><td>256KB · 512×512px</td><td>public</td><td>the editor's "Icon file" (launcher button)</td></tr>
+    <tr><td>Images</td><td>png · jpg · webp</td><td>2MB · 2000px</td><td>public</td><td>sharing mock-ups, Copy URL (the widget does not use them by itself)</td></tr>
+    <tr><td>Design docs</td><td>pdf · png · jpg</td><td>10MB</td><td>private (signed URL)</td><td>storing mock-ups and brand guides</td></tr>
+  </table></div>
+  <ul>
+    <li>The whole design area is capped at <strong>50MB</strong> (usage bar at the top right of the card). When it is full, uploads are refused (E5084).</li>
+    <li><strong>svg, css and js are not accepted.</strong> Files are checked by content, so renaming the extension does not get through (E5081).</li>
+    <li>Icons and images are re-encoded on the server. Anything over the pixel limit is refused (E5083).</li>
+  </ul>
+  <h3>1.2 Upload procedure</h3>
+  <ol class="steps">
+    <li>Settings &gt; Widget settings &gt; <strong>Design files</strong> card: pick the kind tab (Fonts / Icons / Images / Design docs).</li>
+    <li><strong>[Add files]</strong> → choose the file. The list shows the file name as its label.</li>
+    <li>A new row means it is done. To replace a file, upload the new one, select it in the editor, then delete the old one (uploading the same name adds a new row rather than overwriting).</li>
+    <li>Public files have <strong>[Copy URL]</strong> (for using the same font elsewhere on your site). Design docs only offer [Download].</li>
+  </ol>
+  <div class="callout warn"><span class="c-label">⚠️ Font licence</span>
+    <p>serving an uploaded font to shoppers' browsers is the tenant's responsibility. Upload only fonts licensed for web embedding.</p></div>
+  <div class="callout"><span class="c-label">💡 Tip</span>
+    <p><strong>woff2</strong> is the smallest and fastest. ttf/otf work but easily hit the 2MB cap and slow the first load. For CJK fonts, use a subset woff2.</p></div>
+</section>
+
+<section id="ch2">
+  <div class="ch"><span class="num">02</span><h2>Build — the custom widget editor</h2></div>
+  <figure class="shot"><img src="img/cw-editor.en.jpg" alt="Create custom widget — fields and the quick preview" loading="lazy"><figcaption>Create custom widget — fields and the quick preview</figcaption></figure>
+  <p>Settings &gt; Widget settings &gt; <strong>Custom widgets</strong> card → <strong>[Create custom widget]</strong>.</p>
+  <h3>2.1 Fields</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Field</th><th>Values</th><th>Notes</th></tr>
+    <tr><td>Name</td><td>up to 64 characters, unique within the tenant</td><td>Shown in the library. A duplicate name is refused (E5087)</td></tr>
+    <tr><td>Font</td><td>Pretendard (default) · Noto Sans KR · Inter · System font · Uploaded font</td><td>Noto Sans KR and Inter load from Google Fonts. Choosing "Uploaded font" reveals a <strong>Font file</strong> selector (Ch. 1)</td></tr>
+    <tr><td>Base size</td><td>13–16px (default 14)</td><td>Scales text <strong>and spacing together</strong>, like zooming the whole widget</td></tr>
+    <tr><td>Corners</td><td>Small 8px · Medium 12px · Large 16px</td><td>Panel corner radius; bubbles and buttons follow proportionally</td></tr>
+    <tr><td>Panel size</td><td>width 360–480 · height 480–720 (default 404×600)</td><td><strong>Desktop only.</strong> Mobile and app mode fill the screen</td></tr>
+    <tr><td>Icon file</td><td>the theme card's launcher icon (default) · an uploaded icon</td><td>Artwork on the round launcher button. An uploaded icon overrides the theme card's icon choice</td></tr>
+    <tr><td>Custom CSS (add-on)</td><td>sanitized CSS</td><td>Visible only for tenants whose platform admin enabled the add-on (Ch. 5)</td></tr>
+    <tr><td>Note</td><td>free text</td><td>Operational notes such as "Spring 2026, owner ○○". Never shown to shoppers</td></tr>
+  </table></div>
+  <p>The <strong>quick preview</strong> on the right shows font, size and corners roughly. Check the real widget with <strong>[Preview]</strong> after saving (Ch. 3).</p>
+  <h3>2.2 Two ways to save</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Button</th><th>Result</th></tr>
+    <tr><td><strong>[Save to library]</strong></td><td>Only stores the design. Shoppers' widget is unchanged. Use it when you want to preview first</td></tr>
+    <tr><td><strong>[Save and use]</strong></td><td>Stores the design and puts it live at once. Whatever was in use is switched off automatically</td></tr>
+  </table></div>
+  <div class="callout"><span class="c-label">💡 Tip</span>
+    <p>For a first design go <strong>[Save to library] → [Preview] → [Use]</strong>. The editor's quick preview does not reflect brand colour, logo or tab layout, so only the real widget shows the whole impression.</p></div>
+  <div class="callout"><span class="c-label">💡 Tip</span>
+    <p>Raising the base size to 16px makes the panel feel cramped. Widen the panel together with it (e.g. 15px + 440×640).</p></div>
+</section>
+
+<section id="ch3">
+  <div class="ch"><span class="num">03</span><h2>Check &amp; apply — Preview → Use</h2></div>
+  <figure class="shot"><img src="img/cw-library.en.jpg" alt="Custom widgets library — current state and row actions" loading="lazy"><figcaption>Custom widgets library — current state and row actions</figcaption></figure>
+  <h3>3.1 Real widget preview</h3>
+  <p><strong>[Preview]</strong> on a row opens the <strong>real widget</strong> with that design on top of a demo store page.</p>
+  <ul>
+    <li>It loads with a <strong>10-minute preview token</strong>. Shoppers are unaffected; when the token expires, press [Preview] again.</li>
+    <li>Preview needs a <strong>store domain</strong> (Settings &gt; Basic settings &gt; Storefront). Without one you get a notice instead.</li>
+    <li>Sending chat messages inside the preview creates real demo sessions — use it for checking copy only.</li>
+  </ul>
+  <figure class="shot"><img src="img/cw-preview.en.jpg" alt="Real widget preview modal" loading="lazy"><figcaption>Real widget preview modal</figcaption></figure>
+  <h3>3.2 Use · Back to basic widget</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Action</th><th>Result</th></tr>
+    <tr><td><strong>[Use]</strong> on a row</td><td>That design goes live. The "Current:" line at the top of the card reads <strong>Custom "name" in use</strong> and the row gets an <strong>In use</strong> badge</td></tr>
+    <tr><td><strong>[Back to basic widget]</strong></td><td>Switches the custom design off. Shoppers see the basic widget drawn from the theme card alone. The design stays in the library</td></tr>
+  </table></div>
+  <p>Applying is <strong>immediate, with no deployment</strong>. The server rewrites the tenant's "live file" and shoppers' widgets read it on their next load.</p>
+  <ul>
+    <li>A shopper opening a new page: new design right away</li>
+    <li>A shopper who already has the widget open: new design after a page refresh</li>
+    <li>The widget paints its cached theme first and then refreshes from the live file, so the old look may flash very briefly</li>
+  </ul>
+  <h3>3.3 Editing the design in use</h3>
+  <p>[Edit] on a design with the <strong>In use</strong> badge warns on save: <em>"This design is in use — saving applies it to shoppers immediately."</em></p>
+  <div class="callout warn"><span class="c-label">⚠️ Recommended</span>
+    <p>do not edit the live design directly. Go <strong>[Duplicate] → edit the copy → [Preview] → [Use]</strong>. If anything goes wrong the previous design is still in the library and one click brings it back. If you must patch it in place, do so, and use <strong>[History]</strong> to restore a previous version if needed (§4.1).</p></div>
+</section>
+
+<section id="ch4">
+  <div class="ch"><span class="num">04</span><h2>Operate — undo &amp; transfer</h2></div>
+  <p>There are three ways to "undo" a design, each with a different scope.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Tool</th><th>Scope</th><th>Unit of undo</th><th>Move to another tenant or environment</th></tr>
+    <tr><td><strong>History</strong> (4.1)</td><td>one design</td><td>a save (revision)</td><td>no</td></tr>
+    <tr><td><strong>Package</strong> (4.3)</td><td>one design + bundled fonts/icons</td><td>a file</td><td><strong>yes</strong> (JSON export → import)</td></tr>
+    <tr><td><strong>Settings snapshot</strong> (4.4)</td><td>12 settings fields (theme, copy, tabs…) + the whole custom widget library</td><td>a snapshot</td><td>download only; restore works within the same tenant</td></tr>
+  </table></div>
+  <h3>4.1 History</h3>
+  <figure class="shot"><img src="img/cw-history.en.jpg" alt="History modal — revisions and restore" loading="lazy"><figcaption>History modal — revisions and restore</figcaption></figure>
+  <ul>
+    <li>Every save keeps the <strong>state just before the save</strong> as a revision (#1, #2 …). Saves that only change the name or note do not create a revision.</li>
+    <li><strong>[History]</strong> on a row → <strong>[Restore this version]</strong>. Restoring records the current state as a revision too, so a restore can itself be undone.</li>
+    <li>Restoring the design in use applies to shoppers immediately (same warning as §3.3).</li>
+    <li>The list shows the latest 50. Deleting a design deletes its history with it.</li>
+  </ul>
+  <h3>4.2 Duplicate · Archive · Delete</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Action</th><th>Rule</th></tr>
+    <tr><td>Duplicate</td><td>Creates a copy named "(copy)", "(copy 2)". The starting point for seasonal variants</td></tr>
+    <tr><td>Archive</td><td>Hides the design from the list. <strong>The design in use cannot be archived</strong> (E5086) — [Use] another design or [Back to basic widget] first. Tick <strong>Show archived</strong> at the top right of the card to see archived rows and [Restore] them</td></tr>
+    <tr><td>Delete</td><td>Irreversible. Refused while in use (E5086). History is deleted too</td></tr>
+  </table></div>
+  <h3>4.3 Package export · import</h3>
+  <ul>
+    <li><strong>[Export]</strong> on a row downloads a <code>sharptalk-widget-design</code> JSON file. The <strong>uploaded fonts and icons the design references are bundled</strong>, so one file is self-contained.</li>
+    <li><strong>[Import package]</strong> at the top right of the card → choose a JSON file (up to 12MB). Bundled fonts and icons go through the same content checks as an upload and are registered as design files again; a clashing name gets "(2)". Imported designs land <strong>in the library only</strong> — press [Use] yourself.</li>
+    <li>Uses: moving a design to another tenant (operators with several brands) or another environment, exchanging files with an outside designer.</li>
+  </ul>
+  <h3>4.4 Settings snapshots (Settings &gt; Other settings)</h3>
+  <figure class="shot"><img src="img/cw-snapshot-diff.en.jpg" alt="Restore a settings snapshot — current vs snapshot" loading="lazy"><figcaption>Restore a settings snapshot — current vs snapshot</figcaption></figure>
+  <ul>
+    <li>Settings &gt; <strong>Other settings</strong> &gt; <strong>Settings snapshots</strong> card → type a label (e.g. "before launch") → <strong>[Save snapshot]</strong>.</li>
+    <li>What is saved: widget theme, copy, tabs, tab position, login mode, notification channels, embed origins, knowledge options, timezone, storefront, privacy notice + <strong>the whole custom widget library</strong> (names, states, designs, which one is in use). Integration credentials and embed secrets are <strong>never included</strong>.</li>
+    <li><strong>[Restore…]</strong> shows current and snapshot values side by side, highlighting the rows that will change. The last line "Custom widgets: create n · update n · in use after restore: name" previews what happens to the library. [Restore] is written to the audit log.</li>
+    <li>Taking a snapshot before any big change (season switch, bulk copy edits) is the cheapest insurance there is.</li>
+  </ul>
+  <div class="callout"><span class="c-label">💡 Tip</span>
+    <p>History = "this design, a moment ago"; package = "this design, somewhere else"; snapshot = "all widget-related settings, back to then". Decide which of the three you need first and you will not get lost.</p></div>
+</section>
+
+<section id="ch5">
+  <div class="ch"><span class="num">05</span><h2>Extend — sanitized CSS (add-on)</h2></div>
+  <p>The <strong>Custom CSS (add-on)</strong> box at the bottom of the editor appears <strong>only when the platform administrator has switched on "Allow custom widget CSS" for this tenant</strong> (Ch. 6). If you do not see it, ask your administrator for the add-on.</p>
+  <figure class="shot"><img src="img/cw-css.en.jpg" alt="CSS box and check result" loading="lazy"><figcaption>CSS box and check result</figcaption></figure>
+  <h3>5.1 What you can change</h3>
+  <p>The widget exposes 13 <strong>stable classes</strong> — hook points whose names never change. On these you may set <strong>colours, fonts, spacing, borders and shadows</strong> only.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Class</th><th>Hook point</th></tr>
+    <tr><td><code>.st-panel</code></td><td>the whole panel</td></tr>
+    <tr><td><code>.st-header</code> / <code>.st-header-title</code></td><td>header / header title text</td></tr>
+    <tr><td><code>.st-tabs</code> / <code>.st-tab</code></td><td>tab bar / one tab</td></tr>
+    <tr><td><code>.st-message</code> / <code>.st-message-user</code> / <code>.st-message-bot</code></td><td>any bubble / shopper / AI or agent</td></tr>
+    <tr><td><code>.st-composer</code> / <code>.st-input</code> / <code>.st-send</code></td><td>composer area / input / send button</td></tr>
+    <tr><td><code>.st-launcher</code></td><td>launcher button</td></tr>
+    <tr><td><code>.st-quick-reply</code></td><td>quick-reply (scenario) button</td></tr>
+  </table></div>
+  <p><strong>Allowed</strong></p>
+  <ul>
+    <li>Selectors: <code>.st-*</code> classes and their combinations (<code>.st-panel .st-tab</code>, <code>.st-a &gt; .st-b</code>), optionally ending in <code>:hover</code> <code>:focus</code> <code>:active</code> <code>:first-child</code> <code>:last-child</code> <code>:disabled</code></li>
+    <li>Properties: <code>color</code> <code>background(-color)</code> <code>border*</code> <code>border-radius*</code> <code>font-family/size/weight/style</code> <code>line-height</code> <code>letter-spacing</code> <code>text-*</code> <code>padding*</code> <code>margin*</code> <code>gap</code> <code>box-shadow</code> <code>outline*</code> <code>width/height</code> (incl. min/max)</li>
+    <li>Values: colour values, <code>rgb()/rgba()/hsl()/hsla()</code>, widget variables <code>var(--ivy-…)</code>, numbers, units, keywords</li>
+    <li>Size cap 32KB</li>
+  </ul>
+  <p><strong>Removed (filtered automatically on save, with the reason shown)</strong></p>
+  <ul>
+    <li>Positioning, hiding, stacking: <code>display</code> <code>visibility</code> <code>opacity</code> <code>position</code> <code>transform</code> <code>z-index</code> <code>content</code></li>
+    <li>External resources: <code>url()</code> <code>@import</code> <code>@font-face</code> <code>@media</code> and every other <code>@</code> rule</li>
+    <li>Selectors outside <code>.st-</code> (<code>body</code>, <code>#id</code>, attribute selectors), nested blocks, rules inside comments</li>
+  </ul>
+  <h3>5.2 Procedure and [Check]</h3>
+  <ol class="steps">
+    <li>Type rules into the <strong>Custom CSS (add-on)</strong> box in the editor.</li>
+    <li><strong>[Check]</strong> → "n rules will be kept" plus <strong>the reason for every removed item</strong>. Refine until nothing is reported.</li>
+    <li>Saving stores <strong>only the rules that passed</strong> (the sanitized text, not your original).</li>
+    <li>Verify on the real widget with [Preview] → [Use].</li>
+  </ol>
+  <p>Example</p>
+  <pre><code>.st-header { background-color: #111; color: #fff; }
+.st-header-title { letter-spacing: 0.02em; }
+.st-send { background-color: var(--ivy-primary-700); border-radius: 999px; }
+.st-message-bot { border: 1px solid #e5e7eb; box-shadow: 0 1px 2px rgba(0,0,0,.06); }</code></pre>
+  <div class="callout warn"><span class="c-label">⚠️</span>
+    <p>The header title colour does not change through <code>.st-header { color }</code> (the title carries its own colour). Set it on <strong><code>.st-header-title</code></strong>.</p></div>
+  <div class="callout"><span class="c-label">💡 Tip</span>
+    <p>Low-contrast pairs (pale text on a pale background) are not caught by the check. Unlike the theme card's brand colour, CSS is not corrected for the 4.5:1 accessibility contrast — verify it yourself.</p></div>
+</section>
+
+<section id="ch6">
+  <div class="ch"><span class="num">06</span><h2>Platform admin — add-on &amp; storage</h2></div>
+  <figure class="shot"><img src="img/cw-admin-addon.en.jpg" alt="Plan / Add-ons modal — Allow custom widget CSS" loading="lazy"><figcaption>Plan / Add-ons modal — Allow custom widget CSS</figcaption></figure>
+  <ul>
+    <li>Admin console &gt; Tenants &gt; <strong>[Plan/Add-ons]</strong> on the row → tick <strong>Allow custom widget CSS</strong> → [Save]. The change is audited.</li>
+    <li>Switching it off: the CSS box disappears from the tenant's editor and <strong>stored CSS is no longer delivered to shoppers</strong> (the rest of the design — font, size, etc. — stays). Switching it back on revives the stored CSS as it was.</li>
+    <li>The <strong>Files</strong> column in the tenant list is the space the tenant's folder takes (design files and settings snapshots). Use it to spot tenants close to the 50MB design cap.</li>
+  </ul>
+</section>
+
+<section id="ch7">
+  <div class="ch"><span class="num">07</span><h2>Operations checklist</h2></div>
+  <p><strong>Seasonal design switch (recommended order)</strong></p>
+  <ul class="check">
+    <li>Settings &gt; Other settings: <strong>save a snapshot</strong> ("before ○○ season")</li>
+    <li>Upload the fonts and icons you need to <strong>Design files</strong> (rules in §1.1)</li>
+    <li><strong>[Duplicate]</strong> the design in use → edit the copy → <strong>[Save to library]</strong></li>
+    <li><strong>[Preview]</strong> on desktop; check the real site on mobile as well</li>
+    <li><strong>[Use]</strong> → refresh the storefront and confirm</li>
+    <li>Season over: <strong>[Use]</strong> the previous design or <strong>[Back to basic widget]</strong>, then <strong>[Archive]</strong> the finished one</li>
+  </ul>
+  <p><strong>Which undo to reach for</strong></p>
+  <ul>
+    <li>What I just saved looks wrong → <strong>[History]</strong> → restore the previous revision</li>
+    <li>Same design in another tenant or environment → <strong>[Export]</strong> → <strong>[Import package]</strong></li>
+    <li>Copy, tabs and theme all back to how they were → Settings &gt; Other settings <strong>[Restore…]</strong></li>
+  </ul>
+</section>
+
+<section id="ch8">
+  <div class="ch"><span class="num">08</span><h2>FAQ / troubleshooting</h2></div>
+  <dl class="faq">
+    <dt>Q. I pressed [Use] but the widget on my site looks the same.</dt>
+    <dd>Refresh the page. The widget paints its cached theme first and then refreshes from the live file. If it still looks the same, check that "Current:" at the top of the library names that design, and that the domain the widget is installed on matches the store domain in Settings &gt; Basic settings.</dd>
+    <dt>Q. My uploaded font does not show in the widget.</dt>
+    <dd>In the editor, make sure Font is "Uploaded font" and that the file is selected under <strong>Font file</strong>. If the file was uploaded as "private" (Design docs), the widget cannot fetch it — upload it again under <strong>Fonts</strong>.</dd>
+    <dt>Q. [Preview] says "Set the store domain first".</dt>
+    <dd>Save a store domain under Settings &gt; Basic settings &gt; Storefront and try again. Preview imitates a widget session for that domain.</dd>
+    <dt>Q. There is no Custom CSS box in the editor.</dt>
+    <dd>It appears only after the platform administrator switches on "Allow custom widget CSS" for this tenant (Ch. 6). Designs saved before that have no CSS, so edit them after it is on.</dd>
+    <dt>Q. Add files refuses with "This file does not match the kind".</dt>
+    <dd>The <strong>content</strong> is checked, not the extension. An svg renamed to png, or a ttf saved as .woff2, will be caught. Convert to the real format and upload again.</dd>
+    <dt>Q. The panel size does not change on mobile.</dt>
+    <dd>That is by design. Panel width and height apply <strong>on desktop only</strong>; mobile and app mode fill the screen. Font, corners and icon do apply on mobile.</dd>
+    <dt>Q. Archive is refused with "This design is in use".</dt>
+    <dd>[Use] another design or [Back to basic widget] first, then archive. The design in use can be neither archived nor deleted.</dd>
+    <dt>Q. History does not show the rename I just made.</dt>
+    <dd>History records only saves that change the <strong>design</strong> (font, size, corners, panel, icon, CSS). Name and note changes create no revision and are not restored.</dd>
+  </dl>
+</section>
+
+<div class="next">
+  <strong>See also →</strong> <a href="user-manual.en.html">Complete User Manual</a> Ch. 14 (tenant settings) · Ch. 16 (platform admin), <a href="quick-setup.en.html">Quick Setup Manual</a> Ch. 5 (widget install · theme).
+</div>
+
+</main>
+</div>
+
+</body>
+</html>
