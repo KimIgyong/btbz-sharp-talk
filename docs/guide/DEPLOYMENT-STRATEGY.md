@@ -27,6 +27,12 @@
 | TLS | — | host nginx + Let's Encrypt → docker nginx `:8080` | TBD |
 | Compose | `docker/docker-compose.dev.yml` | `docker/staging/docker-compose.staging.yml` | `docker/production/docker-compose.production.yml` |
 
+**Country deployments (2026-09-13, PLN-260913)** — one deployment (staging + production) per country, built on the
+self-hosted stack (`docker/self-hosted/`), aliased `SharpTalk-{CC | CC-Customer}`; the code is always `main`
+(**SharpTalk-Basic**). Profiles live in `deploy/profiles/<alias>/`. Guides:
+[Basic setup](GUIDE-260913-SharpTalk-Basic-Setup.md) · [Locale customization](GUIDE-260913-Locale-Customization.md) ·
+[SharpTalk-VN-Go2Joy](GUIDE-260913-SharpTalk-VN-Go2Joy-Staging.md) · [SharpTalk-USA-IVY](GUIDE-260913-SharpTalk-USA-IVY-Staging.md).
+
 ---
 
 ## 2. Branch → environment model (브랜치 전략)

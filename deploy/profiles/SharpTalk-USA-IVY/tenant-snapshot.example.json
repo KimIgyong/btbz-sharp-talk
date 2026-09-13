@@ -1,0 +1,31 @@
+{
+  "format": "sharptalk-tenant-settings/1",
+  "note": "EXAMPLE — download the real one from Settings > Other > Settings snapshots in the source environment; restore is same-tenant only, so use this as the field list to enter manually.",
+  "fields": {
+    "timezone": "America/New_York",
+    "storefrontUrl": "https://<shop>.myshopify.com",
+    "privacyPolicyUrl": "https://<shop>/policies/privacy-policy",
+    "consentNoticeVersion": "2026-09-us",
+    "widgetLoginMode": "redirect",
+    "widgetTabPosition": "top",
+    "widgetTabs": [
+      "chat",
+      "orders",
+      "notifications"
+    ],
+    "notificationChannels": {},
+    "embedOrigins": [
+      "https://<shop>.myshopify.com"
+    ],
+    "usageGuidesEnabled": true,
+    "widgetCopy": {
+      "displayName": {
+        "en": "IVY Support"
+      }
+    },
+    "widgetTheme": {
+      "brand": "#2B7FFF"
+    }
+  },
+  "designs": []
+}

@@ -45,6 +45,21 @@ services:
     expose:
       - '80'
 
+  # Customer widget (Vite SPA built with base /widget/). Added 2026-09-13
+  # (PLN-260913): production previously shipped without it, so a storefront
+  # embed against a production host had nothing to load.
+  widget:
+    build:
+      context: ../..
+      dockerfile: docker/production/Dockerfile.widget
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+        VITE_BASE: /widget/
+    container_name: sharptalk_widget_production
+    restart: always
+    expose:
+      - '80'
+
   mysql:
     image: mysql:8.0
     container_name: sharptalk_mysql_production
@@ -102,6 +117,7 @@ services:
     depends_on:
       - api
       - web
+      - widget
     ports:
       - '80:80'
 
