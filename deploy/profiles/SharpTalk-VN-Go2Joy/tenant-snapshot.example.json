@@ -1,0 +1,31 @@
+{
+  "format": "sharptalk-tenant-settings/1",
+  "note": "EXAMPLE — download the real one from Settings > Other > Settings snapshots in the source environment; restore is same-tenant only, so use this as the field list to enter manually.",
+  "fields": {
+    "timezone": "Asia/Ho_Chi_Minh",
+    "storefrontUrl": "https://app.go2joy.vn",
+    "privacyPolicyUrl": "https://go2joy.vn/privacy",
+    "consentNoticeVersion": "2026-09-vn",
+    "widgetLoginMode": "redirect",
+    "widgetTabPosition": "top",
+    "widgetTabs": [
+      "chat",
+      "notifications"
+    ],
+    "notificationChannels": {},
+    "embedOrigins": [
+      "https://app.go2joy.vn"
+    ],
+    "usageGuidesEnabled": false,
+    "widgetCopy": {
+      "displayName": {
+        "vi": "Go2Joy Hỗ trợ",
+        "en": "Go2Joy Support"
+      }
+    },
+    "widgetTheme": {
+      "brand": "#2B7FFF"
+    }
+  },
+  "designs": []
+}

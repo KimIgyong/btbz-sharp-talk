@@ -20,6 +20,11 @@ docs/log/
 .env.local
 docker/staging/.env.staging
 docker/production/.env.production
+docker/self-hosted/.env.self-hosted
+docker/self-hosted/widget-config.js
+# deployment profiles: only *.example / templates are tracked (PLN-260913)
+deploy/profiles/*/.env.*
+!deploy/profiles/*/.env.*.example
 
 # logs
 *.log
