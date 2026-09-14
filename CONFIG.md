@@ -214,7 +214,11 @@ curl -s https://shoptalk.amoeba.site/api/v1/health   # {"status":"ok","db":"up"}
 
 ---
 
-## 7. Production (not yet deployed)
+## 7. Production (LIVE 2026-09-14 — second stack on the staging host)
+
+`https://sharptalk.amoeba.site` → host nginx (Let's Encrypt) → `127.0.0.1:8081` → `docker/self-hosted` stack in `/home/shoptalk/sharptalk-production` (containers `sharptalk_*`, MySQL loopback `3318`, `RESTART_POLICY=always`). Env: server-only `docker/self-hosted/.env.self-hosted` from profile `deploy/profiles/SharpTalk-KR-Production/`; secrets in `secrets/SharpTalk-KR-Production-server.md`. Deploy from branch `production`. The dedicated-host plan below stays valid for when a host is provisioned.
+
+### 7.1 Original bring-up notes (dedicated host)
 
 Docker templates exist (`docker/production/`: Dockerfiles api/web, compose, nginx,
 `deploy-production.sh`) but **production is not set up** — there is no

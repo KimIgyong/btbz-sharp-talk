@@ -12,7 +12,7 @@
 
 ## 0. 현재 상태
 
-프로덕션은 **아직 존재하지 않습니다.**
+프로덕션은 **2026-09-14 가동**(`https://sharptalk.amoeba.site`, 스테이징 호스트의 두 번째 스택 — self-hosted 스택 :8081, `~/sharptalk-production`, 브랜치 `production`). 아래 표는 착수 전 상태 기록이며, 남은 컷오버 항목은 §3(코드로 오지 않는 것)·`deploy/profiles/SharpTalk-KR-Production/CHECKLIST.md` P3.
 
 | 항목 | 상태 |
 |---|---|
