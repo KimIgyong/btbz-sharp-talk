@@ -1,0 +1,1627 @@
+﻿category,title,content,external_key,source_url
+policy_account,1.1 계정 생성,"계정은 웹사이트 또는 앱의 회원가입 메뉴에서 이메일 주소와 비밀번호로 생성함.
+
+가입 시 필요한 정보:
+  - 이메일 주소
+  - 비밀번호
+  - 이름 (선택 항목은 매장 설정에 따름)
+
+가입 후 인증 이메일이 발송될 수 있으며, 인증을 완료해야 일부 기능을 사용할 수 있음.
+
+기본 답변:
+""회원가입 페이지에서 이메일 주소와 비밀번호를 입력하시면 계정이 생성됩니다. 인증 메일이 도착하면 링크를 눌러 인증을 완료해 주세요.""",,
+policy_account,1.1 Creating an Account,"Customers create an account from the Sign Up / Create Account page on the website or app using an email address and password.
+
+Information required at sign-up:
+- Email address
+- Password
+- Name (optional fields depend on store settings)
+
+A verification email may be sent after sign-up. Some features are available only after the email is verified.
+
+Default AI response:
+""You can create an account on the Sign Up page with your email address and a password. If you receive a verification email, click the link to complete verification.""",,
+policy_account,1.2 로그인 문제 및 비밀번호 재설정,"로그인이 되지 않는 경우 다음을 순서대로 확인하도록 안내함.
+
+1.  이메일 주소 오타 여부
+2.  비밀번호 대소문자 및 공백
+3.  로그인 페이지의 ""비밀번호 찾기"" 이용
+4.  재설정 메일이 스팸함에 있는지 확인
+5.  재설정 링크는 일정 시간 후 만료되므로 다시 요청
+
+AI는 비밀번호를 직접 확인하거나 변경할 수 없음.
+
+기본 답변:
+""로그인 페이지의 '비밀번호 찾기'를 누르시면 가입 이메일로 재설정 링크가 발송됩니다. 메일이 보이지 않으면 스팸함도 확인해 주세요.""",,
+policy_account,1.2 Login Issues and Password Reset,"If a customer cannot sign in, the AI should recommend checking, in order:
+
+1. The email address for typos
+2. Password capitalization and extra spaces
+3. Using ""Forgot password"" on the sign-in page
+4. The spam or junk folder for the reset email
+5. Requesting a new link if the previous one has expired
+
+The AI cannot view or change a customer's password.
+
+Default AI response:
+""Please click 'Forgot password' on the sign-in page and a reset link will be sent to your registered email. If you don't see it, check your spam folder.""",,
+policy_account,1.3 계정정보 변경,"이름, 이메일, 비밀번호, 배송지, 연락처는 로그인 후 계정 설정(My Account)에서 고객이 직접 변경함.
+
+  - 이메일 변경 시 새 이메일로 인증이 필요할 수 있음
+  - 이미 접수된 주문의 배송지는 계정 설정 변경으로 바뀌지 않음 (배송 정책 참고)
+
+AI는 고객을 대신하여 계정정보를 변경하지 않음.
+
+기본 답변:
+""로그인 후 계정 설정 메뉴에서 이름, 이메일, 비밀번호, 배송지를 직접 변경하실 수 있습니다.""",,
+policy_account,1.3 Updating Account Information,"Name, email, password, saved addresses, and phone number can be updated by the customer under My Account after signing in.
+
+- Changing the email address may require verification of the new address.
+- Updating a saved address does not change the address on an order that has already been placed (see the shipping policy).
+
+The AI does not change account information on the customer's behalf.
+
+Default AI response:
+""After signing in, you can update your name, email, password, and saved addresses under My Account.""",,
+policy_account,1.4 계정 보안,"비밀번호와 로그인 정보는 고객 본인이 관리해야 하며 타인과 공유하지 않도록 안내함.
+
+고객 계정에서 이루어진 주문, 포인트 사용, 리뷰 작성 등은 원칙적으로 해당 계정의 활동으로 간주함.
+
+권장 사항:
+  - 다른 사이트와 다른 고유한 비밀번호 사용
+  - 주기적인 비밀번호 변경
+  - 공용 기기에서 로그아웃
+
+기본 답변:
+""계정의 비밀번호와 로그인 정보는 다른 사람과 공유하지 마시고, 다른 사이트와 다른 비밀번호를 사용해 주세요.""",,
+policy_account,1.4 Account Security,"Customers are responsible for keeping their password and login details private.
+
+Orders, point redemptions, reviews, and other activity performed under an account are treated as activity of that account.
+
+Recommendations:
+- Use a unique password not used on other sites
+- Change the password periodically
+- Sign out on shared devices
+
+Default AI response:
+""Please do not share your password or login details with anyone, and use a password that is different from other sites.""",,
+policy_account,1.5 무단 접근 또는 보안 우려,"고객이 계정에 모르는 주문이나 로그인 기록이 있다고 알리는 경우:
+
+1.  즉시 비밀번호 변경 안내
+2.  결제수단 발급사에 연락 권고
+3.  Customer Support로 이관 (주문번호, 이메일, 발생 시점 확보)
+
+AI는 무단 사용 주문의 환불이나 취소를 약속하지 않음.
+
+기본 답변:
+""먼저 비밀번호를 바로 변경해 주세요. 모르는 주문이 있다면 주문번호와 함께 고객센터에 알려 주시면 확인해 드리겠습니다.""",,
+policy_account,1.5 Unauthorized Access or Security Concerns,"If a customer reports an order or login they do not recognize:
+
+1. Advise changing the password immediately
+2. Recommend contacting the card issuer or payment provider
+3. Escalate to Customer Support with the order number, account email, and when it happened
+
+The AI must not promise a refund or cancellation of an unrecognized order.
+
+Default AI response:
+""Please change your password right away. If there is an order you don't recognize, share the order number with Customer Support and we will look into it.""",,
+policy_account,1.6 계정 삭제 및 탈퇴,"계정 삭제는 계정 설정 메뉴 또는 Customer Support 요청으로 처리함.
+
+  - 삭제 시 주문내역, 포인트, 저장된 배송지 등이 복구되지 않음
+  - 진행 중인 주문, 반품, 환불이 있는 경우 완료 후 삭제 처리될 수 있음
+  - 법령상 보관 의무가 있는 거래 기록은 일정 기간 보관될 수 있음
+
+기본 답변:
+""계정 삭제를 원하시면 계정 설정에서 신청하시거나 고객센터로 요청해 주세요. 삭제 후에는 주문내역과 포인트가 복구되지 않는 점 참고 부탁드립니다.""",,
+policy_account,1.6 Deleting an Account,"Account deletion is handled from the account settings menu or by request to Customer Support.
+
+- Order history, points, and saved addresses cannot be recovered after deletion.
+- If an order, return, or refund is still in progress, deletion may be completed after it is resolved.
+- Transaction records that must be retained by law may be kept for the required period.
+
+Default AI response:
+""To delete your account, use the option in account settings or contact Customer Support. Please note that order history and points cannot be restored after deletion.""",,
+policy_account,1.7 비회원 주문,"비회원(게스트) 주문이 허용되는 경우 이메일 주소와 배송정보만으로 주문 가능함.
+
+  - 주문 확인 및 배송 조회는 주문 확인 메일의 링크 또는 주문 조회 페이지(주문번호 + 이메일)로 가능
+  - 포인트 적립, 저장된 배송지, 주문 내역 통합 관리는 회원 계정에서만 제공
+  - 비회원 주문도 동일한 반품·환불 정책이 적용됨
+
+기본 답변:
+""비회원으로도 주문하실 수 있습니다. 주문 조회는 주문번호와 이메일로 가능하며, 포인트 적립은 회원 계정에서만 제공됩니다.""",,
+policy_account,1.7 Guest Checkout,"Where guest checkout is enabled, customers can order with only an email address and shipping details.
+
+- Order status and tracking are available through the link in the order confirmation email or the order lookup page (order number + email).
+- Points, saved addresses, and consolidated order history are available only with a registered account.
+- Guest orders are covered by the same return and refund policies.
+
+Default AI response:
+""You can check out as a guest. You can look up your order with the order number and email address; points are earned only with a registered account.""",,
+policy_order,2.1 주문 방법,"주문 절차:
+
+1.  상품 페이지에서 옵션(색상, 사이즈, 수량) 선택
+2.  장바구니 담기
+3.  장바구니에서 수량 확인 후 결제하기
+4.  배송지, 배송방법, 결제수단 입력
+5.  쿠폰 또는 포인트 적용
+6.  주문 내용 확인 후 결제 완료
+
+주문 완료 후 주문번호가 포함된 확인 메일이 발송됨.
+
+기본 답변:
+""원하시는 상품을 장바구니에 담고 결제하기를 누르신 뒤 배송지와 결제정보를 입력하시면 주문이 완료됩니다.""",,
+policy_order,2.1 How to Place an Order,"Ordering steps:
+
+1. Select options (color, size, quantity) on the product page
+2. Add to cart
+3. Review quantities in the cart and proceed to checkout
+4. Enter shipping address, shipping method, and payment method
+5. Apply a coupon code or points
+6. Review the order and complete payment
+
+An order confirmation email with the order number is sent after checkout.
+
+Default AI response:
+""Add the items you want to your cart, click Checkout, and enter your shipping and payment details to complete the order.""",,
+policy_order,2.2 주문번호 및 주문 확인,"주문번호는 주문 완료 화면과 주문 확인 메일에 표시되며, 회원은 계정의 주문내역에서 확인 가능함.
+
+주문 관련 문의 시 필요한 정보:
+  - 주문번호
+  - 주문 시 사용한 이메일
+
+AI는 주문번호와 이메일이 일치하는 경우에만 주문 정보를 안내함.
+
+기본 답변:
+""주문번호는 주문 확인 메일과 계정의 주문내역에서 확인하실 수 있습니다. 문의 시 주문번호와 주문에 사용한 이메일을 알려 주세요.""",,
+policy_order,2.2 Order Number and Order Confirmation,"The order number appears on the order confirmation screen and in the confirmation email. Registered customers can also find it under Order History in their account.
+
+Information needed for an order inquiry:
+- Order number
+- Email address used for the order
+
+The AI provides order details only when the order number and email match.
+
+Default AI response:
+""Your order number is in your confirmation email and under Order History in your account. Please share the order number and the email used for the order.""",,
+policy_order,2.3 주문 상태 안내,"일반적인 주문 상태:
+
+  - 주문 접수 (Pending / Confirmed): 결제 확인 전 또는 직후
+  - 처리 중 (Processing): 상품 준비 중, 취소 가능 여부는 취소 정책 참고
+  - 발송 완료 (Shipped): 운송장 번호 발급, 배송 조회 가능
+  - 배송 완료 (Delivered): 운송업체 배송 완료 스캔
+  - 취소 (Canceled) / 환불 (Refunded)
+
+기본 답변:
+""주문 상태는 계정의 주문내역 또는 주문 조회 페이지에서 확인하실 수 있습니다. 발송이 완료되면 운송장 번호가 메일로 안내됩니다.""",,
+policy_order,2.3 Order Status,"Common order statuses:
+
+- Pending / Confirmed: before or immediately after payment confirmation
+- Processing: items are being prepared; see the cancellation policy for whether cancellation is still possible
+- Shipped: tracking number issued, tracking available
+- Delivered: carrier has scanned the package as delivered
+- Canceled / Refunded
+
+Default AI response:
+""You can check your order status under Order History in your account or on the order lookup page. Once shipped, the tracking number is emailed to you.""",,
+policy_order,"2.4 재고, 품절 및 재입고","재고는 상품 페이지에 표시된 정보를 기준으로 안내함.
+
+  - 품절 상품은 재입고 알림 신청이 가능한 경우 신청 안내
+  - 재입고 일정은 확정된 정보가 없으면 안내하지 않음
+  - 결제 후 재고 부족이 확인되면 해당 상품은 취소 및 전액 환불 처리 후 고객에게 통보
+
+AI는 정확한 재입고 일자를 약속하지 않음.
+
+기본 답변:
+""현재 재고는 상품 페이지에서 확인하실 수 있습니다. 품절 상품은 재입고 알림을 신청해 주시면 입고 시 안내해 드립니다.""",,
+policy_order,"2.4 Stock, Sold-Out Items, and Restocks","Stock availability is based on what is shown on the product page.
+
+- If restock notifications are available, guide the customer to sign up.
+- Do not state a restock date unless one has been confirmed.
+- If an item is found to be out of stock after payment, that item is canceled, fully refunded, and the customer is notified.
+
+The AI must not promise a specific restock date.
+
+Default AI response:
+""Current availability is shown on the product page. For sold-out items, you can sign up for a restock notification and we'll email you when it's back.""",,
+policy_order,2.5 주문 확인 메일 미수신,"주문 확인 메일이 오지 않는 경우 확인 순서:
+
+1.  스팸함 또는 프로모션 탭 확인
+2.  주문 시 입력한 이메일 주소 오타 여부
+3.  결제 완료 여부 (카드 승인 내역)
+4.  회원의 경우 주문내역에서 주문 존재 여부 확인
+
+주문이 존재하는데 메일만 없는 경우 Customer Support에서 재발송 가능.
+주문이 없고 결제만 된 경우 결제 정책 4.5 참고.
+
+기본 답변:
+""먼저 스팸함을 확인해 주세요. 계정의 주문내역에 주문이 있다면 확인 메일을 다시 보내드릴 수 있으니 주문번호를 알려 주세요.""",,
+policy_order,2.5 Order Confirmation Email Not Received,"If the confirmation email has not arrived, check in order:
+
+1. Spam or Promotions folder
+2. Typos in the email address entered at checkout
+3. Whether payment was actually completed (card authorization)
+4. For registered customers, whether the order appears under Order History
+
+If the order exists but no email was received, Customer Support can resend it.
+If the customer was charged but no order exists, see payment policy 4.5.
+
+Default AI response:
+""Please check your spam folder first. If the order appears in your Order History, share the order number and we can resend the confirmation email.""",,
+policy_order,2.6 선물 주문 및 영수증,"- 배송지를 수령인 주소로 입력하면 선물 주문이 가능함
+  - 상품 가격이 포함된 영수증은 배송 상자에 동봉되지 않거나, 매장 설정에 따라 가격 없는 명세서만 동봉될 수 있음
+  - 선물 메시지 기능은 결제 페이지에 옵션이 있는 경우에만 제공
+  - 주문 영수증(Invoice)은 주문 확인 메일 또는 계정 주문내역에서 다운로드
+  - 선물 반품은 원주문 결제수단 또는 스토어 크레딧으로 환불 (반품 정책 참고)
+
+기본 답변:
+""배송지에 받으실 분의 주소를 입력하시면 선물로 보내실 수 있습니다. 영수증은 주문 확인 메일에서 확인하실 수 있습니다.""",,
+policy_order,2.6 Gift Orders and Receipts,"- Customers can send a gift by entering the recipient's address as the shipping address.
+- Depending on store settings, the package includes either no receipt or a packing slip without prices.
+- A gift message option is available only if offered at checkout.
+- Invoices can be downloaded from the order confirmation email or Order History.
+- Gift returns are refunded to the original payment method or as store credit (see the return policy).
+
+Default AI response:
+""To send a gift, enter the recipient's address as the shipping address. Your receipt is available in the order confirmation email.""",,
+policy_cancellation,3.1 취소 가능 여부,"취소 가능 여부는 주문 상태에 따라 결정됨.
+
+  - 주문 접수 ~ 처리 전: 고객이 직접 또는 Customer Support를 통해 취소 가능
+  - 처리 중 (상품 준비): 취소가 제한될 수 있으며 Customer Support 확인 필요
+  - 발송 완료: 취소 불가, 수령 후 반품 절차 이용
+
+주문 후 취소 가능 시간은 [취소 가능 시간, 예: 1시간] 이내를 기준으로 안내함.
+
+AI는 취소가 완료되었다고 확정하지 않고 접수 사실만 안내함.
+
+기본 답변:
+""주문이 처리되기 전이라면 취소가 가능합니다. 이미 발송된 주문은 취소가 어렵고, 수령 후 반품으로 진행하실 수 있습니다.""",,
+policy_cancellation,3.1 Whether a Cancellation Is Possible,"Whether an order can be canceled depends on its status.
+
+- Pending, before processing: the customer can cancel directly or through Customer Support
+- Processing (items being prepared): cancellation may be limited; Customer Support must confirm
+- Shipped: cannot be canceled; use the return process after delivery
+
+The cancellation window is [cancellation window, e.g., 1 hour] after the order is placed.
+
+The AI confirms only that a request has been received, not that the cancellation is complete.
+
+Default AI response:
+""If your order has not started processing yet, it can be canceled. Orders that have already shipped can't be canceled, but you can request a return after delivery.""",,
+policy_cancellation,3.2 취소 신청 방법,"취소 절차:
+
+1.  계정 로그인 후 주문내역에서 해당 주문 선택
+2.  ""주문 취소"" 버튼이 있으면 선택하여 취소
+3.  버튼이 없으면 Customer Support에 주문번호와 함께 취소 요청
+
+취소 완료 시 확인 메일 발송.
+
+기본 답변:
+""주문내역에서 '주문 취소' 버튼이 보이면 바로 취소하실 수 있습니다. 버튼이 없다면 주문번호를 알려 주시면 고객센터에서 확인해 드리겠습니다.""",,
+policy_cancellation,3.2 How to Request a Cancellation,"Cancellation steps:
+
+1. Sign in and select the order under Order History
+2. If a ""Cancel Order"" button is shown, use it to cancel
+3. If no button is shown, contact Customer Support with the order number
+
+A confirmation email is sent when the cancellation is complete.
+
+Default AI response:
+""If you see a 'Cancel Order' button in your Order History, you can cancel right away. If not, share your order number and Customer Support will check for you.""",,
+policy_cancellation,3.3 주문 내용 변경,"결제가 완료된 주문은 상품, 수량, 옵션, 결제수단을 변경할 수 없음.
+
+  - 변경이 필요한 경우 취소 가능 상태라면 취소 후 재주문
+  - 배송지 변경은 배송 정책 5.6 참고
+  - 쿠폰이나 포인트를 사후 적용하는 것은 불가
+
+기본 답변:
+""결제가 완료된 주문은 내용을 변경할 수 없습니다. 취소가 가능한 상태라면 취소 후 다시 주문해 주세요.""",,
+policy_cancellation,3.3 Modifying an Order,"Items, quantities, options, and payment method cannot be changed after checkout.
+
+- If a change is needed and the order is still cancelable, cancel and reorder.
+- For shipping address changes, see shipping policy 5.6.
+- Coupons or points cannot be applied after the order is placed.
+
+Default AI response:
+""Orders can't be modified after checkout. If your order is still cancelable, please cancel it and place a new order.""",,
+policy_cancellation,3.4 취소 주문 환불,"취소된 주문은 원결제수단으로 전액 환불됨.
+
+  - 카드 승인만 된 상태에서 취소되면 승인 취소로 처리되어 청구되지 않음
+  - 승인 취소 반영은 카드사에 따라 1~7 영업일 소요
+  - 사용한 포인트와 쿠폰은 취소 시 복원됨 (프로모션 기간이 종료된 쿠폰은 복원되지 않을 수 있음)
+
+기본 답변:
+""취소된 주문은 결제하신 수단으로 전액 환불됩니다. 카드사에 따라 반영까지 1~7 영업일이 걸릴 수 있습니다.""",,
+policy_cancellation,3.4 Refunds for Canceled Orders,"Canceled orders are refunded in full to the original payment method.
+
+- If only an authorization was placed, the cancellation voids it and no charge is made.
+- Voided authorizations drop off within 1–7 business days depending on the issuer.
+- Points and coupons used on the order are restored (coupons whose promotion has ended may not be restored).
+
+Default AI response:
+""Canceled orders are refunded in full to your original payment method. Depending on your bank, it can take 1–7 business days to appear.""",,
+policy_payment,4.1 사용 가능한 결제수단,"사용 가능한 결제수단은 결제 페이지에 표시된 것을 기준으로 안내함.
+
+일반적인 결제수단:
+  - 신용카드 / 체크카드 (Visa, Mastercard, American Express, Discover 등)
+  - 간편결제 (PayPal, Apple Pay, Google Pay, Shop Pay 등)
+  - 기프트카드 / 스토어 크레딧
+  - 분할결제 서비스 (제공되는 경우)
+
+현금, 계좌이체, 착불은 제공하지 않음.
+
+기본 답변:
+""주요 신용카드와 간편결제를 이용하실 수 있으며, 사용 가능한 결제수단은 결제 페이지에서 확인하실 수 있습니다.""",,
+policy_payment,4.1 Accepted Payment Methods,"Accepted payment methods are those displayed at checkout.
+
+Typical methods:
+- Credit / debit cards (Visa, Mastercard, American Express, Discover, etc.)
+- Digital wallets (PayPal, Apple Pay, Google Pay, Shop Pay, etc.)
+- Gift cards / store credit
+- Buy-now-pay-later services (where offered)
+
+Cash, bank transfer, and cash on delivery are not available.
+
+Default AI response:
+""We accept major credit cards and digital wallets. The full list of available payment methods is shown at checkout.""",,
+policy_payment,4.2 카드 승인과 청구,"주문 시 카드에 승인(보류)이 걸리며 실제 청구는 매장 설정에 따라 주문 시 또는 발송 시 이루어짐.
+
+  - 승인 금액은 고객 명세서에 ""보류 중(Pending)""으로 표시될 수 있음
+  - 주문이 취소되면 승인은 청구되지 않고 1~7 영업일 내 사라짐
+  - 결제 시도 실패 후 재시도한 경우 여러 건의 보류가 보일 수 있으나 실제 청구는 1건
+
+기본 답변:
+""주문 시 카드에 승인이 걸리며, 명세서에 보류 중으로 표시될 수 있습니다. 취소된 승인은 카드사에 따라 1~7 영업일 내에 사라집니다.""",,
+policy_payment,4.2 Card Authorization and Payment Capture,"An authorization (hold) is placed on the card when the order is submitted. Depending on store settings, the charge is captured at order time or when the order ships.
+
+- The authorization may appear as ""Pending"" on the customer's statement.
+- If the order is canceled, the authorization is not captured and drops off within 1–7 business days.
+- After a failed attempt and retry, several pending holds may appear, but only one is actually charged.
+
+Default AI response:
+""An authorization is placed on your card when you order and may show as pending. Canceled authorizations drop off within 1–7 business days depending on your bank.""",,
+policy_payment,4.3 결제 실패,"결제가 실패한 경우 다음을 확인하도록 안내함.
+
+  - 카드번호, 유효기간, CVV
+  - 청구주소가 카드사 등록 주소와 일치하는지
+  - 잔액 또는 한도
+  - 카드사의 온라인·해외 결제 제한
+  - 다른 카드 또는 간편결제 사용
+
+AI는 카드 거절 사유를 직접 확인할 수 없으며, 구체적 사유는 카드사에 문의하도록 안내함.
+
+기본 답변:
+""카드정보와 청구주소를 다시 확인해 주시고, 계속 실패하면 카드사에 문의하시거나 다른 결제수단을 이용해 주세요.""",,
+policy_payment,4.3 Payment Declined,"If payment is declined, the AI may recommend checking:
+
+- Card number, expiration date, and CVV
+- Billing address matches the address on file with the card issuer
+- Available balance or credit limit
+- Online or international purchase restrictions set by the issuer
+- Trying another card or a digital wallet
+
+The AI cannot see the reason for a decline; the specific reason is available only from the card issuer.
+
+Default AI response:
+""Please double-check your card details and billing address. If it keeps failing, contact your card issuer or try a different payment method.""",,
+policy_payment,4.4 중복 결제,"동일 주문에 대해 두 번 청구된 것으로 보이는 경우:
+
+1.  하나가 보류(승인)이고 하나만 실제 청구인지 확인 → 보류는 자동 소멸
+2.  주문내역에 실제로 주문이 2건 생성되었는지 확인
+3.  실제 중복 주문이면 취소 정책에 따라 하나를 취소 및 환불
+
+AI는 명세서를 볼 수 없으므로 주문번호 확인 후 Customer Support로 이관함.
+
+기본 답변:
+""결제 재시도 시 보류 금액이 중복으로 보일 수 있으며, 실제 청구는 1건입니다. 주문내역에 주문이 2건 있다면 주문번호를 알려 주시면 확인해 드리겠습니다.""",,
+policy_payment,4.4 Duplicate Charge,"If a customer believes the same order was charged twice:
+
+1. Check whether one is a pending authorization and only one is an actual charge — pending holds drop off automatically
+2. Check whether two orders actually exist in Order History
+3. If two orders were created, cancel and refund one under the cancellation policy
+
+The AI cannot see the customer's statement; collect the order number(s) and escalate to Customer Support.
+
+Default AI response:
+""After a retried payment, a pending hold can look like a second charge, but only one is captured. If you see two orders in your Order History, share both order numbers and we'll check.""",,
+policy_payment,4.5 결제되었으나 주문이 생성되지 않은 경우,"결제 승인 후 주문이 생성되지 않은 경우 실제 청구가 아닌 승인 보류일 가능성이 높음.
+
+  - 주문 확인 메일과 주문내역에 주문이 없으면 주문은 생성되지 않은 것
+  - 보류 금액은 카드사에 따라 1~7 영업일 내 자동 해제
+  - 7 영업일 이후에도 청구가 남아 있으면 결제일, 금액, 카드 뒷 4자리를 확보하여 Customer Support 이관
+
+AI는 환불 완료 시점을 확정하지 않음.
+
+기본 답변:
+""주문이 생성되지 않았다면 결제는 승인 보류 상태이며 카드사에 따라 1~7 영업일 내 자동으로 해제됩니다. 그 이후에도 남아 있으면 고객센터로 알려 주세요.""",,
+policy_payment,4.5 Charged but No Order Was Created,"If a card was authorized but no order was created, the amount is most likely a pending authorization rather than a charge.
+
+- If there is no confirmation email and no order under Order History, the order was not created.
+- The pending amount is released automatically within 1–7 business days depending on the issuer.
+- If it still appears after 7 business days, collect the date, amount, and last four digits of the card and escalate to Customer Support.
+
+The AI must not state a specific release date.
+
+Default AI response:
+""If no order was created, the amount is a pending authorization and will be released automatically within 1–7 business days. If it's still there after that, please contact Customer Support.""",,
+policy_payment,4.6 판매세 및 세금,"판매세는 배송지 주소와 해당 지역 세법에 따라 결제 시 자동 계산됨.
+
+  - 세금 금액은 결제 페이지에서 결제 전 확인 가능
+  - 면세 구매(비영리, 재판매 등)는 사전에 Customer Support에 면세 증빙을 제출해야 적용 가능
+  - 국제 배송의 경우 수입 관세·부가세는 수령인 부담일 수 있음 (배송 정책 참고)
+
+기본 답변:
+""판매세는 배송지 주소에 따라 결제 시 자동으로 계산되며, 결제 전 화면에서 확인하실 수 있습니다.""",,
+policy_payment,4.6 Sales Tax and Taxes,"Sales tax is calculated automatically at checkout based on the shipping address and applicable local tax law.
+
+- The tax amount is shown at checkout before payment.
+- Tax-exempt purchases (nonprofit, resale, etc.) require an exemption certificate to be submitted to Customer Support in advance.
+- For international shipments, import duties and VAT may be payable by the recipient (see the shipping policy).
+
+Default AI response:
+""Sales tax is calculated automatically at checkout based on your shipping address and is shown before you pay.""",,
+policy_payment,4.7 환불 수단 및 소요기간,"환불은 원결제수단으로 처리됨.
+
+  - 카드 → 해당 카드
+  - 간편결제 → 해당 간편결제 계정
+  - 기프트카드 / 스토어 크레딧 → 스토어 크레딧
+  - 포인트 사용분 → 포인트 복원
+  - 원결제수단 사용이 불가한 경우 스토어 크레딧 지급 가능
+
+환불 처리 후 카드사 반영까지 5~10 영업일 소요됨.
+
+기본 답변:
+""환불은 결제하신 수단으로 처리되며, 처리 후 카드사에 따라 5~10 영업일 내에 반영됩니다.""",,
+policy_payment,4.7 Refund Method and Timeline,"Refunds are issued to the original payment method.
+
+- Card → the same card
+- Digital wallet → the same wallet account
+- Gift card / store credit → store credit
+- Points used → points restored
+- If the original method is no longer available, store credit may be issued.
+
+After a refund is processed, it takes 5–10 business days to appear depending on the issuer.
+
+Default AI response:
+""Refunds go back to your original payment method and appear within 5–10 business days after processing, depending on your bank.""",,
+policy_payment,4.8 차지백 및 결제 분쟁,"고객이 카드사에 이의제기(차지백)를 신청한 경우:
+
+  - 분쟁 진행 중에는 해당 주문에 대한 별도 환불이 진행되지 않음
+  - 분쟁 결과는 카드사 절차에 따라 결정되며 수 주 소요될 수 있음
+  - 차지백 전 Customer Support에 먼저 문의하면 더 빠르게 해결 가능함을 안내
+
+AI는 차지백 결과나 처리 기간을 예측하지 않음.
+
+기본 답변:
+""카드사 이의제기가 진행 중이면 해당 절차가 끝날 때까지 별도 환불이 진행되지 않습니다. 이의제기 전에 고객센터에 먼저 문의해 주시면 더 빠르게 도와드릴 수 있습니다.""",,
+policy_payment,4.8 Chargebacks and Payment Disputes,"If a customer has opened a dispute (chargeback) with their card issuer:
+
+- No separate refund is processed for that order while the dispute is open.
+- The outcome is decided by the card network process and may take several weeks.
+- Contacting Customer Support before filing a chargeback usually resolves the issue faster.
+
+The AI must not predict the dispute outcome or timeline.
+
+Default AI response:
+""While a dispute is open with your card issuer, we can't issue a separate refund for that order. Contacting Customer Support first is usually the fastest way to resolve it.""",,
+policy_payment,4.9 기프트카드 및 스토어 크레딧,"- 기프트카드는 결제 페이지에서 코드 입력으로 사용
+  - 잔액이 부족하면 나머지 금액은 다른 결제수단으로 결제
+  - 기프트카드는 현금으로 환불되지 않으며 재판매 불가
+  - 스토어 크레딧은 계정에 귀속되며 로그인 후 결제 시 적용
+  - 유효기간은 [기프트카드 유효기간] 기준으로 안내
+
+기본 답변:
+""기프트카드는 결제 페이지에서 코드를 입력하시면 사용되며, 잔액이 부족하면 나머지는 다른 결제수단으로 결제하실 수 있습니다.""",,
+policy_payment,4.9 Gift Cards and Store Credit,"- Gift cards are redeemed by entering the code at checkout.
+- If the balance does not cover the order, the remainder is paid with another method.
+- Gift cards cannot be refunded for cash or resold.
+- Store credit is tied to the account and applied at checkout after signing in.
+- Expiration follows [gift card validity period].
+
+Default AI response:
+""Enter your gift card code at checkout to redeem it. If the balance doesn't cover the full order, you can pay the rest with another method.""",,
+policy_shipping,5.1 주문 처리기간,"주문은 영업일(월~금) 기준으로 처리됨.
+
+처리되지 않는 날:
+  - 주말
+  - 공휴일
+  - 회사 지정 휴무일
+
+주문 처리에는 보통 [처리기간, 예: 1~3 영업일] 소요됨.
+[마감시간] 이전 주문은 당일 처리가 시작될 수 있으나 당일 발송을 보장하지 않음.
+
+기본 답변:
+""주문은 보통 1~3 영업일 내에 처리됩니다. 주말과 공휴일은 처리기간에 포함되지 않습니다.""",,
+policy_shipping,5.1 Order Processing Time,"Orders are processed on business days (Monday–Friday).
+
+Orders are not processed on:
+- Weekends
+- Public holidays
+- Company-observed holidays
+
+Processing generally takes [processing time, e.g., 1–3 business days].
+Orders placed before [cutoff time] may begin processing the same day, but same-day shipment is not guaranteed.
+
+Default AI response:
+""Orders generally take 1–3 business days to process. Weekends and holidays are not included in processing time.""",,
+policy_shipping,5.2 배송기간,"배송기간은 처리기간과 별도로 계산되며 배송방법과 지역에 따라 다름.
+
+  - 일반배송: [예: 3~7 영업일]
+  - 빠른배송: [예: 1~3 영업일]
+  - 국제배송: [예: 7~21 영업일], 통관 소요 시간은 별도
+
+배송기간은 예상치이며 운송업체 사정, 기상, 성수기에 따라 지연될 수 있음.
+
+기본 답변:
+""일반배송은 발송 후 보통 3~7 영업일이 소요됩니다. 정확한 예상일은 결제 페이지에서 배송방법 선택 시 확인하실 수 있습니다.""",,
+policy_shipping,5.2 Estimated Delivery Time,"Delivery time is counted separately from processing time and varies by shipping method and destination.
+
+- Standard: [e.g., 3–7 business days]
+- Expedited: [e.g., 1–3 business days]
+- International: [e.g., 7–21 business days], plus customs clearance
+
+Delivery times are estimates and may be delayed by carrier conditions, weather, or peak season.
+
+Default AI response:
+""Standard shipping usually takes 3–7 business days after the order ships. The estimate for each method is shown when you choose it at checkout.""",,
+policy_shipping,5.3 배송비 및 무료배송 기준,"배송비는 배송지, 배송방법, 주문 무게·금액에 따라 결제 페이지에서 계산됨.
+
+  - 무료배송 기준: [무료배송 기준금액] 이상 주문 (할인·쿠폰 적용 후 금액 기준)
+  - 기준 미달 시 일반배송 [기본 배송비] 부과
+  - 빠른배송, 국제배송은 무료배송 대상에서 제외될 수 있음
+  - 반품으로 주문금액이 무료배송 기준 아래로 내려가면 배송비가 환불금에서 차감될 수 있음
+
+기본 답변:
+""배송비는 결제 페이지에서 배송지 입력 후 확인하실 수 있으며, [무료배송 기준금액] 이상 주문 시 일반배송이 무료입니다.""",,
+policy_shipping,5.3 Shipping Rates and Free Shipping Threshold,"Shipping cost is calculated at checkout based on destination, shipping method, and order weight or value.
+
+- Free shipping: orders of [free shipping threshold] or more (after discounts and coupons)
+- Below the threshold, standard shipping costs [standard rate]
+- Expedited and international shipping may be excluded from free shipping
+- If a return brings the order total below the threshold, the shipping fee may be deducted from the refund
+
+Default AI response:
+""Shipping cost is shown at checkout once you enter your address. Standard shipping is free on orders of [free shipping threshold] or more.""",,
+policy_shipping,5.4 배송 가능 지역,"배송 가능 지역은 결제 페이지에서 배송지 국가·지역 선택 가능 여부로 확인함.
+
+  - 사서함(P.O. Box), 군사우편(APO/FPO/DPO)은 운송업체에 따라 배송 가능 여부가 다름
+  - 일부 상품(액체, 배터리, 에어로졸 등)은 항공·국제 배송이 제한될 수 있음
+  - 국제배송 시 관세, 부가세, 통관 수수료는 수령인 부담일 수 있으며 결제 시 표시되지 않을 수 있음
+
+기본 답변:
+""결제 페이지에서 배송지 국가를 선택하실 수 있으면 배송이 가능합니다. 국제배송은 관세와 세금이 수령인에게 부과될 수 있습니다.""",,
+policy_shipping,5.4 Shipping Destinations,"A destination is serviceable if it can be selected as the shipping country or region at checkout.
+
+- P.O. Boxes and military addresses (APO/FPO/DPO) depend on carrier support.
+- Some items (liquids, batteries, aerosols, etc.) may be restricted for air or international shipping.
+- For international orders, duties, VAT, and customs fees may be charged to the recipient and may not be shown at checkout.
+
+Default AI response:
+""If you can select your country at checkout, we ship there. For international orders, duties and taxes may be charged to the recipient on delivery.""",,
+policy_shipping,5.5 배송 조회,"발송 완료 시 운송장 번호가 포함된 발송 안내 메일이 발송됨.
+
+  - 운송장 번호는 계정 주문내역 또는 주문 조회 페이지에서도 확인 가능
+  - 운송장 등록 후 운송업체 시스템에 반영되기까지 24~48시간 소요될 수 있음
+  - 배송 조회 정보가 며칠간 갱신되지 않으면 운송업체 지연일 수 있음 (5.7 참고)
+
+기본 답변:
+""발송이 완료되면 운송장 번호가 메일로 발송되며, 주문내역에서도 확인하실 수 있습니다. 운송장 정보는 등록 후 24~48시간 뒤에 조회될 수 있습니다.""",,
+policy_shipping,5.5 Order Tracking,"A shipping confirmation email with the tracking number is sent when the order ships.
+
+- The tracking number is also available under Order History or on the order lookup page.
+- It can take 24–48 hours after the label is created for tracking to show carrier scans.
+- If tracking has not updated for several days, the shipment may be delayed by the carrier (see 5.7).
+
+Default AI response:
+""When your order ships, we email you the tracking number, and it's also shown in your Order History. Tracking may take 24–48 hours to update after the label is created.""",,
+policy_shipping,5.6 배송지 변경,"주문 후 배송지 변경은 주문이 처리되기 전에만 가능함.
+
+  - 처리 전: Customer Support에 주문번호와 새 주소를 전달하면 변경 시도 가능 (보장되지 않음)
+  - 처리 중 또는 발송 후: 변경 불가, 운송업체 배송지 변경 서비스 이용 가능 여부 안내
+  - 고객이 입력한 주소 오류로 인한 오배송·반송은 재배송비가 부과될 수 있음
+
+AI는 배송지 변경이 완료되었다고 확정하지 않음.
+
+기본 답변:
+""주문이 처리되기 전이라면 배송지 변경을 시도해 드릴 수 있습니다. 주문번호와 변경할 주소를 알려 주세요. 이미 발송된 경우 변경이 어렵습니다.""",,
+policy_shipping,5.6 Changing the Shipping Address,"The shipping address can be changed only before the order is processed.
+
+- Before processing: Customer Support can attempt the change with the order number and new address (not guaranteed).
+- During processing or after shipment: cannot be changed; the customer may check whether the carrier offers a redirect service.
+- Misdelivery or return-to-sender caused by an address the customer entered incorrectly may incur a reshipping fee.
+
+The AI must not confirm that an address change has been completed.
+
+Default AI response:
+""If your order hasn't been processed yet, we can try to update the address. Please share the order number and the new address. Once shipped, the address can't be changed.""",,
+policy_shipping,5.7 배송 지연,"배송이 예상일보다 늦어지는 경우:
+
+1.  발송 안내 메일의 운송장 번호로 최신 상태 확인
+2.  운송장 정보가 5 영업일 이상 갱신되지 않으면 Customer Support에 문의
+3.  Customer Support는 운송업체에 조사 요청 가능
+4.  조사 결과 분실로 확인되면 재발송 또는 환불 처리
+
+지연 사유(기상, 성수기, 통관, 운송업체 사정)는 매장에서 통제할 수 없음.
+AI는 정확한 도착일을 약속하지 않음.
+
+기본 답변:
+""배송이 지연되어 불편을 드려 죄송합니다. 운송장 정보가 5 영업일 이상 갱신되지 않았다면 주문번호를 알려 주시면 운송업체에 확인해 드리겠습니다.""",,
+policy_shipping,5.7 Delayed Shipments,"If a shipment is later than the estimated delivery date:
+
+1. Check the latest status with the tracking number in the shipping confirmation email
+2. If tracking has not updated for 5 or more business days, contact Customer Support
+3. Customer Support can open a trace with the carrier
+4. If the carrier confirms the package is lost, a replacement or refund is arranged
+
+Delays caused by weather, peak season, customs, or carrier issues are outside the store's control.
+The AI must not promise a specific arrival date.
+
+Default AI response:
+""Sorry for the delay. If your tracking hasn't updated for 5 or more business days, share your order number and we'll open a trace with the carrier.""",,
+policy_shipping,5.8 배송완료 표시 후 미수령,"운송조회상 배송완료로 표시되었으나 상품을 받지 못한 경우 다음을 먼저 안내함.
+
+1.  배송완료 표시 후 48시간 대기 (조기 스캔 사례 있음)
+2.  배송주소 재확인
+3.  현관, 측면 출입구, 차고, 우편함 확인
+4.  우편실 또는 택배 보관함 확인
+5.  경비실, 건물 관리인, 이웃, 가족 확인
+6.  운송업체에 문의 및 클레임 접수
+
+48시간 이후에도 미수령 시 Customer Support가 운송업체 조사를 진행하며, 결과에 따라 재발송 또는 환불이 검토됨.
+AI는 환불이나 재발송을 약속하지 않음.
+
+기본 답변:
+""배송완료 스캔이 실제 배송보다 먼저 되는 경우가 있어 48시간 정도 기다려 보시고, 주변과 이웃을 확인해 주세요. 그래도 없으면 주문번호를 알려 주시면 운송업체에 조사를 요청하겠습니다.""",,
+policy_shipping,5.8 Marked Delivered but Not Received,"If tracking shows ""Delivered"" but the customer cannot find the package, the AI should first recommend:
+
+1. Waiting up to 48 hours after the delivery scan (early scans happen)
+2. Confirming the shipping address
+3. Checking the front door, side door, garage, porch, and mailbox
+4. Checking the mailroom or parcel locker
+5. Checking with building staff, neighbors, or household members
+6. Contacting the carrier to open a claim
+
+If the package is still missing after 48 hours, Customer Support opens a carrier investigation; a replacement or refund is considered based on the result.
+The AI must not promise a refund or replacement.
+
+Default AI response:
+""Carriers sometimes scan packages as delivered a little early, so please allow 48 hours and check around your property and with neighbors. If it still hasn't arrived, share your order number and we'll open an investigation with the carrier.""",,
+policy_shipping,5.9 배송불가 및 발송인 반송,"주소 오류, 수취 거부, 보관기간 만료 등으로 상품이 반송되는 경우:
+
+  - 반송 상품 입고 후 고객에게 연락하여 재발송 또는 환불 여부 확인
+  - 고객 입력 주소 오류에 따른 재발송은 재배송비가 부과될 수 있음
+  - 매장 또는 운송업체 오류인 경우 무료 재발송
+  - 재발송을 원하지 않으면 상품금액 환불 (최초 배송비는 매장 과실이 아닌 한 환불되지 않을 수 있음)
+
+기본 답변:
+""반송된 상품이 입고되면 재발송 또는 환불 중 원하시는 방법을 확인해 드리겠습니다. 주소 오류로 인한 재발송은 배송비가 추가될 수 있습니다.""",,
+policy_shipping,5.9 Undeliverable and Return-to-Sender Packages,"If a package is returned because of an incorrect address, refused delivery, or unclaimed pickup:
+
+- Once the returned package is received, the customer is contacted to choose reshipment or refund.
+- Reshipment due to an address the customer entered incorrectly may incur a reshipping fee.
+- If the error was the store's or the carrier's, reshipment is free.
+- If the customer does not want reshipment, the product amount is refunded (original shipping may not be refunded unless the store was at fault).
+
+Default AI response:
+""Once the returned package arrives back to us, we'll confirm whether you'd like it reshipped or refunded. Reshipping due to an address error may involve an additional shipping fee.""",,
+policy_shipping,5.10 분할 배송,"주문 상품이 여러 창고에서 출고되거나 일부 상품 준비가 늦어지는 경우 분할 배송될 수 있음.
+
+  - 각 배송 건마다 별도 운송장 번호가 발급됨
+  - 분할 배송으로 인한 추가 배송비는 청구되지 않음
+  - 일부 상품만 도착한 경우 발송 안내 메일에서 나머지 상품의 운송장을 확인
+
+기본 답변:
+""주문 상품이 나뉘어 배송될 수 있으며, 각 배송 건은 별도의 운송장 번호로 조회하실 수 있습니다. 추가 배송비는 청구되지 않습니다.""",,
+policy_shipping,5.10 Split Shipments,"Orders may ship in more than one package when items come from different warehouses or one item is ready later than the others.
+
+- Each shipment has its own tracking number.
+- No additional shipping cost is charged for split shipments.
+- If only part of the order has arrived, check the shipping confirmation email for the other tracking number(s).
+
+Default AI response:
+""Your order may arrive in more than one package, each with its own tracking number. There's no extra shipping charge for split shipments.""",,
+policy_shipping,5.11 배송대행지 및 제3자 재배송 서비스,"배송대행지(freight forwarder) 또는 제3자 재배송 주소로 배송되는 주문의 경우:
+
+  - 배송대행지 도착 및 배송완료 스캔 이후의 분실, 파손, 오배송에 대해서는 책임지지 않음
+  - 배송대행지 이후 구간의 클레임은 대행 업체에 접수해야 함
+  - 반품 배송비 및 국제 반송 비용은 고객 부담
+  - 일부 매장은 배송대행지 주문을 제한하거나 취소할 수 있음
+
+기본 답변:
+""배송대행지 주소로 배송된 주문은 대행지 배송완료 이후의 문제에 대해 도움을 드리기 어렵습니다. 이후 구간의 문의는 배송대행 업체에 해 주세요.""",,
+policy_shipping,5.11 Freight Forwarders and Third-Party Reshipping Services,"For orders shipped to a freight forwarder or third-party reshipping address:
+
+- The store is not responsible for loss, damage, or misdelivery after the carrier marks the package delivered to the forwarder.
+- Claims for the leg after the forwarder must be filed with the forwarding service.
+- Return shipping and international return costs are the customer's responsibility.
+- Some stores may restrict or cancel orders addressed to freight forwarders.
+
+Default AI response:
+""For orders shipped to a freight forwarder, we're unable to assist with issues that occur after the package is delivered to the forwarder. Please contact the forwarding service for that portion of the journey.""",,
+policy_return,6.1 반품 가능 조건,"반품은 다음 조건을 모두 충족할 때 접수됨.
+
+  - 배송완료일로부터 [반품 가능 기간, 예: 30일] 이내
+  - 미사용, 미개봉 또는 매장 정책이 허용하는 상태 (원 포장, 태그, 구성품 포함)
+  - 주문번호 또는 구매 증빙 확인 가능
+  - 반품 불가 상품(6.5)에 해당하지 않음
+
+조건 미충족 반품은 거절되거나 부분 환불될 수 있음.
+반품 활동은 남용 방지를 위해 모니터링됨.
+
+기본 답변:
+""배송완료일로부터 [반품 가능 기간] 이내, 원 포장과 구성품이 모두 있는 상태라면 반품이 가능합니다. 주문번호를 알려 주시면 안내해 드리겠습니다.""",,
+policy_return,6.1 Return Eligibility,"A return is accepted when all of the following are met:
+
+- Within [return window, e.g., 30 days] of the delivery date
+- Unused and unopened, or in the condition the store policy allows (original packaging, tags, and all components included)
+- Order number or proof of purchase can be verified
+- The item is not on the non-returnable list (6.5)
+
+Returns that do not meet these conditions may be declined or partially refunded.
+Return activity is monitored to prevent abuse.
+
+Default AI response:
+""Items can be returned within [return window] of delivery as long as they're in original packaging with all components. Share your order number and I'll guide you through it.""",,
+policy_return,6.2 반품 신청 절차,"반품 절차:
+
+1.  계정 로그인 (비회원은 주문 조회 페이지 이용)
+2.  주문내역에서 해당 주문 선택
+3.  ""반품 신청"" 선택
+4.  반품 상품 및 사유 선택, 필요 시 사진 첨부
+5.  신청 제출 후 승인 대기
+6.  승인 시 반품 라벨 또는 반품 주소가 이메일로 발송
+7.  승인 후 [반품 발송 기한, 예: 14일] 이내 발송
+
+승인 없이 임의로 반송된 상품은 처리가 지연되거나 접수되지 않을 수 있음.
+
+기본 답변:
+""주문내역에서 '반품 신청'을 선택하시면 됩니다. 승인되면 반품 라벨과 안내가 이메일로 발송되며, 받으신 후 [반품 발송 기한] 이내에 보내 주시면 됩니다.""",,
+policy_return,6.2 How to Request a Return,"Return steps:
+
+1. Sign in (guests use the order lookup page)
+2. Select the order under Order History
+3. Choose ""Request a Return""
+4. Select the item(s) and reason; attach photos if requested
+5. Submit and wait for approval
+6. On approval, a return label or return address is emailed
+7. Ship the item within [return shipment deadline, e.g., 14 days] of approval
+
+Items sent back without an approved request may be delayed or not accepted.
+
+Default AI response:
+""Select 'Request a Return' from your Order History. Once approved, we'll email you the return label and instructions, and you'll have [return shipment deadline] to send it back.""",,
+policy_return,6.3 반품 배송비,"- 단순 변심 반품: [반품 배송비 정책, 예: 선불 라벨 제공 후 환불금에서 반품 배송비 차감 / 고객 부담]
+  - 매장 과실(불량, 오배송, 파손): 반품 배송비 무료, 최초 배송비도 환불
+  - 최초 결제한 배송비는 매장 과실이 아닌 한 환불되지 않음
+  - 고객이 자체 운송으로 반송하는 경우 추적 가능한 방법을 사용해야 하며 분실 시 책임지지 않음
+
+기본 답변:
+""불량이나 오배송의 경우 반품 배송비는 무료입니다. 단순 변심 반품은 [반품 배송비 정책]이 적용됩니다.""",,
+policy_return,6.3 Return Shipping Costs,"- Change-of-mind returns: [return shipping policy, e.g., prepaid label with the fee deducted from the refund / customer pays]
+- Store error (defective, wrong item, damaged): return shipping is free and the original shipping fee is refunded
+- Original shipping charges are not refunded unless the store was at fault
+- If the customer ships with their own carrier, a trackable method must be used; lost untracked returns are not covered
+
+Default AI response:
+""Return shipping is free for defective or incorrect items. For change-of-mind returns, [return shipping policy] applies.""",,
+policy_return,6.4 반품 검수 및 환불 처리,"반품 상품 입고 후 검수를 거쳐 환불이 처리됨.
+
+  - 검수: 입고 후 [검수 기간, 예: 3~5 영업일]
+  - 검수 통과 시 원결제수단으로 환불, 카드 반영 5~10 영업일
+  - 상태 불량, 구성품 누락 시 부분 환불 또는 반품 거절 후 고객 통보
+  - 환불 완료 시 이메일 발송
+
+AI는 환불 완료 일자를 확정하지 않음.
+
+기본 답변:
+""반품 상품이 입고되면 검수 후 [검수 기간] 내에 환불이 처리되며, 카드사에 따라 5~10 영업일 후 반영됩니다.""",,
+policy_return,6.4 Return Inspection and Refund Processing,"Refunds are processed after the returned item is received and inspected.
+
+- Inspection: [inspection time, e.g., 3–5 business days] after receipt
+- If approved, refund to the original payment method; 5–10 business days to appear on a card
+- If the item is damaged or missing components, a partial refund may be issued or the return declined, and the customer is notified
+- A confirmation email is sent when the refund is issued
+
+The AI must not state a specific refund completion date.
+
+Default AI response:
+""Once your return arrives, it's inspected and the refund is processed within [inspection time]. It then takes 5–10 business days to appear, depending on your bank.""",,
+policy_return,6.5 반품 및 환불 불가 상품,"다음 상품은 반품·교환이 제한됨.
+
+  - 파이널 세일(Final Sale) 표시 상품
+  - 기프트카드
+  - 개봉 또는 사용한 위생·개인용품 (속옷, 수영복 라이너 제거, 이어폰 등 매장 정책에 따름)
+  - 개봉된 소모품, 식품, 유통기한 상품
+  - 맞춤 제작·각인 상품
+  - 다운로드 상품 및 디지털 콘텐츠
+  - 원 포장, 태그, 구성품이 없는 상품
+
+반품 불가 여부는 상품 페이지와 결제 페이지에 구매 전 표시됨.
+불량·오배송은 반품 불가 상품이라도 클레임 정책에 따라 처리.
+
+기본 답변:
+""파이널 세일 상품, 기프트카드, 개봉한 위생용품, 맞춤 제작 상품은 반품이 어렵습니다. 다만 불량이나 오배송의 경우에는 별도로 도와드립니다.""",,
+policy_return,6.5 Non-Returnable and Non-Refundable Items,"The following items cannot be returned or exchanged:
+
+- Items marked Final Sale
+- Gift cards
+- Opened or used hygiene and personal items (underwear, swimwear with liner removed, earphones, etc., per store policy)
+- Opened consumables, food, and dated products
+- Custom-made or personalized items
+- Downloads and digital content
+- Items missing original packaging, tags, or components
+
+Non-returnable status is shown on the product page and at checkout before purchase.
+Defective or incorrect items are handled under the claims policy even if otherwise non-returnable.
+
+Default AI response:
+""Final sale items, gift cards, opened hygiene products, and personalized items can't be returned. If an item is defective or incorrect, we'll still help under our claims process.""",,
+policy_return,6.6 교환,"교환은 반품 가능 조건과 동일한 조건에서 [교환 가능 기간] 이내 접수됨.
+
+  - 가장 빠른 방법은 원 상품을 반품하고 원하는 상품을 새로 주문하는 것
+  - 직접 교환은 반품 상품 입고·검수 후 발송되며 재고가 없으면 환불로 전환
+  - 가격 차이가 있는 경우 차액 결제 또는 환불
+  - 불량·오배송 상품은 무료로 교환
+
+기본 답변:
+""교환은 반품과 동일한 조건으로 가능합니다. 가장 빠른 방법은 반품 신청 후 원하시는 상품을 새로 주문하시는 것입니다.""",,
+policy_return,6.6 Exchanges,"Exchanges are accepted within [exchange window] under the same conditions as returns.
+
+- The fastest option is to return the original item and place a new order for the desired item.
+- A direct exchange ships after the returned item is received and inspected; if the replacement is out of stock, a refund is issued instead.
+- Any price difference is charged or refunded.
+- Defective or incorrect items are exchanged free of charge.
+
+Default AI response:
+""Exchanges follow the same conditions as returns. The fastest way is to request a return and place a new order for the item you want.""",,
+policy_return,6.7 할인·프로모션 주문의 환불 금액,"환불 금액은 실제 결제 금액을 기준으로 함.
+
+  - 쿠폰·할인 적용 금액 기준으로 환불 (정가 기준 아님)
+  - 주문 단위 할인(예: 3개 구매 시 할인)은 일부 반품 시 할인 조건이 깨지면 환불금에서 할인액이 조정될 수 있음
+  - 무료배송 기준 미달이 되는 경우 배송비가 차감될 수 있음
+  - 사은품이 포함된 주문은 사은품을 함께 반환해야 하며, 미반환 시 사은품 가액이 차감될 수 있음
+  - 사용한 포인트는 복원, 적립된 포인트는 회수
+
+기본 답변:
+""환불은 실제 결제하신 금액 기준으로 처리됩니다. 묶음 할인이나 사은품 조건이 있는 주문은 일부 반품 시 환불금액이 조정될 수 있습니다.""",,
+policy_return,6.7 Refund Amount for Discounted or Promotional Orders,"Refunds are based on the amount actually paid.
+
+- Refunds reflect coupon and discount prices, not the list price.
+- For order-level promotions (e.g., buy 3 save X), a partial return that breaks the promotion condition may adjust the discount in the refund.
+- If the return drops the order below the free shipping threshold, the shipping fee may be deducted.
+- Gifts with purchase must be returned with the order; if not, the gift's value may be deducted.
+- Points used are restored; points earned on the returned item are removed.
+
+Default AI response:
+""Refunds are based on the amount you actually paid. For bundle discounts or gift-with-purchase orders, a partial return may adjust the refund amount.""",,
+policy_return,6.8 선물 반품,"선물로 받은 상품의 반품:
+
+  - 주문번호 또는 선물 영수증이 필요함
+  - 환불은 원주문 결제수단(구매자) 또는 수령인 스토어 크레딧으로 처리 (매장 정책에 따름)
+  - 반품 가능 기간과 조건은 일반 반품과 동일
+  - 구매자 정보는 수령인에게 공개하지 않음
+
+기본 답변:
+""선물 반품은 주문번호나 선물 영수증이 있으면 가능하며, 환불은 스토어 크레딧으로 받으실 수 있습니다.""",,
+policy_return,6.8 Gift Returns,"Returning an item received as a gift:
+
+- The order number or gift receipt is required.
+- The refund goes to the original payment method (purchaser) or as store credit to the recipient, per store policy.
+- The return window and conditions are the same as standard returns.
+- Purchaser details are not disclosed to the recipient.
+
+Default AI response:
+""Gift returns are possible with the order number or gift receipt, and the refund can be issued as store credit to you.""",,
+policy_return,6.9 타 판매처 구매 상품,"다른 매장이나 온라인 마켓에서 구매한 상품은 해당 판매처의 반품·환불 정책이 적용됨.
+
+  - 당사 웹사이트 주문번호가 없는 상품은 반품·교환 접수 불가
+  - 제품 불량 문의는 구매처에 먼저 연락하도록 안내
+  - 정품 여부 확인 문의는 제품 정책 참고
+
+기본 답변:
+""다른 판매처에서 구매하신 상품은 해당 판매처의 반품 정책이 적용되므로 구매하신 곳에 문의해 주세요.""",,
+policy_return,6.9 Items Purchased from Other Retailers,"Items bought from other stores or marketplaces are covered by that retailer's return and refund policy.
+
+- Items without an order number from this website cannot be returned or exchanged here.
+- Product defect inquiries should be directed to the place of purchase first.
+- For authenticity questions, see the product policy.
+
+Default AI response:
+""Items purchased from another retailer fall under that retailer's return policy, so please contact the store where you bought them.""",,
+policy_claims,7.1 파손·불량·오배송·누락 신고,"다음 경우 클레임을 접수함.
+
+  - 배송 중 파손
+  - 제품 불량 또는 작동 불량
+  - 주문과 다른 상품 배송
+  - 주문 상품 일부 누락
+
+신고 기한: 배송완료일로부터 [클레임 신고 기한, 예: 7일] 이내
+클레임이 확인되면 반품 배송비 포함 무료 교환 또는 전액 환불로 처리됨.
+
+기본 답변:
+""불편을 드려 죄송합니다. 배송완료일로부터 [클레임 신고 기한] 이내에 주문번호와 상품·포장 사진을 보내 주시면 교환 또는 환불로 처리해 드리겠습니다.""",,
+policy_claims,"7.1 Reporting Damaged, Defective, Wrong, or Missing Items","A claim can be filed for:
+
+- Damage during shipping
+- Product defects or malfunction
+- An item different from what was ordered
+- Items missing from the order
+
+Reporting deadline: within [claim deadline, e.g., 7 days] of delivery
+Once verified, the claim is resolved with a free replacement (including shipping) or a full refund.
+
+Default AI response:
+""We're sorry about that. Please send your order number and photos of the item and packaging within [claim deadline] of delivery, and we'll arrange a replacement or refund.""",,
+policy_claims,7.2 제출해야 하는 정보,"클레임 처리를 위해 다음 정보를 요청함.
+
+  - 주문번호
+  - 문제 상품명 및 수량
+  - 문제 유형 (파손 / 불량 / 오배송 / 누락)
+  - 상품 사진 (문제 부위가 보이도록)
+  - 외부 포장 및 운송장 라벨 사진 (파손·누락의 경우)
+  - 간단한 상황 설명
+
+클레임 해결 전까지 상품과 포장은 폐기하지 않도록 안내.
+
+기본 답변:
+""확인을 위해 주문번호, 문제가 있는 상품 사진, 그리고 외부 포장 사진을 보내 주세요. 처리가 끝날 때까지 상품과 포장은 보관해 주세요.""",,
+policy_claims,7.2 Information and Documentation Required,"The following is requested to process a claim:
+
+- Order number
+- Name and quantity of the affected item(s)
+- Issue type (damaged / defective / wrong item / missing)
+- Photos of the item showing the problem
+- Photos of the outer packaging and shipping label (for damage or missing items)
+- A brief description of what happened
+
+Ask the customer to keep the item and packaging until the claim is resolved.
+
+Default AI response:
+""To look into this, please send your order number, photos of the affected item, and a photo of the outer packaging. Please keep the item and packaging until we've resolved it.""",,
+policy_claims,7.3 처리 방법,"클레임 확인 후 가능한 처리:
+
+  - 동일 상품 무료 재발송 (재고 있는 경우)
+  - 전액 환불 (상품금액 + 배송비)
+  - 부분 환불 (경미한 손상으로 고객이 상품을 사용하기로 한 경우)
+  - 누락 상품 추가 발송
+
+불량 상품 회수 여부는 케이스별로 결정되며, 회수 시 선불 라벨 제공.
+AI는 처리 방법을 확정하지 않고 접수 후 Customer Support 확인을 안내함.
+
+기본 답변:
+""확인이 완료되면 재발송 또는 환불로 처리해 드립니다. 접수해 주시면 고객센터에서 처리 방법을 안내해 드리겠습니다.""",,
+policy_claims,7.3 Possible Resolutions,"After the claim is verified, possible resolutions:
+
+- Free replacement of the same item (if in stock)
+- Full refund (item price plus shipping)
+- Partial refund (minor damage where the customer keeps the item)
+- Shipment of the missing item
+
+Whether a defective item must be sent back is decided case by case; a prepaid label is provided when it is.
+The AI does not decide the resolution; it files the claim and advises that Customer Support will confirm.
+
+Default AI response:
+""Once verified, we'll arrange a replacement or a refund. After you file the claim, Customer Support will confirm the resolution with you.""",,
+policy_claims,7.4 신고 기한 경과 및 예외,"신고 기한 이후 접수된 클레임은 원칙적으로 사진 확인 후 케이스별 검토됨.
+
+  - 제조 결함이 나중에 발견된 경우 제품 보증 정책 적용 가능
+  - 배송대행지 경유 주문은 클레임 대상에서 제외될 수 있음
+  - 반복적·비정상적 클레임은 검토 후 제한될 수 있음
+
+AI는 기한 경과 클레임의 승인 여부를 약속하지 않음.
+
+기본 답변:
+""신고 기한이 지난 경우에도 사진과 함께 접수해 주시면 검토해 드리겠습니다. 다만 승인을 보장해 드리기는 어렵습니다.""",,
+policy_claims,7.4 Late Claims and Exceptions,"Claims filed after the deadline are reviewed case by case after photos are checked.
+
+- Manufacturing defects discovered later may be covered by the product warranty policy.
+- Orders routed through freight forwarders may not be eligible.
+- Repeated or unusual claim patterns may be restricted after review.
+
+The AI must not promise approval of a late claim.
+
+Default AI response:
+""If the reporting deadline has passed, you can still submit the claim with photos and we'll review it, though approval can't be guaranteed.""",,
+policy_promotion,8.1 쿠폰 사용 방법,"쿠폰 코드는 결제 페이지의 ""할인 코드"" 입력란에 입력 후 적용 버튼을 눌러 사용함.
+
+  - 적용되면 주문 요약에 할인 금액이 표시됨
+  - 주문 완료 후에는 쿠폰을 소급 적용할 수 없음
+  - 일부 쿠폰은 로그인 계정 또는 특정 이메일에서만 사용 가능
+
+기본 답변:
+""결제 페이지의 할인 코드 입력란에 쿠폰 코드를 입력하고 적용을 누르시면 할인이 반영됩니다. 주문 완료 후에는 적용이 어려우니 결제 전에 확인해 주세요.""",,
+policy_promotion,8.1 How to Use a Coupon Code,"Enter the coupon code in the ""Discount code"" field at checkout and click Apply.
+
+- When applied, the discount appears in the order summary.
+- Coupons cannot be applied retroactively after the order is placed.
+- Some coupons work only when signed in to a specific account or email.
+
+Default AI response:
+""Enter your code in the discount code field at checkout and click Apply. Coupons can't be added after checkout, so please check before paying.""",,
+policy_promotion,8.2 쿠폰 미적용 및 오류,"쿠폰이 적용되지 않는 일반적 원인:
+
+  - 유효기간 만료
+  - 최소 주문금액 미달
+  - 제외 상품(세일, 파이널 세일, 기프트카드, 특정 브랜드) 포함
+  - 이미 다른 쿠폰 또는 자동 할인 적용됨
+  - 1인 1회 쿠폰을 이미 사용함
+  - 대소문자 또는 공백 오타
+  - 특정 계정 전용 쿠폰을 다른 계정에서 사용
+
+AI는 만료된 쿠폰을 연장하거나 새 쿠폰을 발급하지 않음.
+
+기본 답변:
+""쿠폰의 유효기간, 최소 주문금액, 제외 상품 여부를 확인해 주세요. 그래도 적용되지 않으면 쿠폰 코드와 장바구니 내용을 알려 주시면 확인해 드리겠습니다.""",,
+policy_promotion,8.2 Coupon Not Working,"Common reasons a coupon does not apply:
+
+- Expired
+- Minimum order amount not met
+- Cart contains excluded items (sale, final sale, gift cards, specific brands)
+- Another coupon or automatic discount is already applied
+- Single-use coupon already redeemed
+- Typo, capitalization, or extra spaces in the code
+- Account-specific coupon used on a different account
+
+The AI does not extend expired coupons or issue new ones.
+
+Default AI response:
+""Please check the coupon's expiration date, minimum order amount, and excluded items. If it still doesn't apply, share the code and what's in your cart and we'll take a look.""",,
+policy_promotion,8.3 쿠폰 중복 적용,"원칙적으로 주문당 쿠폰 코드 1개만 적용 가능함.
+
+  - 자동 적용 할인(세일가, 묶음 할인)과 쿠폰 코드의 중복 여부는 프로모션 조건에 따름
+  - 포인트와 기프트카드는 쿠폰과 함께 사용 가능
+  - 무료배송 프로모션은 별도 조건으로 적용될 수 있음
+
+기본 답변:
+""주문당 쿠폰 코드는 1개만 적용됩니다. 포인트와 기프트카드는 쿠폰과 함께 사용하실 수 있습니다.""",,
+policy_promotion,8.3 Coupon Stacking,"Only one coupon code can be applied per order.
+
+- Whether a coupon combines with automatic discounts (sale prices, bundle deals) depends on the promotion terms.
+- Points and gift cards can be used together with a coupon.
+- Free shipping promotions may apply under separate conditions.
+
+Default AI response:
+""One coupon code can be used per order. Points and gift cards can still be combined with a coupon.""",,
+policy_promotion,8.4 프로모션 제외 조건,"프로모션에는 다음 제외 조건이 적용될 수 있음.
+
+  - 세일·파이널 세일 상품, 기프트카드, 신상품, 특정 브랜드·카테고리
+  - 기간 종료 후 주문
+  - 재고 소진 시 조기 종료
+  - 프로모션 기간 이전 주문에 소급 적용 불가
+  - 1인/1계정/1주소 당 수량 제한
+
+제외 조건은 프로모션 안내 페이지 또는 이메일의 세부 조건에 명시됨.
+
+기본 답변:
+""프로모션 세부 조건에 제외 상품과 기간이 명시되어 있습니다. 프로모션 시작 이전 주문에는 소급 적용되지 않는 점 양해 부탁드립니다.""",,
+policy_promotion,8.4 Promotional Exclusions,"Promotions may carry the following exclusions:
+
+- Sale and final sale items, gift cards, new arrivals, specific brands or categories
+- Orders placed after the promotion ends
+- Early termination when stock runs out
+- No retroactive application to orders placed before the promotion started
+- Quantity limits per person, account, or address
+
+Exclusions are stated in the promotion terms on the landing page or email.
+
+Default AI response:
+""The promotion terms list the excluded items and dates. Unfortunately, promotions can't be applied to orders placed before they started.""",,
+policy_promotion,8.5 가격 조정 (구매 후 가격 인하),"구매 후 상품 가격이 인하된 경우의 가격 조정 정책:
+
+  - [가격 조정 정책, 예: 구매일로부터 7일 이내 1회 차액을 스토어 크레딧으로 조정 / 가격 조정 미제공]
+  - 플래시 세일, 파이널 세일, 쿠폰 할인가는 가격 조정 대상에서 제외
+  - 가격 조정 대신 반품 후 재구매를 원하는 경우 반품 정책 적용
+
+기본 답변:
+""[가격 조정 정책]이 적용됩니다. 대상이 되는지 확인을 위해 주문번호를 알려 주세요.""",,
+policy_promotion,8.5 Price Adjustments,"If an item's price drops after purchase:
+
+- [Price adjustment policy, e.g., one adjustment within 7 days of purchase, issued as store credit / no price adjustments]
+- Flash sales, final sale prices, and coupon discounts are excluded from price adjustments.
+- If the customer prefers to return and rebuy, the return policy applies.
+
+Default AI response:
+""[Price adjustment policy] applies. Share your order number and we'll check whether it qualifies.""",,
+policy_promotion,8.6 구매 사은품,"사은품은 프로모션 조건 충족 시 자동으로 장바구니에 추가되거나 발송 시 동봉됨.
+
+  - 재고 소진 시 예고 없이 종료되며 대체품 또는 보상은 제공되지 않음
+  - 사은품은 판매·환불·교환 대상이 아님
+  - 주문을 반품하여 조건이 미충족되면 사은품을 함께 반환해야 함
+  - 사은품 누락 시 주문번호로 확인 후 재발송 또는 안내
+
+기본 답변:
+""사은품은 조건 충족 시 자동으로 포함되며, 재고 소진 시 종료될 수 있습니다. 사은품이 누락되었다면 주문번호를 알려 주세요.""",,
+policy_promotion,8.6 Gifts with Purchase,"Free gifts are added to the cart automatically or included in the shipment when the promotion conditions are met.
+
+- The promotion ends without notice when gift stock runs out; no substitute or compensation is provided.
+- Gifts are not for sale and cannot be refunded or exchanged.
+- If a return brings the order below the qualifying condition, the gift must be returned as well.
+- If a gift is missing, it is verified by order number and reshipped or explained.
+
+Default AI response:
+""The free gift is included automatically when the conditions are met and may end while supplies last. If your gift was missing, please share your order number.""",,
+policy_membership,9.1 회원 프로그램 개요,"회원 프로그램은 가입 및 구매 활동에 따라 포인트와 혜택을 제공함.
+
+  - 가입: 무료, 계정 생성 시 자동 가입 (매장 설정에 따름)
+  - 혜택: 포인트 적립, 회원 전용 프로모션, 생일 혜택 등
+  - 등급제가 있는 경우 [등급 기준 기간] 동안의 구매금액에 따라 등급 결정
+  - 혜택 내용은 회원 프로그램 안내 페이지 기준으로 안내
+
+기본 답변:
+""회원 프로그램은 무료이며 구매 시 포인트 적립과 회원 전용 혜택을 받으실 수 있습니다. 자세한 혜택은 회원 프로그램 안내 페이지를 참고해 주세요.""",,
+policy_membership,9.1 Membership Program Overview,"The membership program rewards sign-ups and purchases with points and benefits.
+
+- Enrollment: free; automatic on account creation (per store settings)
+- Benefits: points on purchases, member-only promotions, birthday rewards, etc.
+- If tiers exist, the tier is based on spending during [tier qualification period]
+- Benefits are described on the membership program page
+
+Default AI response:
+""The membership program is free and gives you points on purchases plus member-only benefits. Full details are on the membership program page.""",,
+policy_membership,9.2 포인트 적립 및 사용,"적립:
+  - 결제 완료 시 [적립률, 예: 결제금액 1달러당 1포인트] 적립
+  - 배송비, 세금, 기프트카드 구매금액은 적립 제외
+  - 포인트는 배송완료 또는 [적립 확정 기간] 후 사용 가능하도록 확정
+
+사용:
+  - 결제 페이지에서 사용할 포인트 선택 (로그인 필요)
+  - 최소 사용 단위 및 주문당 최대 사용 한도는 [포인트 사용 조건]
+  - 포인트는 현금으로 환급되지 않으며 타인에게 양도 불가
+
+기본 답변:
+""구매 시 [적립률]로 포인트가 적립되며, 결제 페이지에서 포인트를 선택하여 사용하실 수 있습니다.""",,
+policy_membership,9.2 Earning and Redeeming Points,"Earning:
+- Points are earned at [earn rate, e.g., 1 point per $1] when payment is completed
+- Shipping, tax, and gift card purchases do not earn points
+- Points become available after delivery or after [points confirmation period]
+
+Redeeming:
+- Choose the points to apply at checkout (sign-in required)
+- Minimum redemption and per-order maximum follow [redemption rules]
+- Points cannot be exchanged for cash or transferred to another person
+
+Default AI response:
+""You earn points at [earn rate] on purchases and can apply them at checkout after signing in.""",,
+policy_membership,9.3 취소·반품 시 포인트 처리,"- 주문 취소: 사용한 포인트 복원, 적립 예정 포인트 취소
+  - 부분 반품: 반품 상품에 해당하는 적립 포인트 회수, 사용 포인트는 비율에 따라 복원
+  - 이미 사용한 적립 포인트가 반품으로 회수되어 잔액이 음수가 되면 이후 적립분에서 차감될 수 있음
+  - 포인트 복원은 환불 처리와 동시에 진행되며 반영까지 수 일 소요될 수 있음
+
+기본 답변:
+""취소나 반품 시 사용하신 포인트는 복원되고, 해당 주문으로 적립된 포인트는 회수됩니다.""",,
+policy_membership,9.3 Points on Cancellations and Returns,"- Order cancellation: points used are restored; pending points from the order are voided
+- Partial return: points earned on the returned item are removed; points used are restored proportionally
+- If earned points were already spent and are removed by a return, the balance may go negative and be deducted from future earnings
+- Point restoration happens with the refund and may take a few days to appear
+
+Default AI response:
+""When an order is canceled or returned, the points you used are restored and the points earned from that order are removed.""",,
+policy_membership,9.4 포인트 유효기간,"- 포인트는 적립일로부터 [포인트 유효기간, 예: 12개월] 후 소멸됨
+  - 소멸 예정 포인트는 계정의 포인트 내역에서 확인 가능
+  - 소멸된 포인트는 복원되지 않음
+  - 계정 삭제 시 잔여 포인트는 소멸됨
+
+기본 답변:
+""포인트는 적립일로부터 [포인트 유효기간] 후 소멸되며, 소멸 예정 포인트는 계정의 포인트 내역에서 확인하실 수 있습니다.""",,
+policy_membership,9.4 Point Expiration,"- Points expire [points validity period, e.g., 12 months] after they are earned
+- Points about to expire are shown in the account's points history
+- Expired points cannot be restored
+- Remaining points are forfeited when an account is deleted
+
+Default AI response:
+""Points expire [points validity period] after they're earned. You can see upcoming expirations in your points history.""",,
+policy_membership,9.5 중복 계정 정책,"회원 프로그램 혜택은 1인당 1계정에 한함.
+
+  - 동일인이 여러 계정을 만들어 신규 가입 쿠폰, 포인트, 사은품을 중복 수령하는 경우 정책 위반으로 간주
+  - 위반 확인 시 혜택 회수, 주문 취소, 계정 제한이 이루어질 수 있음
+  - 계정 통합은 Customer Support 요청으로 검토 가능 (포인트 이전은 보장되지 않음)
+
+기본 답변:
+""회원 혜택은 1인 1계정에 한해 제공됩니다. 계정이 여러 개 있으시면 고객센터에 통합을 요청하실 수 있습니다.""",,
+policy_membership,9.5 Multiple Account Policy,"Membership benefits are limited to one account per person.
+
+- Creating multiple accounts to claim welcome coupons, points, or gifts more than once is a policy violation.
+- Confirmed violations may result in benefit removal, order cancellation, or account restriction.
+- Account merges can be requested through Customer Support (point transfers are not guaranteed).
+
+Default AI response:
+""Membership benefits are limited to one account per person. If you have more than one account, you can ask Customer Support about merging them.""",,
+policy_product,10.1 상품 정보 문의,"상품 정보(성분, 소재, 사이즈, 사용법, 호환성)는 상품 페이지에 게시된 내용을 기준으로 안내함.
+
+  - 상품 페이지에 없는 정보는 추측하지 않고 확인 후 안내하겠다고 응답
+  - 개인의 건강, 피부, 알레르기 상태에 맞는지에 대한 판단은 제공하지 않으며 전문가 상담을 권고
+  - 사이즈는 사이즈 가이드 기준으로 안내, 개인 착용감은 보장하지 않음
+
+기본 답변:
+""상품 상세 정보는 상품 페이지에서 확인하실 수 있습니다. 페이지에 없는 내용은 확인 후 안내해 드리겠습니다.""",,
+policy_product,10.1 Product Information Inquiries,"Product details (ingredients, materials, sizing, usage, compatibility) are answered based on what is published on the product page.
+
+- Do not guess information that is not on the product page; say it will be checked and followed up.
+- Do not judge whether a product suits an individual's health, skin, or allergy condition; recommend consulting a professional.
+- Sizing is based on the size guide; individual fit is not guaranteed.
+
+Default AI response:
+""Product details are available on the product page. If something isn't listed there, we'll check and get back to you.""",,
+policy_product,10.2 유통기한 및 보관,"- 유통기한 또는 제조일자는 제품 포장에 표시되며, 표시 방식은 제조사에 따라 다름
+  - 발송되는 상품은 최소 [잔여 유통기한 기준] 이상 남은 제품을 기준으로 함
+  - 보관 방법은 제품 포장 및 상품 페이지 안내를 따름
+  - 수령 시 유통기한이 임박했거나 경과한 경우 클레임 정책에 따라 접수
+
+기본 답변:
+""유통기한은 제품 포장에 표시되어 있습니다. 수령하신 제품의 유통기한이 지났거나 임박했다면 주문번호와 사진을 보내 주세요.""",,
+policy_product,10.2 Expiration Dates and Storage,"- Expiration or manufacturing dates are printed on the product packaging; the format varies by manufacturer.
+- Shipped products have at least [minimum remaining shelf life] remaining.
+- Storage instructions follow the packaging and product page.
+- If a product arrives expired or close to expiring, file it under the claims policy.
+
+Default AI response:
+""The expiration date is printed on the product packaging. If your product arrived expired or close to expiring, please send your order number and a photo.""",,
+policy_product,10.3 정품 여부,"당사 웹사이트에서 판매되는 모든 상품은 제조사 또는 공식 유통사로부터 공급받은 정품임.
+
+  - 다른 판매처에서 구매한 상품의 정품 여부는 확인해 드릴 수 없음
+  - 포장·라벨이 상품 페이지와 다르면 제조사 리뉴얼일 수 있으며, 의심되는 경우 사진과 함께 접수
+
+기본 답변:
+""저희 웹사이트에서 판매하는 모든 상품은 정품입니다. 포장이 달라 보이면 리뉴얼일 수 있으니 사진과 함께 알려 주시면 확인해 드리겠습니다.""",,
+policy_product,10.3 Product Authenticity,"All products sold on this website are authentic and sourced from the manufacturer or authorized distributors.
+
+- Authenticity of items bought elsewhere cannot be verified.
+- Packaging or labels that differ from the product page may reflect a manufacturer update; if in doubt, submit photos for review.
+
+Default AI response:
+""All products sold on our website are authentic. If the packaging looks different, it may be an updated design — send us a photo and we'll confirm.""",,
+policy_product,10.4 제품 사용 중 이상반응,"제품 사용 후 불편 또는 이상반응이 있는 경우:
+
+1.  즉시 사용 중단 안내
+2.  증상이 심하거나 지속되면 의료 전문가 상담 권고
+3.  제품명, 로트번호, 사용 시작일, 증상을 Customer Support에 접수
+4.  해당 제품은 반품 조건과 관계없이 케이스별로 환불 검토
+
+AI는 의학적 판단이나 원인 진단을 하지 않음.
+
+기본 답변:
+""우선 사용을 중단해 주시고, 증상이 심하거나 계속되면 의료 전문가와 상담해 주세요. 제품명과 주문번호를 알려 주시면 고객센터에서 도와드리겠습니다.""",,
+policy_product,10.4 Adverse Reactions to a Product,"If a customer reports discomfort or a reaction after using a product:
+
+1. Advise stopping use immediately
+2. Recommend consulting a medical professional if symptoms are severe or persist
+3. Collect product name, lot number, date of first use, and symptoms for Customer Support
+4. A refund is reviewed case by case regardless of the standard return conditions
+
+The AI must not offer medical judgment or diagnose the cause.
+
+Default AI response:
+""Please stop using the product, and consult a medical professional if the symptoms are severe or continue. Share the product name and order number and Customer Support will assist you.""",,
+policy_product,10.5 제품 보증,"전자제품, 기기류 등 보증이 제공되는 상품의 경우:
+
+  - 보증기간: [보증기간, 예: 구매일로부터 1년], 제조사 보증이 우선 적용될 수 있음
+  - 보증 대상: 정상 사용 중 발생한 제조 결함
+  - 보증 제외: 물리적 파손, 침수, 임의 개조, 소모품 마모, 정상적인 사용 흔적
+  - 보증 신청: 주문번호, 증상 설명, 사진 또는 영상을 Customer Support에 제출
+
+기본 답변:
+""보증 대상 상품은 [보증기간] 동안 제조 결함에 대해 보증됩니다. 주문번호와 증상 사진을 보내 주시면 보증 절차를 안내해 드리겠습니다.""",,
+policy_product,10.5 Product Warranty,"For items that carry a warranty (electronics, devices, etc.):
+
+- Warranty period: [warranty period, e.g., 1 year from purchase]; the manufacturer's warranty may apply first
+- Covered: manufacturing defects under normal use
+- Not covered: physical damage, water damage, modification, consumable wear, normal signs of use
+- To claim: submit the order number, a description of the issue, and photos or video to Customer Support
+
+Default AI response:
+""Warranty-eligible items are covered against manufacturing defects for [warranty period]. Send your order number and photos of the issue and we'll walk you through the warranty process.""",,
+policy_product,10.6 리뷰 작성,"- 리뷰는 해당 상품을 구매한 고객이 상품 페이지 또는 주문내역에서 작성 가능
+  - 별점과 텍스트, 사진(선택)으로 구성
+  - 콘텐츠 정책(욕설, 개인정보, 광고, 타사 언급 등) 위반 시 게시되지 않을 수 있음
+  - 부정적 리뷰도 정책을 준수하면 게시되며, 문제 해결을 위해 Customer Support가 연락할 수 있음
+  - 리뷰 작성 보상이 있는 경우 별도 안내 페이지 기준
+
+기본 답변:
+""구매하신 상품은 주문내역 또는 상품 페이지에서 리뷰를 남기실 수 있습니다. 리뷰는 콘텐츠 정책 검토 후 게시됩니다.""",,
+policy_product,10.6 Writing a Product Review,"- Customers who purchased an item can review it from the product page or Order History.
+- Reviews consist of a star rating, text, and optional photos.
+- Reviews that violate the content policy (profanity, personal information, advertising, competitor mentions, etc.) may not be published.
+- Negative reviews are published if they follow the policy; Customer Support may reach out to help resolve the issue.
+- If review rewards are offered, they follow the separate reward page.
+
+Default AI response:
+""You can leave a review for items you've purchased from your Order History or the product page. Reviews are published after a content policy check.""",,
+policy_legal,11.1 수집하는 개인정보,"서비스 제공을 위해 다음 정보가 수집·처리될 수 있음.
+
+  - 계정정보: 이름, 이메일, 비밀번호(암호화), 연락처
+  - 주문정보: 배송지, 청구지, 주문내역
+  - 결제정보: 결제대행사를 통해 처리되며 카드 전체 번호는 저장하지 않음
+  - 이용정보: 기기, 브라우저, 쿠키, 방문 기록
+  - 상담정보: 고객센터 및 채팅 대화 내용
+
+자세한 내용은 개인정보 처리방침 페이지 기준으로 안내.
+
+기본 답변:
+""주문과 서비스 제공에 필요한 계정, 주문, 배송 정보를 수집하며, 카드 전체 번호는 저장하지 않습니다. 자세한 내용은 개인정보 처리방침을 참고해 주세요.""",,
+policy_legal,11.1 Information We Collect,"The following information may be collected and processed to provide the service:
+
+- Account: name, email, password (encrypted), phone number
+- Orders: shipping address, billing address, order history
+- Payment: processed through a payment provider; full card numbers are not stored
+- Usage: device, browser, cookies, browsing activity
+- Support: customer service and chat conversations
+
+Details are provided in the Privacy Policy page.
+
+Default AI response:
+""We collect the account, order, and shipping information needed to fulfill orders and provide service. Full card numbers are never stored. See our Privacy Policy for details.""",,
+policy_legal,11.2 고객상담 및 AI 채팅 데이터,"- 채팅 및 상담 내용은 서비스 품질 향상과 문의 처리를 위해 저장될 수 있음
+  - AI 상담은 자동화된 응답이며, 필요 시 상담원에게 이관됨
+  - 고객은 채팅에 카드번호, 비밀번호, 주민번호 등 민감정보를 입력하지 않도록 안내
+  - 상담 기록 삭제 요청은 개인정보 권리 요청 절차(11.4)에 따름
+
+기본 답변:
+""상담 내용은 문의 처리와 서비스 개선을 위해 저장될 수 있습니다. 채팅에는 카드번호나 비밀번호 같은 민감한 정보를 입력하지 말아 주세요.""",,
+policy_legal,11.2 Customer Support and AI Chat Data,"- Chat and support conversations may be stored to handle inquiries and improve service quality.
+- AI responses are automated; conversations can be transferred to a human agent when needed.
+- Customers should not enter sensitive information such as card numbers, passwords, or government IDs in chat.
+- Requests to delete support records follow the privacy rights process (11.4).
+
+Default AI response:
+""Support conversations may be stored to handle your inquiry and improve our service. Please don't enter sensitive information like card numbers or passwords in chat.""",,
+policy_legal,11.3 마케팅 수신 동의 및 거부,"- 이메일·SMS 마케팅은 고객 동의 후 발송됨
+  - 수신 거부: 이메일 하단 ""수신거부(Unsubscribe)"" 링크, SMS는 STOP 회신, 또는 계정 설정
+  - 수신 거부 반영까지 최대 [반영 기간, 예: 10 영업일] 소요될 수 있음
+  - 주문 확인, 배송 안내 등 거래 관련 메시지는 수신 거부와 무관하게 발송됨
+
+기본 답변:
+""마케팅 메일은 하단의 수신거부 링크로, 문자는 STOP 회신으로 거부하실 수 있습니다. 주문·배송 안내 메시지는 계속 발송됩니다.""",,
+policy_legal,11.3 Marketing Consent and Opt-Out,"- Email and SMS marketing are sent only with the customer's consent.
+- Opt-out: the ""Unsubscribe"" link at the bottom of emails, replying STOP to SMS, or account settings.
+- Opt-outs may take up to [processing period, e.g., 10 business days] to take effect.
+- Transactional messages (order confirmations, shipping updates) are sent regardless of marketing opt-out.
+
+Default AI response:
+""You can unsubscribe from marketing emails using the link at the bottom of any email, or reply STOP to text messages. Order and shipping notifications will still be sent.""",,
+policy_legal,11.4 개인정보 권리 요청,"고객은 관련 법령에 따라 다음을 요청할 수 있음.
+
+  - 개인정보 열람 및 사본 제공
+  - 정정
+  - 삭제
+  - 판매·공유 거부 (해당 지역 법령이 있는 경우)
+
+요청 방법: [개인정보 요청 이메일 또는 양식]으로 신청, 본인 확인 절차 후 [처리 기한, 예: 45일] 이내 처리.
+법령상 보관 의무가 있는 거래 기록은 삭제 요청에서 제외될 수 있음.
+
+기본 답변:
+""개인정보 열람, 정정, 삭제 요청은 [개인정보 요청 이메일 또는 양식]으로 접수하실 수 있으며, 본인 확인 후 처리해 드립니다.""",,
+policy_legal,11.4 Privacy Rights Requests,"Under applicable law, customers may request:
+
+- Access to and a copy of their personal information
+- Correction
+- Deletion
+- Opt-out of sale or sharing (where local law provides)
+
+How to request: submit via [privacy request email or form]; identity is verified and the request is handled within [processing deadline, e.g., 45 days].
+Transaction records subject to legal retention requirements may be excluded from deletion.
+
+Default AI response:
+""You can request access to, correction of, or deletion of your personal information through [privacy request email or form]. We'll verify your identity and process the request.""",,
+policy_legal,11.5 이용약관 및 금지 행위,"웹사이트 이용 시 다음 행위는 금지되며 주문 취소·계정 제한 사유가 될 수 있음.
+
+  - 허위 정보로 계정 생성 또는 주문
+  - 쿠폰·프로모션·반품 정책 남용 (중복 계정, 반복적 부당 클레임)
+  - 재판매 목적의 대량 구매 (매장 정책이 금지하는 경우)
+  - 자동화 도구(봇)를 이용한 주문
+  - 타인 결제수단 무단 사용
+  - 부적절한 콘텐츠 게시
+
+전체 조건은 이용약관 페이지 기준.
+
+기본 답변:
+""이용약관에 따라 정책 남용, 허위 정보, 자동화 도구 사용 등은 제한됩니다. 자세한 내용은 이용약관 페이지를 참고해 주세요.""",,
+policy_legal,11.5 Terms of Use and Prohibited Activity,"The following activities are prohibited and may result in order cancellation or account restriction:
+
+- Creating accounts or placing orders with false information
+- Abuse of coupons, promotions, or return policies (duplicate accounts, repeated unjustified claims)
+- Bulk purchasing for resale where store policy prohibits it
+- Ordering with automated tools (bots)
+- Unauthorized use of another person's payment method
+- Posting inappropriate content
+
+Full terms are on the Terms of Use page.
+
+Default AI response:
+""Under our Terms of Use, policy abuse, false information, and automated ordering are not permitted. Please see the Terms of Use page for details.""",,
+policy_legal,11.6 미성년자 이용,"- 웹사이트 이용 및 주문은 [이용 가능 연령, 예: 만 18세] 이상 또는 보호자 동의를 받은 경우에 한함
+  - 미성년자 정보가 동의 없이 수집된 것으로 확인되면 삭제 처리
+  - 연령 제한 상품은 별도 확인 절차가 적용될 수 있음
+
+기본 답변:
+""주문은 [이용 가능 연령] 이상 또는 보호자 동의가 있는 경우에 가능합니다.""",,
+policy_legal,11.6 Use by Minors,"- Use of the site and ordering are limited to customers aged [minimum age, e.g., 18] or older, or with parental or guardian consent.
+- If a minor's information is found to have been collected without consent, it is deleted.
+- Age-restricted products may require additional verification.
+
+Default AI response:
+""Orders can be placed by customers aged [minimum age] or older, or with a parent or guardian's consent.""",,
+policy_fraud,12.1 주문 검토 및 보류,"결제 보안을 위해 일부 주문은 발송 전 추가 검토를 거칠 수 있음.
+
+검토 대상 예시:
+  - 청구지와 배송지 불일치
+  - 짧은 시간 내 다수 주문 또는 고액 주문
+  - 결제 반복 실패 후 성공
+  - 배송대행지 주소
+
+검토 중에는 처리기간이 1~2 영업일 추가될 수 있으며, 필요 시 고객에게 확인 연락을 함.
+확인이 되지 않으면 주문이 취소되고 전액 환불됨.
+
+기본 답변:
+""결제 보안을 위해 일부 주문은 발송 전에 추가 확인을 거칩니다. 확인이 필요하면 이메일로 연락드리며, 이 과정에서 1~2 영업일이 더 걸릴 수 있습니다.""",,
+policy_fraud,12.1 Order Review and Holds,"For payment security, some orders undergo additional review before shipping.
+
+Examples of orders that may be reviewed:
+- Billing and shipping addresses do not match
+- Multiple orders in a short period or unusually large orders
+- Payment succeeded after repeated failures
+- Freight forwarder addresses
+
+Review may add 1–2 business days to processing; the customer is contacted if verification is needed.
+If verification cannot be completed, the order is canceled and fully refunded.
+
+Default AI response:
+""For payment security, some orders go through an additional check before shipping. If we need to verify anything we'll email you, and it may add 1–2 business days.""",,
+policy_fraud,12.2 본인 확인 요청,"검토 과정에서 다음 확인을 요청할 수 있음.
+
+  - 주문에 사용한 이메일로 회신
+  - 청구지 주소 확인
+  - 카드 명의자 확인 (카드 전체 번호는 절대 요청하지 않음)
+
+AI는 카드번호, CVV, 비밀번호, 신분증 번호를 채팅으로 요청하거나 수집하지 않음.
+
+기본 답변:
+""본인 확인이 필요한 경우 주문 시 사용하신 이메일로 안내드립니다. 카드번호나 비밀번호를 채팅으로 요청하지 않으니 유의해 주세요.""",,
+policy_fraud,12.2 Identity Verification Requests,"During review, the following may be requested:
+
+- A reply from the email address used for the order
+- Confirmation of the billing address
+- Confirmation of the cardholder name (the full card number is never requested)
+
+The AI never asks for or collects card numbers, CVV, passwords, or government ID numbers in chat.
+
+Default AI response:
+""If verification is needed, we'll contact you at the email used for the order. We will never ask for your card number or password in chat.""",,
+policy_fraud,12.3 주문 취소 또는 계정 제한에 대한 이의신청,"보안 검토로 주문이 취소되었거나 계정이 제한된 경우:
+
+  - 고객은 Customer Support에 이의신청 가능
+  - 주문번호, 계정 이메일, 상황 설명을 제출
+  - 검토 결과는 이메일로 안내되며, 결과 및 기간은 AI가 예측하지 않음
+  - 취소된 주문의 결제는 전액 환불됨
+
+기본 답변:
+""주문이 보안 검토로 취소되었다면 결제는 전액 환불됩니다. 이의가 있으시면 주문번호와 함께 고객센터에 알려 주시면 검토해 드리겠습니다.""",,
+policy_fraud,12.3 Appealing a Canceled Order or Account Restriction,"If an order was canceled or an account restricted after a security review:
+
+- The customer may appeal through Customer Support
+- Provide the order number, account email, and an explanation
+- The outcome is communicated by email; the AI does not predict the result or timeline
+- Payment for canceled orders is fully refunded
+
+Default AI response:
+""If your order was canceled after a security review, the payment is fully refunded. If you'd like to appeal, share your order number with Customer Support and we'll review it.""",,
+policy_support,13.1 상담 채널 및 운영시간,"문의 채널:
+  - 웹채팅 (AI 자동응답 24시간, 상담원 연결은 운영시간 내)
+  - 이메일: [고객센터 이메일]
+  - 전화: [고객센터 전화번호] (제공되는 경우)
+
+운영시간: [운영시간, 예: 월~금 9:00~18:00 (현지시간)], 주말·공휴일 휴무
+운영시간 외 접수 문의는 다음 영업일 순차 답변.
+
+기본 답변:
+""채팅과 이메일([고객센터 이메일])로 문의하실 수 있으며, 상담원 운영시간은 [운영시간]입니다. 운영시간 외 문의는 다음 영업일에 답변드립니다.""",,
+policy_support,13.1 Support Channels and Hours,"Contact channels:
+- Web chat (AI responses 24/7; human agents during support hours)
+- Email: [support email]
+- Phone: [support phone number] (where offered)
+
+Support hours: [support hours, e.g., Mon–Fri 9:00 a.m.–6:00 p.m. local time]; closed weekends and holidays.
+Inquiries received outside support hours are answered on the next business day.
+
+Default AI response:
+""You can reach us by chat or email at [support email]. Agents are available [support hours], and messages received outside those hours are answered the next business day.""",,
+policy_support,13.2 응답 시간,"- 채팅 AI: 즉시
+  - 상담원 채팅: 운영시간 내 [상담원 응답 목표, 예: 10분 이내]
+  - 이메일: [이메일 응답 목표, 예: 1~2 영업일]
+  - 클레임·반품 승인: [승인 소요, 예: 1~3 영업일]
+
+성수기 및 프로모션 기간에는 응답이 지연될 수 있음.
+
+기본 답변:
+""이메일 문의는 보통 [이메일 응답 목표] 내에 답변드립니다. 성수기에는 다소 지연될 수 있는 점 양해 부탁드립니다.""",,
+policy_support,13.2 Response Times,"- AI chat: immediate
+- Agent chat: within [agent response target, e.g., 10 minutes] during support hours
+- Email: [email response target, e.g., 1–2 business days]
+- Claim and return approvals: [approval time, e.g., 1–3 business days]
+
+Responses may be slower during peak season and promotions.
+
+Default AI response:
+""Email inquiries are usually answered within [email response target]. During busy periods it may take a little longer — thanks for your patience.""",,
+policy_support,13.3 상담원 연결 (에스컬레이션),"다음 경우 AI는 상담원 연결 또는 Customer Support 접수로 이관함.
+
+  - 환불·재발송·보상 등 금전적 결정이 필요한 경우
+  - 정책 예외 요청
+  - 결제 분쟁, 계정 보안 사고, 개인정보 요청
+  - 이상반응·안전 관련 신고
+  - 고객이 상담원 연결을 명시적으로 요청
+  - 동일 문의가 2회 이상 해결되지 않은 경우
+
+이관 시 주문번호, 이메일, 문의 요약을 함께 전달함.
+
+기본 답변:
+""이 문의는 담당 상담원이 확인해 드리는 것이 좋겠습니다. 주문번호와 연락받으실 이메일을 알려 주시면 접수해 드리겠습니다.""",,
+policy_support,13.3 Escalation to a Human Agent,"The AI transfers to an agent or files a Customer Support ticket when:
+
+- A financial decision is needed (refund, reshipment, compensation)
+- A policy exception is requested
+- Payment disputes, account security incidents, or privacy requests are involved
+- Adverse reactions or safety issues are reported
+- The customer explicitly asks for a human agent
+- The same issue remains unresolved after two attempts
+
+The order number, email, and a summary of the issue are passed along with the escalation.
+
+Default AI response:
+""This is best handled by one of our support agents. Please share your order number and the email where we can reach you, and I'll pass this along.""",,
+policy_support,13.4 AI 답변 기준,"AI 상담 시 준수 사항:
+
+  - 공개된 정책과 상품 페이지 정보만 근거로 답변
+  - 환불, 재발송, 보상, 취소 완료를 확정하거나 약속하지 않음
+  - 확실하지 않은 정보는 추측하지 않고 확인 후 안내하겠다고 응답
+  - 의학적·법률적 판단을 제공하지 않음
+  - 카드번호, 비밀번호 등 민감정보를 요청하지 않음
+  - 주문 정보는 주문번호와 이메일이 일치할 때만 안내
+  - 정중하고 간결하게, 고객 언어로 응답
+
+기본 답변 (확인 불가 시):
+""정확한 안내를 위해 확인이 필요한 내용입니다. 주문번호를 알려 주시면 고객센터에서 확인 후 답변드리겠습니다.""",,
+policy_support,13.4 AI Response Standards,"Rules for AI responses:
+
+- Answer only from published policies and product page information
+- Never confirm or promise refunds, reshipments, compensation, or completed cancellations
+- Do not guess; when unsure, say the information will be checked and followed up
+- Do not provide medical or legal judgments
+- Never request sensitive information such as card numbers or passwords
+- Share order details only when the order number and email match
+- Be polite and concise, and reply in the customer's language
+
+Default AI response (when unable to verify):
+""I'd need to check this to give you an accurate answer. Please share your order number and Customer Support will follow up.""",,
+policy_support,13.5 언어 지원,"- 채팅 AI는 고객이 사용하는 언어로 응답함 (지원 언어: [지원 언어 목록])
+  - 상담원 지원 언어는 [상담원 지원 언어] 기준
+  - 정책 문서 간 언어 차이가 있는 경우 [기준 언어] 버전이 우선함
+
+기본 답변:
+""편하신 언어로 문의해 주시면 됩니다. 상담원 연결 시에는 [상담원 지원 언어]로 지원됩니다.""",,
+policy_support,13.5 Language Support,"- The chat AI replies in the customer's language (supported: [supported languages]).
+- Human agents support [agent languages].
+- If policy documents differ between languages, the [reference language] version prevails.
+
+Default AI response:
+""Feel free to write in the language you're most comfortable with. Human agents are available in [agent languages].""",,
+policy_support,13.6 불만 접수 및 피드백,"서비스, 상품, 상담에 대한 불만이나 제안은 다음으로 접수함.
+
+  - 채팅에서 ""불만 접수"" 요청 → Customer Support 티켓 생성
+  - 이메일: [고객센터 이메일]
+  - 접수 시 주문번호(해당되는 경우), 상황 설명, 원하는 해결 방법 기재
+
+접수된 불만은 [불만 처리 기한] 내 담당자가 회신함.
+AI는 보상이나 처리 결과를 약속하지 않음.
+
+기본 답변:
+""불편을 드려 죄송합니다. 상황을 알려 주시면 고객센터에 접수하여 담당자가 [불만 처리 기한] 내에 연락드리도록 하겠습니다.""",,
+policy_support,13.6 Complaints and Feedback,"Complaints or suggestions about service, products, or support can be submitted by:
+
+- Asking in chat to file a complaint → a Customer Support ticket is created
+- Email: [support email]
+- Include the order number (if applicable), a description, and the preferred resolution
+
+A team member responds within [complaint handling time].
+The AI does not promise compensation or a specific outcome.
+
+Default AI response:
+""We're sorry for the experience. Tell me what happened and I'll file it with Customer Support so a team member can get back to you within [complaint handling time].""",,
