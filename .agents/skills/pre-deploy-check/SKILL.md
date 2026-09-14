@@ -1,0 +1,87 @@
+---
+name: pre-deploy-check
+description: Check for missing schema migrations right before/after a staging or production
+  deploy of btbz-SharpTalk. Use when - (1) a PR being deployed touches `sql/*.sql` or
+  `apps/api/src/**/*.entity.ts`, (2) investigating 500/502 where "Table ... doesn't exist" /
+  "Unknown column" is suspected, (3) regression check right after a redeploy. Target -
+  staging `shoptalk.amoeba.site` (host 211.110.140.172, creds in `secrets/staging-server.md`,
+  MySQL container `sharptalk_mysql_staging`); production TBD.
+---
+
+# Pre-Deploy Migration Check (btbz-SharpTalk)
+
+Adapted from `reference/btbz-dev-kit/claude/skills-guide.md` template 1 for this
+project's MySQL stack. The deploy script (`docker/staging/deploy-staging.sh`) does
+**NOT** run SQL migrations. Staging runs `DB_SYNCHRONIZE=false` (flipped 2026-07-31,
+SPEC §14 resolved) — schema is NEVER auto-created on staging or production, so every
+schema change MUST be pre-applied via `sql/` on the target DB before the code deploy.
+Follow this runbook whenever a deploy carries schema changes.
+
+## 1. Detect schema-affecting changes
+```bash
+git diff --name-only origin/main...HEAD -- 'sql/**/*.sql' 'apps/api/src/**/*.entity.ts'
+git log --oneline -20 main -- 'sql/*.sql' 'apps/api/src/**/*.entity.ts'
+```
+
+## 2. Check the target DB
+Server SSH details: `secrets/staging-server.md` (gitignored — never commit).
+```bash
+ssh <staging> "docker exec sharptalk_mysql_staging mysql -u sharptalk -p\"\$DB_PASSWORD\" db_sharptalk \
+  -e 'SHOW TABLES LIKE \"<table>\"; SHOW COLUMNS FROM <table>;'"
+```
+
+## 3. Apply missing SQL
+**Read the SQL file first** — confirm no DROP/TRUNCATE and idempotency
+(`CREATE TABLE IF NOT EXISTS`, guarded `ALTER`). Production applies only after
+explicit user re-approval, with a schema snapshot first:
+```bash
+ssh <env> "docker exec sharptalk_mysql_staging sh -c 'mysqldump -u sharptalk -p\"\$MYSQL_PASSWORD\" \
+  --no-data db_sharptalk <table>' > ~/backup-pre-<tag>-$(date +%Y%m%d-%H%M%S).sql"
+ssh <env> "docker cp ~/<repo>/sql/<file>.sql sharptalk_mysql_staging:/tmp/m.sql && \
+  docker exec sharptalk_mysql_staging sh -c 'mysql -u sharptalk -p\"\$MYSQL_PASSWORD\" db_sharptalk < /tmp/m.sql'"
+```
+⚠️ Heredoc/stdin over `ssh + docker exec` without `-i` silently does nothing
+(kit lesson B-4) — use `docker cp` + `-e`/file execution as above, then verify
+affected-row counts.
+
+## 4. Deploy order (when schema changes ride along)
+1. Apply SQL (above) → 2. `ssh <staging> "cd ~/<repo> && bash docker/staging/deploy-staging.sh"`
+(never run the script locally) → 3. verify.
+
+## 5. Post-deploy verification (never trust exit code — kit 04 §4)
+```bash
+ssh <staging> "docker logs sharptalk_api_staging --tail 60 2>&1 | grep -iE 'successfully started|error'"
+ssh <staging> "docker ps --format 'table {{.Names}}\t{{.Status}}'"   # container age = rebuilt?
+curl -s -o /dev/null -w '%{http_code}' https://shoptalk.amoeba.site/api/v1/<new-route>
+# 401 = deployed (auth only) / 404 = NOT deployed / 502 = API down (check Restarting)
+ssh <staging> "docker logs sharptalk_api_staging --since=5m 2>&1 | grep -iE \"doesn't exist|Unknown column\""
+```
+
+## 5.1 Uploads volume (FIX-260911) — files vanish silently without it
+Any PR touching `UPLOAD_DIR` users (attachments, widget logo, board files, tenant assets) or a compose file:
+```bash
+grep -n "/data/uploads" docker/staging/docker-compose.staging.yml docker/self-hosted/docker-compose.self-hosted.yml docker/production/docker-compose.production.yml
+ssh <env> "docker inspect <api_container> --format '{{json .Mounts}}'"   # must show /data/uploads
+```
+All three stacks carry the same mount; a fix in one is not a fix in the others.
+
+## 6. Related
+- Schema PRs need a `## Migration` body section — `reference/btbz-dev-kit/03-git-collaboration-standard.md` §3.3
+- Runbook source: `reference/btbz-dev-kit/04-deployment-operations.md` §3–4
+- Memory: `staging-server.md`, `deployment-strategy.md`, `btbz-dev-kit.md`
+
+## 6. First-boot schema gate (init-sql) — before ANY fresh-database deploy
+
+A production or new-country host builds its schema from `docker/init-sql/01-schema.sql`
+alone. Prove it is complete before provisioning (FIX-260913: it was 13 migrations behind):
+
+```bash
+docker run -d --name schemacheck -e MYSQL_ROOT_PASSWORD=x -e MYSQL_DATABASE=db_sharptalk \
+  -v "$PWD/docker/init-sql:/docker-entrypoint-initdb.d:ro" mysql:8.0
+until docker exec schemacheck mysqladmin ping -uroot -px --silent; do sleep 3; done; sleep 10
+MYSQL_CONTAINER=schemacheck MYSQL_ROOT_PASSWORD=x bash scripts/check-migrations.sh   # must print OK
+docker rm -f schemacheck
+```
+
+If it reports outstanding files, regenerate init-sql from the live staging DB (recipe in the
+file header) rather than appending by hand.
