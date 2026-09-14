@@ -8,7 +8,10 @@
 - [ ] `secrets/SharpTalk-KR-Production-server.md` 작성(템플릿 `secrets.template.md`): 접속·실 키·certbot 메일
 - [ ] 이관 창(1~2시간) 공지: 스테이징 테넌트 설정 동결
 
-## P2 Claude — 서버 접속 후
+## 결정 변경 2026-09-14
+스테이징 호스트에 두 번째 스택으로 가동(포트 8081, MySQL 3318, 배포 사용자 shoptalk). 부트스트랩은 `--skip firewall,upgrades,docker,user,time,packages`로 실행.
+
+## P2 Claude — 서버 접속 후 (2026-09-14 완료)
 - [ ] `sudo bash scripts/provision-host.sh --domain sharptalk.amoeba.site --email <ops> --check` → 실행
 - [ ] `docker version`·`ufw status`·`nginx -t`·인증서 만료일
 - [ ] 배포 사용자로 클론(`main` 검증 SHA) → 프로필 env 복사 → `gen-secrets.sh` → 실 키 이동

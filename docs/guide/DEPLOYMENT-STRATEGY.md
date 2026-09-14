@@ -17,7 +17,7 @@
 | | **Development** | **Staging** | **Production** |
 |---|---|---|---|
 | Purpose | local dev/test | integration, demo, UAT | live customers |
-| Status | local | **🟢 LIVE** `shoptalk.amoeba.site` | 🟡 provisioning (PLN-260913): new host, `sharptalk.amoeba.site`, self-hosted stack |
+| Status | local | **🟢 LIVE** `shoptalk.amoeba.site` | **🟢 LIVE 2026-09-14** `sharptalk.amoeba.site` — second stack on the staging host (self-hosted stack, :8081, MySQL 127.0.0.1:3318, dir `~/sharptalk-production`, branch `production`) |
 | Branch | `feature/*` | `main` | `production` (planned) |
 | Schema | `synchronize` + `db:seed` | `synchronize` + `SEED_ON_BOOT` | init-sql migrations (`synchronize=false`) |
 | Demo data | yes | yes (`SEED_DEMO_DATA=true`) | **no** (`SEED_DEMO_DATA=false`) |
@@ -147,7 +147,7 @@ bash docker/staging/deploy-staging.sh
 curl -s https://shoptalk.amoeba.site/api/v1/health               # {"status":"ok","db":"up"}
 ```
 
-**Production — pending.** Blockers: no host, no `docker/production/.env.production`. To go live:
+**Production — LIVE (2026-09-14, PLN-260913-Production-Provisioning-Deploy).** Runs as a second stack on the staging host until a dedicated host exists: `https://sharptalk.amoeba.site` → host nginx (LE cert, expires 2026-12-13, certbot.timer) → `127.0.0.1:8081` → `docker/self-hosted` stack in `/home/shoptalk/sharptalk-production` (containers `sharptalk_*`, MySQL `127.0.0.1:3318`, backups `~/backups/sharptalk-production/`). Deploy: `git pull --ff-only origin production && bash scripts/deploy-self-hosted.sh` (SQL first: `MYSQL_CONTAINER=sharptalk_mysql bash scripts/check-migrations.sh`). Secrets: `secrets/SharpTalk-KR-Production-server.md`. Original dedicated-host plan (kept for later):
 1. Provision host (Docker + compose); DNS + TLS.
 2. `cp docker/production/.env.production.example .env.production`; fill strong `DB_*`/`RABBITMQ_*`/`JWT_*`/`CRED_ENC_KEY`, real `ANTHROPIC_API_KEY`, strong `SEED_PASSWORD` (+ `SEED_DEMO_DATA=false`), `SHOPIFY_WEBHOOK_SECRET`, production `VITE_API_BASE_URL`.
 3. Apply schema via init-sql; `bash docker/production/deploy-production.sh`; smoke-test; **turn `SEED_ON_BOOT` off**.

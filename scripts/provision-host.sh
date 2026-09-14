@@ -4,9 +4,10 @@
 # before it changes anything.
 #
 #   sudo bash scripts/provision-host.sh --domain sharptalk.example.com --email ops@example.com \
-#        [--user sharptalk] [--ssh-allow 1.2.3.4/32] [--swap 4G] [--no-tls] [--skip firewall,upgrades,docker,user]
+#        [--user sharptalk] [--ssh-allow 1.2.3.4/32] [--swap 4G] [--no-tls] [--skip firewall,upgrades,docker,user,time,packages]
 #   (--skip: on a SHARED host that already runs other services, never let this script
-#    enable UFW or change apt policy — pass --skip firewall,upgrades)
+#    enable UFW, change apt policy or the host timezone — pass --skip firewall,upgrades,time,packages.
+#    Lesson 2026-09-14: the timezone step switched a shared KST host to UTC.)
 #   sudo bash scripts/provision-host.sh --domain … --check     # verify only, change nothing
 #
 # What it does (Basic setup guide §3, self-hosted install guide §1):
@@ -63,12 +64,12 @@ resolved=$(getent ahostsv4 "$DOMAIN" 2>/dev/null | awk '{print $1}' | sort -u | 
 if [[ -n "$resolved" && " $resolved " == *" $ip4 "* ]]; then ok "$DOMAIN → $ip4"; else echo "  WARN  $DOMAIN resolves to '${resolved:-nothing}', this host is $ip4 — certbot will fail until the A record points here"; FAILS=$((FAILS+1)); fi
 
 echo "== time"
-if timedatectl show -p Timezone --value 2>/dev/null | grep -qx UTC; then ok "timezone UTC"; else run timedatectl set-timezone UTC; fi
+if skip time; then ok "skipped (--skip time — shared host keeps its timezone)"; elif timedatectl show -p Timezone --value 2>/dev/null | grep -qx UTC; then ok "timezone UTC"; else run timedatectl set-timezone UTC; fi
 
 echo "== packages"
 export DEBIAN_FRONTEND=noninteractive
-need=(); for p in ca-certificates curl gnupg git ufw chrony unattended-upgrades nginx; do dpkg -s "$p" >/dev/null 2>&1 || need+=("$p"); done
-if [[ ${#need[@]} -eq 0 ]]; then ok "base packages"; else run apt-get update -qq; run apt-get install -y -qq "${need[@]}"; fi
+need=(); if skip packages; then ok "skipped (--skip packages)"; else for p in ca-certificates curl gnupg git ufw chrony unattended-upgrades nginx; do dpkg -s "$p" >/dev/null 2>&1 || need+=("$p"); done
+if [[ ${#need[@]} -eq 0 ]]; then ok "base packages"; else run apt-get update -qq; run apt-get install -y -qq "${need[@]}"; fi; fi
 
 echo "== docker"
 if skip docker; then ok "skipped (--skip docker)"; elif command -v docker >/dev/null && docker compose version >/dev/null 2>&1; then ok "$(docker --version | cut -d, -f1) · $(docker compose version | cut -d' ' -f4)"; else
