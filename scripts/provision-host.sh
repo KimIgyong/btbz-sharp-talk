@@ -4,7 +4,9 @@
 # before it changes anything.
 #
 #   sudo bash scripts/provision-host.sh --domain sharptalk.example.com --email ops@example.com \
-#        [--user sharptalk] [--ssh-allow 1.2.3.4/32] [--swap 4G] [--no-tls]
+#        [--user sharptalk] [--ssh-allow 1.2.3.4/32] [--swap 4G] [--no-tls] [--skip firewall,upgrades,docker,user]
+#   (--skip: on a SHARED host that already runs other services, never let this script
+#    enable UFW or change apt policy — pass --skip firewall,upgrades)
 #   sudo bash scripts/provision-host.sh --domain … --check     # verify only, change nothing
 #
 # What it does (Basic setup guide §3, self-hosted install guide §1):
@@ -20,7 +22,7 @@
 # scripts/deploy-self-hosted.sh as the deploy user (Basic setup guide §4).
 set -euo pipefail
 
-DOMAIN=""; EMAIL=""; DEPLOY_USER="sharptalk"; SSH_ALLOW=""; SWAP=""; CHECK=0; TLS=1; HTTP_PORT="${HTTP_PORT:-8080}"
+DOMAIN=""; EMAIL=""; DEPLOY_USER="sharptalk"; SSH_ALLOW=""; SWAP=""; CHECK=0; TLS=1; HTTP_PORT="${HTTP_PORT:-8080}"; SKIP=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --domain) DOMAIN="$2"; shift 2 ;;
@@ -30,6 +32,7 @@ while [[ $# -gt 0 ]]; do
     --swap) SWAP="$2"; shift 2 ;;
     --http-port) HTTP_PORT="$2"; shift 2 ;;
     --no-tls) TLS=0; shift ;;
+    --skip) SKIP=",$2,"; shift 2 ;;
     --check) CHECK=1; shift ;;
     -h|--help) sed -n '2,20p' "$0"; exit 0 ;;
     *) echo "unknown option: $1" >&2; exit 2 ;;
@@ -39,6 +42,7 @@ done
 if [[ $TLS -eq 1 && $CHECK -eq 0 && -z "$EMAIL" ]]; then echo "ERROR: --email is required for certbot (or pass --no-tls)" >&2; exit 2; fi
 [[ $(id -u) -eq 0 ]] || { echo "ERROR: run as root (sudo)" >&2; exit 2; }
 
+skip() { [[ "$SKIP" == *",$1,"* ]]; }
 ok()   { printf '  ok    %s\n' "$*"; }
 todo() { printf '  TODO  %s\n' "$*"; }
 run()  { if [[ $CHECK -eq 1 ]]; then todo "$*"; else echo "  +     $*"; "$@"; fi; }
@@ -67,7 +71,7 @@ need=(); for p in ca-certificates curl gnupg git ufw chrony unattended-upgrades 
 if [[ ${#need[@]} -eq 0 ]]; then ok "base packages"; else run apt-get update -qq; run apt-get install -y -qq "${need[@]}"; fi
 
 echo "== docker"
-if command -v docker >/dev/null && docker compose version >/dev/null 2>&1; then ok "$(docker --version | cut -d, -f1) · $(docker compose version | cut -d' ' -f4)"; else
+if skip docker; then ok "skipped (--skip docker)"; elif command -v docker >/dev/null && docker compose version >/dev/null 2>&1; then ok "$(docker --version | cut -d, -f1) · $(docker compose version | cut -d' ' -f4)"; else
   if [[ $CHECK -eq 1 ]]; then todo "install Docker Engine + Compose v2 (docker.com apt repo)"; else
     install -m 0755 -d /etc/apt/keyrings
     curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -79,7 +83,7 @@ if command -v docker >/dev/null && docker compose version >/dev/null 2>&1; then 
 fi
 
 echo "== deploy user"
-if id "$DEPLOY_USER" >/dev/null 2>&1; then ok "user $DEPLOY_USER"; else run useradd -m -s /bin/bash "$DEPLOY_USER"; fi
+if skip user; then ok "skipped (--skip user)"; elif id "$DEPLOY_USER" >/dev/null 2>&1; then ok "user $DEPLOY_USER"; else run useradd -m -s /bin/bash "$DEPLOY_USER"; fi
 if id -nG "$DEPLOY_USER" 2>/dev/null | grep -qw docker; then ok "$DEPLOY_USER in docker group"; else run usermod -aG docker "$DEPLOY_USER"; fi
 home=$(getent passwd "$DEPLOY_USER" | cut -d: -f6 || echo "/home/$DEPLOY_USER")
 [[ -d "$home/.ssh" ]] && ok "$home/.ssh present" || todo "copy the operator's public key to $home/.ssh/authorized_keys (chmod 700/600, owner $DEPLOY_USER)"
@@ -93,14 +97,14 @@ if [[ -n "$SWAP" ]]; then
 fi
 
 echo "== firewall"
-if ufw status 2>/dev/null | grep -q "Status: active"; then ok "ufw active"; else
+if skip firewall; then ok "skipped (--skip firewall — shared host)"; elif ufw status 2>/dev/null | grep -q "Status: active"; then ok "ufw active"; else
   if [[ -n "$SSH_ALLOW" ]]; then run ufw allow from "$SSH_ALLOW" to any port 22 proto tcp; else run ufw allow 22/tcp; fi
   run ufw allow 80/tcp; run ufw allow 443/tcp; run ufw default deny incoming; run ufw default allow outgoing
   [[ $CHECK -eq 1 ]] || ufw --force enable
 fi
 
 echo "== unattended upgrades"
-if grep -qs 'Unattended-Upgrade "1"' /etc/apt/apt.conf.d/20auto-upgrades; then ok "enabled"; else
+if skip upgrades; then ok "skipped (--skip upgrades)"; elif grep -qs 'Unattended-Upgrade "1"' /etc/apt/apt.conf.d/20auto-upgrades; then ok "enabled"; else
   [[ $CHECK -eq 1 ]] && todo "enable unattended-upgrades" || printf 'APT::Periodic::Update-Package-Lists "1";\nAPT::Periodic::Unattended-Upgrade "1";\n' > /etc/apt/apt.conf.d/20auto-upgrades
 fi
 

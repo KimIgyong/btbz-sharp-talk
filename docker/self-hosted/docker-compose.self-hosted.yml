@@ -81,7 +81,7 @@ services:
     ports:
       # Loopback only. Reach it through an SSH tunnel or your cloud's bastion,
       # never over the internet.
-      - '127.0.0.1:3306:3306'
+      - '127.0.0.1:${MYSQL_HOST_PORT:-3306}:3306'
     volumes:
       - sharptalk_mysql_data:/var/lib/mysql
       # Schema comes from docker/init-sql/01-schema.sql on first boot, then from
