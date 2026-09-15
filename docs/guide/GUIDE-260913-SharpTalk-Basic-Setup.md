@@ -13,7 +13,7 @@
 
 | 용어 | 뜻 |
 |---|---|
-| **SharpTalk-Basic** | 이 저장소(`KimIgyong/btbz-sharp-talk`)의 `main`. 모든 국가·고객사 배포의 **유일한 코드 원천** |
+| **SharpTalk-Basic** | 이 저장소(`amoeba-group/btbz-sharp-talk`)의 `main`. 모든 국가·고객사 배포의 **유일한 코드 원천** |
 | **배포 프로필** | 한 서버(한 국가)를 정의하는 값의 묶음: env 파일 + 시크릿 파일 + 테넌트 설정 스냅샷 + 초기 데이터 + 체크리스트. 코드가 아닙니다 |
 | **별칭** | `SharpTalk-{Basic \| CC \| CC-Customer}` — CC는 ISO 3166 대문자(KR·VN·USA). 예: `SharpTalk-VN-Go2Joy`, `SharpTalk-USA-IVY`. 프로필 디렉터리·시크릿 파일·compose 프로젝트명·백업 경로에 같은 별칭을 씁니다 |
 
@@ -106,7 +106,7 @@ SharpTalk-KR   SharpTalk-VN       SharpTalk-USA        ← 국가 = 배포 1벌(
 
 ```bash
 # 4-1. 저장소
-git clone https://github.com/KimIgyong/btbz-sharp-talk.git sharptalk && cd sharptalk
+git clone https://github.com/amoeba-group/btbz-sharp-talk.git sharptalk && cd sharptalk
 git checkout main                                   # Basic = main
 
 # 4-2. 프로필에서 env 복사 (프로필이 없으면 self-hosted example)
